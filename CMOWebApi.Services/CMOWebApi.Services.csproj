@@ -1,0 +1,514 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{27F40585-FDF6-41C3-8238-67143D95D575}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CMOWebApi.Services</RootNamespace>
+    <AssemblyName>CMOWebApi.Services</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper">
+      <HintPath>..\packages\AutoMapper.4.2.1\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="ClosedXML, Version=0.95.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ClosedXML.0.95.2\lib\net40\ClosedXML.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.10.1.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
+      <HintPath>..\packages\DocumentFormat.OpenXml.2.10.1\lib\net40\DocumentFormat.OpenXml.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="ESIGN, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\ESIGN.dll</HintPath>
+    </Reference>
+    <Reference Include="esigner, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\esigner.dll</HintPath>
+    </Reference>
+    <Reference Include="ExcelLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ExcelLibrary.1.2011.7.31\lib\ExcelLibrary.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ExcelNumberFormat, Version=1.0.10.0, Culture=neutral, PublicKeyToken=23c6f5d73be07eca, processorArchitecture=MSIL">
+      <HintPath>..\packages\ExcelNumberFormat.1.0.10\lib\net20\ExcelNumberFormat.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Core, Version=8.1.5717.0, Culture=neutral, PublicKeyToken=13235d27fcbfff58, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\IKVM.OpenJDK.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp, Version=5.5.13.1, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.13.1\lib\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp.xmlworker, Version=5.5.13.1, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itextsharp.xmlworker.5.5.13.1\lib\itextsharp.xmlworker.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="JdSoft.Apns.Notifications">
+      <HintPath>..\packages\JdSoft.Apple.Apns.Notifications.1.0.0\JdSoft.Apns.Notifications.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.JsonWebTokens, Version=5.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.JsonWebTokens.5.6.0\lib\net45\Microsoft.IdentityModel.JsonWebTokens.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Logging, Version=5.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Logging.5.6.0\lib\net45\Microsoft.IdentityModel.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Tokens, Version=5.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Tokens.5.6.0\lib\net45\Microsoft.IdentityModel.Tokens.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin">
+      <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security">
+      <HintPath>..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Types, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SqlServer.Types.14.0.314.76\lib\net40\Microsoft.SqlServer.Types.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp, Version=1.50.5147.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp.1.50.5147\lib\net20\PdfSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp.Charting, Version=1.50.5147.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp.1.50.5147\lib\net20\PdfSharp.Charting.dll</HintPath>
+    </Reference>
+    <Reference Include="RAJSSO, Version=2.6.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\RAJSSO.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=5.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.5.6.0\lib\net45\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.Helpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.4\lib\net45\System.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.4\lib\net45\System.Web.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="IServices\AspNetUser.cs" />
+    <Compile Include="IServices\IAdminDepartmentMasterService.cs" />
+    <Compile Include="IServices\IAdvtConfigurationService.cs" />
+    <Compile Include="IServices\IAgileCMISService.cs" />
+    <Compile Include="IServices\IBeneficiaryCategoryMasterService.cs" />
+    <Compile Include="IServices\ICamparativeYearMasterService.cs" />
+    <Compile Include="IServices\IClassificationPageTypeService.cs" />
+    <Compile Include="IServices\IComparativeParameterMasterService.cs" />
+    <Compile Include="IServices\IComparativeTargetEntryService.cs" />
+    <Compile Include="IServices\IComplainEntryTypeService.cs" />
+    <Compile Include="IServices\IComplainStatusService.cs" />
+    <Compile Include="IServices\IDepartmentalProgressService.cs" />
+    <Compile Include="IServices\ICurrentGovernmentEntryService.cs" />
+    <Compile Include="IServices\IDepartmentSectionMappingMasterService.cs" />
+    <Compile Include="IServices\IDistrictKPIService.cs" />
+    <Compile Include="IServices\IDistrictProgressService.cs" />
+    <Compile Include="IServices\IEbookletService.cs" />
+    <Compile Include="IServices\IHelpDocumentTypeMasterService.cs" />
+    <Compile Include="IServices\IJankalyanAdvertisementService.cs" />
+    <Compile Include="IServices\IJankalyanDepartmentDistrictWebsiteService.cs" />
+    <Compile Include="IServices\IJankalyanPortalService.cs" />
+    <Compile Include="IServices\IKPICategoryMasterService.cs" />
+    <Compile Include="IServices\IMenuClassificationService.cs" />
+    <Compile Include="IServices\INewspaperMasterService.cs" />
+    <Compile Include="IServices\INewsSubjectMasterService.cs" />
+    <Compile Include="IServices\INewsClassificationMasterService.cs" />
+    <Compile Include="IServices\IMLAConstituencyMasterService.cs" />
+    <Compile Include="IServices\IMPConstituencyMasterService.cs" />
+    <Compile Include="IServices\IOrderTypeMasterService.cs" />
+    <Compile Include="IServices\IPreviousGovernmentEntryService.cs" />
+    <Compile Include="IServices\IProjectMileStoneMasterService.cs" />
+    <Compile Include="IServices\IProjectCategoryMasterService.cs" />
+    <Compile Include="IServices\IProjectSchemeCategoryMasterService.cs" />
+    <Compile Include="IServices\IProjectSubSubCategoryMasterService.cs" />
+    <Compile Include="IServices\IProjectSubCategoryMasterService.cs" />
+    <Compile Include="IServices\ISectionMasterService.cs" />
+    <Compile Include="IServices\ITransferDept.cs" />
+    <Compile Include="IServices\IVCParticipantCategoryMasterService.cs" />
+    <Compile Include="IServices\IChiefMinisterProfileService.cs" />
+    <Compile Include="IServices\ICMISMuduleService.cs" />
+    <Compile Include="IServices\INewspaperService.cs" />
+    <Compile Include="IServices\IJANCategoryMasterService.cs" />
+    <Compile Include="IServices\IOrderTypeService.cs" />
+    <Compile Include="IServices\IProjectMasterService.cs" />
+    <Compile Include="IServices\IStatusEmailService.cs" />
+    <Compile Include="IServices\ICancellationReasonMasterService.cs" />
+    <Compile Include="IServices\IComplaintService.cs" />
+    <Compile Include="IServices\IDepartmentContactDetails.cs" />
+    <Compile Include="IServices\IDepartmentProfile.cs" />
+    <Compile Include="IServices\IDesignationMasterService.cs" />
+    <Compile Include="IServices\IJankalyanEntryTypeMasterService.cs" />
+    <Compile Include="IServices\IJankalyanReportService.cs" />
+    <Compile Include="IServices\IImportantDecisionService.cs" />
+    <Compile Include="IServices\IImportantDecisionSubcategoryService.cs" />
+    <Compile Include="IServices\ILocationMasterService.cs" />
+    <Compile Include="IServices\IVCGraphicalReportService.cs" />
+    <Compile Include="IServices\IVCParticipantService.cs" />
+    <Compile Include="IServices\ICCCategoryService.cs" />
+    <Compile Include="IServices\IAchievementCategoryService.cs" />
+    <Compile Include="IServices\IAchievementSubCategoryService.cs" />
+    <Compile Include="IServices\IAdvAchievementService.cs" />
+    <Compile Include="IServices\ICitizenAttachmentService.cs" />
+    <Compile Include="IServices\IDepartmentMasterService.cs" />
+    <Compile Include="IServices\IGalleryService.cs" />
+    <Compile Include="IServices\IOrderGenerateMasterService.cs" />
+    <Compile Include="IServices\IDepartmentReferenceMasterService.cs" />
+    <Compile Include="IServices\IDepartmentAuthoritySignatoryMasterService.cs" />
+    <Compile Include="IServices\IDepartmentSetupMasterService.cs" />
+    <Compile Include="IServices\IClientWebService.cs" />
+    <Compile Include="IServices\IActivityLogService.cs" />
+    <Compile Include="IServices\IAdvApprovalDetailMasterService.cs" />
+    <Compile Include="IServices\IMonitoringParameter.cs" />
+    <Compile Include="IServices\IHelpDocumentService.cs" />
+    <Compile Include="IServices\IGovtOrderService.cs" />
+    <Compile Include="IServices\IMonitoringParameterLookupService.cs" />
+    <Compile Include="IServices\INotificationTemplateTypeService.cs" />
+    <Compile Include="IServices\IAdvNotificationMasterService.cs" />
+    <Compile Include="IServices\IAdvCategoryMasterService.cs" />
+    <Compile Include="IServices\IAdvSubCategoryMasterService.cs" />
+    <Compile Include="IServices\IBeneficialCategoryMasterService.cs" />
+    <Compile Include="IServices\ICategoryMasterService.cs" />
+    <Compile Include="IServices\ICMISTaskService.cs" />
+    <Compile Include="IServices\ICMOLetterService.cs" />
+    <Compile Include="IServices\IConfigurationService.cs" />
+    <Compile Include="IServices\IDashboardPermissionService.cs" />
+    <Compile Include="IServices\IDashboardService.cs" />
+    <Compile Include="IServices\IDistrictService.cs" />
+    <Compile Include="IServices\IMenuService.cs" />
+    <Compile Include="IServices\IModeOfDeliveryService.cs" />
+    <Compile Include="IServices\INotificationEmailTemplateService.cs" />
+    <Compile Include="IServices\INotificationSMSTemplateService.cs" />
+    <Compile Include="IServices\ICitizenLetterTypeMasterService.cs" />
+    <Compile Include="IServices\IOfficeMasterService.cs" />
+    <Compile Include="IServices\IOrderService.cs" />
+    <Compile Include="IServices\IAndroidPushService.cs" />
+    <Compile Include="IServices\IApplePushService.cs" />
+    <Compile Include="IServices\IAdvertisementService.cs" />
+    <Compile Include="IServices\IDateTimeHelper.cs" />
+    <Compile Include="IServices\IEmailService.cs" />
+    <Compile Include="IServices\IExceptionLoggerService.cs" />
+    <Compile Include="IServices\IExceptionLogService.cs" />
+    <Compile Include="IServices\ILookupService.cs" />
+    <Compile Include="IServices\ILookuptypeService.cs" />
+    <Compile Include="IServices\IManageRoleWisePermission.cs" />
+    <Compile Include="IServices\IOrderSubTypeMasterService.cs" />
+    <Compile Include="IServices\IOutputMasterService.cs" />
+    <Compile Include="IServices\IPageMasterService.cs" />
+    <Compile Include="IServices\ISSOService.cs" />
+    <Compile Include="IServices\IPermissionService.cs" />
+    <Compile Include="IServices\IPlatformMasterService.cs" />
+    <Compile Include="IServices\IProjectMonitoringService.cs" />
+    <Compile Include="IServices\IRecruitmentStatusService.cs" />
+    <Compile Include="IServices\IRequiredDocumentCategoryMasterService.cs" />
+    <Compile Include="IServices\IRoleManagementService.cs" />
+    <Compile Include="IServices\ISchemeCommonMasterService.cs" />
+    <Compile Include="IServices\ISchemeService.cs" />
+    <Compile Include="IServices\ISchemeTypeService.cs" />
+    <Compile Include="IServices\ISectorService.cs" />
+    <Compile Include="IServices\ISettings.cs" />
+    <Compile Include="IServices\ISettingsService.cs" />
+    <Compile Include="IServices\ITehsilService.cs" />
+    <Compile Include="IServices\ITypeMasterService.cs" />
+    <Compile Include="IServices\IUploadFileCategoryMasterService.cs" />
+    <Compile Include="IServices\IUserManagementService.cs" />
+    <Compile Include="IServices\IUserProfileService.cs" />
+    <Compile Include="Framework\RBACHelper\RBACAttribute.cs" />
+    <Compile Include="Framework\RBACHelper\RBACUser.cs" />
+    <Compile Include="Framework\RBACHelper\RBAC_ExtendedMethods.cs" />
+    <Compile Include="IServices\IUserPermissionService.cs" />
+    <Compile Include="IServices\ILMS_ReportService.cs" />
+    <Compile Include="IServices\IUserTypeService.cs" />
+    <Compile Include="IServices\IVCService.cs" />
+    <Compile Include="IServices\ITenderPressRelease\ITenderMasterService.cs" />
+    <Compile Include="IServices\IVisitorCountService.cs" />
+    <Compile Include="IServices\MobileApp\IJanklyanAppService.cs" />
+    <Compile Include="ServiceHelper\ExportHelper.cs" />
+    <Compile Include="ServiceHelper\FileHelper.cs" />
+    <Compile Include="ServiceHelper\URLShortenerHelper.cs" />
+    <Compile Include="ServiceHelper\WaterMarkHelper.cs" />
+    <Compile Include="ServiceHelper\BaseService.cs" />
+    <Compile Include="ServiceHelper\CachedRoles.cs" />
+    <Compile Include="ServiceHelper\CatchError.cs" />
+    <Compile Include="ServiceHelper\CommonService.cs" />
+    <Compile Include="ServiceHelper\CommonUtility.cs" />
+    <Compile Include="ServiceHelper\CreateLog.cs" />
+    <Compile Include="ServiceHelper\CustomActionFilter.cs" />
+    <Compile Include="ServiceHelper\DateUtilities.cs" />
+    <Compile Include="ServiceHelper\DateTimeSettings.cs" />
+    <Compile Include="ServiceHelper\eSignHelper.cs" />
+    <Compile Include="ServiceHelper\EmailHelper.cs" />
+    <Compile Include="ServiceHelper\SmsHelper.cs" />
+    <Compile Include="ServiceHelper\TokenValidationHandler.cs" />
+    <Compile Include="Services\AdvtConfigurationService.cs" />
+    <Compile Include="Services\AgileCMISService.cs" />
+    <Compile Include="Services\BeneficiaryCategoryMasterService.cs" />
+    <Compile Include="Services\CamparativeYearMasterService.cs" />
+    <Compile Include="Services\ChiefMinisterProfileService.cs" />
+    <Compile Include="Services\ClassificationPageTypeService.cs" />
+    <Compile Include="Services\CMISMuduleService.cs" />
+    <Compile Include="Services\ComparativeParameterMasterService.cs" />
+    <Compile Include="Services\ComparativeTargetEntryService.cs" />
+    <Compile Include="Services\ComplainEntryTypeService.cs" />
+    <Compile Include="Services\ComplainStatusService.cs" />
+    <Compile Include="Services\DepartmentalProgressService.cs" />
+    <Compile Include="Services\CurrentGovernmentEntryService.cs" />
+    <Compile Include="Services\DepartmentSectionMappingMasterService.cs" />
+    <Compile Include="Services\DistrictKPIService.cs" />
+    <Compile Include="Services\DistrictProgressService.cs" />
+    <Compile Include="Services\EBookletService.cs" />
+    <Compile Include="Services\HelpDocumentTypeMasterService.cs" />
+    <Compile Include="Services\JankalyanAdvertisementService.cs" />
+    <Compile Include="Services\JankalyanPortalService.cs" />
+    <Compile Include="Services\KPICategoryMasterService.cs" />
+    <Compile Include="Services\MenuClassificationService.cs" />
+    <Compile Include="Services\MobileApp\JanklyanAppService.cs" />
+    <Compile Include="Services\NewspaperMasterService.cs" />
+    <Compile Include="Services\NewsSubjectMasterService.cs" />
+    <Compile Include="Services\NewsClassificationMasterService.cs" />
+    <Compile Include="Services\MLAConstituencyMasterService.cs" />
+    <Compile Include="Services\MPConstituencyMasterService.cs" />
+    <Compile Include="Services\OrderTypeMasterService.cs" />
+    <Compile Include="Services\PreviousGovernmentEntryService.cs" />
+    <Compile Include="Services\ProjectMileStoneMasterService.cs" />
+    <Compile Include="Services\ProjectCategoryMasterService.cs" />
+    <Compile Include="Services\ProjectSchemeCategoryMasterService.cs" />
+    <Compile Include="Services\ProjectSubSubCategoryMasterService.cs" />
+    <Compile Include="Services\ProjectSubCategoryMasterService.cs" />
+    <Compile Include="Services\SectionMasterService.cs" />
+    <Compile Include="Services\TransferDeptService.cs" />
+    <Compile Include="Services\VCParticipantCategoryMasterService.cs" />
+    <Compile Include="Services\NewspaperService.cs" />
+    <Compile Include="Services\JANCategoryMasterService.cs" />
+    <Compile Include="Services\OrderTypeService.cs" />
+    <Compile Include="Services\ProjectMasterService.cs" />
+    <Compile Include="Services\StatusEmailService.cs" />
+    <Compile Include="Services\AdminDepartmentMasterService.cs" />
+    <Compile Include="Services\CancellationReasonMasterService.cs" />
+    <Compile Include="Services\ComplaintService.cs" />
+    <Compile Include="Services\DepartmentContactDetails.cs" />
+    <Compile Include="Services\DepartmentProfile.cs" />
+    <Compile Include="Services\DesignationMasterService.cs" />
+    <Compile Include="Services\importantDesicionService.cs" />
+    <Compile Include="Services\JankalyanEntryTypeMasterService.cs" />
+    <Compile Include="Services\JankalyanReportService.cs" />
+    <Compile Include="Services\ImportantDecisionSubCategoryService.cs" />
+    <Compile Include="Services\LocationMasterService.cs" />
+    <Compile Include="Services\VCGraphicalReportService.cs" />
+    <Compile Include="Services\VCParticipantService.cs" />
+    <Compile Include="Services\CCCategoryService.cs" />
+    <Compile Include="Services\AchievementCategoryService.cs" />
+    <Compile Include="Services\AchievementSubCategoryService.cs" />
+    <Compile Include="Services\ActivityLogService.cs" />
+    <Compile Include="Services\AdvAchievementService.cs" />
+    <Compile Include="Services\AdvApprovalDetailMasterService.cs" />
+    <Compile Include="Services\CitizenAttachmentService.cs" />
+    <Compile Include="Services\DepartmentMasterService.cs" />
+    <Compile Include="Services\GalleryService.cs" />
+    <Compile Include="Services\OrderGenerateMasterService.cs" />
+    <Compile Include="Services\DepartmentReferenceMasterService.cs" />
+    <Compile Include="Services\DepartmentAuthoritySignatoryMasterService.cs" />
+    <Compile Include="Services\DepartmentSetupMasterService.cs" />
+    <Compile Include="Services\MonitoringParameterLookupService.cs" />
+    <Compile Include="Services\MonitoringParameterService.cs" />
+    <Compile Include="Services\ClientWebService.cs" />
+    <Compile Include="Services\HelpDocumentService.cs" />
+    <Compile Include="Services\GovtOrderService.cs" />
+    <Compile Include="Services\NotificationTemplateTypeService.cs" />
+    <Compile Include="Services\AdvNotificationMasterService.cs" />
+    <Compile Include="Services\AdvCategoryMasterService.cs" />
+    <Compile Include="Services\AdvSubCategoryMasterService.cs" />
+    <Compile Include="Services\BeneficialCategoryMasterService.cs" />
+    <Compile Include="Services\CategoryMasterService.cs" />
+    <Compile Include="Services\CMISTaskService.cs" />
+    <Compile Include="Services\CMOLetterService.cs" />
+    <Compile Include="Services\ConfigurationService.cs" />
+    <Compile Include="Services\DashboardPermissionService.cs" />
+    <Compile Include="Services\DashboardService.cs" />
+    <Compile Include="Services\DistrictService.cs" />
+    <Compile Include="Services\MenuService.cs" />
+    <Compile Include="Services\ModeOfDeliveryService.cs" />
+    <Compile Include="Services\NotificationEmailTemplateService.cs" />
+    <Compile Include="Services\NotificationSMSTemplateService.cs" />
+    <Compile Include="Services\CitizenLetterTypeMasterService.cs" />
+    <Compile Include="Services\OfficeMasterService.cs" />
+    <Compile Include="Services\OrderService.cs" />
+    <Compile Include="Services\AndroidPushService.cs" />
+    <Compile Include="Services\ApplePushService.cs" />
+    <Compile Include="Services\AdvertisementService.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="ServiceHelper\AbstractGenericGridCall.cs" />
+    <Compile Include="ServiceHelper\GenericGridCall.cs" />
+    <Compile Include="ServiceHelper\GetAllDropDownList.cs" />
+    <Compile Include="ServiceHelper\IdentityHelper.cs" />
+    <Compile Include="Services\AccountService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceHelper\ServiceResponse.cs" />
+    <Compile Include="Services\DateTimeHelper.cs" />
+    <Compile Include="Services\EmailService.cs" />
+    <Compile Include="Services\ExceptionLog.cs" />
+    <Compile Include="Services\ExceptionLoggerService.cs" />
+    <Compile Include="Services\LookupService.cs" />
+    <Compile Include="Services\LookuptypeService.cs" />
+    <Compile Include="Services\ManageRoleWisePermission.cs" />
+    <Compile Include="Services\OrderSubTypeMasterService.cs" />
+    <Compile Include="Services\OutputMasterService.cs" />
+    <Compile Include="Services\PageMasterService.cs" />
+    <Compile Include="Services\SSOService.cs" />
+    <Compile Include="Services\PermissionService.cs" />
+    <Compile Include="Services\PlatformMasterService.cs" />
+    <Compile Include="Services\ProjectMonitoringService.cs" />
+    <Compile Include="Services\RBACAttribute.cs" />
+    <Compile Include="Services\RecruitmentStatusService.cs" />
+    <Compile Include="Services\RequiredDocumentCategoryMasterService.cs" />
+    <Compile Include="Services\RoleManagementService.cs" />
+    <Compile Include="Services\SchemeCommonMasterService.cs" />
+    <Compile Include="Services\SchemeService.cs" />
+    <Compile Include="Services\SchemeTypeService.cs" />
+    <Compile Include="Services\SectorService.cs" />
+    <Compile Include="Services\SettingsService.cs" />
+    <Compile Include="Services\TehsilService.cs" />
+    <Compile Include="Services\TypeMasterService.cs" />
+    <Compile Include="Services\UploadFileCategoryMasterService.cs" />
+    <Compile Include="Services\UserManagementService.cs" />
+    <Compile Include="Services\UserProfileService.cs" />
+    <Compile Include="Services\UserPermissionService.cs" />
+    <Compile Include="Services\LMS_ReportService.cs" />
+    <Compile Include="Services\UserTypeService.cs" />
+    <Compile Include="Services\VCService.cs" />
+    <Compile Include="Services\TenderPressRelease\TenderMasterService.cs" />
+    <Compile Include="Services\VisitorCountService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Debug\esigner.dll" />
+    <Content Include="bin\Release\AutoMapper.dll" />
+    <Content Include="bin\Release\AutoMapper.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CMOWebApi.Core\CMOWebApi.Core.csproj">
+      <Project>{652ff23b-b34d-48ec-ab91-edb8048b61c4}</Project>
+      <Name>CMOWebApi.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CMOWebApi.Data\CMOWebApi.Data.csproj">
+      <Project>{af7a6e9e-0d47-4ab0-9eb1-435d1324a9ac}</Project>
+      <Name>CMOWebApi.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CMOWebApi.Models\CMOWebApi.Models.csproj">
+      <Project>{c30abfc4-1aba-467d-9301-5ca8003ba7ca}</Project>
+      <Name>CMOWebApi.Models</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

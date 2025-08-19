@@ -1,0 +1,325 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C30ABFC4-1ABA-467D-9301-5CA8003BA7CA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CMOWebApi.Models</RootNamespace>
+    <AssemblyName>CMOWebApi.Models</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="FoolproofValidation, Version=0.9.5851.39121, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Foolproof.0.9.4518\lib\net45\FoolproofValidation.dll</HintPath>
+    </Reference>
+    <Reference Include="LinqKit">
+      <HintPath>..\packages\LinqKit.1.1.3.1\lib\net45\LinqKit.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin">
+      <HintPath>..\packages\Microsoft.Owin.2.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security">
+      <HintPath>..\packages\Microsoft.Owin.Security.2.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.2.1.0\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.2.1.0\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.Helpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.4\lib\net45\System.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.4\lib\net45\System.Web.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AdminModel\AdvertisementModel.cs" />
+    <Compile Include="AdminModel\AdvtConfigurationModel.cs" />
+    <Compile Include="AdminModel\Adv_AchievementModel.cs" />
+    <Compile Include="AdminModel\Adv_AchievementViewModel.cs" />
+    <Compile Include="AdminModel\AgileCMISServiceModel.cs" />
+    <Compile Include="AdminModel\CMISTaskViewModel.cs" />
+    <Compile Include="AdminModel\CMOLetterModel.cs" />
+    <Compile Include="AdminModel\CMOLetterViewModel.cs" />
+    <Compile Include="AdminModel\ComplainEntryTypeMasterViewModel.cs" />
+    <Compile Include="AdminModel\ComplainStatusMasterViewModel.cs" />
+    <Compile Include="AdminModel\ConfigViewModel.cs" />
+    <Compile Include="AdminModel\DashboardPermissionViewModel.cs" />
+    <Compile Include="AdminModel\ConfigurationPermissionViewModel.cs" />
+    <Compile Include="AdminModel\DepartmentProfileViewModel.cs" />
+    <Compile Include="AdminModel\EmailModel.cs" />
+    <Compile Include="AdminModel\EmailViewModel.cs" />
+    <Compile Include="AdminModel\GovtOrderViewModel.cs" />
+    <Compile Include="AdminModel\LookupTypeViewModel.cs" />
+    <Compile Include="AdminModel\MasterModel\AdminDepartmentMasterModel.cs" />
+    <Compile Include="AdminModel\MasterModel\BeneficiaryCategoryMasterModel.cs" />
+    <Compile Include="AdminModel\MasterModel\CancellationReasonMasterModel.cs" />
+    <Compile Include="AdminModel\MasterModel\CCCategoryMasterModel.cs" />
+    <Compile Include="AdminModel\MasterModel\AdvAchievementCategoryMasterModel.cs" />
+    <Compile Include="AdminModel\MasterModel\AdvAchievementSubCategoryMasterModel.cs" />
+    <Compile Include="AdminModel\MasterModel\AdvApprovalDetailMasterModel.cs" />
+    <Compile Include="AdminModel\MasterModel\AdvNotificationMasterModel.cs" />
+    <Compile Include="AdminModel\MasterModel\AdvCategoryMasterModel.cs" />
+    <Compile Include="AdminModel\MasterModel\AdvSubCategoryMasterModel.cs" />
+    <Compile Include="AdminModel\MasterModel\ChildPageMasterModel.cs" />
+    <Compile Include="AdminModel\MasterModel\CitizenAttachmentViewModel.cs" />
+    <Compile Include="AdminModel\MasterModel\ClassificationPageTypeModel.cs" />
+    <Compile Include="AdminModel\MasterModel\ClientWebServiceModel.cs" />
+    <Compile Include="AdminModel\MasterModel\DepartmentAuthoritySignatoryModel.cs" />
+    <Compile Include="AdminModel\MasterModel\DepartmentContactDetails.cs" />
+    <Compile Include="AdminModel\MasterModel\DepartmentMasterModel.cs" />
+    <Compile Include="AdminModel\MasterModel\DepartmentReferenceModel.cs" />
+    <Compile Include="AdminModel\MasterModel\DepartmentSetupModel.cs" />
+    <Compile Include="AdminModel\MasterModel\DepartmentSubMenuModel.cs" />
+    <Compile Include="AdminModel\MasterModel\DesignationMasterModel.cs" />
+    <Compile Include="AdminModel\MasterModel\GalleryViewModel.cs" />
+    <Compile Include="AdminModel\MasterModel\helpDocumentModel.cs" />
+    <Compile Include="AdminModel\MasterModel\HelpDocumentTypeMasterModel.cs" />
+    <Compile Include="AdminModel\MasterModel\ImportantDecisionSubCategoryModel.cs" />
+    <Compile Include="AdminModel\MasterModel\JANCategoryMasterModel.cs" />
+    <Compile Include="AdminModel\MasterModel\JankalyanConfigurationMaster.cs" />
+    <Compile Include="AdminModel\MasterModel\JankalyanEntryMasterModel.cs" />
+    <Compile Include="AdminModel\MasterModel\JankalyanReportModel.cs" />
+    <Compile Include="AdminModel\MasterModel\JankalyanSummaryReportModel.cs" />
+    <Compile Include="AdminModel\MasterModel\MenuClassificationModel.cs" />
+    <Compile Include="AdminModel\MasterModel\MLAConstituencyMasterModel.cs" />
+    <Compile Include="AdminModel\MasterModel\MonitoringParameterLookupModel.cs" />
+    <Compile Include="AdminModel\MasterModel\MonitoringParameterMasterModel.cs" />
+    <Compile Include="AdminModel\MasterModel\MPConstituencyMasterModel.cs" />
+    <Compile Include="AdminModel\MasterModel\NewsClassificationMasterModel.cs" />
+    <Compile Include="AdminModel\MasterModel\NewspaperMasterModel.cs" />
+    <Compile Include="AdminModel\MasterModel\NewsSubjectMasterModel.cs" />
+    <Compile Include="AdminModel\MasterModel\NotificationTemplateTypeModel.cs" />
+    <Compile Include="AdminModel\MasterModel\CitizenLetterTypeMasterViewModel.cs" />
+    <Compile Include="AdminModel\MasterModel\OfficeMasterViewModel.cs" />
+    <Compile Include="AdminModel\MasterModel\OrderSubTypeMasterModel.cs" />
+    <Compile Include="AdminModel\MasterModel\OrderTypeModel.cs" />
+    <Compile Include="AdminModel\MasterModel\ParticipantCategoryMasterModel.cs" />
+    <Compile Include="AdminModel\MasterModel\ProjectCategoryMaster.cs" />
+    <Compile Include="AdminModel\MasterModel\ProjectMasterModel.cs" />
+    <Compile Include="AdminModel\MasterModel\ProjectMileStoneMasterModel.cs" />
+    <Compile Include="AdminModel\MasterModel\ProjectSchemeCategoryMasterModel.cs" />
+    <Compile Include="AdminModel\MasterModel\ProjectSubCategoryMasterModel.cs" />
+    <Compile Include="AdminModel\MasterModel\SCM_BeneficialCategoryMasterModel.cs" />
+    <Compile Include="AdminModel\MasterModel\SCM_CategoryMasterModel.cs" />
+    <Compile Include="AdminModel\MasterModel\DistrictViewModel.cs" />
+    <Compile Include="AdminModel\MasterModel\LookUpTypeViewModel.cs" />
+    <Compile Include="AdminModel\MasterModel\LookUpViewModel.cs" />
+    <Compile Include="AdminModel\MasterModel\ModeOfDeliveryViewModel.cs" />
+    <Compile Include="AdminModel\MasterModel\SCM_CommonMasterModel.cs" />
+    <Compile Include="AdminModel\MasterModel\SCM_OutputMasterModel.cs" />
+    <Compile Include="AdminModel\MasterModel\PlatformMasterModel.cs" />
+    <Compile Include="AdminModel\MasterModel\SchemeTypeViewModel.cs" />
+    <Compile Include="AdminModel\MasterModel\SCM_RequiredDocumentCategoryMasterModel.cs" />
+    <Compile Include="AdminModel\MasterModel\SCM_UploadFileCategoryMasterModel.cs" />
+    <Compile Include="AdminModel\MasterModel\SectionMasterModel.cs" />
+    <Compile Include="AdminModel\MasterModel\SectorViewModel.cs" />
+    <Compile Include="AdminModel\MasterModel\StatusEmailModel.cs" />
+    <Compile Include="AdminModel\MasterModel\SubSubCategoryMasterModel.cs" />
+    <Compile Include="AdminModel\MasterModel\TehsilViewModel.cs" />
+    <Compile Include="AdminModel\MasterModel\SCM_TypeMasterModel.cs" />
+    <Compile Include="AdminModel\MasterModel\TransferDeptModel.cs" />
+    <Compile Include="AdminModel\MasterModel\UserTypeViewModel.cs" />
+    <Compile Include="AdminModel\NotificationEmailTemplatesModel.cs" />
+    <Compile Include="AdminModel\NotificationSMSTemplatesModel.cs" />
+    <Compile Include="AdminModel\OrderEntryModel.cs" />
+    <Compile Include="AdminModel\OrderGenerateMasterModel.cs" />
+    <Compile Include="AdminModel\OrderRelatedToModel.cs" />
+    <Compile Include="AdminModel\OrderTypeViewModel.cs" />
+    <Compile Include="AdminModel\PageMasterViewModel.cs" />
+    <Compile Include="AdminModel\PdfGenerateModel.cs" />
+    <Compile Include="AdminModel\PermissionViewModel.cs" />
+    <Compile Include="AdminModel\ProjectMonitoringViewModel.cs" />
+    <Compile Include="AdminModel\RecruitmentStatusViewModel.cs" />
+    <Compile Include="AdminModel\ResetPasswordViewModel.cs" />
+    <Compile Include="AdminModel\SchemeDashboardViewModel.cs" />
+    <Compile Include="AdminModel\UserPermissionViewModel.cs" />
+    <Compile Include="AdminModel\SchmeModel.cs" />
+    <Compile Include="AdminModel\SchemeViewModel.cs" />
+    <Compile Include="AdminModel\SettingViewModel.cs" />
+    <Compile Include="AdminModel\SSOUserDetailModel.cs" />
+    <Compile Include="AdminModel\UserManagementModel.cs" />
+    <Compile Include="AdminModel\VCViewModel.cs" />
+    <Compile Include="AdminModel\VisitorCountViewModel.cs" />
+    <Compile Include="AutoGeneratedModels\AppointmentDiary.cs" />
+    <Compile Include="AutoGeneratedModels\CmsPage.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AutoGeneratedModels\EmailTemplate.cs" />
+    <Compile Include="AutoGeneratedModels\EmailType.cs" />
+    <Compile Include="AutoGeneratedModels\GlobalMacro.cs" />
+    <Compile Include="AutoGeneratedModels\LNK_ROLE_PERMISSION.cs" />
+    <Compile Include="AutoGeneratedModels\Menu.cs" />
+    <Compile Include="AutoGeneratedModels\MenuType.cs" />
+    <Compile Include="AutoGeneratedModels\SmtpDetail.cs" />
+    <Compile Include="AutoGeneratedModels\tblActivityLog.cs" />
+    <Compile Include="AutoGeneratedModels\tblBlog.cs" />
+    <Compile Include="AutoGeneratedModels\tblBlogComment.cs" />
+    <Compile Include="AutoGeneratedModels\tblCities.cs" />
+    <Compile Include="AutoGeneratedModels\ExceptionLogger.cs" />
+    <Compile Include="AutoGeneratedModels\tblCountries.cs" />
+    <Compile Include="AutoGeneratedModels\tblNewsPhoto.cs" />
+    <Compile Include="AutoGeneratedModels\tblNew.cs" />
+    <Compile Include="AutoGeneratedModels\tbllookup.cs" />
+    <Compile Include="AutoGeneratedModels\tbllookuptype.cs" />
+    <Compile Include="AutoGeneratedModels\tblPermissions.cs" />
+    <Compile Include="AutoGeneratedModels\tblRoleFunctionality.cs" />
+    <Compile Include="AutoGeneratedModels\tblSetting.cs" />
+    <Compile Include="AutoGeneratedModels\tblState.cs" />
+    <Compile Include="AutoGeneratedModels\tblSystemFunctionality.cs" />
+    <Compile Include="AutoGeneratedModels\tblUserToken.cs" />
+    <Compile Include="CommonModel\CommonModel.cs" />
+    <Compile Include="CommonModel\CustomValidation.cs" />
+    <Compile Include="ComparetiveModel\ComparativeParameterMasterModel.cs" />
+    <Compile Include="ComparetiveModel\ComparativeTargetEntryModel.cs" />
+    <Compile Include="ComparetiveModel\CurrentGovtEntryModel.cs" />
+    <Compile Include="ComparetiveModel\DepartmentalProgressModel.cs" />
+    <Compile Include="ComparetiveModel\DistrictKPIModel.cs" />
+    <Compile Include="ComparetiveModel\DistrictProgressModel.cs" />
+    <Compile Include="ComparetiveModel\EBookletModel.cs" />
+    <Compile Include="ComparetiveModel\KPICategoryMasterModel.cs" />
+    <Compile Include="ComparetiveModel\PreviousGovernmentEntryModel.cs" />
+    <Compile Include="ComparetiveModel\YearMasterModel.cs" />
+    <Compile Include="ComplaintModel\ComplaintModel.cs" />
+    <Compile Include="DepartmentWebsite\DepartmentOrderPressReleaseTenderModel.cs" />
+    <Compile Include="DepartmentWebsite\DepartmentSectionModel.cs" />
+    <Compile Include="DepartmentWebsite\DepartmenttMenuClassificationModel.cs" />
+    <Compile Include="GeneralModel\DomainDataViewModel.cs" />
+    <Compile Include="GeneralModel\FilePostModel.cs" />
+    <Compile Include="GeneralModel\IndexModel.cs" />
+    <Compile Include="GeneralModel\PagedData.cs" />
+    <Compile Include="GeneralModel\QueryExtensions.cs" />
+    <Compile Include="GeneralModel\SmsExternalApiInfo.cs" />
+    <Compile Include="GeneralModel\SmsResponseModel.cs" />
+    <Compile Include="IdentityModels.cs" />
+    <Compile Include="LMSModel\DashboardViewModel.cs" />
+    <Compile Include="LMSModel\ReprotViewModel.cs" />
+    <Compile Include="LoginModel\ManageViewModels.cs" />
+    <Compile Include="LoginModel\AccountViewModels.cs" />
+    <Compile Include="LoginModel\AspNetRoleViewModel.cs" />
+    <Compile Include="MobileApp\JankalyanAppModulesModel.cs" />
+    <Compile Include="NewsModel\NewspaperModal.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PublicPortalModel\ChiefMinisterProfileViewModel.cs" />
+    <Compile Include="PublicPortalModel\CMISModuleViewModel.cs" />
+    <Compile Include="PublicPortalModel\JankalyanDepartmentDistrictWebsiteModel.cs" />
+    <Compile Include="PublicPortalModel\JankalyanPortalLatestUpdateModel.cs" />
+    <Compile Include="PublicPortalModel\SchemePortalViewModel.cs" />
+    <Compile Include="TenderPressRelease\PressReleaseReportModel.cs" />
+    <Compile Include="VCModel\LocationMasterViewModel.cs" />
+    <Compile Include="VCModel\ReportByDistrictModel.cs" />
+    <Compile Include="VCModel\VCParticipantModel.cs" />
+    <Compile Include="TenderPressRelease\PressReleaseModel.cs" />
+    <Compile Include="TenderPressRelease\TenderMasterModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Client Scripts\mvcfoolproof.unobtrusive.js" />
+    <Content Include="Client Scripts\mvcfoolproof.unobtrusive.min.js" />
+    <Content Include="Client Scripts\MvcFoolproofJQueryValidation.js" />
+    <Content Include="Client Scripts\MvcFoolproofJQueryValidation.min.js" />
+    <Content Include="Client Scripts\MvcFoolproofValidation.js" />
+    <Content Include="Client Scripts\MvcFoolproofValidation.min.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CMOWebApi.Core\CMOWebApi.Core.csproj">
+      <Project>{652ff23b-b34d-48ec-ab91-edb8048b61c4}</Project>
+      <Name>CMOWebApi.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CMOWebApi.Data\CMOWebApi.Data.csproj">
+      <Project>{af7a6e9e-0d47-4ab0-9eb1-435d1324a9ac}</Project>
+      <Name>CMOWebApi.Data</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

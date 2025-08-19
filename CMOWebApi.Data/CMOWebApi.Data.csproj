@@ -1,0 +1,2162 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{AF7A6E9E-0D47-4AB0-9EB1-435D1324A9AC}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CMOWebApi.Data</RootNamespace>
+    <AssemblyName>CMOWebApi.Data</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="aaatblpage.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AAIA.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AAIF.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AAIP.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AARA.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AddUpdateChiefMinisterProfile_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Alllisting.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AlllistingAP.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AlllistingBA.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AlllistingCA.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AlllistingCMD.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AlllistingGPA.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CMISNEW_CM_MODULEMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CMISNEW_cm_pstatusdtl.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CMISNew_Trans_Core.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CMISNew_Trans_CoreBK.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CMISNew_Trans_CoreTemp.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CMIS_New_detail_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CMIS_New_Summary_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CM_ADEPARTMENT.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="cm_budgetyear.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CM_DEPARTMENT.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DOP_Master.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="fnGetDownLevelUserType_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="fnNMS_NewsAdvSearch_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="fnSplit_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetBeneficiaryCategory_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetDepartmentsByGroupCode_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetDepartment_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetDeptWiseOrderTypeCountReport_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetDisplayNewspaperAdvertisementPoppupData_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetEbookletAndDisplayNewspaperAdvertisementPoppupData_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetRajAdvtSideBarData_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetSectorWiseAdvertisementPoppupData_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetSocialMediaAndEbookletAdvertisementPoppupData_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ImpAchievement.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Jankalyan_DBModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Jankalyan_DBModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Jankalyan_DBModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Jankalyan_DBModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Jankalyan_DBModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Jankalyan_DBModel1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Jankalyan_DBModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Jankalyan_DBModel2.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Jankalyan_DBModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="JAN_News_NewspaperTransactionProgressList_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Masters_Admin_Audit_Log.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ODR_GNRT_AttachmentsLookup_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ODR_GNRT_CorrespondenceCopyReferenceLookup_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ODR_GNRT_RelatedToParameterLookup_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ODR_OrderAttachments_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RemoveDuplicate.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SCM_EligibilityCriteriaLookUp_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SCM_EntryLookUp_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SCM_GetBeneficiaryLookup_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SCM_GetMobileUrlLookup_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SCM_GroupDetailLookUp_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SCM_OtherDocumentLookUp_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SCM_RequiredDocument_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SCM_SchemeEntryLookUp_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SCM_SchemeGroupDetailLookUp_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SCM_SchemeMaster_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spAddUpdateGallery_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SpADV_AchievementReport_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spADV_GetDataForNotification_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spADV_ListOfAdminDepartmentDepartmentUserMaster_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spADV_PlatformUserDetailByRedesignId_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spADV_RedesignRequestSave_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spCMO_AddUpdatePageMaster_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spCMO_DistrictByOffice_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spCMO_GetAchievementSubCategoryByUserId_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spCMO_GetAdmDepartment_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spCMO_GetBlockByUserId_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spCMO_GetDepartmentByUserId_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spCMO_GetDistrictByUserId_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spCMO_GetDivisionByUserId_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spCMO_GetNotAssignedBlock_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spCMO_GetNotAssignedDepartment_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spCMO_GetNotAssignedDistrict_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spCMO_GetNotAssignedDivision_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spCMO_GetNotAssignedTehsil_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spCMO_GetOfficeByUserId_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spCMO_GetTehsilByUserId_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spCMO_GetUserTypeData_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spCMO_GetUserTypeListForRole_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spCMO_GetUserTypeList_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spGetAssignedUserPagePermissions_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spGetDefaultPermissions_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spGetDownLevelUserType_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spGetUserDetailBySSOId_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spGetUserListByPermission_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spGetUserPagePermissionsByApplicationGetDefault_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spGetUserPagePermissionsByApplication_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spJAN_CMISComplianceSave_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spJAN_Dept_GenerateMenuListForDepartment_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spJAN_Dept_GenerateSubMenuListForDepartment_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spJAN_Dept_GenerateSubSubMenuListForDepartment_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spJAN_Dept_TransferDptMenuToDepartmentSubMenu_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spJAN_Dept_TransferMenuClassificationToDepartmentMenu_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spJAN_PressReleaseGetDIPR_Id_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spJAN_ResetUserSpecificPermission_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spODR_GenerateOrderNumber_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spODR_GenerateUINumber_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spODR_GetOrderChildRecordById_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spODR_GetOrderParentRecordById_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spODR_GNRT_AssignedCCCategoryReference_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spODR_GNRT_GenerateOrderNumber_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spODR_GNRT_GetReferenceForNotification_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spODR_GNRT_OrderGenerateMaster_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spODR_OrderRelatedToReport_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spORD_GenerateOrderReportSearch_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spORD_GetOrderBySearch_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spORD_RelatedToService_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spPhotoVedioGalleryFiles_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spPressReleaseSummaryReport_CategorySubCategory_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spPressReleaseSummaryReport_DepartmentDistrict_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spPressReleaseSummaryReport_DeptCatSubcat_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spPressReleaseSummaryReport_DeptLookupCat_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spPressReleaseSummaryReport_DistCatSubcat_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spPressReleaseSummaryReport_DistLookupCategory_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spPressReleaseSummaryReport_LookupCategory_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spPressReleaseSummaryReport_PressReleasesCreatedByUsers_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spPressReleaseSummaryReport_UserDate_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spPressReleaseSummaryReport_VIPDepartment_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spPressReleaseSummaryReport_VIPDeptDist_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spPressReleaseSummaryReport_VIPDistrict_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spSCM_GetMPRByScheme_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spSCM_GetSchemeGroupDetail_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spSCM_GetSchemeListForByFilter_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spSCM_MonitoringParameterData_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spSCM_MonitoringParameterMonthlyRecordByScheme_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spSCM_SchemeFrontEnd_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spSCM_schemeListByDepartment_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spSCM_UpdateMonitoringParametersStatus_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_AchievementListbySearchFilter_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_AddUpdateUser_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_ADV_PledgeGenerateOTP_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_ADV_RajAdvtVisitorCountDetailReport_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_ADV_RajAdvtVisitorCountReport_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_ADV_RajAdvtVisitorDateWiseCountReport_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_AGILE_ComplianceExpactedNoOfEntries_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_CMISModuleData_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_COMPS_GetStatusAndUserDetail_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_ConfigurationSCHEME_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_ConfigurationSERVICE_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_Configuration_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_CPT_DepartmentalProgressParametersWithCumulativeAndTargetValue_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_CPT_E_BookletReport_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_CPT_E_Front_BookletCategory_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_CPT_E_Front_BookletDetail_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_CPT_FrontEBookletExistingCategories_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_CPT_ParametersWithCumulativeAndTargetValue_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_DashBoardProjectReport_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_Dept_DepartmentMenuList_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_Dept_DepartmentSectionMapping_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_Dept_DepartmentSubMenuList_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GenerateOTP_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetAcheivementList_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetComplaintListbySearchFilter_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetImportantDecisionList_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetOfficeList_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetUserbyDepartmentOfLoginUser_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetUserDetailByDeptAndUType_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_getuserlistbyapplication_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_helpdiagrams_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_JAN_AchievementsCategoryCountReport_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_JAN_App_CMOStatusWiseCountForCMIS_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_JAN_App_DepartmentStatusWiseCountForCMIS_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_JAN_App_DepartmentWiseCountForCMIS_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_JAN_App_Modules_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_JAN_App_ProjectDepartmentCount_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_JAN_App_ProjectStatusCount_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_JAN_CMIS_AchievementDetailReport_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_JAN_CMIS_AchievementSummayReport_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_JAN_CMIS_ComplianceReport_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_JAN_ComplianceModuleAndDeptWiseSummaryReport_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_JAN_ComplianceNoOfEntryInJankalyanGeneralEntry_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_JAN_ComplianceNoOfEntryInJankalyanGovDocument_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_JAN_ComplianceNoOfEntryInJankalyanReport_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_JAN_ComplianceNoOfEntryInJankalyanScheme_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_JAN_DepartmentQuickLinks_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sp_JAN_Dept_ImportSectionMenuAndSubMenu_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_JAN_DptWebsite_GetFrontSubMenu_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_JAN_DptWebsite_GetOtherLinkData_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_JAN_DptWebsite_OtherGeneralLink_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_JAN_DptWebsite_OtherTransactionLink_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_JAN_Front_LatestUpdateOfAllModule_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_JAN_Front_Website_DipartmentDistrict_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_JAN_ImportantDecisionDepartmentReport_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_JAN_ImportantDecisionDetailReport_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_JAN_ImportantDecisionDetail_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_JAN_ImportantDecisionList_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_JAN_ImportantDecisionSummaryReport_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_JAN_JankalyanSummaryReport_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_JAN_JankalyanUserLogDetailReport_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_JAN_JankalyanUserLogSummaryReport_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_JAN_News_NewspaperTransactionDetail_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_JAN_NoOfComplianceCollectionReport_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_JAN_NoOfComplianceDetailReport_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_JAN_ODR_OrderSummaryReportWithLastTransDate_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_JAN_ODR_OrderTypeSummaryReportWithLastTransDate_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_JAN_PressReleaseProgramPhotoVideo_DIPRFront_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_JAN_PressRelease_Front_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_JAN_PROJ_GetProjectMasterList_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_JAN_PROJ_ProjectBudget_Parameter_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_JAN_PROJ_ProjectDepartmentStatusSummaryReport_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_JAN_PROJ_ProjectDepartmentWiseSummaryReport_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_JAN_PROJ_ProjectDetailsWithProgressAndChildTableData_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_JAN_PROJ_ProjectMasterProjectsMapping_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_JAN_PROJ_ProjectReport_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_JAN_PROJ_ProjectSummaryReport_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_JAN_PROJ_SumOfDynamicLabelSummaryReport_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_JAN_PROJ_UpdateProgressMapping_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sp_JAN_StatusEmailData_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sp_JAN_StatusEmailJankalyanSummaryReport_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sp_JAN_UpdateOldConnectWithCMISGeneralEntryOrderSchemeWorksType_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_JAN_Website_OrderTenderPressReleaseList_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_JAN_Website_PressReleaseList_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_JAN_Website_TenderList_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_NEWS_GetNewsProgressListByFilter_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_ODR_DepartmentCountReport_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_ODR_OrderSummaryReport_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_PressReleaseListbySearchFilter_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_PROJ_GetProjectMasterListByFilter_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_SaveConfigurePermission_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_SaveUserLog_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_UpdateChiefMinisterProfileActiveStatus_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_VC_AdminDptCatWiseSummaryReport_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_VC_BulkParticipantAdd_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_VC_CatDptWiseSummaryReport_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_VC_ChairPersonCategorySummaryReport_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_VC_DeleteLocation_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_VC_DeleteVC_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_VC_G_DistrictCountByVC_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_VC_G_LocationCountByDistrict_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_VC_G_ParticipantReportByLocation_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_VC_ParticipantByDistrictReport_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_VC_ParticipantReport_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_VC_SummaryReport_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_VC_UpdateParticipantCode_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sysdiagram.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="table1.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblAchievement_ConnectWithCMIS_Parameter.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblAchievement_ConnectWithCMIS_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblAC_PC_DistrictLookup.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblAdmDepartmentMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblAdmDepartmentMasterbak16122020.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblAdvtConfiguration.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblADV_AchievementAttachments.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblADV_AchievementBenificiaryMapping.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblADV_AchievementCategoryDistrictDepartmentMappingLookUp.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblADV_AchievementCategoryMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblADV_AchievementCategoryMaster_097101.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblADV_AchievementCategoryMaster_97000.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblADV_AchievementCategoryMaster_97101.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblADV_Achievements.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblADV_AchievementSubCategoryMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblADV_AdminDepartmentLookup.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblADV_AdvertisementMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblADV_ApprovalDetailMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblADV_BeneficiaryCategoryLookup.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblADV_CategoryMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblADV_DistrictLookup.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblADV_NotificationLookup.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblADV_NotificationMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblAdv_or_GovermentAchievement.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblADV_PledgeOICNotificationMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblADV_RajAdvtPledgeRegister.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblADV_RajAdvtPortalLog.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblADV_RajAdvtPortalLog_02102020.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblADV_RedesignPlatformUserLookup.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblADV_RedesignRequestByPlatformUserLookup.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblADV_SubCategoryMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblApplicationMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblBeneficiaryCagegory.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblBlockMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblCategoryMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblChiranjeeviVisitorCount.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblCitizenAttachmentMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblClientIdForService.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblClientIdModuleMapping.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblCMD_AssignConfigurationPermission.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblCMD_ConfigurePermissionDeptLookup.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblCMD_ConfigurePermissionSchemeLookup.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblCMD_ConfigurePermissionServiceLookup.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblCMD_DashboardOrder.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblCMD_DashboardPermission.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblCMO_ImportantDecision.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblCMO_ImportantDecisionAttachments.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblCMO_ImportantDecisionSubcategorymaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblCOMPS_ActionLookUp.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblCOMPS_AttachmentsLookUp.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblCOMPS_ComplaintEntry.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblCOMPS_EntryTypeMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblCOMPS_ModuleMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblCOMPS_PriorityMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblCOMPS_StatusMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblCPT_ComparativeParameterBenificiaryMapping.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblCPT_ComparativeParameterMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblCPT_ComparativeParameterTarget.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblCPT_ComparativeParameterTargetParameterMapping.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblCPT_CurrentGovtEntry.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblCPT_CurrentGovtEntryParameterMapping.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblCPT_DepartmentalProgressWebService.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblCPT_KPICategoryMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblCPT_PreviousGovtEntry.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblCPT_PreviousGovtEntryParameterMapping.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblCPT_YearMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblDelayReasonMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblDepartmentCategoryMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblDepartmentGroup.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblDepartmentMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblDepartmentVisitorCount.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblDept_ClassificationPageType.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblDept_DepartmentMainMenu.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblDept_DepartmentSubMenu.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblDept_MenuClassification.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblDept_MenuClassificationMappingLookUp.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblDept_SectionMapping.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblDept_SectionMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblDesignationMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblDistrictMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblDivisionMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblDynamicReport.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblGovermentAchievement.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblGroupMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblHelpDocument.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblHelpDocumentType.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblJankalyanVisitorCount.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblJAN_ADVT_Jankalyan_Advertisement.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblJAN_CategoryMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblJAN_CategoryMasterDistrictDepartmentMappingLookUp.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblJAN_ChiefMinisterProfile.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblJAN_ChiefMinisterProfile_105637.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblJAN_ChildPageMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblJAN_CMIS_Compliance.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblJAN_CMIS_ComplianceTemp.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblJAN_DepartmentContactDetails.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblJAN_DepartmentProfile.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblJAN_DIPR_FrontContactUs.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblJAN_EntryTypeMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblJAN_EntryTypeMasterDistrictDepartmentMappingLookUp.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblJAN_EntryTypeMaster_98230.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblJAN_GramPanchayatMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblJAN_News_ClassificationMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblJAN_News_NewspaperChairpersonMapping.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblJAN_News_NewspaperCoverageTypes.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblJAN_News_NewspaperMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblJAN_News_NewspaperProgressAttachments.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblJAN_News_NewspaperProgressMapping.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblJAN_News_NewspaperTransaction.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblJAN_News_NewsTransactionNodalDepartmentMapping.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblJAN_News_SubjectMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblJAN_PressRelease.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblJAN_PressRelease0102491.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblJAN_PressReleaseAttachment.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblJAN_PressReleaseAttachment_103083.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblJAN_PressReleaseAttachment_103224.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblJAN_PressReleaseDepartmentMappingLookUp.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblJAN_PressReleaseDistrictMappingLookUp.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblJAN_PressReleaseImageAttachment.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblJAN_PressReleaseImageAttachment_103083.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblJAN_PressReleaseImageAttachment_103424.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblJAN_PressReleaseImageAttachment_3424.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblJAN_PressReleaseUserConfigration.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblJAN_PressReleaseVIPCategoryMapping.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblJAN_PressReleaseVIPPersionMapping.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblJAN_PressRelease_102065.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblJAN_PressRelease_102491.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblJAN_PressRelease_103083.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblJAN_PressRelease_DIPR_With_Attachment.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblJAN_PROJ_MileStoneMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblJAN_PROJ_MLAConstituencyMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblJAN_PROJ_MLAConstituencyMaster_100287.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblJAN_PROJ_MLAConstituencyMaster_103858.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblJAN_PROJ_MLAConstituencyMaster_99916.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblJAN_PROJ_MPConstituencyMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblJAN_PROJ_ProjectBudget_Parameter.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblJAN_PROJ_ProjectBudget_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblJAN_PROJ_ProjectCategoryMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblJAN_PROJ_ProjectMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblJAN_PROJ_ProjectMasterProjectsMapping.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblJAN_PROJ_ProjectMasterProjectsMappingAttachments.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblJAN_PROJ_ProjectMasterProjectsMappingBlock_PS_Mapping.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblJAN_PROJ_ProjectMasterProjectsMappingDistrict.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblJAN_PROJ_ProjectMasterProjectsMappingGramPanchayatMapping.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblJAN_PROJ_ProjectMasterProjectsMappingMLAMapping.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblJAN_PROJ_ProjectMasterProjectsMappingVillageMapping.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblJAN_PROJ_ProjectMaster_099916.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblJAN_PROJ_ProjectMaster_99916.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblJAN_PROJ_ProjectSchemeCategoryMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblJAN_PROJ_ProjectSub_CategoryMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblJAN_PROJ_ProjectSub_SubCategoryMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblJAN_PROJ_UpdateProgressAttachmentMapping.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblJAN_PROJ_UpdateProgressMapping.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblJAN_TenderMapping.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblJAN_TenderMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblJAN_VillageMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblLMS_UserBasicPermission.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblLMS_UserPagePermission.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblLoginUserActivityLog.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblLoginUserLog.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbllookup.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbllookuptype.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbllookuptype_0102491.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbllookuptype_102491.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbllookup_94738.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbllookup_99916.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblMenuMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblMLAConstituancyMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblModeOfDeliveryMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblMonitoringParameterLookup.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblMonitoringParameterLookupType.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblNotificationEmailTemplate.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblNotificationSMSTemplate.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblNotificationTemplateType.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblNotificationUserTypeMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblODR_BeneficiaryCategoryLookup.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblODR_BenificiarySchemeLookup.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblODR_CancellationLookup.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblODR_CancellationReasonMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblODR_DepartmentEffectedLookup.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblODR_DepartmentLookup.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblODR_GNRT_CCCategoryLookup.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblODR_GNRT_CCCategoryMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblODR_GNRT_CorrespondenceCopyReferenceLookup.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblODR_GNRT_DepartmentAuthoritySignatory.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblODR_GNRT_DepartmentReference.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblODR_GNRT_DepartmentSetupMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblODR_ModuleMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblODR_OrderAttachments.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblODR_OrderEntryMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblODR_OrderRelatedToParameter.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblODR_OrderRelatedToResult.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblODR_OrderSectorLookup.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblODR_SubTypeMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblOfficeMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblOrderTypeMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblOrderTypeMasterDistrictDepartmentMappingLookUp.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblOrderTypeMaster_103499.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblPageMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblPageMaster_101136.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblPageTypeMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblPageUrlLookup.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblPConstituancyMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblPhotoVedioGallery.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblPhotoVedioGalleryFile.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblPlatformMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblReferenceeMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblRoleMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSchemeAreaMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSchemeOutputMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSchemeTypeMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSCM_BeneficialCategoryMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSCM_BeneficiaryCategoryLookUp.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSCM_CasteCategoryLookUp.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSCM_CategoryMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSCM_Configuration.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSCM_ConnectWithCMIS_Parameter.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSCM_ConnectWithCMIS_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSCM_ContactPersonTypeMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSCM_DistrictLookUp.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSCM_EligibilityCriteriaLookUp.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSCM_EntryLookUp.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSCM_FAQs.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSCM_GetBeneficiaryLookup.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSCM_GroupDetailLookUp.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSCM_HowToPayLookUp.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSCM_MobileAppLookup.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSCM_ModeofApplicationLookup.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSCM_ModeOfDeliveryLookUp.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSCM_ModeOfDisbursementLookUp.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSCM_MonitoringParameterDataEntry.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSCM_MonitoringParameterDataEntryFieldValue.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSCM_MonitoringParameterMapping.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSCM_MonitoringParameterMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSCM_OtherDocumentLookUp.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSCM_OutputMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSCM_ProgramAreaLookUp.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSCM_RequiredDocumentCategoryMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSCM_RequiredDocumentLookUp.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSCM_SchemeCommonMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSCM_SchemeMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSCM_SchemeMaster_105553.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSCM_SchemePageType.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSCM_TypeLookUp.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSCM_TypeMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSCM_UploadFileCategoryMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSectorMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblServiceMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSetting.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblStateMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblTehsilMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbltestimonial.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblTitleMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblUserACLookup.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblUserActivityLog.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblUserBlockLookup.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblUserDefaultPermission.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblUserDepartmentLookup.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblUserDistrictLookup.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblUserDivisionLookup.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblUserMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblusermaster_106162.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblUserOTP.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblUserPagePermission.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblUserPCLookup.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblUserRoleLookUp.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblUserTehsilLookup.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblUserType.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblUserTypeRoleLookUp.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblVCCreation.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblVCLocationMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblVCLocationMaster_19092020.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblVCModeMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblVCParticipant.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblVCParticipantCategoryMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblVCParticipantMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblVCParticipantMaster_12092020.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblVCParticipantTempBulk.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblVCParticipant_12092020.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblVCTypeMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblVerificationErrorLog.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="transferdeptold_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="transferdept_Result.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UnitOfWork\IUnitofWork.cs" />
+    <Compile Include="UnitOfWork\UnitOfWork.cs" />
+    <Compile Include="IRepository\IGenericRespository.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\GenericRepository.cs" />
+    <Compile Include="uploadexcel.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwADV_AchievementAttachments.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwADV_Achievements.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwADV_AchievementSubCategoryMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwADV_AdvertisementDetails.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwADV_AdvertisementList_Front.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwADV_AdvertisementServiceList.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwADV_AdvListForAdmindeptDptPlatformUser.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwADV_FrontGeneralEntry.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwAdv_GovermentAchivementDetail.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwADV_RedesignForAdmin.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwClientModuleDetail.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwCMO_DistrictByOffice.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwCMO_ImportantDecision.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwCMO_importantDecisionSubCategoryMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwCMO_UserListBy.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwComplaintActionHistory.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwCPT_ComparativeParameterMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwCPT_ComparativeTargetParmeter.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwCPT_CurrentGovtEntryParameterMapping.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwCPT_DistrictKPIEntryParameterMapping.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwCPT_DistrictKPITargetParmeter.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwCPT_EbookletParameters.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwCPT_KPICategoryMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwCPT_PreviousGovtEntryParameterMapping.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwCPT_TargetParameterMapping.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwDepartmentMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwDept_DepartmentMainMenu.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwDept_DepartmentSubMenu.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwDept_WebsiteHomePageSection.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwGetUserForNotification.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwHelpDocument.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwJAN_ChiefMinisterProfile.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwJAN_ChildPageMasterDetail.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwJAN_DepartmentContactDetails.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwJAN_DepartmentProfile.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwJAN_News_NewspaperMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwJAN_News_SubjectMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwJAN_PageMasterDetail.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwJAN_PressRelease.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwJAN_PressRelease_Front.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwJAN_PROJ_MLAConstituencyMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwJAN_PROJ_ProjectMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwJAN_PROJ_ProjectReport.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwJAN_PROJ_ProjectSchemeCategoryMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwJAN_PROJ_ProjectSub_CategoryMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwJAN_PROJ_ProjectSub_SubCategoryMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwJAN_PROJ_Project_CategoryMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwJAN_TenderMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwLookupMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwMLAConstituencyList.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwMonitoringParameterLookupType.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwNotificationEmailTemplate.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwNotificationSMSTemplate.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwODR_GNRT_AssignedCCCategoryReference.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwODR_GNRT_CCCategoryMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwODR_GNRT_DepartmentAuthoritySignatory.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwODR_GNRT_DepartmentReference.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwODR_GNRT_DepartmentSetupMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwODR_GNRT_OrderGenerateHindiEnglish.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwODR_OrderDetailMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwODR_OrderDetails.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwODR_OrderRelatedTo.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwODR_OrderTypeFromExistingRecords.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwODR_SubTypeMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwOfficeMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwOfficeWithDistrict.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwPageMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwPhotoVedioGallery.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwPhotoVedioGalleryFile.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwSchemebenificiary.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwSchemeLookup.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwSchemeLookupdata.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwSchememasterlookup.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwSCM_ContactPersonDetail.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwSCM_FrontPortalListView.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwSCM_GetSchemeForPriorityListView.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwSCM_MonitoringParameterMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwSCM_MonitoringParameterWithCount.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwSCM_SchemeCommonMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwSCM_SchemeContactDetail.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwSCM_SchemeDetails.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwSCM_SchemeFrontEndDetails.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwSCM_SchemeOutputMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwSCM_SchemeTypeMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwSCM_SetSchemeNameForUser.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwServiceLookup.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwUserBlockLookup.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwUserDepartmentLookup.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwUserDetail.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwUserDetailForLogin.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwUserDistrictLookUp.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwUserDistrictLookUp_18092020.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwUserDivisionLookUp.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwUserListWithDepartment.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwUserListWithDepartmentCode.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwUserOfficeLookup.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwUserPagePermissionByUser.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwUserTehsilLookup.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwUserTypeWhichHasApefificPermission.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwUserWhichHasApefificPermission.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwUserWhichHasDefaultPermission.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwVCReportByLocation.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwVC_DdlView.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwVC_Details.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwVC_Location.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwVC_Participant.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwVC_ParticipantReport.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwVC_ParticipantTempBulk.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwVC_ReportDetails.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_AchievementCategorylist.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_AchievementCategoryMasterList.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_CMISAchievement.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_CMISModule.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_CMISModuleData.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_CMISModuleNew.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_ComparativeParameterTarget.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_COMPS_ComplaintEntry.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_ConfigurePermissionDeptassign.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_ConfigurePermissionSchemeassign.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_ConfigurePermissionServiceassign.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_CurrentGovtEntry.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_DepartmentContactDetails.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_DepartmentProfile.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_Dept_SectionMapping.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_GetAchievementSubCategoryImage.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_GetTopSchemeByDepartment.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_JankalyanEntryType.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_JAN_CategoryMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_JAN_CategoryMasterList.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_JAN_DptWebsite_DepartmentDetail.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_JAN_EntryTypeMasterList.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_Jan_Front_NewsPaperProgressDetail.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_Jan_Front_NewsPaperTransaction.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_Jan_Front_ProjectMaster.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_Jan_Front_ProjectMasterForListWithDptWebsite.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_Jan_Front_ProjectMasterProjectsMapping.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_Jan_Front_ProjectMasterWithDptWebsite.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_Jan_Front_ProjectsMappingForList.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_JAN_Jankalyan_Advertisement.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_JAN_News_NewspaperTransactionrDetails.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_Jan_PressReleaseUserConfigration.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_JAN_PROJ_ExstingMLAConstituencyDistrictDpt.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_JAN_PROJ_ProjectMasterShorDetail.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_LastUpdatedWebsiteRecord.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_NEWS_FRONT_ExstingDepartment.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_ODR_GNRT_GenerateOrdeDetail.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_PreviousGovtEntry.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_PROJ_FRONT_ExstingCategory.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_PROJ_FRONT_ExstingDepartment.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_PROJ_FRONT_ExstingMLAConstituency.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_PROJ_FRONT_ExstingMLAConstituencyDistricts.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_PROJ_FRONT_ExstingMPConstituency.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_PROJ_FRONT_ExstingProjectStatus.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_PROJ_FRONT_ExstingSector.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_PROJ_FRONT_ExstingSubcategorys.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_PROJ_FRONT_ExstingYearOfInitiation.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_tbllookupdetail.cs">
+      <DependentUpon>Jankalyan_DBModel.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config">
+      <SubType>Designer</SubType>
+    </None>
+    <EntityDeploy Include="Jankalyan_DBModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Jankalyan_DBModel2.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Jankalyan_DBModel.edmx.diagram">
+      <DependentUpon>Jankalyan_DBModel.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Jankalyan_DBModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Jankalyan_DBModel.edmx</DependentUpon>
+      <LastGenOutput>Jankalyan_DBModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Jankalyan_DBModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Jankalyan_DBModel.edmx</DependentUpon>
+      <LastGenOutput>Jankalyan_DBModel.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CMOWebApi.Core\CMOWebApi.Core.csproj">
+      <Project>{652ff23b-b34d-48ec-ab91-edb8048b61c4}</Project>
+      <Name>CMOWebApi.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

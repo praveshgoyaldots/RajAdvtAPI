@@ -1,0 +1,128 @@
+USE [CMIS_APP]
+GO
+
+/****** Object:  View [dbo].[vwSCM_SchemeFrontEndDetails]    Script Date: 12/2/2019 7:13:13 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+/****************************************
+Created By :Paras  
+Script Date : 28-11-2019
+Description : Get Data in Scheme frontend 
+select * from [vwSCM_SchemeFrontEndDetails]
+*********************************** ******/
+
+create View [dbo].[vwSCM_SchemeFrontEndDetails]
+as
+SELECT schm.Id,schm.ShortNameHindi,schm.NameHindi,schm.ShortNameEnglish,schm.NameEnglish,schm.Description --,schm.TypeCode,scm.Name as TypeName
+,scmpfc.Name as HowToPayFeeName,scmpfc.NameHindi as HowToPayFeeNameinhindi,scmodc.Name as ModeOfDisbursmentName,scmodc.NameHindi as ModeOfDisbursmentNameinHindi,schm.OwnedBy,lOwnedBy.lookup as OwnedByName,lOwnedBy.NameHindi as OwnedByNameinhindi ,lSchm.lookup as ApplyForSchemeName,lSchm.NameHindi as ApplyForSchemeNameinhindi,lmoa.lookup as MadeOfApplingName,lmoa.NameHindi as MadeOfApplingNameinhindi,schm.OwnedBySate,schm.OwnedByCenter,schm.IsListedRGDPSAct,isrgdps.lookup as IsListedRGDPSActName,schm.DeliveryTimeInDays,isrgdps.NameHindi as IsListedRGDPSActNameinhindi
+,schm.DesignatedOfficerReceivingDetailCode,Dm.Name as DesignatedOfficerReceivingDetailName,Dm.NameHindi as DesignatedOfficerReceivingDetailNameinhindi,schm.FirstAppeallateCode,Dmf.Name as FirstAppeallateName,Dmf.NameHindi as FirstAppeallateNameinhindi,schm.SecondAppeallateCode,Dms.Name as SecondAppeallateName,Dms.NameHindi as SecondAppeallateNameinhindi,schm.ApplyForScheme
+,schm.TimeOfValidationInMonth,schm.ExpiredOn,lex.lookup as ExpiredOnName,lex.NameHindi as ExpiredOnNameinhindi,schm.ExpriedOnDate,schm.ExpriedDurationInMonth,schm.MadeOfAppling
+,schm.MadeOfApplingOnlineBoth,modonline.lookup as MadeOfApplingOnlineBothName,modonline.NameHindi as MadeOfApplingOnlineBothNameinhindi,schm.DepartmentWebsiteUrl,schm.IsServiceFees,scf.lookup as IsServiceFeesName,scf.NameHindi as IsServiceFeesNameinhindi,schm.HowToPayFeeCode,schm.HelplineNo
+,schm.DelivarebleCode,som.Name as DelivarebleName,som.NameHindi as DelivarebleNameinhindi,schm.deliveryPaymentDetail,schm.ModeOfDisbursmentCode,schm.ModeOfDisbursment,schm.PaymentDisbursmentFrequency,ldf.lookup as PaymentDisbursmentFrequencyName,ldf.NameHindi as PaymentDisbursmentFrequencyNameinhindi
+,schm.PaymentDisbursmentFrequencyInstallments,scmpdfi.Name as PaymentDisbursmentFrequencyInstallmentsName,scmpdfi.NameHindi as PaymentDisbursmentFrequencyInstallmentsNameinhindi,schm.PaymentDisbursmentFrequencyTillAPeriod,schm.ItemDetails
+,schm.CreatedDate,schm.CreatedBy,schm.ModifiedDate,schm.ModifiedBy,schm.IsActive,schm.IsDeleted,schm.Code,schm.ServiceFeeAmount,schm.Scheme_URL
+,schm.SearchKeyWordOfDetails,schm.SearchKeyWordOfExecution,schm.SearchKeyWordOfEligible, schm.SearchKeyWordOfHowToApply, schm.SearchKeyWordOfBeneficiaryGet
+, schm.SearchKeyWordOfOtherDocument, schm.Benificiarytext, schm.EligiblityText, schm.HowToApplyText, schm.WhatWillBeneficiaryGet
+,schm.StartDate,schm.Logo,schm.Designation
+
+,schm.BannerImage,schm.WebsiteUrl,schm.MobileAppIcon,schm.MobileAppUrl,schm.IsbeneficiaryText
+,schm.IsEligibityText,schm.IsHowToApply,schm.IsWhatWillBeneficiaryGet
+
+---BeneficiaryCategory
+,STUFF( ( SELECT ',' + CAST(bcl.BeneficiaryCode AS VARCHAR(100)) FROM tblSCM_BeneficiaryCategoryLookUp bcl 
+ where bcl.SchemeID =schm.Id FOR XML PATH('') ), 1, 1, '') AS BeneficiaryCategoryIds
+
+  ,STUFF( ( SELECT ', ' + CAST(bc.ansmtcategory AS VARCHAR(100)) FROM tblSCM_BeneficiaryCategoryLookUp bcl 
+  inner join tblBeneficiaryCagegory as bc on bc.cm_ansmtcategoryid=bcl.BeneficiaryCode
+ where bcl.SchemeID =schm.Id FOR XML PATH('') ), 1, 1, '') AS BeneficiaryCategoryName
+
+
+
+ ---District
+,STUFF( ( SELECT ',' + CAST(dL.DistrictCode AS VARCHAR(100)) FROM tblSCM_DistrictLookUp dL
+ where dL.SchemeID =schm.Id FOR XML PATH('') ), 1, 1, '') AS DistrictIds
+
+ ,STUFF( ( SELECT ', ' + CAST(d.DistrictTitle AS VARCHAR(100)) FROM tblSCM_DistrictLookUp dL 
+  inner join tblDistrictMaster as d on d.DistrictCode=dL.DistrictCode
+ where dL.SchemeID =schm.Id FOR XML PATH('') ), 1, 1, '') AS DistrictName
+ 
+  ,STUFF( ( SELECT ', ' + CAST(d.DistrictTitleHindi AS VARCHAR(100)) FROM tblSCM_DistrictLookUp dL 
+  inner join tblDistrictMaster as d on d.DistrictCode=dL.DistrictCode
+ where dL.SchemeID =schm.Id FOR XML PATH('') ), 1, 1, '') AS DistrictNameinHindi
+ --end 
+
+  ---Type
+,STUFF( ( SELECT ',' + CAST(TL.TypeCode AS VARCHAR(100)) FROM tblSCM_TypeLookUp TL
+ where TL.SchemeID =schm.Id FOR XML PATH('') ), 1, 1, '') AS TypeIds
+
+ ,STUFF( ( SELECT ', ' + CAST(d.Name AS VARCHAR(100)) FROM tblSCM_TypeLookUp TL 
+  inner join tblSCM_SchemeCommonMaster as d on d.code=TL.TypeCode
+ where TL.SchemeID =schm.Id FOR XML PATH('') ), 1, 1, '') AS TypeName
+
+ ,STUFF( ( SELECT ', ' + CAST(d.NameHindi AS VARCHAR(100)) FROM tblSCM_TypeLookUp TL 
+  inner join tblSCM_SchemeCommonMaster as d on d.code=TL.TypeCode
+ where TL.SchemeID =schm.Id FOR XML PATH('') ), 1, 1, '') AS TypeNameinHindi
+ --end
+
+ --tblSCM_ModeOfDeliveryLookUp
+ ,STUFF( ( SELECT ',' + CAST(mdl.ModeOfDeliveryCode AS VARCHAR(100)) FROM tblSCM_ModeOfDeliveryLookUp mdl 
+ where mdl.SchemeID =schm.Id FOR XML PATH('') ), 1, 1, '') AS ModeOfDeliveryIds
+
+  ,STUFF( ( SELECT ', ' + CAST(cm.Name AS VARCHAR(100)) FROM tblSCM_ModeOfDeliveryLookUp mdl 
+    inner join tblSCM_SchemeCommonMaster as cm on cm.Code=mdl.ModeOfDeliveryCode
+ where mdl.SchemeID =schm.Id FOR XML PATH('') ), 1, 1, '') AS ModeOfDeliveryName
+
+ --tblSCM_CasteCategoryLookUp
+  ,STUFF( ( SELECT ',' + CAST(ccl.CategoryCode AS VARCHAR(100)) FROM tblSCM_CasteCategoryLookUp ccl 
+ where ccl.SchemeID =schm.Id FOR XML PATH('') ), 1, 1, '') AS CasteCategoryIds
+
+   ,STUFF( ( SELECT ', ' + CAST(cm.Category AS VARCHAR(100)) FROM tblSCM_CasteCategoryLookUp ccl 
+       inner join tblCategoryMaster as cm on cm.CategoryCode=ccl.CategoryCode
+ where ccl.SchemeID =schm.Id FOR XML PATH('') ), 1, 1, '') AS CasteCategoryName
+
+ --tblSCM_ProgramAreaLookUp
+   ,STUFF( ( SELECT ',' + CAST(pal.AreaCode AS VARCHAR(100)) FROM tblSCM_ProgramAreaLookUp pal 
+ where pal.SchemeID =schm.Id FOR XML PATH('') ), 1, 1, '') AS ProgramAreaIds
+
+    ,STUFF( ( SELECT ', ' + CAST(cm.Name AS VARCHAR(100)) FROM tblSCM_ProgramAreaLookUp pal 
+	    inner join tblSCM_SchemeCommonMaster as cm on cm.Code=pal.AreaCode
+ where pal.SchemeID =schm.Id FOR XML PATH('') ), 1, 1, '') AS ProgramAreaName
+
+
+, (select count(*) from tblSCM_FAQs where SchemeID=schm.id) as FaqCount
+
+
+  FROM tblSCM_SchemeMaster  schm
+ --left join tblSCM_SchemeCommonMaster as scm on scm.Code=schm.TypeCode
+ left join tblSCM_SchemeCommonMaster as scmpfc on scmpfc.Code=schm.HowToPayFeeCode
+ left join tblSCM_SchemeCommonMaster as scmodc on scmodc.Code=schm.ModeOfDisbursmentCode
+ left join tblSCM_SchemeCommonMaster as scmpdfi on scmpdfi.Code=schm.PaymentDisbursmentFrequencyInstallments
+
+ left join tbllookup as lOwnedBy on lOwnedBy.Id=schm.OwnedBy
+ left join tbllookup as lSchm on lSchm.Id=schm.ApplyForScheme
+ left join tbllookup as lmoa on lmoa.Id=schm.MadeOfAppling
+  left join tbllookup as ldf on ldf.Id=schm.PaymentDisbursmentFrequency
+  left join tbllookup as lex on lex.Id=schm.ExpiredOn
+  left join tbllookup as scf on scf.Id=schm.IsServiceFees
+  left join tbllookup as modonline on modonline.Id=schm.MadeOfApplingOnlineBoth
+ 
+
+  left join tbllookup as isrgdps on isrgdps.Id=schm.IsListedRGDPSAct
+
+ left join tblDesignationMaster as Dm on Dm.DesignationId=schm.DesignatedOfficerReceivingDetailCode
+ 
+ left join tblDesignationMaster as Dmf on Dmf.DesignationId=schm.FirstAppeallateCode
+ 
+ left join tblDesignationMaster as Dms on Dms.DesignationId=schm.SecondAppeallateCode
+ left join tblSCM_OutputMaster as som on som.Id=schm.DelivarebleCode
+	where schm.IsDeleted=0 and schm.IsActive =1
+	
+
+GO
+
+

@@ -1,0 +1,2 @@
+D:\Projects\CMO_Projects\RajAdvt\WEB-API\CMOWebApi.WebApi\obj\Debug\CMOWebApi.WebAPI.csproj.AssemblyReference.cache
+D:\Projects\CMO_Projects\RajAdvt\WEB-API\CMOWebApi.WebApi\obj\Debug\CMOWebApi.WebAPI.csproj.CoreCompileInputs.cache

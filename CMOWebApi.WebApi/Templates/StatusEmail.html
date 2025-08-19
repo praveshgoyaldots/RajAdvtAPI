@@ -1,0 +1,86 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+<style>
+body{ margin: 0px; padding: 0px;  font-family:Arial,Helvetica,sans-serif; font-size:14px}
+</style>
+</head>
+<body>
+
+    <div style="max-width: 600px; margin: auto; padding: 15px;">
+
+        <p style="line-height: 22px;">
+            <b> Madam/Sir, </b>
+        </p>
+        <p style="line-height: 22px;">
+            As you are aware Jankalyan Portal is likely to be launched in the coming week by
+            Hon'ble <br />Chief Minister.
+        </p>
+        <p style="line-height: 22px;">
+            <b>For live status please click on</b>  <a href="https://jankalyantest.rajasthan.gov.in/" target="_blank">< https://jankalyantest.rajasthan.gov.in ></a> 
+        </p>
+        <p style="line-height: 22px;">
+            The consolidated status of the data entered in various categories in the portal
+            are as follows:
+        </p>
+        <table border="1" bordercolor="#ccc" cellpadding="0" cellspacing="0" width="100%" bgcolor="#FFFFFF" style="margin:20px auto; font-family:Arial,Helvetica,sans-serif; font-size:14px">
+            <thead>
+
+            <th align="center" style="background-color: #02aad7; color: #fff; height: 35px; border: solid 1px #ccc;">S.No</th>
+            <th align="center" style="background-color: #02aad7; color: #fff; height: 35px; border: solid 1px #ccc;">Category</th>
+            <th align="center" style="background-color: #02aad7; color: #fff; height: 35px; border: solid 1px #ccc;">No. of Entries</th>
+            </thead>
+
+            <tbody>
+                {AllDptReportTable}
+                <tr>
+                    <td align="right" colspan="2" style="border: solid 1px #ccc; height: 25px; padding-right: 10px;"><b> Total </b></td>
+                    <td align="center" style="border: solid 1px #ccc; height: 25px;"><b> {AllTotal} </b></td>
+                </tr>
+            </tbody>
+
+        </table>
+
+        <p style="line-height: 22px;">
+            In this regard, please find status of entries for your
+            department in Jankalyan Portal.
+        </p>
+        <p style="line-height: 22px;">
+            You are requested to kindly direct the concern to update the portal
+            on regular basis and also upload the data since 17 December 2018.
+        </p>
+        <p style="line-height: 22px;">
+            If your department is not included in this report then please let
+            us know.
+        </p>
+
+        <h3 style="text-align: center;"> Status Report of {DptName}</h3>
+
+        <table border="1" bordercolor="#ccc" cellpadding="0" cellspacing="0" width="100%" bgcolor="#FFFFFF" style="margin:20px auto; font-family:Arial,Helvetica,sans-serif; font-size:14px">
+            <thead>
+
+            <th align="center" style="background-color: #02aad7; color: #fff; height: 35px; ">S.No</th>
+            <th align="left" style="background-color: #02aad7; color: #fff; height: 35px;  padding-left: 10px;">Category</th>
+            <th align="center" style="background-color: #02aad7; color: #fff; height: 35px; ">No. of Entries</th>
+            </thead>
+
+            <tbody>
+
+                {DptReportTable}
+
+                <tr>
+                    <td align="right" colspan="2" style=" height: 25px; padding-right: 10px;"><b> Total </b></td>
+                    <td align="center" style=" height: 25px;"><b>  {DeptTotal} </b></td>
+                </tr>
+            </tbody>
+
+        </table>
+        <p style="line-height: 22px;">Thanks & Regards</p>
+        <p style="line-height: 22px;">IT Cell, CMO</p>
+    </div>
+
+</body>
+</html>
