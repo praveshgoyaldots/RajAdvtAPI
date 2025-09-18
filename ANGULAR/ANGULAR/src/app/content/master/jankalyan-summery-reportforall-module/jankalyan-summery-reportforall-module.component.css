@@ -1,0 +1,14 @@
+table {
+  width: 100%;
+}
+
+tr.mat-footer-row {
+  font-weight: bold;
+}
+
+tr:nth-child(even) {
+  background-color: rgb(224, 224, 224);
+}
+table.mat-table th:last-child, table.mat-table tr td:last-child {
+  text-align: left;
+}

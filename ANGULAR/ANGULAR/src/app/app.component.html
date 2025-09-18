@@ -1,0 +1,59 @@
+<ng-container *ngIf="_authenticationService.IsAuthentication==true">
+  <app-header *ngIf="checkUrl();" [PageTitle]="layoutmodel?.Title"></app-header>
+
+  <mat-drawer-container class="example-container shadow_right" autosize >
+
+    <mat-drawer #drawer class="example-sidenav" [ngClass]="!isVCGURL?'nosidebar':''"  mode="side" opened fixedInViewport="true" >
+      <app-sidenav-bar ></app-sidenav-bar>
+    </mat-drawer>
+
+    <button type="button" class="drawer-btn" mat-button (click)="drawer.toggle()" [ngClass]="!isVCGURL?'nosidebar':''">
+      <mat-icon>menu</mat-icon>
+    </button>
+
+
+    <app-loader></app-loader>
+    <!-- <mat-spinner [diameter]="50" *ngIf="showSpinner"></mat-spinner> -->
+
+
+
+    <div class="example-sidenav-content">
+
+      <div [ngClass]="{'white-bx white-bx-margin':isDashBoard == false,'dashboard-white-box':isDashBoard == true}">
+        <div class="row light-bg" *ngIf="!isMaster">
+          <div class="col l6 xl6 m6 s6 ">
+            <h5 class="page-title">{{layoutmodel?.Title}}</h5>
+          </div>
+          <div class="col l6 xl6 m6 s6 text-right" *ngIf="layoutmodel?.Maticontitle.length>0">
+            <button mat-button class="btn-submit mt-6" *ngIf="isdefaultBackUrl" routerLink={{layoutmodel?.Routelink}} (click)="cancel()">
+              <mat-icon>{{layoutmodel?.Maticon}}</mat-icon>{{layoutmodel?.Maticontitle}}
+            </button>
+
+            <button mat-button class="btn-submit mt-6" *ngIf="!isdefaultBackUrl" routerLink={{layoutmodel?.Routelink}}>
+              <mat-icon>{{layoutmodel?.Maticon}}</mat-icon>{{layoutmodel?.Maticontitle}}
+            </button>
+          </div>
+        </div>
+
+        <alert></alert>
+        <main #contentArea>
+          <router-outlet></router-outlet>
+        </main>
+        <!-- <router-outlet></router-outlet> -->
+      </div>
+    </div>
+
+
+    <app-footer *ngIf="checkUrl();"></app-footer>
+  </mat-drawer-container>
+
+</ng-container>
+
+<ng-container *ngIf="!_authenticationService.IsAuthentication">
+  <mat-spinner [diameter]="100" style="position: relative;margin-left:50%;margin-right: 50%;"></mat-spinner>
+</ng-container>
+<!-- <button mat-icon-button >
+   <mat-icon *ngIf="isShow" (click)="scroll();">keyboard_arrow_up</mat-icon>
+</button> -->
+
+

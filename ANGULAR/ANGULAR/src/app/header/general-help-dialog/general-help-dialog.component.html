@@ -1,0 +1,19 @@
+<div class="modal-header">
+  <p>General Help</p>
+  <button mat-button (click)="onNoClick()">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+
+<div class="col l12 s12 " *ngIf="listModel[0]?.PdfFIleName; else NoRecord">
+  <div class="col l6 xl6 m6 s12">
+    <object *ngIf="listModel[0]?.PdfFIleName" width="100%" height="650px">
+      <iframe title="PDF" [src]="PDFFile" type="application/pdf" frameborder="0" width="100%" height="650px"></iframe>
+    </object>
+  </div>
+</div>
+<ng-template #NoRecord>
+  <div class="col l12 s12 ">
+    No Record.
+  </div>
+</ng-template>

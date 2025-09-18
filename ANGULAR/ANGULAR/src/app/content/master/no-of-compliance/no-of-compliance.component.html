@@ -1,0 +1,141 @@
+<div class="row mt-0 detail-bx scheme_detail_page">
+
+  <div class="col s12">
+    <section class="mat-typography d-flex align-items-center justify-content-between header-2-colum">
+      <h2 class="result-title-sm"> <span> Department: </span> {{department}} </h2>
+      <h2 class="result-title-sm"> <span> Module: </span> {{module}} </h2>
+    </section>
+  </div>
+
+
+  <div class="border-box-data w-100">
+  <h2>No Of Unique Compliance Of All Module(Work Entry, Government Document, Scheme, General Entry) </h2>
+
+  <div class="row highlight_view parameter_bx" *ngIf="model?.NoOfComplianceCollectionList?.length > 0">
+
+    <table class="table new_table table_border">
+      <thead>
+        <tr>
+          <th scope="col">Sr.No</th>
+          <th scope="col">Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+            *ngFor="let item of model?.NoOfComplianceCollectionList; let i = index"
+            [attr.data-index]="i"
+          >
+          <th scope="row">{{i+1}}</th>
+          <td>{{ item.Description }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+  <div class="border-box-data">
+   <h2>Module Wise No Of Unique Compliance </h2>
+  <div class="row highlight_view parameter_bx" *ngIf="projectModel?.length > 0">
+    <div class="col s12">
+      <section class="mat-typography">
+        <h2 class="result-title-sm">No Of Unique Entry in Work Entry</h2>
+      </section>
+    </div>
+
+    <table class="table new_table table_border">
+      <thead>
+        <tr>
+          <th scope="col">Sr.No</th>
+          <th scope="col">Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+            *ngFor="let item of projectModel; let i = index"
+            [attr.data-index]="i"
+          >
+          <th scope="row">{{i+1}}</th>
+          <td>{{ item.Description }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="row highlight_view parameter_bx" *ngIf="orderModel?.length > 0">
+    <div class="col s12">
+      <section class="mat-typography">
+        <h2 class="result-title-sm">No Of Unique Entry in Government Document</h2>
+      </section>
+    </div>
+
+    <table class="table new_table table_border">
+      <thead>
+        <tr>
+          <th scope="col">Sr.No</th>
+          <th scope="col">Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+            *ngFor="let item of orderModel; let i = index"
+            [attr.data-index]="i"
+          >
+          <th scope="row">{{i+1}}</th>
+          <td>{{ item.Description }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="row highlight_view parameter_bx" *ngIf="schemeModel?.length > 0">
+    <div class="col s12">
+      <section class="mat-typography">
+        <h2 class="result-title-sm">No Of Unique Entry in Scheme</h2>
+      </section>
+    </div>
+
+    <table class="table new_table table_border">
+      <thead>
+        <tr>
+          <th scope="col">Sr.No</th>
+          <th scope="col">Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+            *ngFor="let item of schemeModel; let i = index"
+            [attr.data-index]="i"
+          >
+          <th scope="row">{{i+1}}</th>
+          <td>{{ item.Description }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="row highlight_view parameter_bx" *ngIf="achievmentModel?.length > 0">
+    <div class="col s12">
+      <section class="mat-typography">
+        <h2 class="result-title-sm">No Of Unique Entry in General Entry</h2>
+      </section>
+    </div>
+
+    <table class="table new_table table_border">
+      <thead>
+        <tr>
+          <th scope="col">Sr.No</th>
+          <th scope="col">Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+            *ngFor="let item of achievmentModel; let i = index"
+            [attr.data-index]="i"
+          >
+          <th scope="row">{{i+1}}</th>
+          <td>{{ item.Description }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+</div>

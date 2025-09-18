@@ -1,0 +1,19 @@
+.custom-data-table tr td h2 {
+
+  font-weight: 600;
+}
+.order-d-box {
+  width: 100%;
+  margin-bottom: 25px;
+  padding: 20px 10px 10px 10px;
+  border: solid 1px #ccc;
+  position: relative;
+  margin-top: 15px;
+}
+.order-d-box .order-d-box__title {
+  position: absolute;
+  font-size: 20px;
+  top: -19px;
+  background: #fff;
+  padding: 0px 10px;
+}

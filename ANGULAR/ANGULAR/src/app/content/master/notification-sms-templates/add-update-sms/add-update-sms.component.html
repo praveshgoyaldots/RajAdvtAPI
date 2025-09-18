@@ -1,0 +1,35 @@
+<form [formGroup]="smsForm">
+
+    <div class="row">
+
+        <div class="col l6">
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Template Type
+                </mat-label>
+                <mat-select [(ngModel)]="model.TypeCode" #TypeCode formControlName="TypeCode">
+                    <mat-option>--Select--</mat-option>
+                    <mat-option value="{{k.Value}}" *ngFor="let k of dDLList?.ddlNotificationTemplateType">{{k.Text}}</mat-option>
+                </mat-select>
+
+            </mat-form-field>
+            <mat-error *ngIf="smsForm.get('TypeCode').hasError('required') && (smsForm.get('TypeCode').touched && smsForm.get('TypeCode').invalid)">
+                Type is <strong>required!</strong>
+            </mat-error>
+        </div>
+
+        <div class="col l6">
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>SMS Content
+                </mat-label>
+                <input matInput placeholder="SMS Content" formControlName="SMSContent" #SMSContent [(ngModel)]="model.SMSContent">
+            </mat-form-field>
+            <mat-error *ngIf="smsForm.get('SMSContent').hasError('required') && (smsForm.get('SMSContent').touched && smsForm.get('SMSContent').invalid)">
+                SMS Content is <strong>required!</strong>
+            </mat-error>
+        </div>
+
+        <div class="col l12 x8 m4 s12 ">
+            <button mat-button class="btn-submit" (click)="saveClick()">Submit</button>
+        </div>
+    </div>
+</form>

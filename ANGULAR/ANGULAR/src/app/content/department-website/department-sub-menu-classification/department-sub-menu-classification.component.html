@@ -1,0 +1,369 @@
+<div class="col l12 s12">
+  <div class="row m-20 mb-0 scheme-sear-bg-1 no-margin">
+    <div class="row m-20 mb-0">
+      <div class="col l3 xl3 m6 s12">
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Modified From Date</mat-label>
+          <input matInput [matDatepicker]="picker2" (focus)="picker2.open()" readonly placeholder="Date"
+            [(ngModel)]="indexModel.ModifiedFromDate" [max]="indexModel.ModifiedToDate">
+          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <div class="col l3 xl3 m6 s12">
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Modified To Date</mat-label>
+          <input matInput [matDatepicker]="picker1" (focus)="picker1.open()" readonly placeholder="Date"
+            [(ngModel)]="indexModel.ModifiedToDate" [min]="indexModel.ModifiedFromDate">
+          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <div class="col l3 xl3 m6 s12">
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label> Department</mat-label>
+          <mat-select [(ngModel)]="indexModel.DepartmentCode"
+            (selectionChange)="GetDepartmentMainMenuByDepartment($event.value)">
+            <mat-option value="">--Select Department--</mat-option>
+            <mat-option value="{{ k.DepartmentCode }}" *ngFor="let k of ddlDepartment" title={{k.DepartmentTitle}}>
+              {{ k.DepartmentTitle }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="col l3 xl3 m6 s12">
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label> Department Main Menu </mat-label>
+          <mat-select [(ngModel)]="indexModel.MainMenuCode">
+            <mat-option>--Select--</mat-option>
+            <mat-option value="{{ k.Value }}" *ngFor="let k of ddlmainmenulist">{{ k.Text }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="col l3 xl3 m6 s12">
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label> Module Name </mat-label>
+          <mat-select [(ngModel)]="indexModel.ModuleName" (selectionChange)="GetModuleCategoryByModule($event.value)">
+            <mat-option>--Select--</mat-option>
+            <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlModuleCategoryList">{{ k.Text }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="col l3 xl3 m6 s12">
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label> Module Category </mat-label>
+          <mat-select [(ngModel)]="indexModel.ModuleCategoryCode"
+            (selectionChange)="GetModuleSubCategoryByModule(indexModel.ModuleName,$event.value)">
+            <mat-option>--Select--</mat-option>
+            <mat-option value="{{ k.Value }}" *ngFor="let k of ddlModuleCategory">{{ k.Text }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="col l3 xl3 m6 s12" *ngIf="ddlModuleSubCategory?.length>0">
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label> Module Sub Category </mat-label>
+          <mat-select [(ngModel)]="indexModel.ModuleSubCategoryCode">
+            <mat-option>--Select--</mat-option>
+            <mat-option value="{{ k.Value }}" *ngFor="let k of ddlModuleSubCategory">{{ k.Text }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="col l3 xl3 m6 s12">
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label> Modified By</mat-label>
+          <mat-select [(ngModel)]="indexModel.ModifiedBy">
+            <mat-option value="{{item.Value}}" *ngFor="let item of dDLList?.ddlModifiedByUserForDepartmentSubMenu">
+              {{item.Text}} </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="col l3 xl3 m6 s12">
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label> Department Sub Menu </mat-label>
+          <mat-select [(ngModel)]="indexModel.DepartmentSubMenuCode">
+            <mat-option>--Select--</mat-option>
+            <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlDepartmentSubMenuList">{{ k.Text }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="col l3 xl3 m6 s12">
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label> Sub Menu Type </mat-label>
+          <mat-select [(ngModel)]="indexModel.SubMenuShowAsSeparateCode">
+            <mat-option value="0">All</mat-option>
+            <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.RadioDepartmentSubMenuShowAsSeparate">
+              {{k.Text}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="col l3 xl3 m6 s12">
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label> Content Type </mat-label>
+          <mat-select [(ngModel)]="indexModel.RedirectionManagementRadio">
+            <mat-option value="0">All</mat-option>
+            <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.RadioDepartmentSubMenuRedirectionManagement">
+              {{k.Text}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="col l3 xl3 m6 s12">
+        <mat-label class="mr-5">Get Active De-Active Data</mat-label>
+        <br />
+        <mat-radio-group class="radio_grp" aria-label="Select an option" [(ngModel)]="indexModel.Status">
+          <mat-radio-button [value]="1" (change)="getActiveDeActiveData(1)" [checked]="indexModel.Status==1">Active
+          </mat-radio-button>
+          <mat-radio-button [value]="0" (change)="getActiveDeActiveData(0)">De-Active</mat-radio-button>
+          <mat-radio-button [value]="-1" (change)="getActiveDeActiveData(-1)">Both</mat-radio-button>
+        </mat-radio-group>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-global-list-search [SearchFields]="searchColumns" (onSearch)="SearchByKeyword($event)" (clear)="Reset()">
+</app-global-list-search>
+
+<div class="row">
+  <div class="col l12 s12 p-0">
+    <div class="table-responsive">
+      <table mat-table [dataSource]="dataSource" matSort (matSortChange)="SortData($event)" class="mat-elevation-z8"
+        style="vertical-align:top !important;overflow-wrap: break-word;">
+        <ng-container matColumnDef="index">
+          <th mat-header-cell *matHeaderCellDef>#</th>
+          <td mat-cell *matCellDef="let element; let i = index">
+            {{ (indexModel.Page - 1) * indexModel.PageSize + (i + 1) }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Department">
+          <th mat-header-cell *matHeaderCellDef>
+            <table class="table-in-data-head">
+              <tbody>
+                <tr>
+                  <td>Department</td>
+                </tr>
+                <tr>
+                  <td>Main Menu</td>
+                  <!-- <td>Department Main Menu</td> -->
+                </tr>
+              </tbody>
+            </table>
+          </th>
+          <td mat-cell *matCellDef="let element">
+            <table class="table-in-data">
+              <tbody>
+                <tr>
+                  <td title={{element.DepartmentTitle}}>{{element.DepartmentTitle}}</td>
+                </tr>
+                <tr>
+                  <td title={{element.DepartmentMainMenuName}}>{{ element.DepartmentMainMenuName }} </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </ng-container>
+        
+        <ng-container matColumnDef="Type">
+          <th mat-header-cell *matHeaderCellDef>
+            <table class="table-in-data-head">
+              <tbody>
+                <tr>
+                  <td>Sub-Menu Type</td>
+                </tr>
+                <tr>
+                  <td>Content Type</td>
+                </tr>
+              </tbody>
+            </table>
+          </th>
+          <td mat-cell *matCellDef="let element">
+            <table class="table-in-data">
+              <tbody>
+                <tr>
+                  <td title={{element.SubMenuShowAsSeparateName}}>{{element.SubMenuShowAsSeparateName}}</td>
+                </tr>
+                <tr>
+                  <td title={{element.RedirectionManagementRadioName}}>{{ element.RedirectionManagementRadioName }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Module">
+          <th mat-header-cell *matHeaderCellDef>
+            <table class="table-in-data-head">
+              <tbody>
+                <tr>
+                  <td>Module Name</td>
+                </tr>
+                <tr>
+                  <td>Module Category</td>
+                </tr>
+              </tbody>
+            </table>
+          </th>
+          <td mat-cell *matCellDef="let element">
+            <table class="table-in-data">
+              <tbody>
+                <tr>
+                  <td title={{element.ModuleNameEnglish}}>{{element.ModuleNameEnglish}}</td>
+                </tr>
+                <tr>
+                  <td title={{element.ModuleCategoryNameEnglish}}>{{ element.ModuleCategoryNameEnglish }} </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="DisplayNameEnglish">
+          <th mat-header-cell *matHeaderCellDef>
+            <table class="table-in-data-head">
+              <tbody>
+                <tr>
+                  <td>Display Name English</td>
+                </tr>
+                <tr>
+                  <td>Display Name Hindi</td>
+                </tr>
+              </tbody>
+            </table>
+          </th>
+          <td mat-cell *matCellDef="let element">
+            <table class="table-in-data">
+              <tbody>
+                <tr>
+                  <td title={{element.DisplayNameEnglish}}>{{element.DisplayNameEnglish}}</td>
+                </tr>
+                <tr>
+                  <td title={{element.DisplayNameHindi}}>{{ element.DisplayNameHindi }} </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="DisplayOrder">
+          <th mat-header-cell *matHeaderCellDef>
+            <table class="table-in-data-head">
+              <tbody>
+                <tr>
+                  <td>Display Order</td>
+                </tr>
+                <tr>
+                  <td> Is Sub Menu</td>
+                </tr>
+                <tr>
+                  <td> Sub Menu Name</td>
+                </tr>
+              </tbody>
+            </table>
+          </th>
+          <td mat-cell *matCellDef="let element">
+            <table class="table-in-data">
+              <tbody>
+                <tr>
+                  <td>{{element.DisplayOrder}}</td>
+                </tr>
+                <tr>
+                  <td>{{element.IsSubMenu?'Yes':'No'}}</td>
+                </tr>
+                <tr>
+                  <td title={{element.DepartmentSubSubMenuName}}>{{ element.DepartmentSubSubMenuName }} </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </ng-container>
+
+        <ng-container [matColumnDef]="column.Value" *ngFor="let column of ViewdisplayedColumns">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            {{ column.Text }}
+          </th>
+          <td mat-cell *matCellDef="let element">{{ element[column.Value] }}</td>
+        </ng-container>
+
+        <!-- <ng-container matColumnDef="IsActive">
+          <th mat-header-cell *matHeaderCellDef> Active Status </th>
+          <td mat-cell *matCellDef="let element" class="action-link toogle-btn">
+            <a *ngIf="this.DepartmentSubMenuClassificationPermission.UpdatePageAccess"
+              (click)="OnStatusClick(element.Id)" title="Update Active Status">
+              <mat-icon *ngIf="element.IsActive" style="cursor:pointer;color: #74cb74;">toggle_on</mat-icon>
+              <mat-icon *ngIf="!element.IsActive" style="cursor:pointer;color: #ff7373;">toggle_off</mat-icon>
+            </a>
+            <a *ngIf="!this.DepartmentSubMenuClassificationPermission.UpdatePageAccess" title="Active Status">
+              <mat-icon *ngIf="element.IsActive" style="cursor:pointer;color: #74cb74;">toggle_on</mat-icon>
+              <mat-icon *ngIf="!element.IsActive" style="cursor:pointer;color: #ff7373;">toggle_off</mat-icon>
+            </a>
+          </td>
+        </ng-container> -->
+
+        <ng-container matColumnDef="CreatedDate">
+          <th mat-header-cell *matHeaderCellDef>Created By/<br>Created Date</th>
+          <td mat-cell *matCellDef="let element; let i = index;">{{element.CreatedByName}} /<br>
+            {{ element.CreatedDate !=null ? (element.CreatedDate | date: 'dd/MM/yyy, h:mm:ss a') :'--'}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="ModifiedBy">
+          <th mat-header-cell *matHeaderCellDef>Modified By/<br>Modified Date</th>
+          <td mat-cell *matCellDef="let element; let i = index;">
+            {{element.ModifiedByName}} {{(element.ModifiedDate | date: 'dd/MM/yyy, h:mm:ss a')}}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Action">
+          <th mat-header-cell *matHeaderCellDef>Active Status/<br>Action</th>
+          <td mat-cell *matCellDef="let element" class="action-link">
+
+            <div class="d-flex">
+            <div class="action-link toogle-btn">
+              <a *ngIf="this.DepartmentSubMenuClassificationPermission.UpdatePageAccess"
+                (click)="OnStatusClick(element.Id)" title="Update Active Status">
+                <mat-icon *ngIf="element.IsActive" style="cursor:pointer;color: #74cb74;">toggle_on</mat-icon>
+                <mat-icon *ngIf="!element.IsActive" style="cursor:pointer;color: #ff7373;">toggle_off</mat-icon>
+              </a>
+              <a *ngIf="!this.DepartmentSubMenuClassificationPermission.UpdatePageAccess" title="Active Status">
+                <mat-icon *ngIf="element.IsActive" style="cursor:pointer;color: #74cb74;">toggle_on</mat-icon>
+                <mat-icon *ngIf="!element.IsActive" style="cursor:pointer;color: #ff7373;">toggle_off</mat-icon>
+              </a>
+            </div>
+
+            <a *ngIf="this.DepartmentSubMenuClassificationPermission.UpdatePageAccess && !element.IsLock "
+              routerLink="/department-website/department-submenu-Classification/update/{{ element.Id }}" title="Edit"
+              class="btn_edit">
+              <mat-icon>edit</mat-icon>
+            </a>
+          </div>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+        <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
+      </table>
+    </div>
+
+    <mat-paginator #paginator [length]="totalRecords" [pageSize]="indexModel.PageSize"
+      [pageSizeOptions]="[5, 10, 20, 50,totalRecords]" (page)="onPaginateChange($event)" showFirstLastButtons
+      style="display: none;">
+    </mat-paginator>
+  </div>
+</div>

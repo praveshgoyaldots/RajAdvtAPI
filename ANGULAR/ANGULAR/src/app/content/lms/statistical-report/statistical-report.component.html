@@ -1,0 +1,53 @@
+<app-report-advance-search (outputModel)="getAdvanceSearchReportData($event)"></app-report-advance-search>
+
+<div class="row">
+    <div class="col l12 s12">
+
+        <table class="mat-elevation-z8 normal-table">
+            <tr>
+                <th rowspan="2">S.No.</th>
+                <th rowspan="2">{{groupBy1_Txt}}</th>
+                <th rowspan="2" *ngIf="groupBy2_Txt">{{groupBy2_Txt}}</th>
+                <th rowspan="2">Total</th>
+                <th colspan="3">Department</th>
+                <th colspan="3">CMO</th>
+            </tr>
+            <tr>
+                <th>Pending</th>
+                <th>Interim</th>
+                <th>Disposed</th>
+                <th>Pending</th>
+                <th>Interim</th>
+                <th>Disposed</th>
+            </tr>
+            <tr *ngFor="let row of statisticalReport; let i = index;">
+                <td class="center">{{(reportIndexModel.Page-1)*reportIndexModel.PageSize+(i+1)}}</td>
+                <td>{{row.GroupBy1_Title}}</td>
+                <td *ngIf="groupBy2_Txt">{{row.GroupBy2_Title}}</td>
+                <td class="center">{{ row.Total }}</td>
+                <td class="center">{{ row.Department_Pending }}</td>
+                <td class="center">{{ row.Department_Interim }}</td>
+                <td class="center">{{ row.Department_Disposed }}</td>
+                <td class="center">{{ row.CMO_Pending }}</td>
+                <td class="center">{{ row.CMO_Interim }}</td>
+                <td class="center">{{ row.CMO_Disposed }}</td>
+            </tr>
+            <tr *ngIf="statisticalReport.length === 0">
+                <td colspan="10" class="center" *ngIf="groupBy2_Txt; else otherNoRecord">No record found.</td>
+                <ng-template #otherNoRecord>
+                    <td colspan="9" class="center">No record found.</td>
+                </ng-template>
+            </tr>
+        </table>
+
+        <mat-paginator #paginator [length]="totalRecords" [pageSize]="reportIndexModel.PageSize"
+            [pageSizeOptions]="[5, 10, 20, 50]" (page)="onPaginateChange($event)" showFirstLastButtons>
+        </mat-paginator>
+
+    </div>
+
+    <div class="col l12 x8 m4 s12 clearfix mt-20">
+        <button mat-button class="btn-submit" (click)="openDialog();">Group By</button>
+    </div>
+
+</div>

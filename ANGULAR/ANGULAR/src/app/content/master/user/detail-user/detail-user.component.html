@@ -1,0 +1,306 @@
+<div class="row mt-20 detail-bx">
+  <div class="table-responsive">
+    <table class="table custom-data-table table-simple-data">
+      <tbody>
+        <tr>
+          <td>
+            <section class="mat-typography">
+              <h2 class="color-blue">profile Image :</h2>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <div class="color-grey" *ngIf="model?.ProfilePic"> <img [src]="model?.ProfilePic" height="100px"
+                  width="100px" /></div>
+              <div class="color-grey" *ngIf="!model?.ProfilePic"> <img src="../../../../../assets/images/profile.png"
+                  height="100px" width="100px" /></div>
+            </section>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <section class="mat-typography">
+              <h2 class="color-blue">Name</h2>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <h3 class="color-grey"><span *ngIf="model?.Title"> {{ model.Title}}</span>
+                <span *ngIf="model?.UserName"> {{ model.UserName}}</span></h3>
+              <h3 class="color-grey" *ngIf="!model?.UserName">--</h3>
+            </section>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <section class="mat-typography">
+              <h2 class="color-blue">SSO :</h2>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.SSOID">{{model?.SSOID}}</h3>
+
+            </section>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <section class="mat-typography">
+              <h2 class="color-blue">User Type</h2>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.UserTypeTitle">{{model?.UserTypeTitle}}</h3>
+              <h3 class="color-grey" *ngIf="!model?.UserTypeTitle">--</h3>
+            </section>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <section class="mat-typography">
+              <h2 class="color-blue">Email :</h2>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.UserEmail"> {{model?.UserEmail}}</h3>
+              <h3 class="color-grey" *ngIf="!model?.UserEmail">--</h3>
+            </section>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <section class="mat-typography">
+              <h2 class="color-blue">Designation :</h2>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.DesignationName"> {{model?.DesignationName}}</h3>
+              <h3 class="color-grey" *ngIf="!model?.DesignationName">--</h3>
+            </section>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <section class="mat-typography">
+              <h2 class="color-blue">Gender :</h2>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.Gender">{{model?.Gender}}
+              </h3>
+              <h3 class="color-grey" *ngIf="!model?.Gender">--</h3>
+            </section>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <section class="mat-typography">
+              <h2 class="color-blue">Mobile :</h2>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.Mobile">{{model?.Mobile}}
+              </h3>
+              <h3 class="color-grey" *ngIf="!model?.Mobile">--</h3>
+            </section>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <section class="mat-typography">
+              <h2 class="color-blue"> Landline :</h2>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.LandlineNo">
+                {{model?.LandlineNo}}</h3>
+              <h3 class="color-grey" *ngIf="!model?.LandlineNo">--</h3>
+            </section>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <section class="mat-typography">
+              <h2 class="color-blue">Ip number :</h2>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.IPNo">{{model?.IPNo}}</h3>
+              <h3 class="color-grey" *ngIf="!model?.IPNo">--</h3>
+            </section>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <section class="mat-typography">
+              <h2 class="color-blue">Office :</h2>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.OfficeName">{{model?.OfficeName}}</h3>
+              <h3 class="color-grey" *ngIf="!model?.OfficeName">--</h3>
+            </section>
+          </td>
+        </tr>
+
+        <tr *ngIf="(model.UserType==userTypes.CMOS||model.UserType==userTypes.CMOO)">
+          <td>
+            <section class="mat-typography">
+              <h2 class="color-blue">Group :</h2>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.GroupName">{{model?.GroupName}}</h3>
+              <h3 class="color-grey" *ngIf="!model?.GroupName">--</h3>
+            </section>
+          </td>
+        </tr>
+
+        <tr
+          *ngIf="(model.UserType==userTypes.DPTO||model.UserType==userTypes.DPTS||model.UserType==userTypes.TLO||model.UserType==userTypes.MNSTR)">
+          <td>
+            <section class="mat-typography">
+              <h2 class="color-blue">Admin Department :</h2>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.AdminDepartmentNames">{{model?.AdminDepartmentNames}}
+              </h3>
+              <h3 class="color-grey" *ngIf="!model?.AdminDepartmentNames">--</h3>
+            </section>
+          </td>
+        </tr>
+
+        <tr
+          *ngIf="(model.UserType==userTypes.DPTO||model.UserType==userTypes.DPTS||model.UserType==userTypes.TLO||model.UserType==userTypes.MNSTR)">
+          <td>
+            <section class="mat-typography">
+              <h2 class="color-blue"> Department :</h2>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.DepartmentNames">{{model?.DepartmentNames}}
+              </h3>
+              <h3 class="color-grey" *ngIf="!model?.DepartmentNames">--</h3>
+            </section>
+          </td>
+        </tr>
+
+
+        <tr
+          *ngIf="(model.UserType==userTypes.DCOM||model.UserType==userTypes.COLL||model.UserType==userTypes.TEHDR||model.UserType==userTypes.BDO||model.UserType==userTypes.MLAMP)">
+          <td>
+            <section class="mat-typography">
+              <h2 class="color-blue"> Division :</h2>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.DivisionNames">{{model?.DivisionNames}}
+              </h3>
+              <h3 class="color-grey" *ngIf="!model?.DivisionNames">--</h3>
+            </section>
+          </td>
+        </tr>
+
+        <tr
+          *ngIf="model.UserType==userTypes.COLL||model.UserType==userTypes.TEHDR||model.UserType==userTypes.BDO||model.UserType==userTypes.MLAMP">
+          <td>
+            <section class="mat-typography">
+              <h2 class="color-blue"> District :</h2>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.DistrictNames">{{model?.DistrictNames}}
+              </h3>
+              <h3 class="color-grey" *ngIf="!model?.DistrictNames">--</h3>
+            </section>
+          </td>
+        </tr>
+
+        <tr *ngIf="model.UserType==userTypes.BDO">
+          <td>
+            <section class="mat-typography">
+              <h2 class="color-blue"> Block :</h2>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.BlockNames">{{model?.BlockNames}}
+              </h3>
+              <h3 class="color-grey" *ngIf="!model?.BlockNames">--</h3>
+            </section>
+          </td>
+        </tr>
+
+        <tr *ngIf="model.UserType==userTypes.TEHDR">
+          <td>
+            <section class="mat-typography">
+              <h2 class="color-blue"> Tehsil :</h2>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.TehsilNames">{{model?.TehsilNames}}
+              </h3>
+              <h3 class="color-grey" *ngIf="!model?.TehsilNames">--</h3>
+            </section>
+          </td>
+        </tr>
+
+        <tr *ngIf="model.UserType==userTypes.MLAMP">
+          <td>
+            <section class="mat-typography">
+              <h2 class="color-blue"> Parliament Constituancy :</h2>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.PCNames">{{model?.PCNames}}
+              </h3>
+              <h3 class="color-grey" *ngIf="!model?.PCNames">--</h3>
+            </section>
+          </td>
+        </tr>
+
+        <tr *ngIf="model.UserType==userTypes.MLAMP">
+          <td>
+            <section class="mat-typography">
+              <h2 class="color-blue"> Assembly Constituancy :</h2>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.ACNames">{{model?.ACNames}}
+              </h3>
+              <h3 class="color-grey" *ngIf="!model?.ACNames">--</h3>
+            </section>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,40 @@
+<div class="row mt-20 detail-bx">
+  <div class="table-responsive">
+    <table class="table custom-data-table">
+      <tbody>
+        <tr>
+          <td>
+            <section class="mat-typography">
+              <h2 class="color-blue">Attachment Name:</h2>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <h3 class="color-grey">
+                <span *ngIf="model?.Attachment"> {{ model.Attachment }}</span>
+              </h3>
+              <h3 class="color-grey" *ngIf="!model?.Attachment">--</h3>
+            </section>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <section class="mat-typography">
+              <h2 class="color-blue">Attachment Name(Hindi):</h2>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.AttachmentHindi">
+                {{ model?.AttachmentHindi }}
+              </h3>
+              <h3 class="color-grey" *ngIf="!model?.AttachmentHindi">--</h3>
+            </section>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+</div>

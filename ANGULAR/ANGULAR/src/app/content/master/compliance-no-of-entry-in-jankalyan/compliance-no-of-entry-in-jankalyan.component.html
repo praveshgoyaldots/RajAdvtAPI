@@ -1,0 +1,529 @@
+<div class="row mb-20">
+  <fieldset class="w-100 fieldset-design" *ngIf="model.NodelUserList?.length>0">
+    <legend>Department Nodal Officers</legend>
+
+  <div class="col l4" *ngFor="let item of model.NodelUserList">
+    <div class="user-info-bx">
+    <!-- <h4>{{item.UserName}}({{item.SSOID}}) </h4> -->
+    <h4>{{item.SSOID}} </h4>
+    <p>{{item.CreatedUserContact}}</p>
+  </div>
+</div>
+</fieldset>
+</div>
+
+<div class="row  detail-bx scheme_detail_page">
+
+
+  <div class="col s12 mb-10">
+
+
+
+    <section class="mat-typography d-flex align-items-center justify-content-between  entry-colum-title">
+      <h2 class="result-title-sm"> Department: <span>{{filterModel.DepartmentName}} </span></h2>
+      <h2 class="result-title-sm"> Module: <span> {{filterModel.ModuleName}} </span></h2>
+
+    </section>
+
+    <section
+      class="mat-typography d-flex align-items-center justify-content-between  entry-colum-title entry-colum-title-grid">
+      <h2 class="result-title-sm"> Expacted Number Of Entries: <span> {{filterModel.NumberOfEntry}} </span> </h2>
+      <h2 class="result-title-sm"> Number Of Entries In Jankalyan: <span> {{totalEntry}} </span> </h2>
+      <h2 class="result-title-sm"> Compliance Percentage: <span> {{(((totalEntry ) /filterModel.NumberOfEntry) * 100) |
+          number : '1.2-2'}} </span></h2>
+    </section>
+
+  </div>
+  <div class="row highlight_view parameter_bx" *ngIf="model?.ProjectsList?.length > 0">
+    <div class="col s12">
+      <section class="mat-typography">
+        <h2 class="result-title-sm">No Of Entry in Work Entry</h2>
+      </section>
+    </div>
+
+    <table class="table new_table table_border">
+      <thead>
+        <tr>
+          <th scope="col">Sr.No</th>
+          <th scope="col">S/W Entry No</th>
+          <th scope="col">Attachments</th>
+          <th scope="col">
+
+            <table class="table-in-data-head">
+              <tbody>
+                <tr>
+                  <td>Para No</td>
+                </tr>
+                <tr>
+                  <td>Part No</td>
+                </tr>
+                <tr>
+                  <td>Year</td>
+                </tr>
+              </tbody>
+            </table>
+          </th>
+
+          <th scope="col">
+            <table class="table-in-data-head">
+              <tbody>
+                <tr>
+                  <td>Menu name</td>
+                </tr>
+                <tr>
+                  <td>Category</td>
+                </tr>
+                <tr>
+                  <td>Sub Category</td>
+                </tr>
+                <tr>
+                  <td>Work Type</td>
+                </tr>
+
+              </tbody>
+            </table>
+
+          </th>
+          <th scope="col">Compliance Required</th>
+          <th scope="col">Compliance Done</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of model?.ProjectsList; let i = index" [attr.data-index]="i">
+          <th scope="row">{{i+1}}</th>
+          <td>
+            <a routerLink="/master/projectmasterdetailReport/{{ item.ProjectMasterId }}/no-of-entry-in-jankalyan"
+              title="Work Entry Detail" class="btn-w-icon">
+              <span> {{ item.ProjectMasterId }} </span>
+              <mat-icon>visibility</mat-icon>
+            </a>
+          </td>
+          <td>
+            <!-- <a class="btn-w-icon btn-w-icon-bg-2" routerLink="/detail-report/{{item.Trans_Core}}"
+              title="View CMIS Detail">
+              <span> {{ item.Trans_Core }} </span>
+              <mat-icon>list</mat-icon>
+            </a> -->
+            <ul>
+
+              <li *ngFor="let url of item.Attachments; let i = index;">
+                <a *ngIf="url?.split('.')[1]=='pdf'" target="_blank" href="{{url}}">
+                  <mat-icon class="mat-icon notranslate material-icons mat-icon-no-color">picture_as_pdf</mat-icon>
+                </a>
+                <a *ngIf="url?.split('.')[1]!='pdf'" target="_blank" href="{{url}}">
+                  <mat-icon class="mat-icon notranslate material-icons mat-icon-no-color">image</mat-icon>
+                </a>
+              </li>
+            </ul>
+          </td>
+          <td>
+
+            <table class="table-in-data">
+              <tbody>
+                <tr>
+                  <td> {{ item.YearText }}</td>
+                </tr>
+                <tr>
+                  <td>{{ item.Para_No }}</td>
+                </tr>
+                <tr>
+                  <td>{{ item.Part_No }}</td>
+                </tr>
+              </tbody>
+            </table>
+
+          </td>
+          <td>
+            <table class="table-in-data">
+              <tbody>
+                <tr>
+                  <td> {{ item.PageTitle }}</td>
+                </tr>
+                <tr>
+                  <td>{{ item.CategoryName }}</td>
+                </tr>
+                <tr>
+                  <td>{{ item.SubCategoryName }}</td>
+                </tr>
+                <tr>
+                  <td>{{ item.SubSubCategoryName }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+          <td>{{ item.Description }}</td>
+          <td>{{ item.ComplianceDone }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="row highlight_view parameter_bx" *ngIf="model?.GovDocumentList?.length > 0">
+    <div class="col s12">
+      <section class="mat-typography">
+        <h2 class="result-title-sm">No Of Entry in Government Document</h2>
+      </section>
+    </div>
+
+    <table class="table new_table table_border">
+      <thead>
+        <tr>
+          <th scope="col">Sr.No</th>
+          <th scope="col">S/W Entry No</th>
+          <th scope="col">Attachments</th>
+          <th scope="col">
+
+            <table class="table-in-data-head">
+              <tbody>
+                <tr>
+                  <td>Para No</td>
+                </tr>
+                <tr>
+                  <td>Part No</td>
+                </tr>
+                <tr>
+                  <td>Year</td>
+                </tr>
+              </tbody>
+            </table>
+          </th>
+
+          <th scope="col">
+            <table class="table-in-data-head">
+              <tbody>
+                <tr>
+                  <td>Menu name</td>
+                </tr>
+                <tr>
+                  <td>Category</td>
+                </tr>
+                <tr>
+                  <td>Sub Category</td>
+                </tr>
+                <tr>
+                  <td>Work Type</td>
+                </tr>
+
+              </tbody>
+            </table>
+
+          </th>
+          <th scope="col">Compliance Required</th>
+          <th scope="col">Compliance Done</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of model?.GovDocumentList; let i = index" [attr.data-index]="i">
+          <th scope="row">{{i+1}}</th>
+          <td>
+
+            <a class="btn-w-icon" routerLink="/order/update/{{item.OrderEntryID}}/no-of-entry-in-jankalyan"
+              title="View and edit Government Document">
+              {{ item.OrderEntryID }}
+              <img src="assets/images/edit-view.png" alt="" class="icon-edit-view" />
+            </a>
+
+          </td>
+          <td>
+              <ul>
+
+                <li *ngFor="let url of item.Attachments; let i = index;">
+                  <a *ngIf="url?.split('.')[1]=='pdf'" target="_blank" href="{{url}}">
+                    <mat-icon class="mat-icon notranslate material-icons mat-icon-no-color">picture_as_pdf</mat-icon>
+                  </a>
+                  <a *ngIf="url?.split('.')[1]!='pdf'" target="_blank" href="{{url}}">
+                    <mat-icon class="mat-icon notranslate material-icons mat-icon-no-color">image</mat-icon>
+                  </a>
+                </li>
+              </ul>
+          </td>
+          <td>
+
+            <table class="table-in-data">
+              <tbody>
+                <tr>
+                  <td> {{ item.YearText }}</td>
+                </tr>
+                <tr>
+                  <td>{{ item.Para_No }}</td>
+                </tr>
+                <tr>
+                  <td>{{ item.Part_No }}</td>
+                </tr>
+              </tbody>
+            </table>
+
+          </td>
+          <td>
+            <table class="table-in-data">
+              <tbody>
+                <tr>
+                  <td> {{ item.PageTitle }}</td>
+                </tr>
+                <tr>
+                  <td>{{ item.CategoryName }}</td>
+                </tr>
+                <tr>
+                  <td>{{ item.SubCategoryName }}</td>
+                </tr>
+                <tr>
+                  <td>{{ item.SubSubCategoryName }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+          <td>{{ item.Description }}</td>
+          <td>{{ item.ComplianceDone }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="row highlight_view parameter_bx" *ngIf="model?.SchemeList?.length > 0">
+    <div class="col s12">
+      <section class="mat-typography">
+        <h2 class="result-title-sm">No Of Entry in Scheme</h2>
+      </section>
+    </div>
+
+    <table class="table new_table table_border">
+      <thead>
+        <tr>
+          <th scope="col">Sr.No</th>
+          <th scope="col">S/W Entry No</th>
+          <th scope="col">Attachments</th>
+          <th scope="col">
+
+            <table class="table-in-data-head">
+              <tbody>
+                <tr>
+                  <td>Para No</td>
+                </tr>
+                <tr>
+                  <td>Part No</td>
+                </tr>
+                <tr>
+                  <td>Year</td>
+                </tr>
+              </tbody>
+            </table>
+          </th>
+
+          <th scope="col">
+            <table class="table-in-data-head">
+              <tbody>
+                <tr>
+                  <td>Menu name</td>
+                </tr>
+                <tr>
+                  <td>Category</td>
+                </tr>
+                <tr>
+                  <td>Sub Category</td>
+                </tr>
+                <tr>
+                  <td>Work Type</td>
+                </tr>
+
+              </tbody>
+            </table>
+
+          </th>
+          <th scope="col">Compliance Required</th>
+          <th scope="col">Compliance Done</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of model?.SchemeList; let i = index" [attr.data-index]="i">
+          <th scope="row">{{i+1}}</th>
+          <td>
+
+            <a class="btn-w-icon" routerLink="/scheme/update/{{item.SchemeId}}/no-of-entry-in-jankalyan"
+              title="View and Edit Scheme">
+              <span> {{ item.SchemeId }} </span>
+              <img src="assets/images/edit-view.png" alt="" class="icon-edit-view" />
+            </a>
+
+          </td>
+          <td>
+            <!-- <a class="btn-w-icon btn-w-icon-bg-2" routerLink="/detail-report/{{item.Trans_Core}}"
+              title="View CMIS Detail">
+              <span>{{ item.Trans_Core }}</span>
+              <mat-icon>list</mat-icon>
+            </a> -->
+            <ul>
+
+              <li *ngFor="let url of item.Attachments; let i = index;">
+                <a *ngIf="url?.split('.')[1]=='pdf'" target="_blank" href="{{url}}">
+                  <mat-icon class="mat-icon notranslate material-icons mat-icon-no-color">picture_as_pdf</mat-icon>
+                </a>
+                <a *ngIf="url?.split('.')[1]!='pdf'" target="_blank" href="{{url}}">
+                  <mat-icon class="mat-icon notranslate material-icons mat-icon-no-color">image</mat-icon>
+                </a>
+              </li>
+            </ul>
+          </td>
+          <td>
+
+            <table class="table-in-data">
+              <tbody>
+                <tr>
+                  <td> {{ item.YearText }}</td>
+                </tr>
+                <tr>
+                  <td>{{ item.Para_No }}</td>
+                </tr>
+                <tr>
+                  <td>{{ item.Part_No }}</td>
+                </tr>
+              </tbody>
+            </table>
+
+          </td>
+          <td>
+            <table class="table-in-data">
+              <tbody>
+                <tr>
+                  <td> {{ item.PageTitle }}</td>
+                </tr>
+                <tr>
+                  <td>{{ item.CategoryName }}</td>
+                </tr>
+                <tr>
+                  <td>{{ item.SubCategoryName }}</td>
+                </tr>
+                <tr>
+                  <td>{{ item.SubSubCategoryName }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+          <td>{{ item.Description }}</td>
+          <td>{{ item.ComplianceDone }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="row highlight_view parameter_bx" *ngIf="model?.GeneralEntryList?.length > 0">
+    <div class="col s12">
+      <section class="mat-typography">
+        <h2 class="result-title-sm">No Of Entry in General Entry</h2>
+      </section>
+    </div>
+
+    <table class="table new_table table_border">
+      <thead>
+        <tr>
+          <th scope="col">Sr.No</th>
+          <th scope="col">S/W Entry No</th>
+          <th scope="col">Attachments</th>
+          <th scope="col">
+
+            <table class="table-in-data-head">
+              <tbody>
+                <tr>
+                  <td>Para No</td>
+                </tr>
+                <tr>
+                  <td>Part No</td>
+                </tr>
+                <tr>
+                  <td>Year</td>
+                </tr>
+              </tbody>
+            </table>
+          </th>
+
+          <th scope="col">
+            <table class="table-in-data-head">
+              <tbody>
+                <tr>
+                  <td>Menu name</td>
+                </tr>
+                <tr>
+                  <td>Category</td>
+                </tr>
+                <tr>
+                  <td>Sub Category</td>
+                </tr>
+                <tr>
+                  <td>Work Type</td>
+                </tr>
+
+              </tbody>
+            </table>
+
+          </th>
+          <th scope="col">Compliance Required</th>
+          <th scope="col">Compliance Done</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of model?.GeneralEntryList; let i = index" [attr.data-index]="i">
+          <th scope="row">{{i+1}}</th>
+          <td>
+            <a class="btn-w-icon"
+              routerLink="/advertisement/achievements/update-achievements/{{item.AchievementId}}/no-of-entry-in-jankalyan"
+              title="View and Edit General Entry">
+              <span>{{ item.AchievementId }}</span>
+              <img src="assets/images/edit-view.png" alt="" class="icon-edit-view" />
+            </a>
+          </td>
+          <td>
+            <!-- <a class="btn-w-icon btn-w-icon-bg-2" routerLink="/detail-report/{{item.Trans_Core}}"
+              title="View CMIS Detail">
+              <span>{{ item.Trans_Core }}</span>
+              <mat-icon>list</mat-icon>
+            </a> -->
+            <ul>
+
+              <li *ngFor="let url of item.Attachments; let i = index;">
+                <a *ngIf="url?.split('.')[1]=='pdf'" target="_blank" href="{{url}}">
+                  <mat-icon class="mat-icon notranslate material-icons mat-icon-no-color">picture_as_pdf</mat-icon>
+                </a>
+                <a *ngIf="url?.split('.')[1]!='pdf'" target="_blank" href="{{url}}">
+                  <mat-icon class="mat-icon notranslate material-icons mat-icon-no-color">image</mat-icon>
+                </a>
+              </li>
+            </ul>
+          </td>
+          <td>
+
+            <table class="table-in-data">
+              <tbody>
+                <tr>
+                  <td> {{ item.YearText }}</td>
+                </tr>
+                <tr>
+                  <td>{{ item.Para_No }}</td>
+                </tr>
+                <tr>
+                  <td>{{ item.Part_No }}</td>
+                </tr>
+              </tbody>
+            </table>
+
+          </td>
+          <td>
+            <table class="table-in-data">
+              <tbody>
+                <tr>
+                  <td> {{ item.PageTitle }}</td>
+                </tr>
+                <tr>
+                  <td>{{ item.CategoryName }}</td>
+                </tr>
+                <tr>
+                  <td>{{ item.SubCategoryName }}</td>
+                </tr>
+                <tr>
+                  <td>{{ item.SubSubCategoryName }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+          <td>{{ item.Description }}</td>
+          <td>{{ item.ComplianceDone }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

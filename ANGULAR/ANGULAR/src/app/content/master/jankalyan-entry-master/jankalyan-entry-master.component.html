@@ -1,0 +1,75 @@
+<!-- <alert ></alert> -->
+<div class="row">
+  <div class="col l12 s12 p-0">
+      <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8"  (matSortChange)="sortData($event)">
+
+                       <ng-container matColumnDef="index">
+              <th mat-header-cell *matHeaderCellDef>#</th>
+              <td mat-cell *matCellDef="let element; let i = index;">{{(indexModel.Page-1)*indexModel.PageSize +(i+1)}}</td>
+            </ng-container>
+
+        <ng-container [matColumnDef]="column.Value" *ngFor="let column of ViewdisplayedColumns">
+
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column.Text}} </th>
+          <td mat-cell *matCellDef="let element"> {{element[column.Value]}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="table-header-hindi"> Name <span> / sub Menu Name English </span> </th>
+          <td mat-cell *matCellDef="let group" class="action-link toogle-btn table-body-hindi" title={{group.Name}}>
+            {{ group.Name | slice:0:50}}{{ group.Name.length > 50 ? '...' : ''}}<span *ngIf="group.SubMenuNameEnglish"> / {{group.SubMenuNameEnglish}}</span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="NameHindi">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="table-header-hindi"> Name In Hindi <span> / Sub Menu Name Hindi </span> </th>
+          <td mat-cell *matCellDef="let group" class="action-link toogle-btn table-body-hindi" title={{group.NameHindi}}>
+            {{ group.NameHindi | slice:0:100}}{{ group.NameHindi.length > 100 ? '...' : ''}}<span *ngIf="group.SubMenuNameHindi"> / {{group.SubMenuNameHindi}}</span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="CategoryName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Category Name </th>
+          <td mat-cell *matCellDef="let group" class="action-link toogle-btn" title={{group.CategoryName}}>
+            {{ group.CategoryName}}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="CreatedBy">
+          <th mat-header-cell *matHeaderCellDef>Created By(Created Date) <br />Modified By(Modified Date) </th>
+          <td mat-cell *matCellDef="let element; let i = index;">{{element.CreatedByName}} ({{(element.CreatedDate | date: 'dd/MM/yyy , h:mm:ss a')}})
+            <br>
+            {{element.ModifiedByName}} ({{(element.ModifiedDate | date: 'dd/MM/yyy , h:mm:ss a')}})
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="IsActive">
+          <th mat-header-cell *matHeaderCellDef> Active Status </th>
+          <td mat-cell *matCellDef="let element" class="action-link toogle-btn">
+            <a *ngIf="this.Permission.UpdatePageAccess" (click)="OnStatusClick(element.Id)"
+              title="Update Active Status">
+              <mat-icon *ngIf="element.IsActive" style="cursor:pointer;color: #74cb74;">toggle_on</mat-icon>
+              <mat-icon *ngIf="!element.IsActive" style="cursor:pointer;color: #ff7373;">toggle_off</mat-icon>
+            </a>
+            <a *ngIf="!this.Permission.UpdatePageAccess" title="Active Status">
+              <mat-icon *ngIf="element.IsActive" style="cursor:pointer;color: #74cb74;">toggle_on</mat-icon>
+              <mat-icon *ngIf="!element.IsActive" style="cursor:pointer;color: #ff7373;">toggle_off</mat-icon>
+            </a>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Action">
+            <th mat-header-cell *matHeaderCellDef> Action </th>
+            <td mat-cell *matCellDef="let group" class="action-link">
+              <a routerLink="/master/JankalyanEntryType/update/{{ group.Id }}" *ngIf="this.Permission.UpdatePageAccess" title="edit"><mat-icon>edit</mat-icon></a>
+              </td>
+      </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+        <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+      </table>
+      <mat-paginator #paginator [length]="totalRecords" [pageSize]="indexModel.PageSize"
+      [pageSizeOptions]="[10, 20, 50,100]" (page)="onPaginateChange($event)" showFirstLastButtons
+      *ngIf="totalRecords!=0">
+    </mat-paginator>
+
+  </div>
+</div>

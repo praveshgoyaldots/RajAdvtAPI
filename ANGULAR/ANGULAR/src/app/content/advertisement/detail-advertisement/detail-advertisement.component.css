@@ -1,0 +1,18 @@
+.mat-h1, .mat-headline, .mat-typography h1 {
+    font: 400 20px/25px Roboto,"Helvetica Neue",sans-serif;
+    
+    }
+    .color-blue
+    {
+    color: #155ca1
+    }
+    .color-grey
+    {
+    color: #808080
+    }
+    .mat-h1, .mat-headline, .mat-typography h1, .mat-h4, .mat-subheading-1, .mat-typography h4, .mat-h3, .mat-subheading-2, .mat-typography h3
+    {
+    margin: 0 0 12px; 
+    }
+    .detail-bx{ border: solid 1px #f1f1f1; padding: 25px;}
+    img{ max-width: 100%;}

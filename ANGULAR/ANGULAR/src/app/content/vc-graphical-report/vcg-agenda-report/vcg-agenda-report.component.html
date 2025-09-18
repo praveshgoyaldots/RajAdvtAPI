@@ -1,0 +1,104 @@
+<!-- <div class="col s12 d-flex justify-space-between">
+  <ul class="breadcrumb">
+    <li><a href="javascript:void(0);" routerLink="/vc/participant/{{id}}"></a></li>
+    <li><a href="javascript:void(0);">Agenda</a></li>
+  </ul>
+  <a href="javascript:void(0);" routerLink="/vc/participant/{{id}}">Participant Report</a>
+  <button class="btn btn-info" routerLink="/vc">Back</button>
+</div>
+<button routerLink="/vcreport/vcdistrictreport/{{id}}">District</button>
+
+ -->
+<!-- <div class="row textdec" >
+  <div class="col s4 m4 l4 xl4">
+    <h6 >Meeting Title :</h6>
+    <h6>{{model?.ShortDescription}}</h6>
+  </div>
+
+  <div class="col s4 m4 l4 xl4">
+    <h6>Date :</h6>
+    <h6>{{model?.Date | date: 'dd/MM/yyyy' }}</h6>
+  </div>
+
+  <div class="col s4 m4 l4 xl4">
+    <h6>Time :</h6>
+    <h6>{{model?.Time}}</h6>
+  </div>
+
+</div> -->
+
+<div class="row top_bar_title">
+  <div class="col s12 m6 l8 xl8">
+    <h3>
+      Meeting Title : <strong> {{ model?.ShortDescription }} </strong>
+    </h3>
+  </div>
+  <div class="col s12 m6 l4 xl4" *ngIf="model.Date && model.Time">
+    <h3>
+      Date & Time :
+      <strong
+        >{{ model?.Date | date: "dd/MM/yyyy" }} at {{ model?.Time }}
+      </strong>
+    </h3>
+  </div>
+   <div class="col s12 m6 l4 xl4" *ngIf="model.Date && !model.Time">
+    <h3>
+      Date :
+      <strong
+        >{{ model?.Date | date: "dd/MM/yyyy" }}
+      </strong>
+    </h3>
+  </div>
+</div>
+
+<div class="row top_bar_blue">
+  <div class="col s12 d-flex justify-space-between">
+    <ul class="breadcrumb">
+      <li>
+        <button type="button" routerLink="/vc/participant/{{ id }}">
+          Participant Report
+        </button>
+      </li>
+      <li class="active"><button type="button">Agenda</button></li>
+    </ul>
+
+    <button class="btn btn-info" routerLink="/vc/participant/{{ id }}">
+      Back To Main
+    </button>
+  </div>
+</div>
+
+<div class="row pattern_bg">
+  <div class="col s12 m6 l6 xl6">
+    <!-- <h3 class="bx-title">Meeting Participant</h3> -->
+    <a routerLink="/vcreport/vcdistrictreport/{{ id }}" class="enter-bx">
+      <!-- {{ model.MeetingParticipant }} --><h3 class="bx-title">Meeting Participant</h3>
+      <!-- <img
+        class="next_arrow"
+        src="../../../../assets/images/right.png"
+        alt="CMO"
+      /> -->
+      <img
+      class="next_arrow"
+      src="assets/images/right.png"
+      alt="CMO"
+    />
+    </a>
+  </div>
+
+  <div class="col s12 m6 l6 xl6">
+    <!-- <h3 class="bx-title">Agenda</h3> -->
+    <a
+      routerLink="/vcreport/vcagendadetail/{{ id }}"
+      class="enter-bx"
+      style="background: #fbc709; outline-color: #987c16;"
+    >
+      <!-- {{ model.Title }} --> <h3 class="bx-title">Meeting Agenda</h3>
+      <img
+        class="next_arrow"
+        src="assets/images/right.png"
+        alt="CMO"
+      />
+    </a>
+  </div>
+</div>

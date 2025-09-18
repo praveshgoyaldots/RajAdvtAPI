@@ -1,0 +1,257 @@
+<div class="modal-header">
+  <p>Update News Item Progress</p>
+
+  <button mat-button (click)="onNoClick()">
+      <mat-icon>close</mat-icon>
+  </button>
+
+</div>
+<div class="col l12">
+
+  <div class="border-bx-shadow mb-20">
+
+    <div class="border-bx-shadow-title"> News Item Details </div>
+  <table class="table table-bordered mb-20">
+    <tbody>
+      <tr>
+        <td>
+           <strong> Topic : </strong>
+        </td>
+        <td>
+            {{detailModel?.Topic}}
+        </td>
+      </tr>
+      <tr>
+          <td>
+          <strong>    Department : </strong>
+          </td>
+          <td>
+              {{detailModel?.DepartmentTitle}}
+          </td>
+        </tr>
+        <tr>
+            <td>
+              <strong>  Subject : </strong>
+            </td>
+            <td>
+                {{detailModel?.SubjectName}}
+            </td>
+          </tr>
+    </tbody>
+  </table>
+</div>
+</div>
+<div class="col l12 s12 ">
+  <form [formGroup]="formGroup">
+
+    <div class="row col-mb-10 mat-form-field-wrapper-p-0">
+        <div class="col l12 m12 s12">
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>News Headline <span style="color: red">*</span>
+                </mat-label>
+                <input matInput placeholder="News Headline" [(ngModel)]="model.NewsHeadline"
+                    formControlName="NewsHeadline" name="NewsHeadline">
+            </mat-form-field>
+            <mat-error
+                *ngIf="formGroup.get('NewsHeadline').hasError('required') && (formGroup.get('NewsHeadline').touched && formGroup.get('NewsHeadline').invalid)">
+                News Headline is <strong>required!</strong>
+            </mat-error>
+        </div>
+        <div class="col l12 m12 s12">
+          <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label> Caption </mat-label>
+              <input matInput placeholder="Caption" [(ngModel)]="model.Caption"
+                  formControlName="Caption" name="Caption">
+          </mat-form-field>
+      </div>
+      <div class="col l6 xl6 m6 s12">
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label> Date </mat-label>
+            <input matInput [matDatepicker]="picker1" (focus)="picker1.open()" readonly
+                placeholder="Date" name="Date" id="Date"
+                [(ngModel)]="model.Date" formControlName="Date">
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+    </div>
+        <div class="col l6 xl6 m6 s12">
+          <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label> Newspaper <span style="color: red">*</span></mat-label>
+              <mat-select formControlName="NewspaperCode" #NewspaperCode [(ngModel)]="model.NewspaperCode">
+                  <mat-option>--Select--</mat-option>
+                  <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlNewspaperMaster">{{ k.Text }}
+                  </mat-option>
+              </mat-select>
+          </mat-form-field>
+          <mat-error
+          *ngIf="formGroup.get('NewspaperCode').hasError('required') && (formGroup.get('NewspaperCode').touched && formGroup.get('NewspaperCode').invalid)">
+          Newspaper is <strong>required!</strong>
+      </mat-error>
+      </div>
+
+        <div class="col l6 xl6 m6 s12">
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label> Publication Type</mat-label>
+                <mat-select formControlName="PublicationTypeCode" #PublicationTypeCode [(ngModel)]="model.PublicationTypeCode">
+                    <mat-option>--Select--</mat-option>
+                    <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlNewspaperPublicationType">{{ k.Text }}
+                    </mat-option>
+
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col l6 xl6 m6 s12">
+          <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label> Edition <span style="color: red">*</span></mat-label>
+              <mat-select formControlName="EditionCode" #EditionCode [(ngModel)]="model.EditionCode">
+                  <mat-option>--Select--</mat-option>
+                  <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlNewspaperEdition">{{ k.Text }}
+                  </mat-option>
+              </mat-select>
+          </mat-form-field>
+          <mat-error
+          *ngIf="formGroup.get('EditionCode').hasError('required') && (formGroup.get('EditionCode').touched && formGroup.get('EditionCode').invalid)">
+          Edition is <strong>required!</strong>
+      </mat-error>
+      </div>
+      <div class="col l6 xl6 m6 s12">
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label> Page Number </mat-label>
+            <mat-select formControlName="PageNumberCode" #PageNumberCode [(ngModel)]="model.PageNumberCode">
+                <mat-option>--Select--</mat-option>
+                <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlNewspaperPageNumber">{{ k.Text }}
+                </mat-option>
+
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div class="col l6 xl6 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label> Type of News </mat-label>
+          <mat-select formControlName="NewsTypeCode" #NewsTypeCode [(ngModel)]="model.NewsTypeCode">
+              <mat-option>--Select--</mat-option>
+              <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlNewspaperProgressNewsType">{{ k.Text }}
+              </mat-option>
+
+          </mat-select>
+      </mat-form-field>
+  </div>
+  <div class="col l6 xl6 m6 s12">
+    <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label> Classification </mat-label>
+        <mat-select formControlName="ClassificationCode" #ClassificationCode [(ngModel)]="model.ClassificationCode">
+            <mat-option>--Select--</mat-option>
+            <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlNewspaperClassification">{{ k.Text }}
+            </mat-option>
+
+        </mat-select>
+    </mat-form-field>
+</div>
+<div class="col l6 xl6 m6 s12">
+  <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label> Coverage Type </mat-label>
+      <mat-select formControlName="CoverageTypes" #CoverageTypes [(ngModel)]="model.CoverageTypes" multiple>
+          <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlNewspaperCoverageType">{{ k.Text }}
+          </mat-option>
+
+      </mat-select>
+  </mat-form-field>
+</div>
+
+<div class="col l12 m12 s12">
+  <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label> Action Required (If Any) </mat-label>
+      <input matInput placeholder="ActionRequiredIfAny" [(ngModel)]="model.ActionRequiredIfAny"
+          formControlName="ActionRequiredIfAny" name="ActionRequiredIfAny">
+  </mat-form-field>
+</div>
+<div class="col l12 xl12 m12 s12 ">
+  <a (click)="toggleDisplay()" class="btn-ad-search btn w-100 text-white">{{!isShow?'Hide  News Content':"Show  News Content"}}
+    <mat-icon>
+      {{!isShow?'keyboard_arrow_up  ':"keyboard_arrow_down"}}
+    </mat-icon>
+  </a>
+</div>
+      <!-- <div class="col s12" *ngIf="!isShow">
+        <mat-form-field class="example-full-width" appearance="outline">
+            <label style="padding: 10px 0px; display: inline-block;">
+              News Content
+            </label>
+            <textarea style="display:none;" matInput  #NewsContent
+                formControlName="NewsContent" maxlength="4000"></textarea>
+
+            <ckeditor [config]="{uiColor: '#26389b'}" [(ngModel)]="model.NewsContent" placeholder="News Content"
+                formControlName="NewsContent" #NewsContent></ckeditor>
+        </mat-form-field>
+    </div> -->
+    <div  class="col s12" *ngIf="!isShow">
+      <mat-label style="padding: 10px 0px; display: inline-block;"> News Content
+      </mat-label>
+      <mat-form-field class="example-full-width" appearance="outline">
+        <input style="display:none; "  matInput placeholder="News Content" name="NewsContent" maxlength="4000">
+        <angular-editor formControlName="NewsContent" name="NewsContent" id="NewsContent"
+          [(ngModel)]="model.NewsContent" [config]="editorConfig" style="margin-top: 30px;">
+        </angular-editor>
+      </mat-form-field>
+    
+    </div>
+        <div class="col l12 xl12 m12 s12">
+          <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label> URL </mat-label>
+              <input matInput placeholder="URL" [(ngModel)]="model.URL"
+                  formControlName="URL" name="URL">
+          </mat-form-field>
+      </div>
+
+        <div class="col l6 xl6 m6 s6 mat-form-field-wrapper">
+            <section class="example-full-width   checkbox-bx-custom checkbox-bx-custom-with-label" appearance="outline">
+              <mat-label>Is Visible To Public</mat-label>
+              <mat-checkbox [(ngModel)]="model.IsVisibleToPublic" formControlName="IsVisibleToPublic" #IsVisibleToPublic>Is Visible To Public</mat-checkbox>
+            </section>
+          </div>
+
+          <div class="col l 12 s12">
+                  <mat-form-field class="example-full-width" appearance="outline">
+                      <mat-label>Key point</mat-label>
+                      <textarea matInput placeholder="Key Point"
+                          #KeyPoint formControlName="KeyPoint"
+                          [(ngModel)]="model.KeyPoint" maxlength="10000"></textarea>
+                      <mat-hint>{{ KeyPoint.value.length }}/4000</mat-hint>
+                  </mat-form-field>
+          </div>
+          <div class="col l12 xl12 m12 s12">
+            <div class="upload-btn-wrapper">
+                <mat-label>PDF</mat-label>
+                <input type="file" id="PDF" formControlName="PDF" (change)="handleFileForPdf($event)"
+                    accept="application/pdf">
+                <a *ngIf="model.PDF" (click)="downloadOtherDocPdf(model.PDF)" href="JavaScript:Void(0);">
+                        Show More Details
+                       </a>
+                       <a title="Remove" (click)="RemovePDF();">
+                        <mat-icon *ngIf="model?.PDF?.length>0">delete</mat-icon></a>
+            </div>
+            </div>
+            <div class="col l12 m12 s12 ">
+              <div class="upload-btn-wrapper">
+                <label > Images</label>
+                <input type="file" id="ImageFiles" formControlName="ImageFiles"
+                  (change)="handleImageFileInput($event.target.files)" accept="image/*" multiple>
+              </div>
+              <ul class="image-list">
+                <li *ngFor="let item of model.Images; let i = index;">
+                  <div> <img [src]="item" /> <a title="Remove" (click)="RemoveImageFile(i)">
+                      <mat-icon>delete</mat-icon>
+                    </a></div>
+                </li>
+              </ul>
+              <mat-error *ngIf="ImagefileValidationMsg?.length>0" style="margin: 0px;position: relative;">
+                {{ImagefileValidationMsg}}
+              </mat-error>
+            </div>
+        <div class="col l12 x8 m4 s6 clearfix" style="margin-bottom: 0px !important;">
+            <button mat-button class="btn-submit" (click)="SaveClick();">Save</button>
+        </div>
+    </div>
+</form>
+
+</div>

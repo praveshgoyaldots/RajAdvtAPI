@@ -1,0 +1,52 @@
+<div class="row" *ngIf="last6MonthReport!=null">
+    <div class="col l12 s12">
+
+        <table class="mat-elevation-z8 normal-table">
+            <tr>
+                <th>S.No.</th>
+                <th>Admin Department</th>
+                <th>Total Entries</th>
+                <th>{{_commonService.getMonthYear(0)}}</th>
+                <th>{{_commonService.getMonthYear(-1)}}</th>
+                <th>{{_commonService.getMonthYear(-2)}}</th>
+                <th>{{_commonService.getMonthYear(-3)}}</th>
+                <th>{{_commonService.getMonthYear(-4)}}</th>
+                <th>{{_commonService.getMonthYear(-5)}}</th>
+            </tr>
+            <tr *ngFor="let row of last6MonthReport; let i = index;">
+                <td class="center">{{(reportIndexModel.Page-1)*reportIndexModel.PageSize+(i+1)}}</td>
+                <td><a routerLink="/lms/department-last6month-report/{{row.Code}}">{{ row.Title }}</a></td>
+                <td class="center">
+                    {{ row.TotalReceived }}
+                </td>
+                <td class="center">
+                    {{ row.Action_CurrentMonth }}
+                </td>
+                <td class="center">
+                    {{ row.Action_Last1Month }}
+                </td>
+                <td class="center">
+                    {{ row.Action_Last2Month }}
+                </td>
+                <td class="center">
+                    {{ row.Action_Last3Month }}
+                </td>
+                <td class="center">
+                    {{ row.Action_Last4Month }}
+                </td>
+                <td class="center">
+                    {{ row.Action_Last5Month }}
+                </td>
+            </tr>
+        </table>
+
+        <mat-paginator #paginator [length]="totalRecords" [pageSize]="reportIndexModel.PageSize"
+            [pageSizeOptions]="[5, 10, 20, 50]" (page)="onPaginateChange($event)" showFirstLastButtons>
+        </mat-paginator>
+
+        <ng-container *ngIf="last6MonthReport.length === 0">
+            No record found.
+        </ng-container>
+
+    </div>
+</div>

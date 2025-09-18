@@ -1,0 +1,158 @@
+<div class="row mt-20 detail-bx">
+    <div class="table-responsive">
+        <table class="table custom-data-table">
+            <tbody>
+                <tr>
+                    <td>
+                        <section class="mat-typography">
+                            <h2 class="color-blue">Scheme :</h2>
+                        </section>
+                    </td>
+                    <td>
+                        <section class="mat-typography">
+                            <h3 class="color-grey">
+                                {{(model?.SchemeName) ? model?.SchemeName : '--'}}
+                            </h3>
+                        </section>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <section class="mat-typography">
+                            <h2 class="color-blue">Scheme(Hindi) :</h2>
+                        </section>
+                    </td>
+                    <td>
+                        <section class="mat-typography">
+                            <h3 class="color-grey">
+                                {{(model?.SchemeNameHindi) ? model?.SchemeNameHindi : '--'}}
+                            </h3>
+                        </section>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <section class="mat-typography">
+                            <h2 class="color-blue">Department :</h2>
+                        </section>
+                    </td>
+                    <td>
+                        <section class="mat-typography">
+                            <h3 class="color-grey">
+                                {{(model?.DepartmentTitle) ? model?.DepartmentTitle : '--'}}
+                            </h3>
+                        </section>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <section class="mat-typography">
+                            <h2 class="color-blue">Department(Hindi) :</h2>
+                        </section>
+                    </td>
+                    <td>
+                        <section class="mat-typography">
+                            <h3 class="color-grey">
+                                {{(model?.DepartmentTitleHindi) ? model?.DepartmentTitleHindi : '--'}}
+                            </h3>
+                        </section>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <section class="mat-typography">
+                            <h2 class="color-blue">Title :</h2>
+                        </section>
+                    </td>
+                    <td>
+                        <section class="mat-typography">
+                            <h3 class="color-grey">
+                                {{(model?.Caption) ? model?.Caption : '--'}}
+                            </h3>
+                        </section>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <section class="mat-typography">
+                            <h2 class="color-blue">Upload Type :</h2>
+                        </section>
+                    </td>
+                    <td>
+                        <section class="mat-typography">
+                            <h3 class="color-grey">
+                                {{(model?.UploadType) ? model?.UploadType : '--'}}
+                            </h3>
+                        </section>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <section class="mat-typography">
+                            <h2 class="color-blue">Thumbnail :</h2>
+                        </section>
+                    </td>
+                    <td>
+                        <section class="mat-typography">
+                            <ul class="image-list" *ngIf="model?.Thumbnail">
+                                <li>
+                                    <a [href]="model?.Thumbnail" target="_blank">
+                                        <img [src]="model?.Thumbnail" height="100px" width="100px" />
+                                    </a>
+                                </li>
+                            </ul>
+                        </section>
+                    </td>
+                </tr>
+
+                <tr *ngIf="model?.UploadType==uploadType_URL">
+                    <td>
+                        <section class="mat-typography">
+                            <h2 class="color-blue">URL :</h2>
+                        </section>
+                    </td>
+                    <td>
+                        <section class="mat-typography">
+                            <a *ngIf="model?.Url" [href]="model?.Url" target="_blank">
+                                {{model?.Url}}
+                            </a>
+                            <h3 *ngIf="!model?.Url" class="color-grey">--</h3>
+                        </section>
+                    </td>
+                </tr>
+
+                <tr *ngIf="model?.UploadType!=uploadType_URL">
+                    <td>
+                        <section class="mat-typography">
+                            <h2 class="color-blue">{{model?.UploadType}} :</h2>
+                        </section>
+                    </td>
+                    <td>
+                        <section class="mat-typography">
+                            <ul class="image-list">
+                                <li *ngFor="let file of model.GalleryFileList; let i=index;">
+                                    <a [title]="file?.FileName" [href]="file?.FilePath" target="_blank">
+                                        <img *ngIf="model?.UploadType==uploadType_Photo" [src]="file?.FilePath"
+                                            height="100px" width="100px" />
+                                        <mat-icon *ngIf="model?.UploadType==uploadType_PDF">picture_as_pdf</mat-icon>
+                                    </a>
+                                    <video *ngIf="model?.UploadType==uploadType_Video" width="240" height="180"
+                                        [poster]="model?.Thumbnail" controls>
+                                        <source [src]="file?.FilePath" type="video/mp4">
+                                    </video>
+                                </li>
+                            </ul>
+                        </section>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,48 @@
+<div class="modal-header">
+    <p>Add LookUp</p>
+    <button mat-button (click)="onNoClick()">
+        <mat-icon>close</mat-icon>
+    </button>
+
+</div>
+
+<div class="col l12 s12 ">
+        <!-- <alert></alert> -->
+        <div class="col l6 xl6 m6 s12">
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>LookUp Type</mat-label>
+                <mat-select [formControl]="TypeCode" [(ngModel)]="model.TypeCode" >
+                    <mat-option>--Select--</mat-option>
+                    <mat-option value="{{k.Value}}" *ngFor="let k of dDLList?.ddlMonitoringParameterLookUpType">{{k.Text}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-error *ngIf="Name.invalid && Name.touched">
+                LookUp Type is <strong>required</strong>
+               </mat-error>
+        </div>
+
+        <div class="col l6 xl6 m6 s12">
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Name
+                </mat-label>
+                <input matInput placeholder="LookUp Type" [formControl]="Name" [(ngModel)]="model.Name">
+            </mat-form-field>
+            <mat-error *ngIf="Name.invalid && Name.touched">
+             Name is <strong>required</strong>
+            </mat-error>
+        </div>
+        <div class="col l6 xl6 m6 s12">
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Name in hindi
+                </mat-label>
+                <input matInput placeholder="LookUp Type" [formControl]="NameHindi" [(ngModel)]="model.NameHindi">
+            </mat-form-field>
+            <mat-error *ngIf="NameHindi.invalid && NameHindi.touched">
+                Name In Hindi is <strong>required</strong>
+               </mat-error>
+        </div>
+    
+    <div class="col l12 x8 m4 s12 ">
+        <button mat-button class="btn-submit" (click)="saveClick()">Submit</button>
+    </div>
+</div>

@@ -1,0 +1,124 @@
+<form [formGroup]="formGroup">
+
+    <div class="row">
+        <div class="col l12 m12 s12">
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Topic <span style="color: red">*</span>
+                </mat-label>
+                <input matInput placeholder="Topic" [(ngModel)]="model.Topic"
+                    formControlName="Topic" name="Topic">
+            </mat-form-field>
+            <mat-error
+                *ngIf="formGroup.get('Topic').hasError('required') && (formGroup.get('Topic').touched && formGroup.get('Topic').invalid)">
+                Topic is <strong>required!</strong>
+            </mat-error>
+        </div>
+        <div class="col l6 xl6 m6 s12">
+            <mat-form-field appearance="outline">
+              <mat-label>Admin Department <span style="color: red">*</span>:</mat-label>
+              <mat-select name="AdminDepartmentCodes" [(ngModel)]="model.AdminDepartmentCodes" multiple
+                (selectionChange)="getDepartment($event.value);"
+                formControlName="AdminDepartmentCodes">
+
+                <mat-option value="{{k.AdmDepartmentCode}}" *ngFor="let k of ddlAdminDepartment">{{k.AdmDepartmentTitle}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+          </div>
+        <div class="col l6 xl6 m6 s12">
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label> Nodal Department<span style="color: red">*</span> </mat-label>
+                <mat-select formControlName="NodalDepartmentCodes" #NodalDepartmentCodes [(ngModel)]="model.NodalDepartmentCodes" (selectionChange)="GetNewsSubjetByDepartent($event.value)" multiple>
+                    <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlDepartment">{{ k.Text }}
+                    </mat-option>
+
+                </mat-select>
+            </mat-form-field>
+            <mat-error
+                *ngIf="formGroup.get('NodalDepartmentCodes').hasError('required') && (formGroup.get('NodalDepartmentCodes').touched && formGroup.get('NodalDepartmentCodes').invalid)">
+               Nodal Department is <strong>required!</strong>
+            </mat-error>
+        </div>
+        <div class="col l6 xl6 m6 s12">
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label> Subject<span style="color: red">*</span> </mat-label>
+                <mat-select formControlName="SubjectCode" #SubjectCode [(ngModel)]="model.SubjectCode">
+                    <mat-option value="{{item.Value}}" *ngFor="let item of dDLList?.ddlNewspaperSubject">{{item.Text}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-error
+                *ngIf="formGroup.get('SubjectCode').hasError('required') && (formGroup.get('SubjectCode').touched && formGroup.get('SubjectCode').invalid)">
+                Subject is <strong>required!</strong>
+            </mat-error>
+        </div>
+        <div class="col l6 xl6 m6 s12">
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label> Type of Source </mat-label>
+                <mat-select formControlName="SourceTypeCode" #SourceTypeCode [(ngModel)]="model.SourceTypeCode">
+                    <mat-option value="{{item.Value}}" *ngFor="let item of dDLList?.ddlNewspaperSourceType">{{item.Text}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col l6 xl6 m6 s12">
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label> Date </mat-label>
+                <input matInput [matDatepicker]="picker1" (focus)="picker1.open()" readonly
+                    placeholder="Date" name="Date" id="Date"
+                    [(ngModel)]="model.Date" formControlName="Date">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div class="col l 12 s12">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Summary</mat-label>
+                    <textarea matInput placeholder="Summary"
+                        #Summary formControlName="Summary"
+                        [(ngModel)]="model.Summary" maxlength="10000"></textarea>
+                    <mat-hint>{{ Summary.value.length }}/4000</mat-hint>
+                </mat-form-field>
+        </div>
+        <div class="col l6 xl6 m6 s6 mat-form-field-wrapper">
+            <section class="example-full-width mb-20  checkbox-bx-custom checkbox-bx-custom-with-label" appearance="outline">
+              <mat-label>Is Visible To Public</mat-label>
+              <mat-checkbox [(ngModel)]="model.IsVisibleToPublic" formControlName="IsVisibleToPublic" #IsVisibleToPublic>Is Visible To Public</mat-checkbox>
+            </section>
+          </div>
+          <div class="col l6 xl6 m6 s12">
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>VIP Category  </mat-label>
+                <mat-select formControlName="ChairpersonCategory" #ChairpersonCategory (selectionChange)="GetChairpersonList($event.value)" [(ngModel)]="model.ChairpersonCategoryCodes" multiple>
+                    <mat-option>--Select--</mat-option>
+                    <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlVCParticipantCategory">{{ k.Text }} </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col l6 xl6 m6 s12">
+          <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label> VIP Name</mat-label>
+              <mat-select formControlName="ChairpersonList" #ChairpersonList [(ngModel)]="model.ChairpersonList" multiple>
+                  <mat-option value="{{ k.Value }}" *ngFor="let k of dDLChairperson">{{ k.Text }} </mat-option>
+              </mat-select>
+          </mat-form-field>
+
+      </div>
+          <div class="col l 12 s12">
+              <div class="key_search_bx">
+                  <mat-form-field class="example-full-width" appearance="outline">
+                      <mat-label>keyword For Search</mat-label>
+                      <textarea matInput placeholder="keyword For Search"
+                          #SearchKeyword formControlName="SearchKeyword"
+                          [(ngModel)]="model.SearchKeyword" maxlength="10000"></textarea>
+
+                  </mat-form-field>
+                  <mat-hint>{{ SearchKeyword.value.length }}/4000</mat-hint>
+              </div>
+          </div>
+        <div class="col l12 x8 m4 s6 clearfix">
+            <button mat-button class="btn-submit" (click)="SaveClick();">{{title}}</button>
+        </div>
+    </div>
+</form>

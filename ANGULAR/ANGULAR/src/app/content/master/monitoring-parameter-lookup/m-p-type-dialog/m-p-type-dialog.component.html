@@ -1,0 +1,65 @@
+<div class="modal-header">
+    <p>Add LookUp Type</p>
+
+    <button mat-button (click)="onNoClick()">
+        <mat-icon>close</mat-icon>
+    </button>
+
+</div>
+
+<div class="col l12 s12 ">
+    <!-- <alert></alert> -->
+    <div class="col l6 xl6 m6 s12">
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Name
+            </mat-label>
+            <input matInput placeholder="LookUp Type" [formControl]="Name" [(ngModel)]="model.Name">
+        </mat-form-field>
+        <mat-error *ngIf="Name.invalid && Name.touched">
+            Name is <strong>required</strong>
+        </mat-error>
+    </div>
+    <div class="col l6 xl6 m6 s12">
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Name in hindi
+            </mat-label>
+            <input matInput placeholder="LookUp Type" [formControl]="NameHindi" [(ngModel)]="model.NameHindi">
+        </mat-form-field>
+        <mat-error *ngIf="NameHindi.invalid && NameHindi.touched">
+            Name In Hindi is <strong>required</strong>
+        </mat-error>
+    </div>
+    <div class="col l12 x8 m4 s12 ">
+        <button mat-button class="btn-submit" (click)="saveClick()"><span *ngIf="!model?.Id">Submit</span><span *ngIf="model?.Id">Update</span> </button>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col l12 s12 p-0">
+        <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 mt-20">
+
+            <ng-container matColumnDef="index">
+                <th width="20%" mat-header-cell *matHeaderCellDef>S No.</th>
+                <td mat-cell *matCellDef="let element; let i = index;"> {{i+1}}</td>
+            </ng-container>
+
+            <ng-container [matColumnDef]="column.Value" *ngFor="let column of ViewdisplayedColumns">
+
+                <th width="30%" mat-header-cell *matHeaderCellDef mat-sort-header> {{column.Text}} </th>
+                <td mat-cell *matCellDef="let element"> {{element[column.Value]}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Action">
+                <th width="20%" mat-header-cell *matHeaderCellDef> Action </th>
+                <td mat-cell *matCellDef="let group" class="action-link">
+                    <a (click)="getById(group.Id)" title="edit">
+                        <mat-icon>edit</mat-icon>
+                    </a>
+                </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+            <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[10, 15, 20]" showFirstLastButtons></mat-paginator>
+    </div>
+</div>

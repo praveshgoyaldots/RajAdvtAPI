@@ -1,0 +1,183 @@
+<div class="row">
+  <div class="col l12 s12 p-0">
+    <div class="row">
+      <div class="col l12 s12">
+        <div class="row m-20 mb-0">
+
+                  <div class="col l3 xl3 m6 s12">
+                      <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Entry From Date</mat-label>
+                        <input matInput [matDatepicker]="picker1" (focus)="picker1.open()" readonly placeholder="Entry From Date" [(ngModel)]="indexModel.FromDateOfEntry" [max]="indexModel.ToDateOfEntry">
+                      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                      <mat-datepicker #picker1></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                    <div class="col l3 xl3 m6 s12">
+                        <mat-form-field class="example-full-width" appearance="outline">
+                          <mat-label>Entry To Date</mat-label>
+                          <input matInput [matDatepicker]="picker2" (focus)="picker2.open()" readonly placeholder="Entry To Date" [(ngModel)]="indexModel.ToDateOfEntry" [min]="indexModel.FromDateOfEntry">
+                          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                          <mat-datepicker #picker2></mat-datepicker>
+                        </mat-form-field>
+                      </div>
+                      <div class="col l3 xl3 m6 s12">
+                          <mat-form-field class="example-full-width" appearance="outline">
+                            <mat-label>Date of Issue</mat-label>
+                            <input matInput [matDatepicker]="picker3" (focus)="picker3.open()" readonly placeholder="Date of Issue" [(ngModel)]="indexModel.DateOfIssue">
+                            <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                            <mat-datepicker #picker3></mat-datepicker>
+                          </mat-form-field>
+                        </div>
+                        <div class="col l3 xl3 m6 s12">
+                            <mat-form-field class="example-full-width" appearance="outline">
+                              <mat-label> Document No. </mat-label>
+                              <input matInput placeholder="Software Entry Number" [(ngModel)]="indexModel.DocumentNo" maxlength="50"/>
+                                      </mat-form-field>
+                                    </div>
+                        <div class="col l3 xl3 m6 s12">
+                            <mat-form-field class="example-full-width" appearance="outline">
+                              <mat-label>Nodal Department</mat-label>
+                                          <mat-select  [(ngModel)]="indexModel.DepartmentCode" (selectionChange)="GetSubType($event.value,indexModel.DocumentType)">
+                                              <mat-option value="">--Select--</mat-option>
+                                              <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlDepartment">
+                                                  {{ k.Text }}</mat-option>
+                                          </mat-select>
+                                      </mat-form-field>
+                                    </div>
+                        <div class="col l3 xl3 m6 s12">
+                            <mat-form-field class="example-full-width" appearance="outline">
+                              <mat-label> Document Type </mat-label>
+                                          <mat-select  [(ngModel)]="indexModel.DocumentType" (selectionChange)="GetSubType(indexModel.DepartmentCode,$event.value)">
+                                              <mat-option value="">--Select--</mat-option>
+                                              <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlOrderType">
+                                                  {{ k.Text }}</mat-option>
+                                          </mat-select>
+                                      </mat-form-field>
+                                    </div>
+
+                                    <div class="col l3 xl3 m6 s12">
+                                        <mat-form-field class="example-full-width" appearance="outline">
+                                          <mat-label> Document Sub  Type </mat-label>
+                                                      <mat-select  [(ngModel)]="indexModel.DocumentSubType">
+                                                          <mat-option value="">--Select--</mat-option>
+                                                          <mat-option value="{{ k.Value }}" *ngFor="let k of ddlSubType">
+                                                              {{ k.Text }}</mat-option>
+                                                      </mat-select>
+                                                  </mat-form-field>
+                                                </div>
+
+
+
+                  <div class="col l3 xl3 m6 s12" >
+                      <button (click)="searchClick();" class="btn btn_note btn_green" style="margin-right: 10px;">Search</button>
+                      <button (click)="Reset();" class="btn btn_orange mr-5" style="line-height: 0.5;"><mat-icon>refresh</mat-icon></button>
+                      <button (click)="print();" class="btn btn_note btn_orange"  style="margin-right: 10px;">Print</button>
+                  </div>
+        </div>
+
+      </div>
+    </div>
+
+<div  id="orderdetailprint">
+
+  <div class="table-responsive">
+
+      <table mat-table [dataSource]="dataSource" matSort *ngIf="listModel?.length>0"
+          class="mat-elevation-z8" style="vertical-align:top !important">
+          <ng-container matColumnDef="index">
+            <th mat-header-cell *matHeaderCellDef>s.no</th>
+            <td mat-cell *matCellDef="let element; let i = index">
+              {{ i + 1 }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="SectorName" style="width: 15%;">
+            <th mat-header-cell *matHeaderCellDef>Sector/Nodal Department</th>
+            <td mat-cell *matCellDef="let element">
+              {{element.SectorName }}
+              <span *ngIf="element.DepartmentTitle" style="color: #2922a2; font-weight: bold;"><br>/{{element.DepartmentTitle}}</span>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="TypeName" style="width: 15%;">
+            <th mat-header-cell *matHeaderCellDef>Document Type /Sub Type</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.TypeName }}
+              <span *ngIf="element.SubTypeName" style="color: #2922a2; font-weight: bold;"><br>/{{element.SubTypeName}}</span>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="DocNumber" style="width: 15%;">
+            <th mat-header-cell *matHeaderCellDef>Document No. /Date of Issue/ With Affect from</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.OrderNo }}
+              <span *ngIf="element.Date" style="color: #2922a2; font-weight: bold;"><br>/{{element.Date| date: 'dd-MM-yyyy'}}</span>
+              <span *ngIf="element.EffectForm" style="color: black; font-weight: bold;"><br>/{{element.EffectForm| date: 'dd-MM-yyyy'}}</span>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="Title" style="width: 15%;">
+            <th mat-header-cell *matHeaderCellDef>Title & Description</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.Title }}
+              <span *ngIf="element.Description" style="color: #2922a2; font-weight: bold;"><br> /{{element.Description}}</span>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="RefNo" style="width: 15%;">
+            <th mat-header-cell *matHeaderCellDef>Previous Doc Reference No</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.ReferenceNumber }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="LinkToScheme" style="width: 15%;">
+            <th mat-header-cell *matHeaderCellDef>Beneficiary Category /Linked to Scheme(Name)</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.BeneficiaryCategoryName }}
+              <span *ngIf="element.IndividualBeneficiaryScheme" style="color: #2922a2; font-weight: bold;"><br> /{{element.IndividualBeneficiaryScheme}}</span>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="LinkWith" style="width: 15%;">
+            <th mat-header-cell *matHeaderCellDef>Linked with(Module nam)>/Year/Dept name/Para No./file No./Description</th>
+            <td mat-cell *matCellDef="let element">
+              <ul class="image-list">
+                <li *ngFor="let item of element.RelatedToOrderList; let i = index;">
+{{item.ModuleName}}
+
+<span *ngIf="element.YearText" style="color: #2922a2; font-weight: bold;"><br> /{{element.YearText}}</span>
+<span *ngIf="element.DepartmentName" style="color: black; font-weight: bold;"><br> /{{element.DepartmentName}}</span>
+<span *ngIf="element.ParaNo" style="color: #2922a2; font-weight: bold;"><br> /{{element.ParaNo}}</span>
+<span *ngIf="element.FileNumber" style="color: black; font-weight: bold;"><br> /{{element.FileNumber}}</span>
+<span *ngIf="element.ResultDescription" style="color: #2922a2; font-weight: bold;"><br> /{{element.ResultDescription}}</span>
+                </li>
+              </ul>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="Remark" style="width: 10%;">
+            <th mat-header-cell *matHeaderCellDef>Remarks/Active/Inactive</th>
+            <td mat-cell *matCellDef="let element; let i = index">
+              {{ element.Remark}}
+                <mat-icon class="toggle_on" *ngIf="element.IsActive" style="cursor:pointer;">toggle_on</mat-icon>
+                <mat-icon class="toggle_off" *ngIf="!element.IsActive" style="cursor:pointer;">toggle_off</mat-icon>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="Attachment" style="width: 10%;">
+            <th mat-header-cell *matHeaderCellDef>Attachment</th>
+            <td mat-cell *matCellDef="let element">
+              <ul class="image-list">
+                <li *ngFor="let url of element.AttachmentList; let i = index;">
+
+                  <a *ngIf="url.Extension?.toLowerCase()=='pdf'" (click)="downloadPdf(url?.Url,element.Id)" href="JavaScript:Void(0);">
+               Download
+                  </a>
+
+                  <div *ngIf="url.Extension?.toLowerCase()!='pdf'"> <img [src]="url?.Url" /></div>
+
+                </li>
+              </ul>
+            </td>
+          </ng-container>
+      <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+      <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
+    </table>
+
+    </div>
+  </div>
+    <div *ngIf="listModel?.length==0" class="msg-not-found"> Record Not Found</div>
+  </div>
+</div>

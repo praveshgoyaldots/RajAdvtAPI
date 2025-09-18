@@ -1,0 +1,119 @@
+<div class="row">
+    <div class="col s12" *ngIf=" model?.ClientId ">
+        <mat-label class="mb-20 d-inline">Client Id : <strong>{{model?.ClientId}}</strong></mat-label>
+    </div>
+    <div class="col l4 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label> Department<span style="color: red">*</span> </mat-label>
+          <mat-select name="DepartmentCode" [(ngModel)]="model.DepartmentCode" [formControl]="DepartmentCode" >
+              <mat-option>--Select--</mat-option>
+              <mat-option value="{{ k.DepartmentCode }}" *ngFor="let k of ddlDepartment">{{ k.DepartmentTitle }}
+              </mat-option>
+          </mat-select>
+      </mat-form-field>
+      <mat-error *ngIf="UserId.invalid && UserId.touched">
+        Department is <strong>required</strong>
+    </mat-error>
+  </div>
+    <div class="col l4 xl4 m6 s12">
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>User Name <span style="color: red">*</span></mat-label>
+            <input matInput placeholder="please enter UserName" name="UserName" [(ngModel)]="model.UserId" [formControl]="UserId">
+        </mat-form-field>
+        <mat-error *ngIf="UserId.invalid && UserId.touched">
+            User Name is <strong>required</strong>
+        </mat-error>
+    </div>
+
+    <div class="col l4 xl4 m6 s12">
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Password <span style="color: red">*</span></mat-label>
+            <input matInput placeholder="Please enter password " name="Password " [(ngModel)]="model.Password " [formControl]="Password ">
+        </mat-form-field>
+        <mat-error *ngIf="Password.invalid && Password.touched ">
+            Password is <strong>required</strong>
+        </mat-error>
+    </div>
+
+
+
+
+
+    <div class="col l4 xl4 m6 s12">
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label> Module Name <span style="color: red">*</span></mat-label>
+            <mat-select name="ModuleName" [(ngModel)]="model.ModuleName" multiple [formControl]="ModuleName">
+                <mat-option value="{{k.Value}}" *ngFor="let k of dDLList?.ddlClientModule">{{k.Text}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-error *ngIf="ModuleName.invalid && ModuleName.touched">
+            Module Name is <strong>required</strong>
+        </mat-error>
+    </div>
+
+
+    <div class="col l12 x8 m4 s12 " *ngIf="this.Permission.UpdatePageAccess|| this.Permission.AddPageAccess">
+        <button mat-button class="btn-submit" (click)="saveClick()">
+        <span *ngIf="!(model.Id>0)">Submit</span>
+        <span *ngIf="model.Id>0" >Update</span>
+    </button>
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="col l12 s12   ">
+        <table mat-table [dataSource]="dataSource" matSort (matSortChange)="SortData($event)" class="mat-elevation-z8 table_border">
+
+            <ng-container matColumnDef="index">
+                <th mat-header-cell *matHeaderCellDef>Sr No</th>
+                <td mat-cell *matCellDef="let element; let i = index;"> {{(indexModel.Page-1)*indexModel.PageSize +(i+1)}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="UserName">
+                <th mat-header-cell *matHeaderCellDef> User Name </th>
+                <td mat-cell *matCellDef="let group" class="action-link toogle-btn">
+                    {{ group.UserId }}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="Password">
+                <th mat-header-cell *matHeaderCellDef> Password </th>
+                <td mat-cell *matCellDef="let group" class="action-link toogle-btn">
+                    {{group.Password}}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="modulename">
+                <th mat-header-cell *matHeaderCellDef> module Name </th>
+                <td mat-cell *matCellDef="let group" class="action-link toogle-btn">
+                    {{ group.modulename }}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="DepartmentTitle">
+              <th mat-header-cell *matHeaderCellDef> Department </th>
+              <td mat-cell *matCellDef="let group" class="action-link toogle-btn">
+                  {{ group.DepartmentTitle }}
+              </td>
+          </ng-container>
+            <ng-container matColumnDef="clientId">
+                <th mat-header-cell *matHeaderCellDef> client Id </th>
+                <td mat-cell *matCellDef="let group" class="action-link toogle-btn">
+                    {{group.ClientId}}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Action">
+                <th width="130" mat-header-cell *matHeaderCellDef> Action </th>
+                <td mat-cell *matCellDef="let group" class="action-link-btn">
+                    <a class="btn_edit" (click)="getByID(group.Id)" title="edit" *ngIf="this.Permission.UpdatePageAccess">
+                        <mat-icon>edit</mat-icon>
+                    </a>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+            <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+        </table>
+        <mat-paginator #paginator [length]="totalRecords" [pageSize]="indexModel.PageSize" [pageSizeOptions]="[5,10, 20, 50]" (page)="onPaginateChange($event)" showFirstLastButtons>
+        </mat-paginator>
+    </div>
+</div>

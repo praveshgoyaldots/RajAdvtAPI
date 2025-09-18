@@ -1,0 +1,121 @@
+<form [formGroup]="formGroup">
+
+    <div class="row">
+        <div class="col l6 xl6 m6 s12">
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label> Department<span style="color: red">*</span> </mat-label>
+                <!-- (selectionChange)="GetCategoryList($event.value,this.model.JankalyanCategoryCode)" -->
+                <mat-select formControlName="DepartmentCode" #DepartmentCode [(ngModel)]="model.DepartmentCode"
+                    (selectionChange)="GetJankalyanCategorybyDepartmentCode()">
+                    <mat-option>--Select--</mat-option>
+                    <mat-option value="{{ k.DepartmentCode }}" *ngFor="let k of ddlDepartment">{{ k.DepartmentTitle }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-error
+                *ngIf="formGroup.get('DepartmentCode').hasError('required') && (formGroup.get('DepartmentCode').touched && formGroup.get('DepartmentCode').invalid)">
+                Department is <strong>required!</strong>
+            </mat-error>
+        </div>
+
+        <div class="col l6 xl6 m6 s12">
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label> Jankalyan Category<span style="color: red">*</span> </mat-label>
+                <!-- (selectionChange)="GetCategoryList(this.model.DepartmentCode,$event.value)" -->
+                <mat-select formControlName="JankalyanCategoryCode" #JankalyanCategoryCode
+                    [(ngModel)]="model.JankalyanCategoryCode" (selectionChange)="GetJankalyanEntryType()">
+                    <mat-option>--Select--</mat-option>
+                    <mat-option value="{{ k.Value }}" *ngFor="let k of ddlJankalyanCategory">{{ k.Text }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-error
+                *ngIf="formGroup.get('JankalyanCategoryCode').hasError('required') && (formGroup.get('JankalyanCategoryCode').touched && formGroup.get('JankalyanCategoryCode').invalid)">
+                Jankalyan Category is <strong>required!</strong>
+            </mat-error>
+        </div>
+
+        <div class="col l6 xl6 m6 s12">
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label> Entry Type<span style="color: red">*</span> </mat-label>
+                <mat-select formControlName="EntryTypeCode" #EntryTypeCode [(ngModel)]="model.EntryTypeCode"
+                    (selectionChange)="isDublicate()">
+                    <mat-option>--Select--</mat-option>
+                    <mat-option value="{{ k.Value }}" *ngFor="let k of ddlEntryTypeMaster">{{ k.Text }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-error
+                *ngIf="formGroup.get('EntryTypeCode').hasError('required') && (formGroup.get('EntryTypeCode').touched && formGroup.get('EntryTypeCode').invalid)">
+                Entry Type is <strong>required!</strong>
+            </mat-error>
+        </div>
+
+        <div class="col l12 x8 m4 s12">
+            <mat-label class="d-block mb-10">Details<span style="color: red">*</span>
+            </mat-label>
+            <mat-form-field class="example-full-width" appearance="outline">
+                <input style="display:none; " matInput placeholder="Details" name="Details">
+                <angular-editor formControlName="Details" name="Details" id="Details" [(ngModel)]="model.Details"
+                    [config]="editorConfig" style="margin-top: 30px;"></angular-editor>
+            </mat-form-field>
+            <mat-error
+                *ngIf="formGroup.get('Details').hasError('required') && (formGroup.get('Details').touched && formGroup.get('Details').invalid)">
+                Details is <strong>required!</strong>
+            </mat-error>
+        </div>
+
+        <!-- <div class="col l12 xl12 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Details <span style="color: red">*</span></mat-label>
+              <textarea style="display:none;" matInput placeholder="Details" #Details
+              formControlName="Details" maxlength="1000000"></textarea>
+              <ckeditor [config]="{uiColor: '#26389b'}" [(ngModel)]="model.Details"
+              placeholder="Details" formControlName="Details" #Details></ckeditor>
+          <mat-hint>{{ Details.value.length }}/1000000</mat-hint>
+      </mat-form-field>
+      <mat-error
+      *ngIf="formGroup.get('Details').hasError('required') && (formGroup.get('Details').touched && formGroup.get('Details').invalid)">
+      Details is <strong>required!</strong>
+  </mat-error>
+  </div> -->
+
+        <div class="col l12 m12 s12">
+            <span style="color: red">{{fileSizeValidationMsg}}</span>
+        </div>
+
+        <div class="col l6 xl6 m6 s12">
+            <div class="upload-btn-wrapper">
+                <label>Image</label>
+                <input type="file" id="ImageURL" (change)="handleFileInputImage($event)" formControlName="ImageURL"
+                    accept="image/*">
+                <img *ngIf="imageURL" [src]="imageURL" height="100px" width="100px" />
+                <a title="Remove" (click)="removeImage();">
+                    <mat-icon *ngIf="imageURL">delete</mat-icon>
+                </a>
+            </div>
+            <mat-error *ngIf="imageFileValidationMsg?.length>0" style="margin: 0px;position: relative;">
+                {{imageFileValidationMsg}}</mat-error>
+        </div>
+
+        <div class="col l6 xl6 m6 s12">
+            <div class="upload-btn-wrapper">
+                <label>PDF</label>
+                <input type="file" id="PDFURL" (change)="handleFileInputPDF($event)" formControlName="PDFURL"
+                    accept="application/pdf">
+                <a *ngIf="model.PDFURL" (click)="downloadPdf(model.PDFURL)" href="JavaScript:Void(0);">
+                    Download
+                </a>
+                <a title="Remove" (click)="removePdf();">
+                    <mat-icon *ngIf="model.PDFURL">delete</mat-icon>
+                </a>
+            </div>
+            <mat-error *ngIf="pDFFileValidationMsg?.length>0" style="margin: 0px;position: relative;">
+                {{pDFFileValidationMsg}}</mat-error>
+        </div>
+
+        <div class="col l12 x8 m4 s6 clearfix">
+            <button mat-button class="btn-submit" (click)="SaveClick();">{{title}}</button>
+        </div>
+    </div>
+</form>

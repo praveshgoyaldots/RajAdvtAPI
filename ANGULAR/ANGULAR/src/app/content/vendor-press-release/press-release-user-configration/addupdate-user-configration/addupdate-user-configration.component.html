@@ -1,0 +1,63 @@
+<div class="modal-header">
+  <p>{{title}} User Configration</p>
+
+  <button mat-button (click)="onNoClick()">
+    <mat-icon>close</mat-icon>
+  </button>
+
+</div>
+
+<div class="col l12 s12 ">
+
+    <div class="col l6 xl6 m6 s12 mb-10">
+        <mat-form-field appearance="outline">
+          <mat-label>User Type <span style="color: red">*</span>:</mat-label>
+          <mat-select [formControl]="UserType" name="UserType" id="UserType"  [(ngModel)]="model.UserType"  (selectionChange)="BindUserList()">
+            <mat-option>--Select--</mat-option>
+            <mat-option value="{{k.Value}}" *ngFor="let k of dropdownList?.ddlUserType">{{k.Text}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-error *ngIf="UserType.invalid && UserType.touched">
+            User Type is <strong>required</strong>
+          </mat-error>
+      </div>
+
+      <div class="col l6 xl6 m6 s12 mb-10">
+        <mat-form-field appearance="outline">
+          <mat-label>User Id <span style="color: red">*</span>:</mat-label>
+          <mat-select [formControl]="UserId" name="UserId" id="UserId"  [(ngModel)]="model.UserId">
+            <mat-option>--Select--</mat-option>
+           <mat-option value="{{k.Value}}" *ngFor="let k of dropdownList?.ddlUser">{{k.Text}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-error *ngIf="UserId.invalid && UserId.touched">
+            User Id is <strong>required</strong>
+          </mat-error>
+      </div>
+
+  <div class="col l6 xl6 m6 s12 mb-10">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label> Start No <span style="color: red">*</span>
+      </mat-label>
+      <input matInput placeholder="Start No" [formControl]="StartNo" name="StartNo" [(ngModel)]="model.StartNo" id="StartNo">
+    </mat-form-field>
+    <mat-error *ngIf="StartNo.invalid && StartNo.touched">
+      Start No is <strong>required</strong>
+    </mat-error>
+  </div>
+
+  <div class="col l6 xl6 m6 s12 mb-10">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label> End No <span style="color: red">*</span>
+      </mat-label>
+      <input matInput placeholder="End No" [formControl]="EndNo" name="EndNo" [(ngModel)]="model.EndNo" id="EndNo">
+    </mat-form-field>
+    <mat-error *ngIf="EndNo.invalid && EndNo.touched">
+      End No is <strong>required</strong>
+    </mat-error>
+  </div>
+
+  <div class="col l12 x8 m4 s12 mb-10">
+    <button mat-button class="btn-submit" (click)="SaveClick()">{{title}}</button>
+  </div>
+</div>

@@ -1,0 +1,227 @@
+<div class="modal-header">
+  <p>{{title}} MLA Constituency</p>
+
+  <button mat-button (click)="onNoClick()">
+    <mat-icon>close</mat-icon>
+  </button>
+
+</div>
+
+<div class="row col-mb-10">
+  <div class="col l6 xl6 m6 s12">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>District <span style="color: red">*</span></mat-label>
+      <mat-select [formControl]="DistrictCode" name="DistrictCode" [(ngModel)]="model.DistrictCode" id="DistrictCode">
+        <!-- <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlDistrict">{{k.Text}}</mat-option> -->
+        <mat-option value="{{k.DistrictCode}}" *ngFor="let k of  ddlDistrict">{{k.DistrictTitle}}</mat-option>
+
+      </mat-select>
+    </mat-form-field>
+    <mat-error *ngIf="DistrictCode.invalid && DistrictCode.touched">
+      District is <strong>required</strong>
+    </mat-error>
+  </div>
+
+  <div class="col l6 xl6 m6 s12">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>Designation </mat-label>
+      <mat-select name="DesignationCode" [(ngModel)]="model.DesignationCode" id="DesignationCode">
+        <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlDesignation">{{k.Text}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="col l6 xl6 m6 s12">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label> Designation Display Name (English)
+      </mat-label>
+      <input matInput placeholder="Designation Display Name (English)" [(ngModel)]="model.DesignationDisplayName">
+    </mat-form-field>
+  </div>
+
+  <div class="col l6 xl6 m6 s12">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label> Designation Display Name (Hindi)
+      </mat-label>
+      <input matInput placeholder="Designation Display Name (Hindi)" [(ngModel)]="model.DesignationDisplayNameHindi">
+    </mat-form-field>
+  </div>
+
+  <div class="col l6 xl6 m6 s12">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label> Designation Short Name (Eng)
+      </mat-label>
+      <input matInput placeholder="Designation Short Name (Eng)" [(ngModel)]="model.DesignationShortName" maxlength="10">
+    </mat-form-field>
+  </div>
+
+  <div class="col l6 xl6 m6 s12">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label> Designation Short Name (Hindi)
+      </mat-label>
+      <input matInput placeholder="Designation Short Name (Hindi)" [(ngModel)]="model.DesignationShortNameHindi" maxlength="10">
+    </mat-form-field>
+  </div>
+
+  <div class="col l6 xl6 m6 s12">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label> Name in English <span style="color: red">*</span>
+      </mat-label>
+      <input matInput placeholder="Name in English" [formControl]="Name" name="Name" [(ngModel)]="model.Name" id="Name">
+    </mat-form-field>
+    <mat-error *ngIf="Name.invalid && Name.touched">
+      Name in English is <strong>required</strong>
+    </mat-error>
+  </div>
+
+  <div class="col l6 xl6 m6 s12">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label> Name in Hindi <span style="color: red">*</span>
+      </mat-label>
+      <input matInput placeholder="Name in Hindi" name="NameHindi" [formControl]="NameHindi"
+        [(ngModel)]="model.NameHindi" id="NameHindi">
+    </mat-form-field>
+    <mat-error *ngIf="NameHindi.invalid && NameHindi.touched">
+      Name in Hindi is <strong>required</strong>
+    </mat-error>
+  </div>
+
+  <div class="col l4 xl4 m6 s12">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>Short Name
+      </mat-label>
+      <input matInput placeholder="Short Name" [(ngModel)]="model.ShortName" name="ShortName">
+    </mat-form-field>
+  </div>
+
+  <div class="col l4 xl4 m6 s12">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>Latitude
+      </mat-label>
+      <input matInput placeholder="Latitude" [(ngModel)]="model.Latitude" name="Latitude">
+    </mat-form-field>
+  </div>
+
+  <div class="col l4 xl4 m6 s12">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>Longitude
+      </mat-label>
+      <input matInput placeholder="Longitude" [(ngModel)]="model.Longitude" name="Longitude">
+    </mat-form-field>
+  </div>
+
+  <div class="col l6 xl6 m6 s12">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>MLA Name English
+      </mat-label>
+      <input matInput placeholder="MLA Name English" [(ngModel)]="model.MLANameEng" name="MLANameEng">
+    </mat-form-field>
+  </div>
+
+  <div class="col l6 xl6 m6 s12">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>MLA Name Hindi
+      </mat-label>
+      <input matInput placeholder="MLA Name Hindi" [(ngModel)]="model.MLANameHindi" name="MLANameHindi">
+    </mat-form-field>
+  </div>
+
+  <div class="col l6 xl6 m6 s12">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label> MLA Display Name
+      </mat-label>
+      <input matInput placeholder="MLA Display Name" [(ngModel)]="model.DisplayName">
+    </mat-form-field>
+  </div>
+
+  <div class="col l6 xl6 m6 s12">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label> URL
+      </mat-label>
+      <input matInput placeholder="URL" [(ngModel)]="model.URL">
+    </mat-form-field>
+  </div>
+
+  <div class="col l4 xl4 m6 s12 mb-20">
+    <div class="upload-btn-wrapper mb-10">
+      <label>MAP Images</label>
+      <input type="file" id="ImagePath" (change)="handleFileInput($event)" accept="image/*">
+
+    </div>
+    <div *ngIf="model.MAPImagePath"> <img [src]="model.MAPImagePath" style="height: 100px; width: 100px;" /> <a
+        title="Remove" (click)="RemoveImageFile()">
+        <mat-icon>delete</mat-icon>
+      </a></div>
+
+  </div>
+
+  <div class="col l4 xl4 m6 s12 mb-20">
+    <div class="upload-btn-wrapper mb-10">
+      <label>MLA Photo</label>
+      <input type="file" id="ImagePath" (change)="handleFileInput($event,true)" accept="image/*">
+
+    </div>
+    <div *ngIf="model.MLAPhoto"> <img [src]="model.MLAPhoto" style="height: 100px; width: 100px;" /> <a title="Remove"
+        (click)="RemoveImageFile(true)">
+        <mat-icon>delete</mat-icon>
+      </a></div>
+
+  </div>
+
+  <div class="col l4 xl4 m6 s12">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label> Whatsapp Number
+      </mat-label>
+      <input matInput placeholder="Whatsapp Number" [formControl]="whatsappNumber" name="whatsappNumber"
+        [(ngModel)]="model.whatsappNumber" id="whatsappNumber" pattern="^([0]|\+91[\-\s]?)?[6789]\d{9}$">
+    </mat-form-field>
+    <mat-error *ngIf="whatsappNumber.hasError('required') && whatsappNumber.invalid && whatsappNumber.touched">
+      Whatsapp Number is <strong>required!</strong>
+    </mat-error>
+    <mat-error *ngIf="whatsappNumber.hasError('pattern') && whatsappNumber.invalid && whatsappNumber.touched"> Entered
+      Mobile No is not valid </mat-error>
+  </div>
+
+
+  <div class="col l4 xl4 m6 s12">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label> Email
+      </mat-label>
+      <input matInput placeholder="Email" [formControl]="Email" name="Email" [(ngModel)]="model.Email" id="Email"
+        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
+    </mat-form-field>
+    <mat-error *ngIf="Email.hasError('required') && Email.invalid && Email.touched">
+      Email is <strong>required!</strong>
+    </mat-error>
+    <mat-error *ngIf="Email.hasError('pattern') && Email.invalid && Email.touched"> Only Accept Email Format
+    </mat-error>
+  </div>
+
+  <div class="col l4 xl4 m6 s12">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label> FB Link
+      </mat-label>
+      <input matInput placeholder="FB Link" [(ngModel)]="model.FBLink">
+    </mat-form-field>
+  </div>
+
+  <div class="col l4 xl4 m6 s12">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label> Twitter Link
+      </mat-label>
+      <input matInput placeholder="Twitter Link" [(ngModel)]="model.TwitterLink">
+    </mat-form-field>
+  </div>
+
+  <div class="col l12 xl12 m12 s12">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label> Address
+      </mat-label>
+      <input matInput placeholder="Address" [(ngModel)]="model.MLAAddress" maxlength="999">
+    </mat-form-field>
+  </div>
+
+  <div class="col l12 x8 m4 s12 ">
+    <button mat-button class="btn-submit" (click)="SaveClick()">{{title}}</button>
+  </div>
+</div>

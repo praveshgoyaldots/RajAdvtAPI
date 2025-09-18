@@ -1,0 +1,221 @@
+
+<!-- <div class="row" *ngIf="helpDocUrl">
+    <div class="col l12 s12 p-0">
+        <a (click)="downloadPdf(helpDocUrl)" href="JavaScript:Void(0);">
+            Click to download Help Document
+           </a>
+      </div>
+    </div> -->
+
+    <div class="row m-0">
+        <div style="text-align: right;" class="col l6 s12 download_pdf" *ngIf="helpDocument?.Url"> <a (click)="downloadPdf(helpDocument.Url,true)"
+            href="JavaScript:Void(0);">
+            <mat-icon>picture_as_pdf</mat-icon>
+            Click to download Help Document
+          </a> </div>
+
+          <div style="text-align: left;" class="col l6 s12 download_pdf" *ngIf="helpDocument?.BlankDocUrl"> <a (click)="downloadPdf(helpDocument.BlankDocUrl)"
+            href="JavaScript:Void(0);">
+            <mat-icon>picture_as_pdf</mat-icon>
+            Click to download Blank Document
+          </a> </div>
+      </div>
+
+
+
+      <div class="row">
+
+        <div class="col l12 s12 text-center mb-10">
+
+              <button (click)="downloadCsv()" mat-button class="btn-submit mat-button">Export to Excel <mat-icon>report</mat-icon></button>
+
+          </div>
+
+          <div class="col l12 s12">
+
+            <div class="row m-20 mb-0 scheme-sear-bg-1 no-margin">
+              <div class="col l3 xl3 m6 s12">
+              <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label> Department</mat-label>
+                            <mat-select  [(ngModel)]="indexModel.DepartmentCode">
+                                <mat-option value="">--Select--</mat-option>
+                                <mat-option value="{{ k.DepartmentCode }}" *ngFor="let k of ddlDepartment" title={{k.DepartmentTitle}} >
+                                    {{ k.DepartmentTitle }}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                      </div>
+                      <div class="col l3 xl3 m6 s12">
+                          <mat-form-field class="example-full-width" appearance="outline">
+                            <mat-label>Entry From Date</mat-label>
+                            <input matInput [matDatepicker]="picker1" (focus)="picker1.open()" readonly placeholder="From Date" [(ngModel)]="indexModel.FromDate" [max]="indexModel.ToDate">
+                          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                          <mat-datepicker #picker1></mat-datepicker>
+                          </mat-form-field>
+                        </div>
+                        <div class="col l3 xl3 m6 s12">
+                            <mat-form-field class="example-full-width" appearance="outline">
+                              <mat-label>Entry To Date</mat-label>
+                              <input matInput [matDatepicker]="picker2" (focus)="picker2.open()" readonly placeholder="To Date" [(ngModel)]="indexModel.ToDate" [min]="indexModel.FromDate">
+                              <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                              <mat-datepicker #picker2></mat-datepicker>
+                            </mat-form-field>
+                          </div>
+                          <div class="col l2 xl2 m6 s12">
+                              <mat-form-field class="example-full-width" appearance="outline">
+                                <input matInput placeholder="Software Entry Number" [(ngModel)]="indexModel.Id" type="number"/>
+                              </mat-form-field>
+                            </div>
+
+
+                      <div class="col l1 xl1 m6 s12" >
+                          <button (click)="Reset();" class="btn btn_orange w-100" style="line-height: 0.5;"><mat-icon>refresh</mat-icon></button>
+                      </div>
+            </div>
+
+          </div>
+        </div>
+<app-global-list-search  [SearchFields]="searchColumns" (onSearch)="SearchByKeyword($event)" ></app-global-list-search>
+<!-- <div class="row">
+  <div class="col x6 m6 s6">
+    <mat-form-field class="example-full-width" appearance = "outline">
+      <mat-label>Date<span style="color: red">*</span> </mat-label>
+      <input matInput [matDatepicker]="picker1" (focus)="picker1.open()" readonly placeholder="Date" name="Date"
+        id="SearchDate" [(ngModel)]="indexModel.SearchDate">
+      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+      <mat-datepicker #picker1></mat-datepicker>
+    </mat-form-field>
+  </div>
+</div> -->
+
+<div class="row">
+    <div class="col l12 s12 ">
+      <div class="table-responsive">
+
+      <table mat-table [dataSource]="dataSource" matSort (matSortChange)="SortData($event)" class="mat-elevation-z8 table_border" style="overflow-wrap: break-word;">
+
+          <ng-container matColumnDef="index">
+              <th mat-header-cell *matHeaderCellDef>Sr No</th>
+              <td mat-cell *matCellDef="let element; let i = index;">  {{(indexModel.Page-1)*indexModel.PageSize +(i+1)}}</td>
+            </ng-container>
+
+            <ng-container [matColumnDef]="column.Value" *ngFor="let column of ViewdisplayedColumns">
+
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column.Text}} </th>
+              <td mat-cell *matCellDef="let element" title={{element[column.Value]}}> {{element[column.Value]}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Title">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Title / Document No. / Issue Date</th>
+                <td mat-cell *matCellDef="let group" class="action-link toogle-btn">
+                  {{group.Title}}
+                  <!-- <span *ngIf="group.OrderNo" style="font-weight: bold;"> / {{ group.OrderNo }}</span> -->
+                  <br>
+                  <span *ngIf="group.OrderNo" style="color: #2922a2; font-weight: bold;">Document No. = {{group.OrderNo}}</span><br> <span *ngIf="group.Date" style="color: black; font-weight: bold;">{{ group.Date !=null ? (group.Date| date: 'dd-MM-yyyy') :'--' }}</span>
+                </td>
+              </ng-container>
+
+            <ng-container matColumnDef="Id">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Software Entry No. </th>
+                <td mat-cell *matCellDef="let group" class="action-link toogle-btn">
+                  {{ group.Id }}
+                </td>
+              </ng-container>
+
+           <ng-container matColumnDef="TypeName">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Document Type / Document Sub-Type </th>
+              <td mat-cell *matCellDef="let group" class="action-link toogle-btn">
+                {{ group.TypeName }} / <span *ngIf="group.SubTypeName">{{group.SubTypeName}}</span>
+              </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="ModifiedBy">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Last Update Date / Last Update BY</th>
+              <td mat-cell *matCellDef="let group" class="action-link toogle-btn">
+                {{ group.ModifiedDate !=null ? (group.ModifiedDate| date: 'dd/MM/yyyy') :'--' }} <span *ngIf="group.ModifiedName" style="color: #2922a2; font-weight: bold;">/ {{ group.ModifiedName }}</span>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="BeneficiaryCategoryIds">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Beneficiary Category </th>
+              <td mat-cell *matCellDef="let group" class="action-link toogle-btn" title={{group.BeneficiaryCategoryName}}>
+                {{ group.BeneficiaryCategoryName | slice:0:30}}{{ group?.BeneficiaryCategoryName?.length > 30 ? '...' : ''}}
+              </td>
+            </ng-container>
+
+            <!-- <ng-container matColumnDef="DepartmentCode">
+              <th mat-header-cell *matHeaderCellDef> Department Code </th>
+              <td mat-cell *matCellDef="let group" class="action-link toogle-btn">
+                {{ group.DepartmentCode }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Id">
+              <th mat-header-cell *matHeaderCellDef> Order Code </th>
+              <td mat-cell *matCellDef="let group" class="action-link toogle-btn">
+                {{ group.Id }}
+              </td>
+            </ng-container> -->
+
+        <ng-container matColumnDef="Status">
+          <th mat-header-cell *matHeaderCellDef> Publish Status </th>
+          <td mat-cell *matCellDef="let group" class="action-link toogle-btn">
+            <ng-container>
+              <div *ngIf="group.IsLock" title="This is Locked record">
+                <mat-icon class="toggle_on" *ngIf="group.IsActive" style="cursor:pointer;">toggle_on</mat-icon>
+                <mat-icon class="toggle_off" *ngIf="!group.IsActive" style="cursor:pointer;">toggle_off</mat-icon>
+              </div>
+              <a href="JavaScript:Void(0);" *ngIf="!group.IsLock && this.OrderPermission.UpdatePageAccess" (click)="ChangeActiveStatusClick(group.Id)" title="This is UnLocked record">
+                  <mat-icon class="toggle_on" *ngIf="group.IsActive" style="cursor:pointer;">toggle_on</mat-icon>
+                  <mat-icon class="toggle_off" *ngIf="!group.IsActive" style="cursor:pointer;">toggle_off</mat-icon>
+                </a>
+             </ng-container>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="Lock">
+
+          <th mat-header-cell *matHeaderCellDef>Lock Record</th>
+          <td mat-cell *matCellDef="let group" class="toogle-btn">
+
+            <div *ngIf="!this.OrderPermission.Custome1PageAccess">
+              <ng-container>
+                <mat-icon class="toggle_on" *ngIf="group.IsLock" style="cursor:pointer;">toggle_on</mat-icon>
+                <mat-icon class="toggle_off" *ngIf="!group.IsLock" style="cursor:pointer;">toggle_off</mat-icon>
+
+             </ng-container>
+
+            </div>
+            <div *ngIf="this.OrderPermission.Custome1PageAccess" >
+              <ng-container> <a href="JavaScript:Void(0);" (click)="lockClick(group.Id)">
+
+                <mat-icon class="toggle_on" *ngIf="group.IsLock" style="cursor:pointer;">toggle_on</mat-icon>
+                <mat-icon class="toggle_off" *ngIf="!group.IsLock" style="cursor:pointer;">toggle_off</mat-icon>
+              </a> </ng-container>
+            </div>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="Action">
+            <th  width="130" mat-header-cell *matHeaderCellDef> Action </th>
+            <td mat-cell *matCellDef="let group" class="action-link-btn">
+              <a class="btn_delete"  *ngIf="this.OrderPermission.DeletePageAccess" (click)="OnDelete(group.Id)" title="delete"><mat-icon >delete</mat-icon></a>
+
+              <a class="btn_edit" *ngIf="this.OrderPermission.UpdatePageAccess && !group.IsLock" routerLink="update/{{group.Id}}" title="edit"><mat-icon>edit</mat-icon></a>
+
+              <a class="btn_list" *ngIf="this.OrderPermission.ListPageAccess" routerLink="detail/{{group.Id}}" title="detail"><mat-icon>visibility</mat-icon></a>
+
+              <!--  <a class="btn_list" *ngIf="this.OrderPermission.UpdatePageAccess && !group.IsLock" routerLink="uploadattachment/{{group.Id}}" title="Upload Attachment"><mat-icon>cloud_upload</mat-icon></a> -->
+
+              </td>
+      </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+        <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+      </table>
+
+      </div>
+
+      <mat-paginator #paginator [length]="totalRecords" [pageSize]="indexModel.PageSize" [pageSizeOptions]="[5,10, 20, 50,totalRecords]"
+    (page)="onPaginateChange($event)" showFirstLastButtons>
+  </mat-paginator>
+    </div>
+  </div>

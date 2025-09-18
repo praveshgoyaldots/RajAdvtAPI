@@ -1,0 +1,536 @@
+<div class="row mt-20 detail-bx scheme_detail_page">
+  <div class="table-responsive w-100">
+    <table class="table  mb-20 table-data-2">
+      <tbody>
+        <!-- <tr>
+          <td width="15%">
+            <section class="mat-typography">
+              <h2 class="color-blue">Attachment :</h2>
+            </section>
+          </td>
+          <td colspan="3" *ngIf="model?.TenderMasterData?.SoftCopyURL">
+            <ul>
+              <li >
+                <a href="Javascript:void(0);"  class="btn-soft-copy d-flex align-items-center"><mat-icon class="mr-10">picture_as_pdf</mat-icon> Soft Copy(pdf)
+                 </a>
+              </li>
+            </ul>
+          </td>
+          <td colspan="3" *ngIf="!model?.TenderMasterData?.SoftCopyURL">
+            <section class="mat-typography">
+              <h3 class="color-grey">NA</h3>
+            </section>
+          </td>
+        </tr> -->
+
+        <tr>
+          <td  width="15%">
+            <section class="mat-typography">
+              <h2 class="color-blue">Nodal Department. :</h2>
+            </section>
+          </td>
+          <td  width="35%">
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.DepartmentTitle">{{model?.DepartmentTitle}}</h3>
+              <h3 class="color-grey" *ngIf="!model?.DepartmentTitle">NA</h3>
+            </section>
+          </td>
+          <td  width="15%">
+            <section class="mat-typography">
+              <h2 class="color-blue">Project Scheme/Program Name: </h2>
+            </section>
+          </td>
+          <td  width="35%">
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.ProjectSchemeProgramName">{{model?.ProjectSchemeProgramName}}</h3>
+              <h3 class="color-grey" *ngIf="!model?.ProjectSchemeProgramName">NA</h3>
+            </section>
+          </td>
+        </tr>
+
+        <tr>
+          <td  width="15%">
+            <section class="mat-typography">
+              <h2 class="color-blue">Project Scheme Program:</h2>
+            </section>
+          </td>
+          <td  width="35%">
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.ProgramSchemeName">{{model?.ProgramSchemeName}}</h3>
+              <h3 class="color-grey" *ngIf="!model?.ProgramSchemeName">NA</h3>
+            </section>
+          </td>
+          <td  width="15%">
+            <section class="mat-typography">
+              <h2 class="color-blue">Category : </h2>
+            </section>
+          </td>
+          <td  width="35%">
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.CategoryName">{{model?.CategoryName}}</h3>
+              <h3 class="color-grey" *ngIf="!model?.CategoryName">NA</h3>
+            </section>
+          </td>
+        </tr>
+ <tr>
+          <td  width="15%">
+            <section class="mat-typography">
+              <h2 class="color-blue">Sub Category :</h2>
+            </section>
+          </td>
+          <td  width="35%">
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.SubCategoryName">{{model?.SubCategoryName}}</h3>
+              <h3 class="color-grey" *ngIf="!model?.SubCategoryName">NA</h3>
+            </section>
+          </td>
+          <td  width="15%">
+            <section class="mat-typography">
+              <h2 class="color-blue">Work Type :(missing in model) </h2>
+            </section>
+          </td>
+          <td  width="35%">
+            <section class="mat-typography">
+              <!-- <h3 class="color-grey" *ngIf="model?.">{{model?.TenderMasterData?.FormIssuingDate| date: 'dd/MM/yyyy'}}</h3>
+              <h3 class="color-grey" *ngIf="!model?.TenderMasterData?.FormIssuingDate">NA</h3> -->
+            </section>
+          </td>
+        </tr>
+
+        <tr>
+          <td  width="15%">
+            <section class="mat-typography">
+              <h2 class="color-blue">Department Head Sector:</h2>
+            </section>
+          </td>
+          <td  width="35%">
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.SectorName">{{model?.SectorName}}</h3>
+              <h3 class="color-grey" *ngIf="!model?.SectorName">NA</h3>
+            </section>
+          </td>
+          <td  width="15%">
+            <section class="mat-typography">
+              <h2 class="color-blue">Year of initiation:</h2>
+            </section>
+          </td>
+          <td  width="35%">
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.YearOfInitiationName">{{model?.YearOfInitiationName}}</h3>
+              <h3 class="color-grey" *ngIf="!model?.YearOfInitiationName">NA</h3>
+            </section>
+          </td>
+        </tr>
+
+        <tr>
+          <td  width="15%">
+            <section class="mat-typography">
+              <h2 class="color-blue">Work Entry Status:</h2>
+            </section>
+          </td>
+          <td  width="35%">
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.StatusName">{{model?.StatusName}}</h3>
+              <h3 class="color-grey" *ngIf="!model?.StatusName">NA</h3>
+            </section>
+          </td>
+          <td  width="15%">
+            <section class="mat-typography">
+              <h2 class="color-blue">shilanyas Date:</h2>
+            </section>
+          </td>
+          <td  width="35%">
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.StatusDate">{{model?.StatusDate| date: 'dd/MM/yyyy'}}</h3>
+              <h3 class="color-grey" *ngIf="!model?.StatusDate">NA</h3>
+            </section>
+          </td>
+        </tr>
+
+        <tr>
+          <td  width="15%">
+            <section class="mat-typography">
+              <h2 class="color-blue">Is Shilanyas:</h2>
+            </section>
+          </td>
+          <td  width="35%">
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.IsShilanyas">{{model?.IsShilanyas}}</h3>
+              <h3 class="color-grey" *ngIf="!model?.IsShilanyas">NA</h3>
+            </section>
+          </td>
+          <td  width="15%">
+            <section class="mat-typography">
+              <h2 class="color-blue">Is CM Priority:</h2>
+            </section>
+          </td>
+          <td  width="35%">
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.IsCMPriority">{{model?.IsCMPriority}}</h3>
+              <h3 class="color-grey" *ngIf="!model?.IsCMPriority">NA</h3>
+            </section>
+          </td>
+        </tr>
+
+
+        <tr>
+          <td  width="15%">
+            <section class="mat-typography">
+              <h2 class="color-blue">Project/Scheme Description:</h2>
+            </section>
+          </td>
+          <td  width="35%">
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.ProjectSchemeDescription">{{model?.ProjectSchemeDescription}}</h3>
+              <h3 class="color-grey" *ngIf="!model?.ProjectSchemeDescription">NA</h3>
+            </section>
+          </td>
+
+        </tr>
+
+        <tr>
+          <td  width="15%">
+            <section class="mat-typography">
+              <h2 class="color-blue">Project Scheme Description:</h2>
+            </section>
+          </td>
+          <td  width="35%">
+            <section class="mat-typography">
+              <h2 class="color-grey" innerHTML="{{ model?.ProjectSchemeObjective}}"> </h2>
+            </section>
+          </td>
+          <td  width="15%">
+            <section class="mat-typography">
+              <h2 class="color-blue">Cost :</h2>
+            </section>
+          </td>
+          <td  width="35%">
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.Cost">{{model?.Cost}}</h3>
+              <h3 class="color-grey" *ngIf="!model?.Cost">NA</h3>
+            </section>
+          </td>
+        </tr>
+
+
+
+
+      </tbody>
+    </table>
+
+    <div class="border-box-data">
+    <h2>Work Order Mapping </h2>
+    <table class="table table-data-2" >
+      <tbody>
+        <!-- <tr>
+          <td width="15%">
+            <section class="mat-typography">
+              <h2 class="color-blue">Attachment :</h2>
+            </section>
+          </td>
+          <td colspan="3" *ngIf="model?.TenderMasterData?.SoftCopyURL">
+            <ul>
+              <li >
+                <a href="Javascript:void(0);"  class="btn-soft-copy d-flex align-items-center"><mat-icon class="mr-10">picture_as_pdf</mat-icon> Soft Copy(pdf)
+                 </a>
+              </li>
+            </ul>
+          </td>
+          <td colspan="3" *ngIf="!model?.TenderMasterData?.SoftCopyURL">
+            <section class="mat-typography">
+              <h3 class="color-grey">NA</h3>
+            </section>
+          </td>
+        </tr> -->
+
+        <tr>
+          <td  width="15%">
+            <section class="mat-typography">
+              <h2 class="color-blue">{{model.SubCategoryName}} :</h2>
+            </section>
+          </td>
+          <td  width="35%">
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.ProjectsMappingData?.LabelName">{{model?.ProjectsMappingData?.LabelName}}</h3>
+              <h3 class="color-grey" *ngIf="!model?.LabelName">NA</h3>
+            </section>
+          </td>
+          <td  width="15%">
+            <section class="mat-typography">
+              <h2 class="color-blue">Work Category: </h2>
+            </section>
+          </td>
+          <td  width="35%">
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.ProjectsMappingData?.ProjectWorkCategoryName">{{model?.ProjectsMappingData?.ProjectWorkCategoryName}}</h3>
+              <h3 class="color-grey" *ngIf="!model?.ProjectsMappingData?.ProjectWorkCategoryName">NA</h3>
+            </section>
+          </td>
+        </tr>
+
+        <tr>
+          <td  width="15%">
+            <section class="mat-typography">
+              <h2 class="color-blue">Work Entry Detail Description :</h2>
+            </section>
+          </td>
+          <td  width="35%">
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.ProjectsMappingData?.Description">{{model?.ProjectsMappingData?.Description}}</h3>
+              <h3 class="color-grey" *ngIf="!model?.ProjectsMappingData?.Description">NA</h3>
+            </section>
+          </td>
+          <td  width="15%">
+            <section class="mat-typography">
+              <h2 class="color-blue">Area Covered: </h2>
+            </section>
+          </td>
+          <td  width="35%">
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.ProjectsMappingData?.AreaCovered">{{model?.ProjectsMappingData?.AreaCovered}}</h3>
+              <h3 class="color-grey" *ngIf="!model?.ProjectsMappingData?.AreaCovered">NA</h3>
+            </section>
+          </td>
+        </tr>
+
+        <tr>
+          <td  width="15%">
+            <section class="mat-typography">
+              <h2 class="color-blue">District :</h2>
+            </section>
+          </td>
+          <td  width="35%">
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.ProjectsMappingData?.DistrictNames">{{model?.ProjectsMappingData?.DistrictNames}}</h3>
+              <h3 class="color-grey" *ngIf="!model?.ProjectsMappingData?.DistrictNames">NA</h3>
+            </section>
+          </td>
+          <td  width="15%">
+            <section class="mat-typography">
+              <h2 class="color-blue">MLA Constituency: </h2>
+            </section>
+          </td>
+          <td  width="35%">
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.ProjectsMappingData?.MLAConstituencyName">{{model?.ProjectsMappingData?.MLAConstituencyName}}</h3>
+              <h3 class="color-grey" *ngIf="!model?.ProjectsMappingData?.MLAConstituencyName">NA</h3>
+            </section>
+          </td>
+        </tr>
+
+        <tr>
+          <td  width="15%">
+            <section class="mat-typography">
+              <h2 class="color-blue">Is Urben/Rural :</h2>
+            </section>
+          </td>
+          <td  width="35%">
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.ProjectsMappingData?.UrbanOrRural">{{model?.ProjectsMappingData?.UrbanOrRural}}</h3>
+              <h3 class="color-grey" *ngIf="!model?.ProjectsMappingData?.UrbanOrRural">NA</h3>
+            </section>
+          </td>
+          <td  width="15%">
+            <section class="mat-typography">
+              <h2 class="color-blue">Is Part of MLA LAD: </h2>
+            </section>
+          </td>
+          <td  width="35%">
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.ProjectsMappingData?.IsPartofMLALAD">{{model?.ProjectsMappingData?.IsPartofMLALAD}}</h3>
+              <h3 class="color-grey" *ngIf="!model?.ProjectsMappingData?.IsPartofMLALAD">NA</h3>
+            </section>
+          </td>
+        </tr>
+
+        <tr>
+          <td  width="15%">
+            <section class="mat-typography">
+              <h2 class="color-blue">Attachment :</h2>
+            </section>
+          </td>
+          <td  width="35%">
+            <section class="mat-typography">
+              <li *ngFor="let item of model?.ProjectsMappingData?.Attachments; let i = index;">
+                <div>
+                  <a (click)="downloadOtherDocPdf(item)" href="JavaScript:Void(0);">
+                    <span class="show-file-pdf" > View PDF <mat-icon>picture_as_pdf
+                      </mat-icon></span>
+                    <!-- <img *ngIf="item.Extension!='pdf'" [src]="item.Url" style="height: 100px; width: 100px;" /> -->
+                  </a>
+                  </div>
+              </li>
+            </section>
+          </td>
+          <td  width="15%">
+            <section class="mat-typography">
+              <h2 class="color-blue">Old Data(Block): </h2>
+            </section>
+          </td>
+          <td  width="35%">
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.ProjectsMappingData?.BlockText">{{model?.ProjectsMappingData?.BlockText}}</h3>
+              <h3 class="color-grey" *ngIf="!model?.ProjectsMappingData?.BlockText">NA</h3>
+            </section>
+          </td>
+        </tr>
+
+        <tr>
+          <td  width="15%">
+            <section class="mat-typography">
+              <h2 class="color-blue">Block Name :</h2>
+            </section>
+          </td>
+          <td  width="35%">
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.ProjectsMappingData?.BlockNames">{{model?.ProjectsMappingData?.BlockNames}}</h3>
+              <h3 class="color-grey" *ngIf="!model?.ProjectsMappingData?.BlockNames">NA</h3>
+            </section>
+          </td>
+          <td  width="15%">
+            <section class="mat-typography">
+              <h2 class="color-blue">Ward No: </h2>
+            </section>
+          </td>
+          <td  width="35%">
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.ProjectsMappingData?.WardNo">{{model?.ProjectsMappingData?.WardNo}}</h3>
+              <h3 class="color-grey" *ngIf="!model?.ProjectsMappingData?.WardNo">NA</h3>
+            </section>
+          </td>
+        </tr>
+
+        <tr>
+          <td  width="15%">
+            <section class="mat-typography">
+              <h2 class="color-blue">Village Name :</h2>
+            </section>
+          </td>
+          <td  width="35%">
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.ProjectsMappingData?.VillageNames">{{model?.ProjectsMappingData?.VillageNames}}</h3>
+              <h3 class="color-grey" *ngIf="!model?.ProjectsMappingData?.VillageNames">NA</h3>
+            </section>
+          </td>
+          <td  width="15%">
+            <section class="mat-typography">
+              <h2 class="color-blue">Gram Panchayat: </h2>
+            </section>
+          </td>
+          <td  width="35%">
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.ProjectsMappingData?.GramPanchayatNames">{{model?.ProjectsMappingData?.GramPanchayatNames}}</h3>
+              <h3 class="color-grey" *ngIf="!model?.ProjectsMappingData?.GramPanchayatNames">NA</h3>
+            </section>
+          </td>
+        </tr>
+
+
+
+
+
+      </tbody>
+    </table>
+  </div>
+
+
+    <div class="col s12" *ngIf="model?.BudgetParameterList?.length>0">
+      <section class="mat-typography">
+        <h2 class="result-title">Linked with (Budget/CM Announcement/CM Directions/Jan Ghoshna Patra)</h2>
+      </section>
+    </div>
+    <div class="row highlight_view parameter_bx">
+      <!-- <div class="col s12">
+        <section class="mat-typography">
+          <h2 class="result-title-sm text-center">Progress List</h2>
+        </section>
+      </div> -->
+
+      <table class="table new_table table_border" *ngIf="model?.BudgetParameterList?.length > 0">
+        <thead>
+          <tr>
+            <th scope="col">Sr.No</th>
+            <th scope="col">Module</th>
+            <th scope="col">Department</th>
+            <th scope="col">Description</th>
+            <!-- <th scope="col">Action</th> -->
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+              *ngFor="let item of model?.BudgetParameterList; let i = index"
+              [attr.data-index]="i"
+            >
+            <th scope="row">{{i+1}}</th>
+            <td>{{ item.ModuleName }}</td>
+            <td>{{ item.DepartmentName}}</td>
+            <td>{{ item.Description}}</td>
+
+          </tr>
+        </tbody>
+      </table>
+
+
+  </div>
+
+
+  <div class="row highlight_view parameter_bx">
+
+    <div class="col s12" *ngIf="model?.UpdateProgressMappingList?.length>0">
+      <section class="mat-typography">
+        <h2 class="result-title">Progress LIst</h2>
+      </section>
+    </div>
+
+      <table class="table new_table table_border" *ngIf="model?.UpdateProgressMappingList?.length > 0">
+        <thead>
+          <tr>
+            <th scope="col">Sr.No</th>
+            <th scope="col">MileStone</th>
+            <th scope="col">Date</th>
+            <th scope="col">Status Name</th>
+            <th scope="col">Description</th>
+            <th scope="col">Attachment</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+              *ngFor="let item of model?.UpdateProgressMappingList; let i = index"
+              [attr.data-index]="i">
+            <th scope="row">{{i+1}}</th>
+            <td>{{ item.MileStoneName }}</td>
+            <td>{{ item.Date | date: 'dd/MM/yyyy'}}</td>
+            <td>{{ item.StatusName}}</td>
+            <td>{{ item.Description}}</td>
+            <td> <ul>
+              <li *ngFor="let url of item?.Attachments; let i = index;">
+                <div>
+                  <a (click)="downloadOtherDocPdf(url)" href="JavaScript:Void(0);">
+                    <span class="show-file-pdf justify-content-start"> View PDF <mat-icon>picture_as_pdf
+                      </mat-icon></span>
+                  </a>
+                </div>
+              </li>
+            </ul>
+          </td>
+          <td>
+            <a (click)="openUpdateProgressDialog(item.Id)" title="Update Progress">
+              <mat-icon>edit</mat-icon>
+            </a>
+          </td>
+
+
+          </tr>
+        </tbody>
+      </table>
+
+
+
+
+
+
+
+
+  </div>
+

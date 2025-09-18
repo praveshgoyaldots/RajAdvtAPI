@@ -1,0 +1,69 @@
+
+<form [formGroup]="fromGroup" (ngSubmit)="SaveClick();">
+<div class="row">
+
+<div class="col l4 xl4 m4 s12">
+  <section class="example-full-width  checkbox-bx-custom checkbox-bx-custom-with-label"
+      appearance="outline">
+      <mat-checkbox [(ngModel)]="model.IsDIPR_IdMandatory" formControlName="IsDIPR_IdMandatory" #IsDIPR_IdMandatory>Is DIPR_Id
+        Mandatory</mat-checkbox>
+  </section>
+  <mat-error *ngIf="fromGroup.get('IsDIPR_IdMandatory').invalid && fromGroup.get('IsDIPR_IdMandatory').touched">
+     Is DIPR_Id Mandatory is <strong>required</strong>
+    </mat-error>
+</div>
+<div class="col l4 xl4 m4 s12">
+  <mat-form-field appearance="outline" class="example-full-width">
+    <mat-label>Name</mat-label>
+    <input matInput placeholder="Name" [(ngModel)]="model.Name" #Name maxlength="100" formControlName="Name" />
+    <mat-hint>{{Name.value.length}}/100</mat-hint>
+  </mat-form-field>
+
+  <mat-error *ngIf="(fromGroup.get('Name').hasError('Name') && fromGroup.get('Name').touched)">
+    Name is not in <strong>Valid fromat!</strong>
+  </mat-error>
+</div>
+<div class="col l4 xl4 m4 s12">
+  <mat-form-field appearance="outline" class="example-full-width">
+    <mat-label>PhoneNo</mat-label>
+    <input matInput placeholder="PhoneNo" [(ngModel)]="model.PhoneNo" #PhoneNo formControlName="PhoneNo"
+      (keypress)="numberOnly($event)" maxlength="15" />
+    <mat-hint>{{PhoneNo.value.length}}/15</mat-hint>
+  </mat-form-field>
+
+  <mat-error *ngIf="(fromGroup.get('PhoneNo').hasError('PhoneNo') && fromGroup.get('PhoneNo').touched)">
+    PhoneNo is not in <strong>Valid fromat!</strong>
+  </mat-error>
+</div>
+<div class="col l4 xl4 m4 s12">
+  <mat-form-field appearance="outline" class="example-full-width">
+    <mat-label>Email</mat-label>
+    <input matInput placeholder="Email" [(ngModel)]="model.Email" #Email maxlength="100" formControlName="Email"
+      maxlength="100" />
+    <mat-hint>{{Email.value.length}}/100</mat-hint>
+  </mat-form-field>
+
+  <mat-error *ngIf="(fromGroup.get('Email').hasError('email') && fromGroup.get('Email').touched)">
+    Email is not in <strong>Valid fromat!</strong>
+  </mat-error>
+</div>
+<div class="col l8 xl8 m8 s12">
+  <mat-form-field appearance="outline" class="example-full-width">
+    <mat-label>Address</mat-label>
+    <input matInput placeholder="Address" [(ngModel)]="model.Address" #Address maxlength="500"
+      formControlName="Address" />
+    <mat-hint>{{Address.value.length}}/500</mat-hint>
+  </mat-form-field>
+
+  <mat-error *ngIf="(fromGroup.get('Address').hasError('Address') && fromGroup.get('Address').touched)">
+    Address is not in <strong>Valid fromat!</strong>
+  </mat-error>
+</div>
+
+
+  <div class="col l12 x8 m4 s12 ">
+      <!-- <button mat-button class="btn-submit" (click)="SaveClick()"></button> -->
+      <button type="submit" mat-button class="btn-submit">{{title}}</button>
+  </div>
+</div>
+</form>

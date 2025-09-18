@@ -1,0 +1,234 @@
+<div class="row mt-20 detail-bx">
+  <div class="table-responsive">
+    <table class="table custom-data-table table-simple-data">
+      <tbody>
+        <tr>
+          <td>
+            <section class="mat-typography">
+              <h2 class="color-blue">Admin Department:</h2>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <h3 class="color-grey">
+                <span *ngIf="model?.AdmDepartmentTitle"> {{ model.AdmDepartmentTitle }}</span>
+              </h3>
+              <h3 class="color-grey" *ngIf="!model?.AdmDepartmentTitle">--</h3>
+            </section>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <section class="mat-typography">
+              <h2 class="color-blue">Department:</h2>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.Department">
+                {{ model?.Department }}
+              </h3>
+              <h3 class="color-grey" *ngIf="!model?.Department">--</h3>
+            </section>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <section class="mat-typography">
+              <h2 class="color-blue">Office Name:</h2>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <h3 class="color-grey">
+                <span *ngIf="model?.OfficeName"> {{ model.OfficeName }}</span>
+              </h3>
+              <h3 class="color-grey" *ngIf="!model?.OfficeName">--</h3>
+            </section>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <section class="mat-typography">
+              <h2 class="color-blue">Office Name(Hindi):</h2>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.OfficeNameHindi">
+                {{ model?.OfficeNameHindi }}
+              </h3>
+              <h3 class="color-grey" *ngIf="!model?.OfficeNameHindi">--</h3>
+            </section>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <section class="mat-typography">
+              <h2 class="color-blue">Office Short Name:</h2>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.OfficeShortName">
+                {{ model?.OfficeShortName }}
+              </h3>
+              <h3 class="color-grey" *ngIf="!model?.OfficeShortName">--</h3>
+            </section>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <section class="mat-typography">
+              <h2 class="color-blue">Office Short Name(Hindi):</h2>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.OfficeShortNameHindi">
+                {{ model?.OfficeShortNameHindi }}
+              </h3>
+              <h3 class="color-grey" *ngIf="!model?.OfficeShortNameHindi">
+                --
+              </h3>
+            </section>
+          </td>
+        </tr>
+
+
+        <tr>
+          <td>
+            <section class="mat-typography">
+              <h2 class="color-blue">Office Address:</h2>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.OfficeAddress">
+                {{ model?.OfficeAddress }}
+              </h3>
+              <h3 class="color-grey" *ngIf="!model?.OfficeAddress">--</h3>
+            </section>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <section class="mat-typography">
+              <h2 class="color-blue">District:</h2>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.District">
+                {{ model?.District }}
+              </h3>
+              <h3 class="color-grey" *ngIf="!model?.District">--</h3>
+            </section>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <section class="mat-typography">
+              <h2 class="color-blue">Tehsil:</h2>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.Tehsil">
+                {{ model?.Tehsil }}
+              </h3>
+              <h3 class="color-grey" *ngIf="!model?.Tehsil">--</h3>
+            </section>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <section class="mat-typography">
+              <h2 class="color-blue">Block:</h2>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.Block">
+                {{ model?.Block }}
+              </h3>
+              <h3 class="color-grey" *ngIf="!model?.Block">--</h3>
+            </section>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <section class="mat-typography">
+              <h2 class="color-blue">Email Id:</h2>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.EmailId">
+                {{ model?.EmailId }}
+              </h3>
+              <h3 class="color-grey" *ngIf="!model?.EmailId">--</h3>
+            </section>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <section class="mat-typography">
+              <h2 class="color-blue">Mobile:</h2>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.Mobile">
+                {{ model?.Mobile }}
+              </h3>
+              <h3 class="color-grey" *ngIf="!model?.Mobile">--</h3>
+            </section>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <section class="mat-typography">
+              <h2 class="color-blue">Landline No.:</h2>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.LandlineNo">
+                {{ model?.LandlineNo }}
+              </h3>
+              <h3 class="color-grey" *ngIf="!model?.LandlineNo">--</h3>
+            </section>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <section class="mat-typography">
+              <h2 class="color-blue">IP No.:</h2>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.IPNo">
+                {{ model?.IPNo }}
+              </h3>
+              <h3 class="color-grey" *ngIf="!model?.IPNo">--</h3>
+            </section>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+</div>

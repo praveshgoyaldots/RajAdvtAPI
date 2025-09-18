@@ -1,0 +1,21 @@
+<div class="row global_list_search">
+  <div class="col l4 xl4 m4 s12">
+    <mat-form-field appearance="outline">
+      <mat-label>Search Field :</mat-label>
+      <mat-select name="Search" [(ngModel)]="searchModel.Key">
+        <mat-option>--Select--</mat-option>
+        <mat-option value="{{item.Value}}" *ngFor="let item of SearchFields">{{item.Text}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="col l4 xl4 m4 s12">
+    <mat-form-field appearance="outline" class="example-full-width">
+      <mat-label>Search:</mat-label>
+      <input matInput placeholder="Keyword Search" [(ngModel)]="searchModel.Value" />
+    </mat-form-field>
+  </div>
+  <div class="col l4 xl4 m4 s12">
+       <button (click)="onSearchclick();" mat-button class="btn-submit btn_green">Search</button>
+      &nbsp; <button (click)="onClearclick();" mat-button class="btn-submit  btn_orange">Clear<mat-icon>refresh</mat-icon></button>
+    </div>
+</div>

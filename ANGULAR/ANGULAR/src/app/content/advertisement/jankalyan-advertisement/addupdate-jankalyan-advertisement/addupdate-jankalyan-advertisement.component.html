@@ -1,0 +1,83 @@
+<form [formGroup]="formGroup">
+
+  <div class="row">
+
+    <!-- Image Icon -->
+    <div class="col l6 xl6 m6 s12">
+      <div class="upload-btn-wrapper">
+        <label> Icon Image</label>
+        <input type="file" id="ImageIcon" formControlName="ImageIcon" (change)="handleImageFileInput($event)"
+          accept="image/*">
+      </div>
+      <div *ngIf="model?.ImageIcon"> <img [src]="model.ImageIcon" style="width: 100px; height: 100px;" /> <a
+          title="Remove" (click)="RemoveImageFile()" *ngIf="model?.ImageIcon">
+          <mat-icon>delete</mat-icon>
+        </a></div>
+      <mat-error *ngIf="ImagefileValidationMsg?.length>0" style="margin: 0px;position: relative;">
+        {{ImagefileValidationMsg}}
+      </mat-error>
+    </div>
+
+     <!-- Image banner -->
+     <div class="col l6 xl6 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Image Url
+        </mat-label>
+        <input matInput placeholder="Image Url" [(ngModel)]="model.ImageUrl"
+          formControlName="ImageUrl" name="ImageUrl">
+      </mat-form-field>
+      <mat-error *ngIf="(formGroup.get('ImageUrl').hasError('required') && formGroup.get('ImageUrl').touched)">
+        Image Url is <strong>required!</strong>
+      </mat-error>
+     </div>
+
+
+    <!-- button Name -->
+    <div class="col l6 xl6 m12 s12" >
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Button Name
+          </mat-label>
+          <input matInput placeholder="Button Name" [(ngModel)]="model.ButtonName"
+            formControlName="ButtonName" name="ButtonName">
+        </mat-form-field>
+        <mat-error *ngIf="(formGroup.get('ButtonName').hasError('required') && formGroup.get('ButtonName').touched)">
+          Button Name is <strong>required!</strong>
+        </mat-error>
+      </div>
+
+
+      <!-- display order -->
+      <div class="col l6 xl6 m6 s12">
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Display Order
+          </mat-label>
+          <input matInput placeholder="Display Order" [(ngModel)]="model.DisplayOrder"
+            formControlName="DisplayOrder" name="Display Order">
+        </mat-form-field>
+      </div>
+
+
+      <!-- for arrow -->
+      <div class="col l6 xl6 m6 s12 mat-form-field-wrapper">
+        <section class="example-full-width mb-20  checkbox-bx-custom checkbox-bx-custom-with-label"
+          appearance="outline">
+          <mat-checkbox [(ngModel)]="model.IsArrow" formControlName="IsArrow" #IsArrow >Is Arrow
+          </mat-checkbox>
+        </section>
+      </div>
+
+      <div class="col l6 xl6 m6 s12">
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Advertisement pop-up Category </mat-label>
+            <mat-select name="AdvertisementPopupCode" [(ngModel)]="model.AdvertisementPopupCode" formControlName="AdvertisementPopupCode" >
+              <mat-option>--Select--</mat-option>
+              <mat-option value="{{k.Value}}" *ngFor="let k of dDLList?.ddlAdvertisementPopUpCategory">{{k.Text}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+      </div>
+
+    <div class="col l12 x8 m4 s6 clearfix">
+      <button mat-button class="btn-submit" (click)="SaveClick();">{{title}}</button>
+    </div>
+  </div>
+</form>

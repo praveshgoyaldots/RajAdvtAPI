@@ -1,0 +1,255 @@
+<!-- <app-global-list-search [SearchFields]="ViewdisplayedColumns" (onSearch)="SearchByKeyword($event)">
+</app-global-list-search> -->
+
+
+
+<!-- 
+<div class="row m-0">
+
+  
+
+</div> -->
+<!-- <div class="row">
+  <div class="col l12 xl12 m12 s12 ">
+    <a (click)="toggleDisplay()" class="btn-ad-search">{{!isShow?'Hide Advance Search ':"Show Advance Search"}}
+      <mat-icon>
+        {{!isShow?'keyboard_arrow_up ':"keyboard_arrow_down"}}
+      </mat-icon>
+    </a>
+  </div>
+  <br />
+</div> -->
+<div class="row">
+
+
+  <div class="col l6 xl4 m4 s4">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>Department</mat-label>
+      <mat-select name="DepartmentCode" [(ngModel)]="searchModel.DepartmentCode"
+        (selectionChange)="GetDDLListByDepartment($event.value);">
+        <mat-option>--Select--</mat-option>
+        <mat-option value="{{k.DepartmentCode}}" *ngFor="let k of  ddlDepartment">{{k.DepartmentTitle}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+  </div>
+
+  <div class="col l6 xl4 m4 s4">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>Category</mat-label>
+      <mat-select name="CategortyCode" [(ngModel)]="searchModel.CategortyCode"
+        (selectionChange)="GetGeneralSubCategory($event.value);" [disabled]="catCode">
+        <mat-option>--Select--</mat-option>
+        <mat-option value="{{k.Value}}" *ngFor="let k of ddlAchievementCategory">{{k.Text}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+  </div>
+  <div class="col l6 xl4 m4 s4">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>Sub Category</mat-label>
+      <mat-select name="SubCategortyCode" [(ngModel)]="searchModel.SubCategortyCode">
+        <mat-option>--Select--</mat-option>
+        <mat-option value="{{k.Value}}" *ngFor="let k of dDLList?.ddlAchievementSubCategory">{{k.Text}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+  </div>
+  <div class="col l6 xl4 m4 s4">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>From Date</mat-label>
+      <input matInput [matDatepicker]="picker1" (focus)="picker1.open()" readonly placeholder="From Date"
+        [(ngModel)]="fromDate" [max]="toDate">
+      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+      <mat-datepicker #picker1></mat-datepicker>
+    </mat-form-field>
+  </div>
+  <div class="col l6 xl4 m4 s4">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>To Date</mat-label>
+      <input matInput [matDatepicker]="picker2" (focus)="picker2.open()" readonly placeholder="To Date"
+        [(ngModel)]="toDate" [min]="fromDate">
+      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker #picker2></mat-datepicker>
+    </mat-form-field>
+  </div>
+
+
+
+
+
+  <div class="col l6 xl4 m4 s4">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>Active/De-Active</mat-label>
+      <mat-select name="Activeview" [(ngModel)]="searchModel.Activeview">
+        <mat-option [value]="-1">All</mat-option>
+        <mat-option [value]="1">Active</mat-option>
+        <mat-option [value]="0">DeActive</mat-option>
+
+      </mat-select>
+    </mat-form-field>
+
+  </div>
+  <div class="col l6 xl4 m4 s4">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>CMO Comments</mat-label>
+      <input matInput placeholder="CMO Comments" [(ngModel)]="searchModel.CMOComments" />
+    </mat-form-field>
+  </div>
+  <div class="col l6 xl4 m4 s4" style="display: none;">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <input matInput placeholder="Search" [(ngModel)]="searchModel.SearchField" />
+    </mat-form-field>
+  </div>
+  <div class="col l6 xl4 m4 s4">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <input matInput placeholder="Keyword" [(ngModel)]="searchModel.KeyWord" />
+    </mat-form-field>
+  </div>
+  <div class="col l6 xl4 m4 s4">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <input matInput placeholder="Auto Keyword" [(ngModel)]="searchModel.AutoKeyWord" />
+    </mat-form-field>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col l12 x12 m12 s12 text-left clearfix">
+    <button (click)="getList()" mat-button class="btn-submit btn_green">Search</button>
+    &nbsp;
+    <button (click)="print()" mat-button class="btn-submit btn_orange">Print Report</button> &nbsp;
+    <button (click)="reset();" mat-button class="btn-submit btn_orange"><mat-icon>refresh</mat-icon></button>
+    <button (click)="downloadCsv()" mat-button class="btn-submit mat-button float-right">Export to Excel
+      <mat-icon>report</mat-icon></button>
+  </div>
+
+</div>
+
+
+<div class="row">
+  <div class="col l12 s12 p-0">
+
+    <mat-toolbar color="primary" *ngIf="totalRecords==0">No Record...!</mat-toolbar>
+    <div class="table-responsive" *ngIf="model?.length>0">
+      <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)" class="mat-elevation-z8"
+        *ngIf="totalRecords!=0" id="print">
+
+
+        <!-- <ng-container matColumnDef="index">
+        <th mat-header-cell *matHeaderCellDef>S No.</th>
+        <td mat-cell *matCellDef="let element; let i = index;">{{(indexModel.Page-1)*indexModel.PageSize +(i+1)}}</td>
+      </ng-container> -->
+
+        <ng-container matColumnDef="index">
+          <th mat-header-cell *matHeaderCellDef>S No./ <br>Date/ <br>Images</th>
+          <td mat-cell *matCellDef="let element; let i = index;">
+            {{(searchModel.indexmodel.Page-1)*this.searchModel.indexmodel.PageSize +(i+1)}}/
+            <br>{{ element.AchievementDate !=null ? (element.AchievementDate| date: 'dd/MM/yyyy') :'--'}}
+            <br>
+            <ul class="image-list">
+              <li *ngFor="let url of element.AchievementAttachments; let i = index;">
+                <a *ngIf="url" (click)="downloadPdf(url)" href="JavaScript:Void(0);">
+                  <img [src]="url" style="height: 100px; width: 100px;" />
+                </a>
+              </li>
+            </ul>
+          </td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="Department">
+          <th mat-header-cell *matHeaderCellDef>Department/ <br />Category/ <br />Sub category/ <br> Software Entry No.
+          </th>
+          <td mat-cell *matCellDef="let element; let i = index;">
+            {{element.Department}}<span>/<br></span>{{element.AchievementCategory}} <span>/<br></span>
+            {{element.AchievementSubCategory}} <span>/<br></span> {{element.Id}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="AchievementHindi" style="width: 5%;">
+          <th mat-header-cell *matHeaderCellDef>General Entry (Hindi)</th>
+          <td mat-cell *matCellDef="let element; let i = index;">{{element.AchievementHindi}}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="DescriptionHindi" style="width: 5%;">
+          <th mat-header-cell *matHeaderCellDef>Description(Hindi) </th>
+          <td mat-cell *matCellDef="let element; let i = index;">{{element.DescriptionHindi}}
+          </td>
+        </ng-container>
+
+        <!-- <ng-container matColumnDef="CMOComments">
+          <th mat-header-cell *matHeaderCellDef>CMO Comments</th>
+          <td mat-cell *matCellDef="let element; let i = index;">{{element.CMOComments}}
+          </td>
+        </ng-container> -->
+
+        <ng-container matColumnDef="UserName">
+          <th mat-header-cell *matHeaderCellDef>Created By/ <br /> Created Date</th>
+          <td mat-cell *matCellDef="let element; let i = index;">{{element.UserName}} / <br>
+            {{ element.ModifiedDate !=null ? (element.ModifiedDate | date: 'dd/MM/yyy , h:mm:ss a') :'--'}}</td>
+        </ng-container>
+        <ng-container matColumnDef="IsActive">
+          <th mat-header-cell *matHeaderCellDef class="doNotPrint"> Active Status </th>
+          <td mat-cell *matCellDef="let element" class="action-link toogle-btn doNotPrint">
+            <a *ngIf="this.Permission.UpdatePageAccess" (click)="updateActiveStatus(element.Id)"
+              title="Update Active Status">
+              <mat-icon *ngIf="element.IsActive" style="cursor:pointer;color: #74cb74;">toggle_on</mat-icon>
+              <mat-icon *ngIf="!element.IsActive" style="cursor:pointer;color: #ff7373;">toggle_off</mat-icon>
+            </a>
+            <a *ngIf="!this.Permission.UpdatePageAccess" title="Active Status" class="doNotPrint">
+              <mat-icon *ngIf="element.IsActive" class="doNotPrint" style="cursor:pointer;color:  #74cb74;">toggle_on
+              </mat-icon>
+              <mat-icon *ngIf="!element.IsActive" class="doNotPrint" style="cursor:pointer;color: #ff7373;">toggle_off
+              </mat-icon>
+            </a>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Action" class="doNotPrint">
+          <th mat-header-cell *matHeaderCellDef class="doNotPrint"> Action </th>
+          <td mat-cell *matCellDef="let element" style="cursor:pointer;" class=" action-link doNotPrint">
+            <a *ngIf="this.Permission.DeletePageAccess" (click)="updateDeleteStatus(element.Id)" title="Delete">
+              <mat-icon>delete</mat-icon>
+            </a>
+            <a *ngIf="this.Permission.DetailPageAccess" routerLink="detail/{{element.Id}}" title="Detail">
+              <mat-icon>visibility</mat-icon>
+            </a>
+            <a *ngIf="this.Permission.UpdatePageAccess && !catCode" routerLink="update-achievements/{{element.Id}}"
+              title="Update">
+              <mat-icon>edit</mat-icon>
+            </a>
+            <a *ngIf="this.Permission.UpdatePageAccess && catCode"
+              routerLink="/advertisement/update-e-booklet/{{element.Id}}" title="Update">
+              <mat-icon>edit</mat-icon>
+            </a>
+            <a *ngIf="this.Permission.Custome1PageAccess" routerLink="update-achievements-comment/{{element.Id}}"
+              title="CMO Comments">
+              <mat-icon>comments</mat-icon>
+
+            </a>
+
+
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+        <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+      </table>
+    </div>
+
+    <mat-paginator #paginator [length]="totalRecords" style="display: none;"
+      [pageSize]="searchModel.indexmodel.PageSize" [pageSizeOptions]="[5, 10, 20, 50,totalRecords]"
+      (page)="onPaginateChange($event)" showFirstLastButtons> </mat-paginator>
+
+    <mat-paginator *ngIf="model?.length>0" #paginator [length]="totalRecords"
+      [pageSize]="searchModel.indexmodel.PageSize" [pageSizeOptions]="[5, 10, 20, 50,totalRecords]"
+      (page)="onPaginateChange($event)" showFirstLastButtons> </mat-paginator>
+
+    <!-- <mat-paginator #paginator [length]="totalRecords" [pageSize]="indexModel.PageSize"
+      [pageSizeOptions]="[10, 20, 50,100,101]" (page)="onPaginateChange($event)" showFirstLastButtons
+      *ngIf="totalRecords!=0">
+    </mat-paginator> -->
+  </div>
+
+
+
+</div>

@@ -1,0 +1,53 @@
+<div class="modal-header">
+  <p>{{title}} Tender Progress</p>
+
+  <button mat-button (click)="onNoClick()">
+    <mat-icon>close</mat-icon>
+  </button>
+
+</div>
+
+<div class="col l12 s12 ">
+
+  <div class="col l6 xl6 m6 s12 mb-10">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label> Description <span style="color: red">*</span>
+      </mat-label>
+      <textarea matInput placeholder="Description" [formControl]="desciption" name="desciption" [(ngModel)]="model.Description" id="desciption"></textarea>
+    </mat-form-field>
+    <mat-error *ngIf="desciption.invalid && desciption.touched">
+      Description is <strong>required</strong>
+    </mat-error>
+  </div>
+  <div class="col l6 xl6 m6 s12 mb-10" >
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label > Date <span style="color: red">*</span></mat-label>
+      <input matInput [matDatepicker]="picker1" (focus)="picker1.open()" readonly placeholder="Issue Date" name="progressDate"
+      id="progressDate" [(ngModel)]="model.Date" [formControl]="progressDate">
+
+      <mat-datepicker-toggle matSuffix [for] = "picker1"></mat-datepicker-toggle>
+      <mat-datepicker #picker1></mat-datepicker>
+    </mat-form-field>
+    <mat-error
+    *ngIf="progressDate.invalid && progressDate.touched">
+       Date is <strong>required!</strong>
+    </mat-error>
+  </div>
+  <div class="col l6 xl6 m6 s12 mb-10">
+    <div class="upload-btn-wrapper">
+      <label>Attachment </label>
+      <input type="file" id="PDFUrl" id="PDFUrl" (change)="handleFileInput($event)" accept="application/pdf">
+
+    </div>
+    <ul>
+      <li *ngIf="model?.PDFUrl"> <a href="Javascript:void(0)"
+          (click)="downloadPdf(model?.PDFUrl,'pdf')" class="btn-soft-copy"> Click here to open PDF
+        </a>
+      </li>
+    </ul>
+    <mat-error *ngIf="this.fileValidationMsg?.length >0">{{fileValidationMsg}}</mat-error>
+  </div>
+  <div class="col l12 x8 m4 s12 mb-10">
+    <button mat-button class="btn-submit" (click)="SaveClick()">{{title}}</button>
+  </div>
+</div>

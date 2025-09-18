@@ -1,0 +1,118 @@
+
+<div class="row">
+
+  <div class="col l6 xl6 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Jankalyan Entry Type Name in English
+          </mat-label>
+          <input matInput placeholder="Jankalyan Entry Type Name in English" minlength="5" maxlength="50" [formControl]="name"  name="name" [(ngModel)]="model.Name" id="name">
+      </mat-form-field>
+      <mat-error *ngIf="name.invalid && name.touched">
+        Jankalyan Entry Type Name in English is <strong>required</strong>
+            </mat-error>
+  </div>
+
+  <div class="col l6 xl6 m6 s12">
+    <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Jankalyan Entry Type Name in Hindi
+        </mat-label>
+        <input matInput placeholder="Jankalyan Entry Type Name in Hindi" maxlength="50"  name="name" [(ngModel)]="model.NameHindi" id="name">
+    </mat-form-field>
+  </div>
+
+  <div class="col l6 xl6 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Display Order
+          </mat-label>
+          <input matInput placeholder="Display Order" name="DisplayOrder" maxlength="5" minlength="1" (keypress)="numberOnly($event);" ng-pattern="/(^0$)|(^[1-9]\d{0,8}$)/" [formControl]="DisplayOrder" [(ngModel)]="model.DisplayOrder" id="DisplayOrder">
+      </mat-form-field>
+      <mat-error *ngIf="DisplayOrder.invalid && DisplayOrder.touched">
+        Display Order is <strong>required</strong>
+            </mat-error>
+  </div>
+
+  <div class="col l6 xl6 m6 s12">
+    <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Jankalyan Category</mat-label>
+        <mat-select name="JankalyanCategoryCode" [formControl]="JankalyanCategoryCode" [(ngModel)]="model.JankalyanCategoryCode" >
+            <mat-option>--Select--</mat-option>
+            <mat-option value="{{k.Value}}" *ngFor="let k of dDLList?.ddlJankalyanCategory">{{k.Text}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-error *ngIf="JankalyanCategoryCode.invalid && JankalyanCategoryCode.touched">
+      Jankalyan Category is <strong>required</strong>
+    </mat-error>
+  </div>
+
+  <div class="col l6 xl6 m6 s12">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>menu classification</mat-label>
+        <mat-select name="MenuClassificationCode" [formControl]="MenuClassificationCode" [(ngModel)]="model.MenuClassificationCode" >
+            <mat-option>--Select--</mat-option>
+            <mat-option value="{{k.Value}}" *ngFor="let k of dDLList?.ddlClassification">{{k.Text}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <!-- <mat-error *ngIf="MenuClassificationCode.invalid && MenuClassificationCode.touched">
+      Jankalyan Category is <strong>required</strong>
+    </mat-error> -->
+  </div>
+
+  <div class="col l6 xl6 m6 s12">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>Menu classification Page Type</mat-label>
+        <mat-select name="MenuClassificationPageTypeCode" [formControl]="MenuClassificationPageTypeCode" [(ngModel)]="model.MenuClassificationPageTypeCode" >
+            <mat-option>--Select--</mat-option>
+            <mat-option value="{{k.Value}}" *ngFor="let k of dDLList?.ddlClassificationPageType">{{k.Text}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <!-- <mat-error *ngIf="MenuClassificationPageTypeCode.invalid && MenuClassificationPageTypeCode.touched">
+      Jankalyan Category is <strong>required</strong>
+    </mat-error> -->
+  </div>
+
+
+  <div class="col l6 xl6 m6 s12">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>Sub Menu Name Hindi
+      </mat-label>
+      <input matInput placeholder="Sub Menu Name Hindi" name="SubMenuNameHindi" [(ngModel)]="model.SubMenuNameHindi">
+    </mat-form-field>
+  </div>
+
+  <div class="col l6 xl6 m6 s12">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>Sub Menu Name English
+      </mat-label>
+      <input matInput placeholder="Sub Menu Name English" name="SubMenuNameEnglish" [(ngModel)]="model.SubMenuNameEnglish">
+    </mat-form-field>
+  </div>
+
+
+  <div class="col l6 xl6 m6 s12">
+    <mat-radio-group class=" mb-10 example-full-width radio-bx-custom radio-bx-custom-with-label" appearance="outline" aria-label="Select an option" [(ngModel)]="model.GeneralDepartmentDistrictMapping">
+        <mat-label class="mr-5">District/Department Mapping</mat-label>
+        <mat-radio-button class="mr-5" value="{{item.Value}}" *ngFor="let item of dDLList?.RadioDepartmentDistrictbutton;" (change)="GetDepartmentList($event.value)">
+            {{item.Text}}
+        </mat-radio-button>
+    </mat-radio-group>
+</div>
+
+<div class="col l6 xl6 m6 s12" >
+  <mat-label> Department </mat-label>
+  <mat-selection-list [(ngModel)]="model.GeneralDepartmentDistrictMappingList" class="matlistscroll">
+    <mat-list-option disabled="disabled" (click)="selectAllDepartment();">
+      <mat-checkbox [checked]="selectedAllDepartmentDistrict>0"> SelectAll </mat-checkbox>
+    </mat-list-option>
+    <mat-list-option [value]="item.Value" *ngFor="let item of dDLDistrictDepartment">
+      {{item.Text}}
+    </mat-list-option>
+  </mat-selection-list>
+</div>
+
+
+
+  <div class="col l12 x8 m4 s12 ">
+      <button mat-button class="btn-submit" (click)="SaveClick()">Submit</button>
+  </div>
+</div>
+

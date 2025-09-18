@@ -1,0 +1,69 @@
+<form >
+
+<div class="row">
+
+<div class="col l6 xl6 m6 s12">
+  <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>Template Type
+      </mat-label>
+      <mat-select [(ngModel)]="model.TypeCode" name="TypeCode" [formControl]="TypeCode">
+        <mat-option>--Select--</mat-option>
+        <mat-option value="{{k.Value}}" *ngFor="let k of dDLList?.ddlNotificationTemplateType">{{k.Text}}</mat-option>
+    </mat-select>
+
+  </mat-form-field>
+  <mat-error *ngIf="TypeCode.invalid && TypeCode.touched">
+      Type Code is <strong>required</strong>
+    </mat-error>
+</div>
+
+<div class="col l6 xl6 m6 s12">
+  <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>Subject
+      </mat-label>
+      <input matInput placeholder="Subject" [formControl]="Subject" name="Subject" [(ngModel)]="model.Subject">
+  </mat-form-field>
+  <mat-error *ngIf="Subject.invalid && Subject.touched">
+      Type Code is <strong>required</strong>
+    </mat-error>
+</div>
+
+<!-- <div class="col l12 x8 m4 s12 ">
+  <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>Email Content
+      </mat-label>
+
+      <input  style="display:none;" matInput placeholder="Email Content" name="EmailContent">
+      <ckeditor
+      [config]="{uiColor: '#26389b'}"
+      [(ngModel)]="model.EmailContent"
+      placeholder="Email Content"
+      [formControl]="EmailContent"
+      name="EmailContent"
+      ></ckeditor>
+    </mat-form-field>
+    <mat-error *ngIf="EmailContent.invalid && EmailContent.touched">
+        Email content is <strong>required</strong>
+      </mat-error>
+</div> -->
+
+<div class="col l12 x8 m4 s12">
+  <mat-label class="d-block mb-10">Email Content
+  </mat-label>
+  <mat-form-field class="example-full-width" appearance="outline">
+
+    <input style="display:none; "  matInput placeholder="Email Content" name="EmailContent">
+    <angular-editor  [formControl]="EmailContent" name="EmailContent" id="EmailContent"
+      [(ngModel)]="model.EmailContent" [config]="editorConfig" style="margin-top: 30px;"></angular-editor>
+  </mat-form-field>
+  <mat-error *ngIf="EmailContent.invalid && EmailContent.touched">
+    Email content is <strong>required</strong>
+  </mat-error>
+</div>
+
+<div class="col l12 x8 m4 s12 ">
+  <button mat-button class="btn-submit" (click)="saveClick()">Submit</button>
+</div>
+</div>
+</form>
+

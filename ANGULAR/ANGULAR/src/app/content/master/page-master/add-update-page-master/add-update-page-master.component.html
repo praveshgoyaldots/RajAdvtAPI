@@ -1,0 +1,166 @@
+<form [formGroup]="fromGroup" (ngSubmit)="onSaveClick();">
+  <div class="row">
+
+
+    <div class="col l6 xl6 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Application <span style="color: red">*</span></mat-label>
+        <mat-select name="Application" [(ngModel)]="model.ApplicationCode" #ApplicationCode
+          formControlName="ApplicationCode" (selectionChange)="getFilterdDDL();">
+          <mat-option value>--Select--</mat-option>
+          <mat-option value="{{k.Value}}" *ngFor="let k of dDLList?.ddlApplicationType">{{k.Text}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-error
+        *ngIf="(fromGroup.get('ApplicationCode').hasError('required') && fromGroup.get('ApplicationCode').touched)">
+        Application <strong>required!</strong>
+      </mat-error>
+    </div>
+
+    <div class="col l5 x12 m5 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Menu Name<span style="color: red">*</span></mat-label>
+        <mat-select name="MenuCode" placeholder="Menu Name" [(ngModel)]="model.MenuCode" formControlName="MenuCode"
+          #MenuCode>
+          <mat-option value>--Select--</mat-option>
+          <mat-option value="{{k.Value}}" *ngFor="let k of dDLList?.ddlApplicationMenu">{{k.Text}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <!-- <mat-error *ngIf="(fromGroup.get('MenuCode').hasError('required') && fromGroup.get('MenuCode').touched)">
+        Menu Name is <strong>required!</strong>
+      </mat-error> -->
+    </div>
+
+    <div class="col x1 m1 s2">
+      <mat-icon title="Add New Menu"
+        *ngIf="_commonService.IsNullOrEmpty(this.model.MenuCode) || this.model.MenuCode.toString()=='0'"
+        (click)="addUpdateMenuDialog(false)" style="cursor:pointer;color: green;">add_circle_outline</mat-icon>
+      <mat-icon title="Update Selected Menu"
+        *ngIf="!_commonService.IsNullOrEmpty(this.model.MenuCode) && this.model.MenuCode.toString()!='0'"
+        (click)="addUpdateMenuDialog(true)" style="cursor:pointer;color: green;">edit</mat-icon>
+    </div>
+
+    <div class="col l6 xl6 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Page Type <span style="color: red">*</span></mat-label>
+        <mat-select name="PageType" [(ngModel)]="model.PageTypeCode" #PageTypeCode formControlName="PageTypeCode">
+          <mat-option value>--Select--</mat-option>
+          <mat-option value="{{k.Value}}" *ngFor="let k of dDLList?.ddlPageType">{{k.Text}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-error *ngIf="(fromGroup.get('PageTypeCode').hasError('required') && fromGroup.get('PageTypeCode').touched)">
+        Page Type <strong>required!</strong>
+      </mat-error>
+
+    </div>
+
+    <div class="col l6 xl6 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Permission Name<span style="color: red">*</span></mat-label>
+        <input matInput placeholder="PermissionName" [(ngModel)]="model.PageTitle" maxlength="100" #PageTitle
+          formControlName="PageTitle" />
+        <mat-hint>{{PageTitle.value.length}}/100</mat-hint>
+      </mat-form-field>
+      <mat-error *ngIf="(fromGroup.get('PageTitle').hasError('required') && fromGroup.get('PageTitle').touched)">
+        Permission Name <strong>required!</strong>
+      </mat-error>
+      <mat-error
+        *ngIf="(fromGroup.get('PageTitle').hasError('maxlength') && fromGroup.get('PageTitle').touched) || (fromGroup.get('PageTitle').hasError('maxlength'))">
+        Permission Name Max char limit is <strong>100!</strong>
+      </mat-error>
+    </div>
+
+    <div class="col l6 xl6 m6 s6 mat-form-field-wrapper">
+      <section class="example-full-width mb-20  checkbox-bx-custom checkbox-bx-custom-with-label" appearance="outline">
+        <mat-checkbox [(ngModel)]="model.IsConnectWithCMIS" formControlName="IsConnectWithCMIS" #IsConnectWithCMIS>Is Connect With CMIS</mat-checkbox>
+      </section>
+    </div>
+
+    <div class="col l6 xl6 m6 s6 mat-form-field-wrapper">
+      <section class="example-full-width mb-20  checkbox-bx-custom checkbox-bx-custom-with-label" appearance="outline">
+        <mat-checkbox [(ngModel)]="model.IsVisibleForPermission" formControlName="IsVisibleForPermission" #IsVisibleForPermission>Is Visible for Permission</mat-checkbox>
+      </section>
+    </div>
+
+    <div class="row">
+      <fieldset>
+        <legend> Pages:</legend>
+        <div class="row align-items-center">
+          <div class="col l5 xl5 m5 s12">
+            <label>1. </label>
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Page URL<span style="color: red">*</span></mat-label>
+              <input matInput placeholder="Page URL" [(ngModel)]="model.UrlList[0].PageUrl" maxlength="100"
+                formControlName="PageUrl_1" #PageUrl_1 />
+            </mat-form-field>
+            <mat-error *ngIf="(fromGroup.get('PageUrl_1').hasError('required') && fromGroup.get('PageUrl_1').touched)">
+              Page URL <strong>required!</strong>
+            </mat-error>
+            <mat-error
+              *ngIf="(fromGroup.get('PageUrl_1').hasError('maxlength') && fromGroup.get('PageUrl_1').touched) || (fromGroup.get('PageUrl_1').hasError('maxlength'))">
+              Page Url Max char limit is <strong>100!</strong>
+            </mat-error>
+          </div>
+
+          <div class="col l5 xl5 m5 s12">
+            <label> &nbsp;            </label>
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Permission Type<span style="color: red">*</span></mat-label>
+              <mat-select name="URLType" [(ngModel)]="model.UrlList[0].PermissionType" #PermissionType_1
+                formControlName="PermissionType_1">
+                <mat-option>--Select--</mat-option>
+                <mat-option value="{{ddlitem.Value}}" *ngFor="let ddlitem of dDLList?.ddlURLType">{{ddlitem.Text}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-error
+              *ngIf="(fromGroup.get('PermissionType_1').hasError('required') && fromGroup.get('PermissionType_1').touched)">
+              Permission Type <strong>required!</strong>
+            </mat-error>
+          </div>
+          <div class="col l2 xl2 m2 s12 text-center"
+            *ngIf="!_commonService.IsNullOrEmpty(model.UrlList[UrlItemPostionExist].PageUrl) &&!_commonService.IsNullOrEmpty(model.UrlList[UrlItemPostionExist].PermissionType)">
+            <mat-icon (click)="AddMoreUrlItem()" style="cursor:pointer;color: green;">add</mat-icon>
+          </div>
+
+        </div>
+
+        <ng-container *ngFor="let item of model.UrlList; let i = index">
+          <div class="row align-items-center" *ngIf="i>0">
+            <div class="col l5 xl5 m5 s12"> {{i+1}}
+              <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Page URL<span style="color: red">*</span></mat-label>
+                <input matInput placeholder="Page URL" [(ngModel)]="item.PageUrl" maxlength="100"
+                  [ngModelOptions]="{standalone: true}" />
+              </mat-form-field>
+            </div>
+
+            <div class="col l5 xl5 m5 s12">
+              <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Permission Type {{i+1}}<span style="color: red">*</span></mat-label>
+                <mat-select name="URLType" [(ngModel)]="item.PermissionType" [ngModelOptions]="{standalone: true}">
+                  <mat-option value>--Select--</mat-option>
+                  <mat-option value="{{ddlitem.Value}}" *ngFor="let ddlitem of dDLList?.ddlURLType">{{ddlitem.Text}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="col l2 xl2 m2 s12 text-center">
+              <mat-icon (click)="RemoveUrlItem(i)" style="cursor:pointer;color: red;">delete</mat-icon>
+
+            </div>
+          </div>
+        </ng-container>
+
+      </fieldset>
+    </div>
+    <div class="col l12 x8 m6 s12 clearfix">
+      <button type="submit" mat-button class="btn-submit">Submit</button>
+    </div>
+
+  </div>
+</form>

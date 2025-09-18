@@ -1,0 +1,87 @@
+<!-- <div class="row global_list_search">
+    <div class="col l6 xl6 m6 s12">
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Scheme Name</mat-label>
+            <input matInput placeholder="please enter Scheme Name" name="NameEnglish" [(ngModel)]="model.NameEnglish" [formControl]="NameEnglish">
+        </mat-form-field>
+        <mat-error *ngIf="NameEnglish.invalid && NameEnglish.touched">
+            Scheme Name is <strong>required</strong>
+        </mat-error>
+
+    </div>
+
+    <div class="col l6 xl6 m6 s12">
+        <button mat-button class="btn-submit" (click)="saveClick()">Submit</button>
+    </div>
+</div> -->
+<div class="row" >
+    <div style="margin: 0px;">
+        <div style="text-align: center;" class="col l12 s12 download_pdf" *ngIf="helpDocument?.Url"> <a (click)="downloadPdf(helpDocument.Url,true)"
+            href="JavaScript:Void(0);">
+            <mat-icon>picture_as_pdf</mat-icon>
+            Click to download Help Document
+          </a> </div>
+      </div>
+
+      <div  style="margin: 0px;">
+          <div style="text-align: center;" class="col l12 s12 download_pdf" *ngIf="helpDocument?.BlankDocUrl"> <a (click)="downloadPdf(helpDocument.BlankDocUrl)"
+              href="JavaScript:Void(0);">
+              <mat-icon>picture_as_pdf</mat-icon>
+              Click to download Blank Document
+            </a> </div>
+        </div>
+</div>
+
+
+
+<div class="row">
+    <div class="col l12 s12   ">
+        <table mat-table [dataSource]="dataSource" matSort (matSortChange)="SortData($event)" class="mat-elevation-z8 table_border">
+
+            <ng-container matColumnDef="index">
+                <th mat-header-cell *matHeaderCellDef>Sr No</th>
+                <td mat-cell *matCellDef="let element; let i = index;"> {{(indexModel.Page-1)*indexModel.PageSize +(i+1)}}</td>
+            </ng-container>
+            <ng-container matColumnDef="Id">
+              <th mat-header-cell *matHeaderCellDef>Scheme Code </th>
+              <td mat-cell *matCellDef="let group" class="action-link toogle-btn">
+                  {{ group.Id }}
+              </td>
+          </ng-container>
+          <ng-container matColumnDef="NodelDepartmentCode">
+            <th mat-header-cell *matHeaderCellDef>Department Code </th>
+            <td mat-cell *matCellDef="let group" class="action-link toogle-btn">
+                {{ group.NodelDepartmentCode }}
+            </td>
+        </ng-container>
+            <ng-container matColumnDef="NameEnglish">
+                <th mat-header-cell *matHeaderCellDef> Name </th>
+                <td mat-cell *matCellDef="let group" class="action-link toogle-btn">
+                    {{ group.NameEnglish }}
+                </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="Action">
+                <th mat-header-cell *matHeaderCellDef>Action</th>
+                <td mat-cell *matCellDef="let element" class="action-link">
+                  <a routerLink="/scheme/update/{{ element.Id }}" title="Update" class="btn_edit">
+                    <mat-icon title="Edit ">edit</mat-icon>
+                </a>
+                    <!-- <a routerLink="/scheme/update/{{ element.Id }}" *ngIf="element.PageType == SchemeTypeEnum.Individual || !element.PageType" title="Update" class="btn_edit">
+                        <mat-icon title="Edit Individual Scheme">edit</mat-icon>
+                    </a>
+                    <a routerLink="/scheme/update-group/{{ element.Id }}" *ngIf="element.PageType == SchemeTypeEnum.Group" title="Update" class="btn_edit">
+                      <mat-icon title="Edit Group Scheme">edit</mat-icon>
+                  </a> -->
+
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+            <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+        </table>
+        <mat-paginator #paginator [length]="totalRecords" [pageSize]="indexModel.PageSize" [pageSizeOptions]="[5,10, 20, 50,totalRecords]" (page)="onPaginateChange($event)" showFirstLastButtons>
+        </mat-paginator>
+    </div>
+</div>

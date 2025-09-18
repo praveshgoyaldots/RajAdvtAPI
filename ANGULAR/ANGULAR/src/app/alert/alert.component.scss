@@ -1,0 +1,74 @@
+
+
+@mixin box-shadow($top, $left, $blur, $color, $inset: false) {
+  @if $inset {
+      -webkit-box-shadow: inset $top $left $blur $color;
+      -moz-box-shadow: inset $top $left $blur $color;
+      box-shadow: inset $top $left $blur $color;
+  }
+
+  @else {
+      -webkit-box-shadow: $top $left $blur $color;
+      -moz-box-shadow: $top $left $blur $color;
+      box-shadow: $top $left $blur $color;
+  }
+}
+
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  -ms-border-radius: $radius;
+  border-radius: $radius;
+}
+
+// Responsive--------------------------------
+
+$ipad-landscape: "(min-width: 992px) and (max-width: 1199px)";
+$ipad-portrait: "(min-width: 768px) and (max-width: 991px)";
+$mobile: "(max-width: 767px)";
+
+
+$success-bg-color:#E8F5E9;
+$success-color:#4CAF50;
+$danger-bg-color:#FFEBEE;
+$danger-color:#F44336;
+$warning-bg-color:#fff3e0;
+$warning-color:#ff9800;
+.alert-success{
+  padding: 20px;
+  @include border-radius(0px 0px 2px 2px);
+  background:$success-bg-color;
+  color:$success-color;
+  text-transform: capitalize;
+}
+.alert-danger{
+  padding: 20px;
+  @include border-radius(0px 0px 2px 2px);
+  background:$danger-bg-color;
+  color:$danger-color;
+  text-transform: capitalize;
+}
+.alert-warning{
+  padding: 20px;
+  @include border-radius(0px 0px 2px 2px);
+  background:$warning-bg-color;
+  color:$warning-color;
+  text-transform: capitalize;
+}
+// responsive scss create//
+
+//ipad (min-width: 992px) and (max-width: 1199px) view//
+@media #{$ipad-landscape} {}
+
+//ipad (min-width: 768px) and (max-width: 991px) view//
+@media #{$ipad-portrait} {
+
+}
+
+// max-width: 767px view //
+@media #{$mobile} {
+  .alert-success, .alert-danger, .alert-warning{
+    margin: 50px 0px 0px;
+  }
+
+}

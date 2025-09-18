@@ -1,0 +1,772 @@
+<form [formGroup]="formGroup">
+  <div class="row col-mb-10">
+
+    <div class="col l12 m12 s12">
+      <div class="display-entry-id" *ngIf="model.Id">
+        <mat-label>Display Entry No. </mat-label>
+        <span>{{model.Id}}</span>
+      </div>
+    </div>
+
+    <div class="col l12 m12 s12" *ngIf="model.ModifiedDate">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Last Updated On
+        </mat-label>
+        <input class="disabled font-16 fw-600" matInput placeholder="Last Updated On" [(ngModel)]="model.ModifiedDate"
+          formControlName="ModifiedDate" name="ModifiedDate" disabled>
+      </mat-form-field>
+    </div>
+
+    <div class="col l4 m6 s12" *ngIf="model.Id>0">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Project/Scheme Name
+        </mat-label>
+        <input matInput placeholder="Project/Scheme Name" [(ngModel)]="model.ProjectSchemeName"
+          formControlName="ProjectSchemeName" name="ProjectSchemeName">
+      </mat-form-field>
+      <mat-error
+        *ngIf="(formGroup.get('ProjectSchemeName').touched && formGroup.get('ProjectSchemeName').hasError('invalidUrl'))">
+        Project/Scheme Name is <strong>not valid!</strong>
+      </mat-error>
+    </div>
+
+    <div class="col l4 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Nodal Department<span style="color: red">*</span> </mat-label>
+        <mat-select formControlName="NodalDepartmentCode" #NodalDepartmentCode [(ngModel)]="model.NodalDepartmentCode"
+          (selectionChange)="GetProjectSchemeCategoryByDepartment($event.value)">
+          <mat-option>--Select--</mat-option>
+          <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlUserDepartment">{{ k.Text }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-error
+        *ngIf="formGroup.get('NodalDepartmentCode').hasError('required') && (formGroup.get('NodalDepartmentCode').touched && formGroup.get('NodalDepartmentCode').invalid)">
+        Department is <strong>required!</strong>
+      </mat-error>
+    </div>
+
+    <div class="col l4 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label> Project Scheme Program<span style="color: red">*</span> </mat-label>
+        <mat-select formControlName="ProjectSchemeProgramCode" #ProjectSchemeProgramCode
+          [(ngModel)]="model.ProjectSchemeProgramCode">
+          <mat-option value="{{item.Value}}" *ngFor="let item of dDLList?.ddlProjectProgram">{{item.Text}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-error
+        *ngIf="formGroup.get('ProjectSchemeProgramCode').hasError('required') && (formGroup.get('ProjectSchemeProgramCode').touched && formGroup.get('ProjectSchemeProgramCode').invalid)">
+        Project Scheme Program is <strong>required!</strong>
+      </mat-error>
+    </div>
+
+    <div class="col l4 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label> Project/Scheme/Program Name <span style="color: red">*</span> </mat-label>
+        <mat-select formControlName="ProjectSchemeCode" #ProjectSchemeCode [(ngModel)]="model.ProjectSchemeCode">
+          <mat-option>--Select--</mat-option>
+          <mat-option value="{{ k.Code }}" *ngFor="let k of ddlProjectSchemeCategory">
+            {{ k.ProgramSchemeName }}/({{k.ProgramSchemeTypeName}})
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-error
+        *ngIf="formGroup.get('ProjectSchemeCode').hasError('required') && (formGroup.get('ProjectSchemeCode').touched && formGroup.get('ProjectSchemeCode').invalid)">
+        Project/Scheme/Program Name is <strong>required!</strong>
+      </mat-error>
+      <span>Data is fill on behalf of department</span>
+    </div>
+
+    <div class="col l4 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label> Category<span style="color: red">*</span>
+        </mat-label>
+        <mat-select formControlName="ProjectCategoryCode" #ProjectCategoryCode [(ngModel)]="model.ProjectCategoryCode">
+          <mat-option value="{{item.Value}}" *ngFor="let item of dDLList?.ddlProjectCategory">{{item.Text}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-error
+        *ngIf="formGroup.get('ProjectCategoryCode').hasError('required') && (formGroup.get('ProjectCategoryCode').touched && formGroup.get('ProjectCategoryCode').invalid)">
+        Category is <strong>required!</strong>
+      </mat-error>
+      <a *ngIf="helpDocument?.Url" (click)="downloadPdf(helpDocument?.Url)" href="JavaScript:Void(0);">
+        Click here to download sub-category and Work Type master
+      </a>
+    </div>
+
+    <div class="col l4 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label> Sub Category<span style="color: red">*</span>
+        </mat-label>
+        <mat-select formControlName="ProjectSubCategoryCode" #ProjectSubCategoryCode
+          [(ngModel)]="model.ProjectSubCategoryCode"
+          (selectionChange)="getProjectSubCategoryByCategoryCode($event.value)">
+          <mat-option value="{{item.Value}}" *ngFor="let item of dDLList?.ddlProjectSubCategory">{{item.Text}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-error
+        *ngIf="formGroup.get('ProjectSubCategoryCode').hasError('required') && (formGroup.get('ProjectSubCategoryCode').touched && formGroup.get('ProjectSubCategoryCode').invalid)">
+        Sub Category is <strong>required!</strong>
+      </mat-error>
+    </div>
+
+    <div class="col l4 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label> Work Type<span style="color: red">*</span>
+        </mat-label>
+        <mat-select formControlName="SubSubCategoryCode" #SubSubCategoryCode [(ngModel)]="model.SubSubCategoryCode">
+          <mat-option value="{{item.Value}}" *ngFor="let item of dDLList?.ddlProjectSubSubCategory">{{item.Text}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-error
+        *ngIf="formGroup.get('SubSubCategoryCode').hasError('required') && (formGroup.get('SubSubCategoryCode').touched && formGroup.get('SubSubCategoryCode').invalid)">
+        Work Type is <strong>required!</strong>
+      </mat-error>
+    </div>
+
+    <div class="col l4 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Development Head/Sector <span style="color: red">*</span></mat-label>
+        <mat-select formControlName="DevelopmentSectorCode" #DevelopmentSectorCode
+          [(ngModel)]="model.DevelopmentSectorCode">
+          <mat-option value="{{item.Value}}" *ngFor="let item of dDLList?.ddlSector">{{item.Text}} </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-error
+        *ngIf="formGroup.get('DevelopmentSectorCode').hasError('required') && (formGroup.get('DevelopmentSectorCode').touched && formGroup.get('DevelopmentSectorCode').invalid)">
+        Development Head/Sector is <strong>required!</strong>
+      </mat-error>
+    </div>
+
+    <div class="col l4 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label> Year of Initiation<span style="color: red">*</span> </mat-label>
+        <mat-select formControlName="YearOfInitiationCode" #YearOfInitiationCode
+          [(ngModel)]="model.YearOfInitiationCode">
+          <mat-option value="{{item.Value}}" *ngFor="let item of dDLList?.ddlProjectYearOfInitiation">{{item.Text}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-error
+        *ngIf="formGroup.get('YearOfInitiationCode').hasError('required') && (formGroup.get('YearOfInitiationCode').touched && formGroup.get('YearOfInitiationCode').invalid)">
+        Year of Initiation is <strong>required!</strong>
+      </mat-error>
+    </div>
+
+    <div class="col l4 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label> Works Entry Status<span style="color: red">*</span> </mat-label>
+        <mat-select formControlName="ProjectStatusCode" #ProjectStatusCode [(ngModel)]="model.ProjectStatusCode"
+          (selectionChange)="statusChange($event.value)">
+          <mat-option value="{{item.Value}}" *ngFor="let item of dDLList?.ddlProjectStatus">{{item.Text}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-error
+        *ngIf="formGroup.get('ProjectStatusCode').hasError('required') && (formGroup.get('ProjectStatusCode').touched && formGroup.get('ProjectStatusCode').invalid)">
+        Works Entry Status is <strong>required!</strong>
+      </mat-error>
+    </div>
+
+    <div class="col l4 m6 s12 mat-form-field-wrapper"
+      *ngIf="model.ProjectStatusCode == lookupEnum.Lokarpan|| model.ProjectStatusCode==lookupEnum.Shilanyas">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>By(VIP) <span style="color: red">*</span></mat-label>
+        <mat-select formControlName="PerformedByMLACode" #PerformedByMLACode [(ngModel)]="model.PerformedByMLACode">
+          <mat-option value="{{item.Value}}" *ngFor="let item of dDLList?.ddlMLAConstituencyWithDesignation">
+            {{item.Text}} </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-error
+        *ngIf="formGroup.get('PerformedByMLACode').hasError('required') && (formGroup.get('PerformedByMLACode').touched && formGroup.get('PerformedByMLACode').invalid)">
+        By is <strong>required</strong>
+      </mat-error>
+    </div>
+
+    <div class="col l4 m6 s12"
+      *ngIf="model.ProjectStatusCode == lookupEnum.Lokarpan|| model.ProjectStatusCode==lookupEnum.Shilanyas">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>On Date <span style="color: red">*</span> </mat-label>
+        <input matInput [matDatepicker]="picker2" (focus)="picker2.open()" readonly placeholder="Date" name="StatusDate"
+          id="StatusDate" [(ngModel)]="model.StatusDate" [max]="minDate" formControlName="StatusDate"
+          (dateChange)="statusDateChange($event.value)">
+        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+        <mat-datepicker #picker2></mat-datepicker>
+      </mat-form-field>
+      <mat-error
+        *ngIf="formGroup.get('StatusDate').hasError('required') && (formGroup.get('StatusDate').touched && formGroup.get('StatusDate').invalid)">
+        On Date is <strong>required</strong>
+      </mat-error>
+    </div>
+
+    <!-- <div class="col l4 m6 s12 mat-form-field-wrapper">
+  <section class="example-full-width  checkbox-bx-custom checkbox-bx-custom-with-label" appearance="outline">
+    <mat-label>Is PPP Project </mat-label>
+    <mat-checkbox [(ngModel)]="model.IsPPPProject" Id="IsPPPProject" formControlName="IsPPPProject"
+      #IsPPPProject> Is PPP Project</mat-checkbox>
+  </section>
+</div> -->
+
+    <div class="col l4 xl4 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Latitude </mat-label>
+        <input matInput placeholder="Latitude" formControlName="Latitude" [(ngModel)]="model.Latitude" maxlength="50" />
+      </mat-form-field>
+    </div>
+
+    <div class="col l4 xl4 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Longitude </mat-label>
+        <input matInput placeholder="Longitude" formControlName="Longitude" [(ngModel)]="model.Longitude"
+          maxlength="50" />
+      </mat-form-field>
+    </div>
+
+    <div class="col l4 m6 s12 mat-form-field-wrapper" *ngIf="model.ProjectStatusCode!=lookupEnum.Shilanyas">
+      <section class="example-full-width  checkbox-bx-custom checkbox-bx-custom-with-label mb-10" appearance="outline">
+        <mat-checkbox [(ngModel)]="model.IsShilanyas" Id="IsShilanyas" formControlName="IsShilanyas" #IsShilanyas
+          (change)="OnChangeShilanyanDateValidation($event.checked);">Is Shilanyas Done</mat-checkbox>
+      </section>
+    </div>
+
+    <div class="col l4 m6 s12" *ngIf="model.IsShilanyas">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Shilanyas Date <span style="color: red">*</span> </mat-label>
+        <input matInput [matDatepicker]="picker1" (focus)="picker1.open()" readonly placeholder="Date"
+          name="ExpriedOnDate" id="ExpriedOnDate" [(ngModel)]="model.ShilanyasDate" [max]="minDate"
+          formControlName="ShilanyasDate" [disabled]="model.ProjectStatusCode==lookupEnum.Shilanyas">
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+      </mat-form-field>
+      <mat-error
+        *ngIf="formGroup.get('ShilanyasDate').hasError('required') && (formGroup.get('ShilanyasDate').touched && formGroup.get('ShilanyasDate').invalid)">
+        Shilanyas Date is <strong>required</strong>
+      </mat-error>
+    </div>
+
+    <div class="col l4 m6 s12 mat-form-field-wrapper">
+      <section class="example-full-width  checkbox-bx-custom checkbox-bx-custom-with-label mb-10" appearance="outline">
+        <mat-checkbox [(ngModel)]="model.IsCMPriority" Id="IsCMPriority" formControlName="IsCMPriority" #IsCMPriority>
+          Is CM Priority</mat-checkbox>
+      </section>
+    </div>
+
+    <div class="col l12 m12 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Project/Scheme Description<span style="color: red">*</span>
+        </mat-label>
+        <textarea matInput placeholder="Project/Scheme Description" [(ngModel)]="model.ProjectSchemeDescription"
+          formControlName="ProjectSchemeDescription" name="ProjectSchemeDescription"></textarea>
+      </mat-form-field>
+      <mat-error
+        *ngIf="formGroup.get('ProjectSchemeDescription').hasError('required') && (formGroup.get('ProjectSchemeDescription').touched && formGroup.get('ProjectSchemeDescription').invalid)">
+        Project/Scheme Description is <strong>required!</strong>
+      </mat-error>
+    </div>
+
+    <!-- <div class="col l12 m12 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Project/Scheme Objective
+          </mat-label>
+          <textarea matInput placeholder="Project/Scheme Objective" [(ngModel)]="model.ProjectSchemeObjective"
+              formControlName="ProjectSchemeObjective" name="ProjectSchemeObjective"></textarea>
+      </mat-form-field>
+  </div> -->
+
+    <div class="col l12 xl12 m12 s12 ">
+      <a (click)="toggleDisplay()" class="btn-ad-search btn w-100 mb-10">{{!isShow?'Hide Project/Scheme Objective':"Show
+        Project/Scheme Objective"}}
+        <mat-icon>
+          {{!isShow?'keyboard_arrow_up ':"keyboard_arrow_down"}}
+        </mat-icon>
+      </a>
+    </div>
+
+    <!-- <div class="col s12" *ngIf="!isShow">
+    <mat-form-field class="example-full-width" appearance="outline">
+        <label style="padding: 10px 0px; display: inline-block;">
+          Project/Scheme Objective
+        </label>
+        <textarea style="display:none;" matInput  #ProjectSchemeObjective
+            formControlName="ProjectSchemeObjective" maxlength="4000"></textarea>
+
+        <ckeditor [config]="{uiColor: '#26389b'}" [(ngModel)]="model.ProjectSchemeObjective" placeholder="Project/Scheme Objective"
+            formControlName="ProjectSchemeObjective" #ProjectSchemeObjective></ckeditor>
+    </mat-form-field>
+</div> -->
+
+    <div class="col s12" *ngIf="!isShow">
+      <mat-label style="padding: 10px 0px; display: inline-block;"> Project/Scheme Objective
+      </mat-label>
+      <mat-form-field class="example-full-width" appearance="outline">
+        <input style="display:none; " matInput placeholder="ProjectSchemeObjective" name="ProjectSchemeObjective"
+          maxlength="4000">
+        <angular-editor formControlName="ProjectSchemeObjective" name="ProjectSchemeObjective"
+          id="ProjectSchemeObjective" [(ngModel)]="model.ProjectSchemeObjective" [config]="editorConfig"
+          style="margin-top: 30px;">
+        </angular-editor>
+      </mat-form-field>
+    </div>
+
+    <div class="col l4 m6 s12 mat-form-field-wrapper" *ngIf="false">
+      <section class="example-full-width  checkbox-bx-custom checkbox-bx-custom-with-label" appearance="outline">
+        <mat-label>Is Being InAugurated By HCM </mat-label>
+        <mat-checkbox [(ngModel)]="model.IsBeingInAuguratedByHCM" Id="IsBeingInAuguratedByHCM"
+          formControlName="IsBeingInAuguratedByHCM" #IsBeingInAuguratedByHCM> Is Being InAugurated By HCM</mat-checkbox>
+      </section>
+    </div>
+
+    <div class="col l4 m6 s12 mat-form-field-wrapper" *ngIf="false">
+      <section class="example-full-width  checkbox-bx-custom checkbox-bx-custom-with-label" appearance="outline">
+        <mat-label>Is CostCalculated </mat-label>
+        <mat-checkbox [(ngModel)]="model.IsCostCalculated" Id="IsCostCalculated" formControlName="IsCostCalculated"
+          #IsCostCalculated> Is CostCalculated</mat-checkbox>
+      </section>
+    </div>
+
+    <div class="col l4 m6 s12" *ngIf="false">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>{{subCategoryData?.LabelName}} <span style="color: red">*</span>
+        </mat-label>
+        <input matInput placeholder="{{subCategoryData?.LabelName}}" [(ngModel)]="model.LabelName"
+          formControlName="LabelName" name="LabelName">
+      </mat-form-field>
+      <mat-error
+        *ngIf="formGroup.get('LabelName').hasError('required') && (formGroup.get('LabelName').touched && formGroup.get('LabelName').invalid)">
+        {{subCategoryData?.LabelName}} is <strong>required</strong>
+      </mat-error>
+    </div>
+
+    <div class="col l4 m6 s12" *ngIf="model.IsCostCalculated">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Cost(In Lakh)<span style="color: red">*</span>
+        </mat-label>
+        <input matInput placeholder="Cost(In Lakh)" [(ngModel)]="model.Cost" formControlName="Cost" name="Cost">
+      </mat-form-field>
+      <mat-error
+        *ngIf="formGroup.get('Cost').hasError('required') && (formGroup.get('Cost').touched && formGroup.get('Cost').invalid)">
+        Cost(In Lakh) is <strong>required</strong>
+      </mat-error>
+    </div>
+
+    <div class="col l12 m12 s12 mb-20 mt-10" *ngIf="isSubCategory()">
+      <section class="mat-typography">
+        <h2 class="color-blue mb-0">Works Entry Details </h2>
+      </section>
+      <!-- <mat-error *ngIf="ValidationMsgForRecord?.length>0" style="margin: 0px;position: relative;">{{ValidationMsgForRecord}}</mat-error> -->
+    </div>
+
+    <div class="row highlight_view" *ngIf="isSubCategory()">
+      <div class="col l4 m6 s12 mat-form-field-wrapper">
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>{{subCategoryData?.Name}} ( {{subCategoryData?.LabelName}} )<span style="color: red">*</span>
+          </mat-label>
+          <input matInput placeholder="{{subCategoryData?.LabelName}}" [(ngModel)]="projectMappingModel.LabelName"
+            formControlName="ChildLabelName" name="ChildLabelName" id="ChildLabelName">
+        </mat-form-field>
+        <mat-error
+          *ngIf="formGroup.get('ChildLabelName').hasError('required') && (formGroup.get('ChildLabelName').touched && formGroup.get('ChildLabelName').invalid)">
+          {{subCategoryData?.LabelName}} is <strong>required</strong>
+        </mat-error>
+        <mat-error
+          *ngIf="!formGroup.get('ChildLabelName').hasError('required') && formGroup.get('ChildLabelName').touched && formGroup.get('ChildLabelName').invalid">
+          Only Accept numeric value
+        </mat-error>
+      </div>
+
+      <div class="col l4 m6 s12 mat-form-field-wrapper" *ngIf="!model.IsCostCalculated">
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Cost(In Lakh) <span style="color: red">*</span></mat-label>
+          <input matInput placeholder="Cost(In Lakh)" [(ngModel)]="projectMappingModel.Cost" formControlName="ChildCost"
+            name="ChildCost" id="ChildCost">
+        </mat-form-field>
+        <mat-error
+          *ngIf="formGroup.get('ChildCost').hasError('required') && (formGroup.get('ChildCost').touched && formGroup.get('ChildCost').invalid)">
+          Cost(In Lakh) is <strong>required</strong>
+        </mat-error>
+      </div>
+
+      <div class="col l4 m6 s12">
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label> Work Category </mat-label>
+          <mat-select formControlName="ProjectWorkCategory" #ProjectWorkCategory
+            [(ngModel)]="projectMappingModel.ProjectWorkCategory">
+            <mat-option>--Select--</mat-option>
+            <mat-option value="{{item.Value}}" *ngFor="let item of dDLList?.ddlProjectWorkCategory">{{item.Text}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="col l12 m12 s12 mat-form-field-wrapper">
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Description </mat-label>
+          <textarea matInput placeholder="Description" [(ngModel)]="projectMappingModel.Description"
+            formControlName="Description" name="Description"></textarea>
+        </mat-form-field>
+      </div>
+
+      <div class="col l12 m12 s12 mat-form-field-wrapper">
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Area Covered <span style="color: red">*</span></mat-label>
+          <input matInput placeholder="Area Covered" [(ngModel)]="projectMappingModel.AreaCovered"
+            formControlName="AreaCovered" name="AreaCovered">
+        </mat-form-field>
+        <mat-error
+          *ngIf="formGroup.get('AreaCovered').hasError('required') && (formGroup.get('AreaCovered').touched && formGroup.get('AreaCovered').invalid)">
+          Area Covered is <strong>required</strong>
+        </mat-error>
+      </div>
+
+      {{this.projectMappingModel.DistrictCode}} {{this.projectMappingModel.MLAConstituency}}
+
+      <div class="col l4 xl4 m6 s12" *ngIf="!this.IsAllowMultipleDistrictAndAssembly">
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>District</mat-label>
+          <mat-select formControlName="DistrictCode" #DistrictCode [(ngModel)]="projectMappingModel.DistrictCode"
+            (selectionChange)="getMLAAndBlockByDisctrictCode($event.value)">
+            <!-- <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlDistrict">{{k.Text}}</mat-option> -->
+            <mat-option value="{{k.Value}}" *ngFor="let k of  ddlDistrict">{{k.Text}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="col l4 xl4 m6 s12" *ngIf="this.IsAllowMultipleDistrictAndAssembly">
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>District</mat-label>
+          <mat-select formControlName="DistrictCode" #DistrictCode [(ngModel)]="projectMappingModel.DistrictCodes"
+            (selectionChange)="getMLAAndBlockByDisctrictCode($event.value)" multiple>
+            <!-- <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlDistrict">{{k.Text}}</mat-option> -->
+            <mat-option value="{{k.Value}}" *ngFor="let k of  ddlDistrict">{{k.Text}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="col l4 m6 s12 mat-form-field-wrapper" *ngIf="!this.IsAllowMultipleDistrictAndAssembly">
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>MLA Constituency <span style="color: red">*</span></mat-label>
+          <mat-select formControlName="MLAConstituency" #MLAConstituency
+            [(ngModel)]="projectMappingModel.MLAConstituency">
+            <mat-option value="{{item.Value}}" *ngFor="let item of ddlMLAConstituency">
+              {{item.Text}} </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-error
+          *ngIf="formGroup.get('MLAConstituency').hasError('required') && (formGroup.get('MLAConstituency').touched && formGroup.get('MLAConstituency').invalid)">
+          MLA Constituency is <strong>required</strong>
+        </mat-error>
+      </div>
+
+      <div class="col l4 m6 s12 mat-form-field-wrapper" *ngIf="this.IsAllowMultipleDistrictAndAssembly">
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>MLA Constituency <span style="color: red">*</span></mat-label>
+          <mat-select formControlName="MLAConstituency" #MLAConstituency
+            [(ngModel)]="projectMappingModel.MLAConstituencyList" multiple>
+            <mat-option value="{{item.Value}}" *ngFor="let item of ddlMLAConstituency">
+              {{item.Text}} </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-error
+          *ngIf="formGroup.get('MLAConstituency').hasError('required') && (formGroup.get('MLAConstituency').touched && formGroup.get('MLAConstituency').invalid)">
+          MLA Constituency is <strong>required</strong>
+        </mat-error>
+      </div>
+
+      <!-- <div class="col l4 m6 s12 mat-form-field-wrapper">
+  <mat-form-field class="example-full-width" appearance="outline">
+    <mat-label>MP Constituency</mat-label>
+    <mat-select formControlName="MPConstituency" #MPConstituency [(ngModel)]="projectMappingModel.MPConstituency">
+      <mat-option value="{{item.Value}}" *ngFor="let item of dDLList?.ddlMPConstituency">{{item.Text}} </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div> -->
+
+      <div class="col l4 m6 s12">
+        <mat-radio-group class="example-full-width radio-bx-custom radio-bx-custom-with-label"
+          aria-label="Select an option" [(ngModel)]="projectMappingModel.UrbanOrRural" formControlName="UrbanOrRural">
+          <mat-label class="mr-5" style="display: inline;">Is Urban Or Rural <span style="color: red">*</span>
+          </mat-label>
+          <mat-radio-button class="mr-5" value="{{ item.Value }}"
+            *ngFor="let item of dDLList?.RadioProjectsUrbanorRural"> {{ item.Text }}</mat-radio-button>
+        </mat-radio-group>
+        <mat-error class="error-no-margin" *ngIf="
+    formGroup.get('UrbanOrRural').hasError('required') &&
+(formGroup.get('UrbanOrRural').touched &&
+formGroup.get('UrbanOrRural').invalid)
+"> Is Urban Or Rural is <strong>required!</strong> </mat-error>
+      </div>
+
+      <div class="col l4 m6 s12 mat-form-field-wrapper"
+        *ngIf="projectMappingModel.UrbanOrRural== lookupEnum.UrbanDemoValue||projectMappingModel.UrbanOrRural== lookupEnum.UrbanProdValue">
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Ward No.</mat-label>
+          <input matInput placeholder="Ward No." [(ngModel)]="projectMappingModel.WardNo" formControlName="WardNo"
+            name="WardNo" id="WardNo" maxlength="3" pattern="[0-9.][0-9]*$">
+        </mat-form-field>
+        <mat-error
+          *ngIf="!formGroup.get('WardNo').hasError('required') && formGroup.get('WardNo').touched && formGroup.get('WardNo').invalid">
+          Only Accept numeric value
+        </mat-error>
+      </div>
+
+      <div class="col l4 xl4 m6 s12"
+        *ngIf="projectMappingModel.UrbanOrRural== lookupEnum.RuralDemoValue||projectMappingModel.UrbanOrRural== lookupEnum.RuralProdValue">
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Panchayat Samiti</mat-label>
+          <mat-select formControlName="BlockPSList" #BlockPSList [(ngModel)]="projectMappingModel.BlockPSList"
+            (selectionChange)="GetGramPanchayatByBlock($event.value)" multiple>
+            <mat-option value="{{ k.Value }}" *ngFor="let k of ddlBlock">{{k.Text}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col l4 xl4 m6 s12"
+        *ngIf="projectMappingModel.UrbanOrRural== lookupEnum.RuralDemoValue||projectMappingModel.UrbanOrRural== lookupEnum.RuralProdValue">
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Gram Panchayat</mat-label>
+          <mat-select formControlName="GramPanchayatList" #GramPanchayatList
+            [(ngModel)]="projectMappingModel.GramPanchayatList"
+            (selectionChange)="GetVillageByGramPanchayat($event.value)" multiple>
+            <mat-option value="{{ k.Value }}" *ngFor="let k of ddlGramPanchayat">{{k.Text}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col l4 xl4 m6 s12"
+        *ngIf="projectMappingModel.UrbanOrRural== lookupEnum.RuralDemoValue||projectMappingModel.UrbanOrRural== lookupEnum.RuralProdValue">
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Village</mat-label>
+          <mat-select formControlName="VillageList" #VillageList [(ngModel)]="projectMappingModel.VillageList" multiple>
+            <mat-option value="{{ k.Value }}" *ngFor="let k of ddlVillage">{{k.Text}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+
+      <div class="col l4 m6 s12 mat-form-field-wrapper">
+        <section class="example-full-width radio-bx-custom radio-bx-custom-with-label" appearance="outline">
+          <mat-checkbox [(ngModel)]="projectMappingModel.IsPartofMLALAD" Id="IsPartofMLALAD"
+            formControlName="IsPartofMLALAD" #IsPartofMLALAD> Is Part of MLA LAD</mat-checkbox>
+        </section>
+      </div>
+      <div class="col l4 xl4 m6 s12">
+        <div class="upload-btn-wrapper">
+          <mat-label>PDF/Image</mat-label>
+          <input type="file" id="PDFURL" formControlName="PDFURL" (change)="handleFileForPdf($event.target.files)"
+            accept="application/pdf,image/*" multiple>
+          <ul class="image-list">
+            <li *ngFor="let item of projectMappingModel.Attachments; let i = index;">
+              <div>
+                <a (click)="downloadOtherDocPdf(item.Url)" href="JavaScript:Void(0);">
+                  <span class="show-file-pdf" *ngIf="item.Extension=='pdf'"> View PDF <mat-icon>picture_as_pdf
+                    </mat-icon></span>
+                  <img *ngIf="item.Extension!='pdf'" [src]="item.Url" style="height: 100px; width: 100px;" />
+                </a>
+                <a title="Remove" (click)="RemoveAttachment(i)">
+                  <mat-icon>delete</mat-icon>
+                </a>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <span style="color: red">only pdf/Image file accepted</span>
+
+        <mat-error *ngIf="fileValidationMsgHowtoPay?.length>0" style="margin: 0px;position: relative;">
+          {{fileValidationMsgHowtoPay}}</mat-error>
+      </div>
+
+      <div class="col l4 xl4 m6 s12" *ngIf="model.Id>0">
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Old Data(Block) </mat-label>
+          <input matInput placeholder="Old Data(Block) " [(ngModel)]="projectMappingModel.BlockText"
+            formControlName="BlockText" name="BlockText">
+        </mat-form-field>
+      </div>
+
+
+
+      <div class="col l12 xl12 m12 s12 text-right" *ngIf="model?.ProjectMappingList?.length<1 || index >= 0">
+        <a class="btn btn-green btn-with-mat-icon" href="javascript:void(0)" (click)="AddMoreProjectMappingData()">
+          <mat-icon aria-hidden="false" aria-label="Example home icon">add </mat-icon> {{index>=0 ? 'Update':'Add'}}
+        </a>
+      </div>
+      <div class="col l12 m12 s12">
+
+
+        <table class="table new_table table_border table_custom mb-20" *ngIf="model?.ProjectMappingList?.length > 0">
+          <thead>
+            <tr>
+              <th scope="col">Sr.No</th>
+              <th scope="col">{{subCategoryData?.LabelName}}</th>
+              <th scope="col" *ngIf="!model.IsCostCalculated">Cost(In Lakh)</th>
+              <th scope="col">Works Entry Work Category</th>
+              <th scope="col">Description</th>
+              <th scope="col">Is Urban Or Rural</th>
+              <th scope="col">Area Covered</th>
+              <th scope="col">District/MLA Constituency</th>
+              <th scope="col">Ward No. </th>
+              <th scope="col">Is Part of MLA LAD</th>
+              <th scope="col" style="width: 350px;">PDF/Image</th>
+              <th scope="col" style="width: 350px;">Old Data(Block)/Panchayat Samiti/Gram Panchayat/Village/Ward No</th>
+              <th scope="col" style="width:120px;">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of model.ProjectMappingList; let i = index" [attr.data-index]="i">
+              <th scope="row">{{ i + 1 }}</th>
+              <td>{{item.LabelName}}</td>
+              <td *ngIf="!model.IsCostCalculated">{{item.Cost}}</td>
+              <td>{{ projectWorkCategoryItems[(item?.ProjectWorkCategory)] }}</td>
+              <td class="text-hidden" title="{{item.Description}}">{{item.Description}}</td>
+              <td>{{ urbanRularItems[(item?.UrbanOrRural)] }}</td>
+              <td>{{ item.AreaCovered }}</td>
+              <!-- <td>{{ mPContituencyItems[(item?.MPConstituency)]}}</td> -->
+              <td>{{ getDistrictNames(item.DistrictCodes,this.IsAllowMultipleDistrictAndAssembly) }}/{{
+                getMLANames(item.MLAConstituencyList,this.IsAllowMultipleDistrictAndAssembly) }}</td>
+              <td>{{ item.WardNo }}</td>
+              <td>
+                <span *ngIf="item.IsPartofMLALAD">Yes</span>
+                <span *ngIf="!item.IsPartofMLALAD">No</span>
+              </td>
+
+              <td style="width: 350px;">
+                <ul class="image-list">
+                  <li *ngFor="let url of item.Attachments; let i = index;">
+                    <div>
+                      <a (click)="downloadOtherDocPdf(url.Url)" href="JavaScript:Void(0);">
+                        <span class="show-file-pdf" *ngIf="url.Extension=='pdf'"> View PDF <mat-icon>picture_as_pdf
+                          </mat-icon></span>
+                        <img *ngIf="url.Extension!='pdf'" [src]="url.Url" style="height: 100px; width: 100px;" />
+                      </a>
+                    </div>
+                  </li>
+                </ul>
+              </td>
+              <td>{{ item?.BlockText }}/<span
+                  *ngIf="item.UrbanOrRural== lookupEnum.UrbanProdValue || item.UrbanOrRural== lookupEnum.UrbanDemoValue">{{
+                  item?.WardNo }} /</span> <span
+                  *ngIf="item.UrbanOrRural== lookupEnum.RuralDemoValue || item.UrbanOrRural== lookupEnum.RuralProdValue">
+                  {{ getBlockNames(item.BlockPSList) }} / {{ getGramPanchayatNames(item.GramPanchayatList) }}/{{
+                  getVillagesNames(item.VillageList) }}</span></td>
+              <td><a class="" href="javascript:void(0)" (click)="editProjectMapping(i,item)">
+                  <mat-icon aria-hidden="false" aria-label="Example home icon">edit </mat-icon>
+                </a></td>
+            </tr>
+          </tbody>
+        </table>
+
+
+      </div>
+
+      <div class="col l12 m12 s12 mb-20">
+        <section class="mat-typography">
+          <h2 class="color-blue mb-0">Linked with (Budget/CM Announcement/CM Directions/Jan Ghoshna Patra)</h2>
+        </section>
+      </div>
+      <div class="row highlight_view btn_add_box">
+
+        <div class="col l4 x8 m4 s12">
+          <mat-form-field appearance="outline">
+            <mat-label>Module</mat-label>
+            <mat-select formControlName="ModuleIdBudget" #ModuleIdBudget [(ngModel)]="budgetParameterModel.ModuleId">
+              <mat-option>--Select--</mat-option>
+              <mat-option value="{{item.Value}}" *ngFor="let item of dDLBudgetList?.ddlOrderModuleName">{{item.Text}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+        </div>
+        <div class="col l4 x8 m4 s12">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Year </mat-label>
+
+            <mat-select formControlName="YearValueBudget" #YearValueBudget [(ngModel)]="budgetParameterModel.YearValue">
+              <mat-option>--Select--</mat-option>
+              <!-- <mat-option value="{{item.rowno}}" *ngFor="let item of dDLBudgetList?.ddlOrderRelatedToYear">
+                {{item.particulars}} </mat-option> -->
+              <mat-option value="{{item.Value}}" *ngFor="let item of dDLBudgetList?.ddlCMISBudgetYear">
+                {{item.Text}} </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+        </div>
+        <div class="col l4 x8 m4 s12  pos_relative">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Department</mat-label>
+            <mat-select formControlName="DepartmentIdBudget" #DepartmentIdBudget
+              [(ngModel)]="budgetParameterModel.DepartmentId">
+              <mat-option>--Select--</mat-option>
+              <!-- <mat-option value="{{item.prj_dept}}" *ngFor="let item of dDLBudgetList?.ddlOrderRelatedToDepartment">
+                {{item.particulars}} </mat-option> -->
+              <mat-option value="{{item.Value}}" *ngFor="let item of dDLBudgetList?.ddlDepartmentForCMISReport">
+                {{item.Text}} </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <div class="d-inline" *ngIf="model?.ProjectBudgetParameter?.length <5"><a class="btn_add"
+              href="javascript:void(0)" (click)="AddMoreItems()">
+              <mat-icon aria-hidden="false" aria-label="Example home icon">add</mat-icon>
+            </a></div>
+
+        </div>
+
+        <div class="col l12 m12 s12">
+          <table class="table new_table table_border mb-20" *ngIf="model?.ProjectBudgetParameter?.length>0">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col" colspan="3">Details</th>
+                <th scope="col" width="100">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of model?.ProjectBudgetParameter; let i = index" [attr.data-index]="i">
+                <th scope="row">{{i+1}}</th>
+                <td colspan="3">
+                  <div class="footer-info-bx">
+
+                    <div class="d-inline"> <strong>Module: </strong><span
+                        *ngIf="item?.ModuleId">{{moduleNameItems[item?.ModuleId]}}</span><span
+                        *ngIf="!item?.ModuleId">--</span> </div>
+                    <div class="d-inline"> <strong>Year: </strong><span
+                        *ngIf="item?.YearValue">{{yearItems[item?.YearValue]}}</span><span
+                        *ngIf="!item?.YearValue">--</span> </div>
+                    <div class="d-inline"> <strong>Department: </strong><span
+                        *ngIf="item?.DepartmentId">{{departmentItems[item?.DepartmentId]}}</span><span
+                        *ngIf="!item?.DepartmentId">--</span> </div>
+
+                  </div>
+                  <div class="footer-info-bx" *ngIf="item.BudgetResult">
+
+                    <div class="d-inline" *ngIf="item.BudgetResult.prj_description"><strong>Description:</strong>
+                      {{item.BudgetResult.prj_description}}</div>
+
+                  </div>
+                </td>
+                <td class="action_icon"><a class="del-icon" href="javascript:void(0)" (click)="RemoveBudgetClick(i)">
+                    <mat-icon aria-hidden="false" aria-label="Example home icon">delete</mat-icon>
+                  </a>
+                  <a class="get-icon" href="javascript:void(0)"
+                    (click)="GetBudgetResult(item.ModuleName,item.DepartmentId,item.DepartmentName,item.YearText,i)">Budget
+                    Details</a>
+                </td>
+
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+
+
+    </div>
+
+    <div class="col l12 x8 m4 s6 clearfix">
+      <button mat-button class="btn-submit" (click)="SaveClick();">{{title}}</button>
+    </div>
+  </div>
+</form>

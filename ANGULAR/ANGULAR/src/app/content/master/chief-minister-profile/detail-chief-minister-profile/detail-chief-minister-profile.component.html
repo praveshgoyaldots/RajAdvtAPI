@@ -1,0 +1,113 @@
+<div class="row mt-20 detail-bx scheme_detail_page">
+    <div class="table-responsive w-100">
+      <table class="table custom-data-table">
+        <tbody>
+          <tr>
+            <td>
+              <section class="mat-typography">
+                <h2 class="color-blue">Name :</h2>
+              </section>
+            </td>
+            <td>
+              <section class="mat-typography">
+                <h3 class="color-grey" *ngIf="model?.Name">  {{model?.TitleName}} {{model?.Name}}</h3>
+                <h3 class="color-grey" *ngIf="!model?.Name">--</h3>
+              </section>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <section class="mat-typography">
+                <h2 class="color-blue">Name in Hindi :</h2>
+              </section>
+            </td>
+            <td>
+              <section class="mat-typography">
+                <h3 class="color-grey" *ngIf="model?.NameHindi">
+                    {{model?.TitleNameHindi}} {{model?.NameHindi}}</h3>
+                <h3 class="color-grey" *ngIf="!model?.NameHindi">--</h3>
+              </section>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <section class="mat-typography">
+                <h2 class="color-blue">Designation :</h2>
+              </section>
+            </td>
+            <td>
+              <section class="mat-typography">
+                <h3 class="color-grey" *ngIf="model?.DesignationName">
+                  {{model?.DesignationName}}</h3>
+                <h3 class="color-grey" *ngIf="!model?.DesignationName">--</h3>
+              </section>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <section class="mat-typography">
+                <h2 class="color-blue">Message :</h2>
+              </section>
+            </td>
+            <td>
+              <section class="mat-typography">
+                <h3 class="color-grey" *ngIf="model?.Message">{{model?.Message}}</h3>
+                <h3 class="color-grey" *ngIf="!model?.Message">--</h3>
+              </section>
+            </td>
+          </tr>
+  
+          <tr>
+            <td>
+              <section class="mat-typography">
+                <h2 class="color-blue">Message (Hindi) :</h2>
+              </section>
+            </td>
+            <td>
+              <section class="mat-typography">
+                <h3 class="color-grey" *ngIf="model?.MessageHindi">{{model?.MessageHindi}}</h3>
+                <h3 class="color-grey" *ngIf="!model?.MessageHindi">--</h3>
+              </section>
+            </td>
+          </tr>
+
+ 
+          <tr *ngIf="(model?.PhotoPath||null)!=null">
+            <td>
+              <section class="mat-typography">
+                <h2 class="color-blue">Photo :</h2>
+              </section>
+            </td>
+            <td>
+              <section class="mat-typography">
+                <ul class="image-list">
+                  <li>
+  
+                    <div> <img [src]="model?.PhotoPath" /> </div>
+  
+                  </li>
+                </ul>
+              </section>
+            </td>
+          </tr>
+  
+          <tr>
+            <td>
+              <section class="mat-typography">
+                <h2 class="color-blue"> Is record Active? :</h2>
+              </section>
+            </td>
+            <td>
+              <section class="mat-typography">
+                <h3 class="color-grey" *ngIf="model?.IsActive">
+                  Yes</h3>
+                <h3 class="color-grey" *ngIf="!model?.IsActive">No</h3>
+              </section>
+            </td>
+          </tr>
+  
+        </tbody>
+      </table>
+    </div>
+  </div>
+  

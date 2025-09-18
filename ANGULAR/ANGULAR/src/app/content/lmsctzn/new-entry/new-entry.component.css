@@ -1,0 +1,58 @@
+.mesgs {
+    height: 80vh;
+}
+
+.incoming_msg_img {
+    display: inline-block;
+    width: 70px;
+    vertical-align: middle;
+    border-radius: 100%;
+    overflow: hidden;
+}
+.received_msg {
+    display: inline-block;
+    padding: 0 0 0 10px;
+    vertical-align: middle;
+    width: 92%;
+}
+.msg-unseen{}
+.received_withd_msg {
+    position: relative;
+    width: 57%;
+}
+.received_withd_msg p {
+    background: #ebebeb;
+    border-radius: 50px;
+    color: #646464;
+    font-size: 14px;
+    margin: 0;
+    padding: 12px 20px;
+    width: 100%;
+}
+.time_date {
+    color: #747474;
+    display: block;
+    font-size: 12px;
+    margin: 8px 0 0;
+}
+.outgoing_msg {
+    overflow: hidden;
+    margin: 26px 0 26px;
+}
+.sent_msg {
+    float: right;
+    width: 46%;
+}
+.sent_msg p {
+    background: #26389b;
+    border-radius: 50px;
+    font-size: 14px;
+    margin: 0;
+    color: #fff;
+    padding: 12px 20px;
+    width: 100%;
+}
+img {
+    max-width: 100%;
+    vertical-align: middle;
+}

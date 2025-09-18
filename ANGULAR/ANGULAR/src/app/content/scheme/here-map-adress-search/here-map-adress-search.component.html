@@ -1,0 +1,60 @@
+<div class="modal-header">
+  <p>Address List</p>
+
+  <button mat-button (click)="onNoClick()">
+    <mat-icon>close</mat-icon>
+  </button>
+
+</div>
+<div class="row">
+  <div class="col l10 xl10 m10 s10">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>Address </mat-label>
+      <input matInput placeholder="Address" name="Address" [(ngModel)]="Address" maxlength="1000"
+        (keypress)="Address.length>3?SearchPlaces():null" />
+    </mat-form-field>
+  </div>
+  <div class="col l2 xl2 m2 s2">
+    <button mat-button class="btn btn-info " (click)="SearchPlaces()">
+      <mat-icon>search</mat-icon>
+    </button>
+  </div>
+</div>
+<div class="col l10 xl10 m10 s10">
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" *ngIf="model.length>0">
+    <ng-container matColumnDef="index">
+      <th mat-header-cell *matHeaderCellDef>#</th>
+      <td mat-cell *matCellDef="let element; let i = index">
+        {{ (indexModel.Page - 1) * indexModel.PageSize + (i + 1) }}
+      </td>
+    </ng-container>
+    <ng-container [matColumnDef]="column.Value" *ngFor="let column of ViewdisplayedColumns">
+
+      <th mat-header-cell *matHeaderCellDef> {{column.Text}} </th>
+      <td mat-cell *matCellDef="let element"> {{element[column.Value]}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Action">
+      <th mat-header-cell *matHeaderCellDef> Action </th>
+
+      <td mat-cell *matCellDef="let row">
+        <button class="btn-submit mt-5" mat-button (click)="onSelectAddress(row)">
+          Select
+        </button>
+      </td>
+
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+    <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+  </table>
+  <div *ngIf="!IsRecordExist" class="col l12 s12 not-found-msg">
+    Record not found
+  </div>
+  <mat-paginator [pageSizeOptions]="[4,10, 15, 20]" (page)="onPaginateChange($event)" showFirstLastButtons>
+  </mat-paginator>
+
+
+
+
+</div>

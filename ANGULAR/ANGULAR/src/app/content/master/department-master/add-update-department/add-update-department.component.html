@@ -1,0 +1,229 @@
+<form [formGroup]="formGroup">
+  <div *ngIf="IsUserHasAddPer" class="row">
+    <div class="col l6 xl6 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Department Code (JK AdmDepartmentCode)
+          <span *ngIf="model.DepartmentId>0" style="color: red">*</span>
+        </mat-label>
+        <input matInput placeholder="Department Code" [(ngModel)]="model.DepartmentCode"
+          formControlName="DepartmentCode" name="DepartmentCode">
+      </mat-form-field>
+      <mat-error
+        *ngIf="formGroup.get('DepartmentCode').hasError('required') && (formGroup.get('DepartmentCode').touched && formGroup.get('DepartmentCode').invalid)">
+        DepartmentCode is <strong>required!</strong>
+      </mat-error>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col l6 xl6 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Admin Department<span style="color: red">*</span> </mat-label>
+        <mat-select name="Department_AdmDepartmentCode" id="Department_AdmDepartmentCode"
+          [(ngModel)]="model.Department_AdmDepartmentCode" formControlName="Department_AdmDepartmentCode">
+          <mat-option>--Select--</mat-option>
+          <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlAdminDepartment">{{ k.Text }}
+          </mat-option>
+
+        </mat-select>
+      </mat-form-field>
+      <mat-error
+        *ngIf="formGroup.get('Department_AdmDepartmentCode').hasError('required') && (formGroup.get('Department_AdmDepartmentCode').touched && formGroup.get('Department_AdmDepartmentCode').invalid)">
+        Admin Department is <strong>required!</strong>
+      </mat-error>
+    </div>
+
+    <div class="col l6 xl6 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Display Name </mat-label>
+        <input matInput placeholder="Display Name" [(ngModel)]="model.DisplayName" formControlName="DisplayName"
+          name="DisplayName">
+      </mat-form-field>
+    </div>
+
+    <div class="col l6 xl6 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Department Category<span style="color: red">*</span> </mat-label>
+        <mat-select name="DepartmentCategoryCode" id="DepartmentCategoryCode" [(ngModel)]="model.DepartmentCategoryCode"
+          formControlName="DepartmentCategoryCode">
+          <mat-option>--Select--</mat-option>
+          <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlDepartmentCategory">{{ k.Text }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-error
+        *ngIf="formGroup.get('DepartmentCategoryCode').hasError('required') && (formGroup.get('DepartmentCategoryCode').touched && formGroup.get('DepartmentCategoryCode').invalid)">
+        Department Category is <strong>required!</strong>
+      </mat-error>
+    </div>
+
+    <div class="col l6 xl6 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>CMO Officer<span style="color: red">*</span> </mat-label>
+        <mat-select id="CMOOfficerCode" name="CMOOfficerCode" [(ngModel)]="model.CMOOfficerCode"
+          formControlName="CMOOfficerCode">
+          <mat-option>--Select--</mat-option>
+          <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlCMOOfficers">{{ k.Text }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-error
+        *ngIf="formGroup.get('CMOOfficerCode').hasError('required') && (formGroup.get('CMOOfficerCode').touched && formGroup.get('CMOOfficerCode').invalid)">
+        CMO Officer is <strong>required!</strong>
+      </mat-error>
+    </div>
+
+    <div class="col l6 xl6 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>District </mat-label>
+        <mat-select name="Department_DistrictCode" id="Department_DistrictCode"
+          [(ngModel)]="model.Department_DistrictCode" formControlName="Department_DistrictCode">
+          <mat-option>--Select--</mat-option>
+          <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlDistrict">{{ k.Text }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="col l6 xl6 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Department Group </mat-label>
+        <mat-select name="Department_GroupCode" id="Department_GroupCode" [(ngModel)]="model.Department_GroupCode"
+          formControlName="Department_GroupCode">
+          <mat-option>--Select--</mat-option>
+          <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlUserGroup">{{ k.Text }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="col l6 xl6 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Department Name in english
+        </mat-label>
+        <input matInput placeholder="Department Name in English" [(ngModel)]="model.DepartmentTitle"
+          formControlName="DepartmentTitle" name="DepartmentTitle">
+      </mat-form-field>
+      <mat-error
+        *ngIf="formGroup.get('DepartmentTitle').hasError('required') && (formGroup.get('DepartmentTitle').touched && formGroup.get('DepartmentTitle').invalid)">
+        Department Title is <strong>required!</strong>
+      </mat-error>
+    </div>
+
+    <div class="col l6 xl6 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Department Name in Hindi
+        </mat-label>
+        <input matInput placeholder="Department Title in  Hindi" [(ngModel)]="model.DepartmentTitleHindi"
+          formControlName="DepartmentTitleHindi" name="DepartmentTitleHindi">
+      </mat-form-field>
+      <mat-error
+        *ngIf="formGroup.get('DepartmentTitleHindi').hasError('required') && (formGroup.get('DepartmentTitleHindi').touched && formGroup.get('DepartmentTitleHindi').invalid)">
+        Department Title Hindi is <strong>required!</strong>
+      </mat-error>
+    </div>
+
+    <div class="col l6 xl6 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Department short Name in English
+        </mat-label>
+        <input matInput placeholder="Department short Name in English" [(ngModel)]="model.DepartmentShortTitle"
+          formControlName="DepartmentShortTitle" name="DepartmentShortTitle">
+      </mat-form-field>
+    </div>
+
+    <div class="col l6 xl6 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Department short Name in Hindi
+        </mat-label>
+        <input matInput placeholder="Department short Name in Hindi" [(ngModel)]="model.DepartmentShortTitleHindi"
+          formControlName="DepartmentShortTitleHindi" name="DepartmentShortTitleHindi">
+      </mat-form-field>
+    </div>
+
+    <div class="col l4 xl4 m6 s12">
+      <mat-radio-group class="example-full-width radio-bx-custom radio-bx-custom-with-label"
+        aria-label="Select an option" [(ngModel)]="model.DepartmentDistrictCode"
+        formControlName="DepartmentDistrictCode">
+        <mat-label class="mr-5">Department/District</mat-label>
+        <mat-radio-button class="mr-5" [value]="k.Value" *ngFor="let k of dDLList?.RadioDepartmentDistrict"> {{ k.Text
+          }}
+        </mat-radio-button>
+      </mat-radio-group>
+    </div>
+
+
+    <div class="col l6 xl6 m6 s12">
+      <div class="upload-btn-wrapper">
+        <label> Department Logo</label>
+        <input type="file" id="ImageURL" formControlName="ImageURL" (change)="handleImageFileInput($event)"
+          accept="image/*">
+      </div>
+      <div *ngIf="model?.LogoUrl"> <img [src]="model.LogoUrl" style="width: 100px; height: 100px;" /> <a title="Remove"
+          (click)="RemoveImageFile()" *ngIf="model?.LogoUrl">
+          <mat-icon>delete</mat-icon>
+        </a></div>
+      <mat-error *ngIf="ImagefileValidationMsg?.length>0" style="margin: 0px;position: relative;">
+        {{ImagefileValidationMsg}}
+      </mat-error>
+    </div>
+
+    <div class="col l6 xl6 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Display Order With in Admin Department </mat-label>
+        <input matInput placeholder="Display Order With in Admin Department"
+          [(ngModel)]="model.DisplayOrderWithinAdminDepartment" formControlName="DisplayOrderWithinAdminDepartment"
+          name="Display Order With in Admin Department">
+      </mat-form-field>
+    </div>
+
+    <div class="col l6 xl6 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>State Minister </mat-label>
+        <mat-select name="StateMinisterCode" id="StateMinisterCode" [(ngModel)]="model.StateMinisterCode"
+          formControlName="StateMinisterCode">
+          <mat-option>--Select--</mat-option>
+          <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlStateMinister">{{ k.Text }}
+          </mat-option>
+
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="col l6 xl6 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Cabinet Minister </mat-label>
+        <mat-select name="CabinetMinisterCode" id="CabinetMinisterCode" [(ngModel)]="model.CabinetMinisterCode"
+          formControlName="CabinetMinisterCode">
+          <mat-option>--Select--</mat-option>
+          <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlCabinetMinister">{{ k.Text }}
+          </mat-option>
+
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="col l6 xl6 m6 s12 ">
+      <section class="example-full-width" appearance="outline">
+        <mat-label appearance="outline">Is Visible on Front </mat-label>
+        <mat-checkbox [(ngModel)]="model.IsWebsiteFromJankalyanPortal" formControlName="IsWebsiteFromJankalyanPortal"
+          name="IsWebsiteFromJankalyanPortal">
+        </mat-checkbox>
+      </section>
+    </div>
+
+    <div class="col l6 xl6 m6 s12 ">
+      <section class="example-full-width" appearance="outline">
+        <mat-label appearance="outline">Is Allow Multiple Selection of District and Assembly </mat-label>
+        <mat-checkbox [(ngModel)]="model.IsAllowMultipleDistrictAndAssembly"
+          formControlName="IsAllowMultipleDistrictAndAssembly" name="IsAllowMultipleDistrictAndAssembly">
+        </mat-checkbox>
+      </section>
+    </div>
+
+
+    <div class="col l12 x8 m4 s6 clearfix">
+      <button mat-button class="btn-submit" (click)="SaveClick();">{{title}}</button>
+    </div>
+  </div>
+</form>

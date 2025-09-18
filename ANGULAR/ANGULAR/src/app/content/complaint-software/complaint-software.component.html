@@ -1,0 +1,245 @@
+<div class="row">
+  <div class="col l4 xl4 m4 s12">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>Status</mat-label>
+      <mat-select [(ngModel)]="statusId" multiple>
+        <mat-option disabled="disabled" (click)="selectAllStatus()">
+          <mat-checkbox [checked]="selectedAllStatus || statusId?.length==dDLList?.ddlCompliantFilter?.length"> SelectAll
+          </mat-checkbox>
+        </mat-option>
+        <mat-option value="{{k.Value}}" *ngFor="let k of dDLList?.ddlCompliantFilter">{{k.Text}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="col l4 xl4 m4 s12">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>Entry Type</mat-label>
+      <mat-select name="Sector" [(ngModel)]="searchModel.EntryTypeId">
+        <mat-option>--Select--</mat-option>
+        <mat-option value="{{item.Value}}" *ngFor="let item of dDLList?.ddlEntryTypeModule">{{item.Text}} </mat-option>
+      </mat-select>
+    </mat-form-field>
+    </div>
+    <div class="col l4 xl4 m4 s12 text-right" title="Advance Search">
+      <a (click)="toggleDisplay()" class="btn-ad-search">
+        <span class="material-icons mat-icon">
+          manage_search
+        </span>
+      <mat-icon>
+        {{!isShow?'keyboard_arrow_up ':"keyboard_arrow_down"}}
+      </mat-icon>
+    </a>
+  </div>
+  <br />
+  </div>
+  <div class="row" *ngIf="!isShow">
+    <div class="col l4 xl4 m4 s12">
+      <mat-form-field appearance="outline">
+        <mat-label>Application <span style="color: red">*</span> </mat-label>
+        <mat-select name="Application" [(ngModel)]="searchModel.ApplicationCode">
+          <mat-option>--Select--</mat-option>
+          <mat-option value="{{k.Value}}" *ngFor="let k of dDLList?.ddlApplicationType">{{k.Text}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col l2 xl2 m2 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>From Date</mat-label>
+        <input matInput [matDatepicker]="picker1" (focus)="picker1.open()" readonly placeholder="From Date"
+          [(ngModel)]="searchModel.FromDate" [max]="searchModel.ToDate">
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+  <div class="col l2 xl2 m2 s12">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>To Date</mat-label>
+      <input matInput [matDatepicker]="picker2" (focus)="picker2.open()" readonly placeholder="To Date"
+        [(ngModel)]="searchModel.ToDate" [min]="searchModel.FromDate">
+      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker #picker2></mat-datepicker>
+      </mat-form-field>
+      </div>
+      <div class="col l2 xl2 m2 s12">
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Action From Date</mat-label>
+          <input matInput [matDatepicker]="ActionFromDate" (focus)="ActionFromDate.open()" readonly
+            placeholder="Action From Date" [(ngModel)]="searchModel.ActionFromDate" [max]="searchModel.ActionToDate">
+          <mat-datepicker-toggle matSuffix [for]="ActionFromDate"></mat-datepicker-toggle>
+          <mat-datepicker #ActionFromDate></mat-datepicker>
+        </mat-form-field>
+        </div>
+
+        <div class="col l2 xl2 m2 s12">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Action To Date</mat-label>
+            <input matInput [matDatepicker]="ActionToDate" (focus)="ActionToDate.open()" readonly placeholder="Action To Date"
+              [(ngModel)]="searchModel.ActionToDate" [min]="searchModel.ActionFromDate">
+            <mat-datepicker-toggle matSuffix [for]="ActionToDate"></mat-datepicker-toggle>
+            <mat-datepicker #ActionToDate></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+
+  </div>
+  <div class="row">
+    <div class="col l12 xl12 m12 s12 ">
+      <button (click)="Search()" mat-button class="btn-submit">Search</button>
+      &nbsp;
+      <button (click)="Reset()" mat-button class="btn-submit btn_orange mat-button">Reset<mat-icon>refresh</mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col l12 s12 p-0">
+      <div class="table-responsive">
+        <mat-toolbar color="primary" *ngIf="totalRecords==0" class="no-record">No Record...!</mat-toolbar>
+
+        <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" (matSortChange)="sortData($event)"
+          *ngIf="totalRecords!=0">
+
+        <ng-container matColumnDef="index">
+          <th mat-header-cell *matHeaderCellDef>Sno/Ticket No</th>
+          <td mat-cell *matCellDef="let element; let i = index;">
+            {{(searchModel.indexModel.Page-1)*searchModel.indexModel.PageSize +(i+1)}}/
+            {{element.Id}}
+          </td>
+        </ng-container>
+
+        <ng-container [matColumnDef]="column.Value" *ngFor="let column of ViewdisplayedColumns">
+
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column.Text}} </th>
+          <td mat-cell *matCellDef="let element"> {{element[column.Value]}} </td>
+        </ng-container>
+        <ng-container matColumnDef="StatusName">
+          <th style="width: 140px;" mat-header-cell *matHeaderCellDef> <span>Status </span></th>
+          <td mat-cell *matCellDef="let group" class="action-link">
+            <div> {{group.StatusName != null ? group.StatusName : '-' }}</div>
+            <div class="info-bg-1" matTooltip="Action By User Name" *ngIf="group.ActionBy != null"> {{group.ActionBy != null ?
+              group.ActionBy : '-' }}</div>
+            <div class="info-bg-2" *ngIf="group.ActionBySSOID != null" matTooltip="ActionBySSOID"> {{group.ActionBySSOID != null
+              ? group.ActionBySSOID : '-' }}
+            </div>
+            <div class="info-bg-3" matTooltip="Action Date" *ngIf="group.ActionBy != null"> {{group.ActionDate != null ?
+              (group.ActionDate | date:
+              'dd/MM/yyyy h:mm:ss a') : '-' }}
+            </div>
+            <div class="info-bg-2" matTooltip="Action User Mobile Number" *ngIf="group.ActionBy != null">
+              <span class="mat-icon material-icons" style="font-size: initial !important; ">
+                phone
+              </span>{{group.ActionUserMobile != null ?
+              +group.ActionUserMobile : '-' }}
+            </div>
+          </td>
+        </ng-container>
+			 <ng-container matColumnDef="Description">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
+          <td mat-cell *matCellDef="let group" class="action-link toogle-btn" [innerHTML]="group.Description">
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="ScreenURL">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> URL </th>
+          <td mat-cell *matCellDef="let group" class="action-link toogle-btn" title="{{group.ScreenURL}}">
+            <a href="{{group.ScreenURL}}" target="_blank">
+              {{ group.ScreenURL.length>20 ? (group.ScreenURL |slice:0:20 )+'...' :group.ScreenURL}}
+            </a>
+
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="PriorityId">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Priority </th>
+          <td mat-cell *matCellDef="let group" class="action-link toogle-btn" title={{group.PriorityName}}
+            [ngStyle]="{'background': group?.PriorityId==compliantEnum.High? '#e2111138': group.PriorityId==compliantEnum.Medium? '#e2dc1161':group.PriorityId==compliantEnum.Low?'#f2d600':'' }">
+            {{ group.PriorityName}}
+
+          </td>
+          </ng-container>
+        <ng-container matColumnDef="CreatedDate">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Entry Date </th>
+          <td mat-cell *matCellDef="let group" class="action-link toogle-btn">
+            {{ group.CreatedDate !=null ? (group.CreatedDate| date: 'dd/MM/yyyy') :'--' }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Attachments">
+          <th mat-header-cell *matHeaderCellDef>Attachments</th>
+          <td mat-cell *matCellDef="let element; let i = index;">
+            <ul>
+              <li *ngFor="let url of element.AttachmentList; let i = index;">
+                <a *ngIf="url?.includes('.pdf')" target="_blank" href="{{url}}">
+                  <mat-icon class="mat-icon notranslate material-icons mat-icon-no-color">picture_as_pdf</mat-icon>
+                </a>
+                <a *ngIf="!url?.includes('.pdf')" target="_blank" href="{{url}}">
+                  <mat-icon class="mat-icon notranslate material-icons mat-icon-no-color">image</mat-icon>
+                </a>
+              </li>
+            </ul>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="UserDetail">
+          <th mat-header-cell *matHeaderCellDef> <span>User Details </span></th>
+          <td style="width: 140px;" mat-cell *matCellDef="let group" class="action-link">
+            <div class="info-bg-1" matTooltip="Created By User Name"> {{group.UserName != null ? group.UserName : '-' }}
+            </div>
+            <div class="info-bg-2" *ngIf="group.SSOID != null" matTooltip="SSOID"> {{group.SSOID != null ? group.SSOID :
+              '-' }}
+            </div>
+            <div class="info-bg-3" *ngIf="group.UserDepartmentName != null" matTooltip="Department Name">
+              {{group.UserDepartmentName
+              != null ?
+              group.UserDepartmentName : '-'
+              }} </div>
+            <div class="info-bg-1" matTooltip="User Type"> {{group.UserType != null ? group.UserType : '' }} </div>
+            <div class="info-bg-3" matTooltip="Created Date"> {{group.CreatedDate != null ? (group.CreatedDate | date:
+              'dd/MM/yyyy h:mm:ss a') : '-' }}
+            </div>
+            <div class="info-bg-2" matTooltip="User Mobile Number">
+              <span class="mat-icon material-icons" style="font-size: initial !important; ">
+                phone
+              </span>{{group.UserMobile != null ?
+              +group.UserMobile : '-' }}
+            </div>
+          </td>
+          </ng-container>
+        <ng-container matColumnDef="Action">
+          <th mat-header-cell *matHeaderCellDef> Action </th>
+          <td mat-cell *matCellDef="let group" class="action-link">
+            <a *ngIf="this.Permission.DetailPageAccess" routerLink="/compliant/detail/{{group.Id}}" matTooltipPosition="below"
+              matTooltip="Detail">
+              <mat-icon>visibility</mat-icon>
+            </a>
+            <a *ngIf="this.Permission.UpdatePageAccess" (click)="OpenDialog(group.Id)" title="Add New Action">
+              <mat-icon>add_comment</mat-icon>
+            </a>
+            </td>
+            </ng-container>
+
+        <!-- <ng-container matColumnDef="Action">
+          <th mat-header-cell *matHeaderCellDef> Action </th>
+          <td mat-cell *matCellDef="let group" class="action-link">
+            <a *ngIf="this.Permission.UpdatePageAccess" (click)="OpenDialog(group.Id)" title="edit">
+              <mat-icon>edit</mat-icon>
+            </a>
+            <a *ngIf="this.Permission.UpdatePageAccess" routerLink="/vc/participant/{{group.Code}}" title="View Participant List">
+                <mat-icon>visibility</mat-icon>
+              </a>
+              <a (click)="onDelete(group.Id);" title="Delete" class="btn_delete" href="javascript:void(0)">
+                <mat-icon>delete</mat-icon>
+              </a>
+          </td>
+        </ng-container> -->
+
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+        <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+      </table>
+
+      <mat-paginator #paginator [length]="totalRecords" [pageSize]="searchModel.indexModel.PageSize"
+        [pageSizeOptions]="[10, 20, 50,100]" (page)="onPaginateChange($event)" showFirstLastButtons
+        *ngIf="totalRecords!=0" [pageIndex]="this.searchModel.indexModel.Page-1">
+      </mat-paginator>
+    </div>
+    </div>
+    </div>

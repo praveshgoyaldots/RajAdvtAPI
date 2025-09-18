@@ -1,0 +1,88 @@
+
+    <app-global-list-search  [SearchFields]="searchColumns" (onSearch)="SearchByKeyword($event)" ></app-global-list-search>
+    <div class="row">
+        <div class="col l12 s12 ">
+
+        <div class="row" style="margin: 0px;">
+            <div style="text-align: center;" class="col l12 s12 download_pdf" *ngIf="helpDocument?.Url"> <a (click)="downloadDoc(helpDocument.Url,true)"
+                href="JavaScript:Void(0);">
+                <mat-icon>picture_as_pdf</mat-icon>
+                Click to download Help Document
+              </a> </div>
+          </div>
+
+          <div class="row" style="margin: 0px;">
+              <div style="text-align: center;" class="col l12 s12 download_pdf" *ngIf="helpDocument?.BlankDocUrl"> <a (click)="downloadDoc(helpDocument.BlankDocUrl)"
+                  href="JavaScript:Void(0);">
+                  <mat-icon>picture_as_pdf</mat-icon>
+                  Click to download Blank Document
+                </a> </div>
+            </div>
+          <table mat-table [dataSource]="dataSource" matSort (matSortChange)="SortData($event)" class="mat-elevation-z8 table_border">
+
+              <ng-container matColumnDef="index">
+                  <th mat-header-cell *matHeaderCellDef>Sr No</th>
+                  <td mat-cell *matCellDef="let element; let i = index;">  {{(indexModel.Page-1)*indexModel.PageSize +(i+1)}}</td>
+                </ng-container>
+
+            <ng-container [matColumnDef]="column.Value" *ngFor="let column of ViewdisplayedColumns">
+
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column.Text}} </th>
+              <td mat-cell *matCellDef="let element"> {{element[column.Value]}} </td>
+            </ng-container>
+            <ng-container matColumnDef="Date">
+              <th mat-header-cell *matHeaderCellDef> Date of Issue </th>
+              <td mat-cell *matCellDef="let group" class="action-link toogle-btn">
+                {{ group.Date !=null ? (group.Date| date: 'dd/MM/yyyy') :'--' }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="CreatedDate">
+              <th mat-header-cell *matHeaderCellDef> Date of Entry </th>
+              <td mat-cell *matCellDef="let group" class="action-link toogle-btn">
+                {{ group.CreatedDate !=null ? (group.CreatedDate| date: 'dd/MM/yyyy') :'--' }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="DepartmentCode">
+              <th mat-header-cell *matHeaderCellDef> Department Code </th>
+              <td mat-cell *matCellDef="let group" class="action-link toogle-btn">
+                {{ group.DepartmentCode }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Id">
+              <th mat-header-cell *matHeaderCellDef> Order Code </th>
+              <td mat-cell *matCellDef="let group" class="action-link toogle-btn">
+                {{ group.Id }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Action">
+                <th  width="130" mat-header-cell *matHeaderCellDef> Action </th>
+                <td mat-cell *matCellDef="let group" class="action-link-btn">
+                    <a class="btn_delete" *ngIf="this.generateOrderPermission.DetailPageAccess " (click)="previewClick(group.Id)" title="Preview"><mat-icon >image</mat-icon></a>
+                  <a *ngIf="this.generateOrderPermission.UpdatePageAccess && !group.IsLock && !group.IsApprove" routerLink="/order/generateorderadd/{{group.Id}}" title="Update"><mat-icon >edit</mat-icon></a>
+                  <a *ngIf="this.generateOrderPermission.UpdatePageAccess && !group.IsApprove" (click)="approveClick(group.Id)" title="Click To Approve"><mat-icon >assignment_turned_in</mat-icon></a>
+                  <a *ngIf="group.IsApprove" title="Approved"><mat-icon >assignment_turned_in</mat-icon></a>
+                  <a *ngIf="group.ESignedUrl1" (click)="downloadPdf(group.ESignedUrl1)" title="Document V1"><mat-icon >cloud_download</mat-icon></a>
+                  <a  *ngIf="group.ESignedUrl2" (click)="downloadPdf(group.ESignedUrl2)" title="Document V2"><mat-icon >cloud_download</mat-icon></a>
+                  <a  *ngIf="group.ESignedUrl3" (click)="downloadPdf(group.ESignedUrl3)" title="Document V3"><mat-icon >cloud_download</mat-icon></a>
+                  <a  *ngIf="group.ESignedUrl4" (click)="downloadPdf(group.ESignedUrl4)" title="Document V4"><mat-icon >cloud_download</mat-icon></a>
+                  <a  *ngIf="group.ESignedUrl5" (click)="downloadPdf(group.ESignedUrl5)" title="Document V5"><mat-icon >cloud_download</mat-icon></a>
+
+                  <a href="JavaScript:Void(0);" *ngIf="group.ESignedFinalUrl && this.generateOrderPermission.UpdatePageAccess" (click)="statusClick(group.Id)" title="Publish">
+                      <mat-icon class="toggle_on" *ngIf="group.IsActive" style="cursor:pointer;">toggle_on</mat-icon>
+                      <mat-icon class="toggle_off" *ngIf="!group.IsActive" style="cursor:pointer;">toggle_off</mat-icon>
+                    </a>
+                  </td>
+
+          </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+            <tr mat-row *matRowDef="let row; columns: columnsToDisplay;  let entry" [ngClass]="{'make-gold': entry.IsCancel == true}"></tr>
+          </table>
+          <mat-paginator #paginator [length]="totalRecords" [pageSize]="indexModel.PageSize" [pageSizeOptions]="[5,10, 20, 50]"
+        (page)="onPaginateChange($event)" showFirstLastButtons>
+      </mat-paginator>
+        </div>
+      </div>

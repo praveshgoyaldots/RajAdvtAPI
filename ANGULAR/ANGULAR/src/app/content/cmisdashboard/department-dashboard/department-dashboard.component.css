@@ -1,0 +1,13 @@
+.normal-table{
+    box-shadow: none;
+    border:1px solid rgba(0,0,0,0.12);
+}
+.normal-table th, .normal-table td.center{
+   text-align: center;
+}
+.normal-table td, .normal-table th{
+    border-right:1px solid rgba(0,0,0,0.12);
+}
+.normal-table td:last-child, .normal-table th:last-child{
+    border-right:none;
+}

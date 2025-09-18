@@ -1,0 +1,52 @@
+<div class="modal-header">
+  <p>{{title}} Year Master</p>
+
+  <button mat-button (click)="onNoClick()">
+    <mat-icon>close</mat-icon>
+  </button>
+
+</div>
+
+<div class="col l12 s12 ">
+
+  <div class="col l6 xl6 m6 s12 mb-10">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label> Year <span style="color: red">*</span>
+      </mat-label>
+      <input matInput placeholder="year" maxlength="9" [formControl]="YearName" name="YearName" [(ngModel)]="model.YearName" id="YearName">
+    </mat-form-field>
+    <mat-error *ngIf="YearName.invalid && YearName.touched">
+      Year is <strong>required</strong>
+    </mat-error>
+  </div>
+
+  <div class="col l6 xl6 m6 s12 mb-10">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label> Remarks 
+      </mat-label>
+      <input matInput placeholder="Remarks"  [(ngModel)]="model.Remarks" >
+    </mat-form-field>  
+  </div>
+
+  <div class="col l6 xl6 m6 s6 mb-10 mat-form-field-wrapper">
+    <section class="example-full-width  checkbox-bx-custom checkbox-bx-custom-with-label" appearance="outline">
+      <mat-label>Is Current Government</mat-label>
+      <mat-checkbox [(ngModel)]="model.IsCurrentGovernment" >
+        Is Current Government</mat-checkbox>
+    </section>
+  </div>
+
+  <div class="col l6 xl6 m6 s12 mb-10">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label> Order Number(numeric) 
+      </mat-label>
+      <input matInput placeholder="OrderBy" [(ngModel)]="model.OrderBy">
+    </mat-form-field>
+  </div>
+
+  
+
+  <div class="col l12 x8 m4 s12 mb-10">
+    <button mat-button class="btn-submit" (click)="SaveClick()">{{title}}</button>
+  </div>
+</div>

@@ -1,0 +1,201 @@
+<div class="row mt-20 detail-bx">
+  <div class="table-responsive">
+    <table class="table custom-data-table">
+      <tbody>
+        <tr>
+          <td>
+            <section class="mat-typography">
+              <h2 class="color-blue">Description:</h2>
+            </section>
+          </td>
+          <td colspan="3">
+            <section class="mat-typography">
+
+              <h3 class="color-grey" [innerHTML]="model.Description != null ? model.Description : 'N/A'">
+              </h3>
+            </section>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <section class="mat-typography">
+              <h2 class="color-blue">Entry Type:</h2>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <h3 class="color-grey">
+                {{ model.EntryTypeName != null ? model.EntryTypeName : 'N/A' }}
+              </h3>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <h2 class="color-blue">Priority:</h2>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <h3 class="color-grey">
+                {{ model.PriorityName != null ? model.PriorityName : 'N/A' }}
+              </h3>
+            </section>
+          </td>
+          <!-- <td>
+            <section class="mat-typography">
+              <h2 class="color-blue">Created Date:</h2>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <h3 class="color-grey">
+                {{ model.CreatedDate != null ? (model.CreatedDate | date: 'dd/MM/yyyy') : 'N/A' }}
+              </h3>
+            </section>
+          </td> -->
+        </tr>
+
+        <tr>
+          <td>
+            <section class="mat-typography">
+              <h2 class="color-blue">Application Title:</h2>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <h3 class="color-grey">
+                {{ model.ApplicationTitle != null ? model.ApplicationTitle : 'N/A' }}
+              </h3>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <h2 class="color-blue">Page:</h2>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <h3 class="color-grey">
+                {{ model.PageTitle != null ? model.PageTitle : 'N/A' }}
+              </h3>
+            </section>
+          </td>
+        </tr>
+
+
+
+        <tr>
+          <td>
+            <section class="mat-typography">
+              <h2 class="color-blue"> Screen URL:</h2>
+            </section>
+          </td>
+          <td colspan="3">
+            <section class="mat-typography">
+              <h3 class="color-grey">
+                <a target="_blank" href="{{model?.ScreenURL}}">
+                  {{model?.ScreenURL}}
+                </a>
+              </h3>
+            </section>
+          </td>
+        </tr>
+
+
+        <tr>
+          <td>
+            <section class="mat-typography">
+              <h2 class="color-blue">Attachments:</h2>
+            </section>
+          </td>
+          <td colspan="2">
+            <section class="mat-typography">
+              <ul class="image-list" *ngIf="model?.AttachmentList">
+                <li *ngFor="let url of model?.AttachmentList;let i = index;">
+                  <!-- <a *ngIf="url?.split('.')[1]?.toLowerCase()=='pdf'"
+                    (click)="this._commonService.downloadPdf(url,url?.split('.')[0])" href="javascript:void(0);">
+                    <mat-icon class="mat-icon notranslate material-icons mat-icon-no-color">picture_as_pdf</mat-icon>
+                  </a> -->
+                  <a *ngIf="(url?.includes('.pdf'))" target="_blank" href="{{(url)}}">
+                    <mat-icon class="mat-icon notranslate material-icons mat-icon-no-color">picture_as_pdf </mat-icon>
+                  </a>
+                  <div *ngIf="!(url?.includes('.pdf'))">
+                    <a target="_blank" href="{{(url)}}">
+                      <img [src]="(url)" />
+                    </a>
+                  </div>
+                </li>
+              </ul>
+              <h3 class="color-grey" *ngIf="!model?.AttachmentList">N/A</h3>
+            </section>
+          </td>
+          <td style="text-align:right">
+            <a *ngIf="this.Permission.UpdatePageAccess" (click)="OpenDialog(this.RecordId)" title="Add New Action">
+              <mat-icon>add_comment</mat-icon>
+            </a>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+  <div class="col l12 x8 m4 s12 clearfix" *ngIf="model?.ActionList?.length>0">
+    <fieldset>
+      <legend class="row">
+        <div class="col xl12 l12 m12 s12 text-left">
+          <h5><strong>Action </strong></h5>
+        </div>
+      </legend>
+
+      <table class="mat-table">
+
+        <thead>
+          <tr class="header">
+            <th>#</th>
+            <th>Status</th>
+            <th>Comment</th>
+            <th>Attachments</th>
+            <th>EnterBy Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let  item  of model.ActionList;let i=index">
+            <td> {{i+1}}</td>
+            <td> {{item.Status}}</td>
+            <td>
+              <div [innerHTML]="item.Comment != null ? item.Comment : ' '"></div>
+            </td>
+            <td>
+              <section class="mat-typography">
+                <ul class="image-list" *ngIf="item?.AttachmentURL">
+                  <li>
+                    <a *ngIf="(item?.AttachmentURL?.includes('.pdf'))" target="_blank" href="{{(item?.AttachmentURL)}}">
+                      <mat-icon class="mat-icon notranslate material-icons mat-icon-no-color">picture_as_pdf</mat-icon>
+                    </a>
+                    <div *ngIf="!(item?.AttachmentURL?.includes('.pdf'))">
+                      <a target="_blank" href="{{(item?.AttachmentURL)}}">
+                        <img [src]="(item?.AttachmentURL)" />
+                      </a>
+                    </div>
+                  </li>
+                </ul>
+                <h3 class="color-grey" *ngIf="item?.AttachmentURL==null">N/A</h3>
+              </section>
+            </td>
+            <td> {{item.FromUser}} <br /> {{item.CreatedDate != null ? (item.CreatedDate | date:
+              'dd/MM/yyyy h:mm:ss a') : '-' }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+    </fieldset>
+  </div>
+</div>
+<!-- <div class="row">
+  <div class="col l12 x8 m4 s12 ">
+      <button *ngIf="loginBaseUserType!=userTypeEnum.ADM && loginBaseUserType!=userTypeDOS && loginBaseUserType!=userTypeVNDR && loginBaseUserType != userTypeVNDRUSER && !IsHideDeptInternal_VendorCommBtn"
+      mat-button class="btn-submit mt-6" (click)="OpenChangeOfficeDialog(model.CommunicationCode)">Move to
+          Other Department Office</button>
+  </div>
+</div> -->

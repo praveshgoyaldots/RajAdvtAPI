@@ -1,0 +1,331 @@
+<!-- <div class="modal-header">
+  <p>General Entry Category</p>
+  <button mat-button (click)="onNoClick()">
+    <mat-icon>close</mat-icon>
+  </button>
+
+</div> -->
+
+<!-- <div class="col l12 m12 s12 text-right">
+  <button class="grey_btn mr-5 mat-button" mat-button matStepperPrevious>Back</button>
+  <button class="btn-submit mat-button" mat-button (click)="saveClick();">Submit</button>
+</div> -->
+
+<div class="row add_scheme add-order-stepper">
+  <mat-horizontal-stepper [linear]="isLinear" #stepper>
+    <mat-step [stepControl]="firstFormGroup">
+      <form [formGroup]="firstFormGroup">
+        <ng-template matStepLabel>Basic Information</ng-template>
+        <div class="row achievement-category-popup">
+          <!-- <alert></alert> -->
+          <div class="col l4 xl4 m6 s12">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Title
+              </mat-label>
+              <input matInput placeholder="Title in English" name="Title" [(ngModel)]="model.Title" #Title
+                formControlName="Title">
+            </mat-form-field>
+            <mat-error
+              *ngIf="this.firstFormGroup.get('Title').hasError('required') && (this.firstFormGroup.get('Title').touched && this.firstFormGroup.get('Title').invalid) ">
+              Title is <strong>required!</strong>
+            </mat-error>
+          </div>
+
+          <div class="col l4 xl4 m6 s12">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Title Hindi </mat-label>
+              <input matInput placeholder="Title in Hindi" name="TitleHindi" [(ngModel)]="model.TitleHindi" #TitleHindi
+                formControlName="TitleHindi">
+            </mat-form-field>
+            <mat-error
+              *ngIf="this.firstFormGroup.get('TitleHindi').hasError('required') && (this.firstFormGroup.get('TitleHindi').touched && this.firstFormGroup.get('TitleHindi').invalid) ">
+              Title(Hindi) is <strong>required!</strong>
+            </mat-error>
+          </div>
+          <div class="col l4 xl4 m6 s12 mat-form-field-wrapper">
+            <section class="example-full-width mb-20  checkbox-bx-custom checkbox-bx-custom-with-label"
+              appearance="outline">
+              <!-- <mat-label>Show in Home Screen </mat-label> -->
+              <mat-checkbox [(ngModel)]="model.IsVisible" Id="IsVisible" formControlName="IsVisible" #IsVisible> Show
+                in Home Screen</mat-checkbox>
+            </section>
+          </div>
+          <div class="col l4 xl4 m6 s12 mat-form-field-wrapper">
+            <section class="example-full-width  checkbox-bx-custom checkbox-bx-custom-with-label" appearance="outline">
+              <!-- <mat-label>Is Show In Data List Of Front Screen </mat-label> -->
+              <mat-checkbox [(ngModel)]="model.CategoryIsVisible" Id="CategoryIsVisible"
+                formControlName="CategoryIsVisible" #CategoryIsVisible> Is Show In Data List Of Front Screen
+              </mat-checkbox>
+            </section>
+          </div>
+          <div class="col l4 xl4 m6 s12 mat-form-field-wrapper">
+            <section class="example-full-width  checkbox-bx-custom checkbox-bx-custom-with-label" appearance="outline">
+              <!-- <mat-label>Is Visible To Other Than Admin </mat-label> -->
+              <mat-checkbox [(ngModel)]="model.IsVisibleToEndUser" Id="IsVisibleToEndUser"
+                formControlName="IsVisibleToEndUser" #IsVisibleToEndUser> Is Visible To Other Than Admin </mat-checkbox>
+            </section>
+          </div>
+
+          <div class="col l4 xl4 m6 s12">
+            <div class="upload-btn-wrapper">
+              <label>Attach Images</label>
+              <input type="file" id="ImagePath" formControlName="ImagePath" (change)="handleFileInput($event)"
+                accept="image/*">
+
+            </div>
+            <ul class="image-list">
+              <li *ngIf="model!=undefined && model.ImagePath!=undefined && model.ImagePath.length>0">
+
+                <div> <img [src]="model.ImagePath" /> <a title="Remove" (click)="RemoveImageFile()">
+                    <mat-icon>delete</mat-icon>
+                  </a></div>
+
+              </li>
+            </ul>
+
+            <mat-error *ngIf="ImagefileValidationMsg?.length>0" style="margin: 0px;position: relative;">
+              {{ImagefileValidationMsg}}
+            </mat-error>
+          </div>
+
+          <h4>Help File for General Entry screen </h4>
+          <div class="col l12 xl12 m12 s12">
+            <div class="upload-btn-wrapper">
+              <mat-label>Help File <span style="color: red">{{fileSizeValidationMsg}}</span></mat-label>
+              <input type="file" id="HelpFileURL" formControlName="HelpFileURL"
+                (change)="handleFileForMoreDetail($event)" accept="application/pdf">
+              <a *ngIf="model.HelpFileURL" (click)="downloadPdf(model.HelpFileURL)" href="JavaScript:Void(0);">
+                Show More Details
+              </a>
+              <a title="Remove" (click)="RemoveHelpFile();">
+                <mat-icon *ngIf="model?.HelpFileURL?.length>0">delete</mat-icon>
+              </a>
+            </div>
+            <span style="color: red">only pdf file accepted</span>
+
+            <mat-error *ngIf="helpFileValidationMsg?.length>0" style="margin: 0px;position: relative;">
+              {{helpFileValidationMsg}}</mat-error>
+          </div>
+
+          <h4>Label Name for General Entry screen</h4>
+          <div class="col l4 xl4 m6 s12">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>General Entry Hindi
+              </mat-label>
+              <input matInput placeholder="General Entry Hindi" name="LabelAchievementHindi"
+                [(ngModel)]="model.LabelAchievementHindi" #LabelAchievementHindi
+                formControlName="LabelAchievementHindi" />
+            </mat-form-field>
+          </div>
+          <div class="col l4 xl4 m6 s12">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Add PDF
+              </mat-label>
+              <input matInput placeholder="Add PDF" name="LabelAddPDF" [(ngModel)]="model.LabelAddPDF" #LabelAddPDF
+                formControlName="LabelAddPDF">
+            </mat-form-field>
+          </div>
+          <div class="col l4 xl4 m6 s12">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Attach Image
+              </mat-label>
+              <input matInput placeholder="Attach Image" name="LabelAttachImage" [(ngModel)]="model.LabelAttachImage"
+                #LabelAttachImage formControlName="LabelAttachImage">
+            </mat-form-field>
+          </div>
+          <div class="col l4 xl4 m6 s12">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Date
+              </mat-label>
+              <input matInput placeholder="Date" name="LabelDate" [(ngModel)]="model.LabelDate" #LabelDate
+                formControlName="LabelDate">
+            </mat-form-field>
+          </div>
+          <div class="col l4 xl4 m6 s12">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Description Hindi
+              </mat-label>
+              <input matInput placeholder="Description Hindi" name="LabelDescriptionHindi"
+                [(ngModel)]="model.LabelDescriptionHindi" #LabelDescriptionHindi
+                formControlName="LabelDescriptionHindi">
+            </mat-form-field>
+          </div>
+          <div class="col l4 xl4 m6 s12">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>URL
+              </mat-label>
+              <input matInput placeholder="URL" name="LabelURL" [(ngModel)]="model.LabelURL" #LabelURL
+                formControlName="LabelURL">
+            </mat-form-field>
+          </div>
+
+
+          <div class="col l12 m12 s12 text-right">
+            <button class="btn-submit mat-button" mat-button matStepperNext (click)="touchFirst(stepper)">Next</button>
+          </div>
+
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup">
+      <form [formGroup]="secondFormGroup">
+        <ng-template matStepLabel><a href="javascript:void(0);" (click)="touchFirst(stepper)">Fields show/hide on
+            General Entry screen</a> </ng-template>
+        <div class="row achievement-category-popup">
+          <h4>Fields show/hide on General Entry screen</h4>
+          <div class="col l4 xl4 m6 s12 mat-form-field-wrapper mb-10">
+            <section class="example-full-width  checkbox-bx-custom checkbox-bx-custom-with-label" appearance="outline">
+              <!-- <mat-label>Is Visible Date </mat-label> -->
+              <mat-checkbox [(ngModel)]="model.IsVisibleDate" Id="IsVisibleDate" formControlName="IsVisibleDate"
+                #IsVisibleDate> Is Visible Date</mat-checkbox>
+            </section>
+          </div>
+          <div class="col l4 xl4 m6 s12 mat-form-field-wrapper">
+            <section class="example-full-width  checkbox-bx-custom checkbox-bx-custom-with-label" appearance="outline">
+              <!-- <mat-label>Is Visible Description Hindi </mat-label> -->
+              <mat-checkbox [(ngModel)]="model.IsVisibleDescriptionHindi" Id="IsVisibleDescriptionHindi"
+                formControlName="IsVisibleDescriptionHindi" #IsVisibleDescriptionHindi> Is Visible Description Hindi
+              </mat-checkbox>
+            </section>
+          </div>
+          <div class="col l4 xl4 m6 s12 mat-form-field-wrapper">
+            <section class="example-full-width  checkbox-bx-custom checkbox-bx-custom-with-label" appearance="outline">
+              <!-- <mat-label>Is Show Connect With CMIS </mat-label> -->
+              <mat-checkbox [(ngModel)]="model.IsShowConnectWithCMIS" Id="IsShowConnectWithCMIS"
+                formControlName="IsShowConnectWithCMIS" #IsShowConnectWithCMIS> Is Show Connect With CMIS</mat-checkbox>
+            </section>
+          </div>
+          <div class="col l4 xl4 m6 s12 mat-form-field-wrapper">
+            <section class="example-full-width  checkbox-bx-custom checkbox-bx-custom-with-label" appearance="outline">
+              <!-- <mat-label>Is Show Beneficiary Category </mat-label> -->
+              <mat-checkbox [(ngModel)]="model.IsShowBeneficiaryCategory" Id="IsShowBeneficiaryCategory"
+                formControlName="IsShowBeneficiaryCategory" #IsShowBeneficiaryCategory> Is Show Beneficiary Category
+              </mat-checkbox>
+            </section>
+          </div>
+
+          <h4>Fields Mandatory or not on General Entry screen</h4>
+          <div class="col l4 xl4 m6 s12 mat-form-field-wrapper">
+            <section class="example-full-width  checkbox-bx-custom checkbox-bx-custom-with-label" appearance="outline">
+              <!-- <mat-label>Is PDF Mandatory </mat-label> -->
+              <mat-checkbox [(ngModel)]="model.IsPDFMandatory" Id="IsPDFMandatory" formControlName="IsPDFMandatory"
+                #IsPDFMandatory> Is PDF Mandatory</mat-checkbox>
+            </section>
+          </div>
+          <div class="col l4 xl4 m6 s12 mat-form-field-wrapper">
+            <section class="example-full-width  checkbox-bx-custom checkbox-bx-custom-with-label" appearance="outline">
+              <!-- <mat-label>Is URL Mandatory </mat-label> -->
+              <mat-checkbox [(ngModel)]="model.IsURLMandatory" Id="IsURLMandatory" formControlName="IsURLMandatory"
+                #IsURLMandatory> Is URL Mandatory</mat-checkbox>
+            </section>
+          </div>
+          <div class="col l4 xl4 m6 s12 mat-form-field-wrapper">
+            <section class="example-full-width  checkbox-bx-custom checkbox-bx-custom-with-label" appearance="outline">
+              <!-- <mat-label>Is Image Mandatory </mat-label> -->
+              <mat-checkbox [(ngModel)]="model.IsImageMandatory" Id="IsImageMandatory"
+                formControlName="IsImageMandatory" #IsImageMandatory> Is Image Mandatory</mat-checkbox>
+            </section>
+          </div>
+
+
+
+          <div class="col l12 m12 s12 text-right">
+            <button class="grey_btn mr-5 mat-button" mat-button matStepperPrevious>Back</button>
+            <button class="btn-submit mat-button" mat-button matStepperNext (click)="touchSecond(stepper)">Next</button>
+          </div>
+        </div>
+
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="thirdFormGroup">
+      <form [formGroup]="thirdFormGroup">
+        <ng-template matStepLabel><a href="javascript:void(0);" (click)="touchthird(stepper)">Department Website Detail</a> </ng-template>
+        <div class="row achievement-category-popup">
+          <div class="col l6 xl6 m6 s12">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>menu classification</mat-label>
+                <mat-select name="MenuClassificationCode"  formControlName="MenuClassificationCode" [(ngModel)]="model.MenuClassificationCode" >
+                    <mat-option>--Select--</mat-option>
+                    <mat-option value="{{k.Value}}" *ngFor="let k of dDLList?.ddlClassification">{{k.Text}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <!-- <mat-error *ngIf="MenuClassificationCode.invalid && MenuClassificationCode.touched">
+              Jankalyan Category is <strong>required</strong>
+            </mat-error> -->
+          </div>
+
+          <div class="col l6 xl6 m6 s12">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Menu classification Page Type</mat-label>
+                <mat-select name="MenuClassificationPageTypeCode"  formControlName="MenuClassificationPageTypeCode" [(ngModel)]="model.MenuClassificationPageTypeCode" >
+                    <mat-option>--Select--</mat-option>
+                    <mat-option value="{{k.Value}}" *ngFor="let k of dDLList?.ddlClassificationPageType">{{k.Text}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <!-- <mat-error *ngIf="MenuClassificationPageTypeCode.invalid && MenuClassificationPageTypeCode.touched">
+              Jankalyan Category is <strong>required</strong>
+            </mat-error> -->
+          </div>
+
+          <div class="col l6 xl6 m6 s12">
+            <mat-radio-group class=" mb-10 example-full-width radio-bx-custom radio-bx-custom-with-label" appearance="outline" aria-label="Select an option" formControlName="GeneralDepartmentDistrictMapping"  [(ngModel)]="model.GeneralDepartmentDistrictMapping">
+                <mat-label class="mr-5">District/Department Mapping</mat-label>
+                <mat-radio-button class="mr-5" value="{{item.Value}}" *ngFor="let item of dDLList?.RadioDepartmentDistrictbutton;" (change)="GetDepartmentList($event.value)">
+                    {{item.Text}}
+                </mat-radio-button>
+            </mat-radio-group>
+        </div>
+
+        <div class="col l6 xl6 m6 s12" >
+          <mat-label> Department </mat-label>
+          <mat-selection-list formControlName="GeneralDepartmentDistrictMappingList" [(ngModel)]="model.GeneralDepartmentDistrictMappingList" class="matlistscroll">
+            <mat-list-option disabled="disabled" (click)="selectAllDepartment();">
+              <mat-checkbox [checked]="selectedAllDepartmentDistrict>0"> SelectAll </mat-checkbox>
+            </mat-list-option>
+            <mat-list-option [value]="item.Value" *ngFor="let item of dDLDistrictDepartment">
+              {{item.Text}}
+            </mat-list-option>
+          </mat-selection-list>
+        </div>
+
+        <div class="col l4 xl4 m6 s12">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Sub Menu Name Hindi
+            </mat-label>
+            <input matInput placeholder="Sub Menu Name Hindi" name="SubMenuNameHindi" [(ngModel)]="model.SubMenuNameHindi" #SubMenuNameHindi
+              formControlName="SubMenuNameHindi">
+          </mat-form-field>
+        </div>
+
+        <div class="col l4 xl4 m6 s12">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Sub Menu Name English
+            </mat-label>
+            <input matInput placeholder="Sub Menu Name English" name="SubMenuNameEnglish" [(ngModel)]="model.SubMenuNameEnglish" #SubMenuNameEnglish
+              formControlName="SubMenuNameEnglish">
+          </mat-form-field>
+        </div>
+
+        <div class="col l6 xl4 m6 s12">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Common Category LookUp</mat-label>
+              <mat-select name="CommonCategoryCode"  formControlName="CommonCategoryCode" [(ngModel)]="model.CommonCategoryCode" >
+                  <mat-option>--Select--</mat-option>
+                  <mat-option value="{{k.Value}}" *ngFor="let k of dDLList?.ddlCommonCategoryLookup">{{k.Text}}</mat-option>
+              </mat-select>
+          </mat-form-field>
+        </div>
+
+
+          <div class="col l12 m12 s12 text-right">
+            <button class="grey_btn mr-5 mat-button" mat-button matStepperPrevious>Back</button>
+            <button class="btn-submit mat-button" mat-button (click)="SaveClick();">Submit</button>
+          </div>
+        </div>
+
+      </form>
+    </mat-step>
+
+  </mat-horizontal-stepper>
+</div>
+

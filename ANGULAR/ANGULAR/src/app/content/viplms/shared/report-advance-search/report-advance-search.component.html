@@ -1,0 +1,219 @@
+<div class="row">
+    <div class="col l12 m12 s12 mb-20">
+        <section class="mat-typography">
+            <h2 class="color-blue mb-0">Advance Search</h2>
+        </section>
+    </div>
+
+    <div class="col l3 x6 m3 s12">
+        <mat-form-field appearance="outline">
+            <mat-label>Ref. No. From </mat-label>
+            <input matInput placeholder="Ref. No. From" [(ngModel)]="model.RefNoFrom" maxlength="10">
+        </mat-form-field>
+    </div>
+
+    <div class="col l3 x6 m3 s12">
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Ref. No. To </mat-label>
+            <input matInput placeholder="Ref. No. To" [(ngModel)]="model.RefNoTo" maxlength="10">
+        </mat-form-field>
+    </div>
+
+    <div class="col l3 x6 m3 s12">
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Subject </mat-label>
+            <input matInput placeholder="Subject" [(ngModel)]="model.Subject" maxlength="200">
+        </mat-form-field>
+    </div>
+
+    <div class="col l3 x6 m3 s12">
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Sender Name </mat-label>
+            <input matInput placeholder="Sender Name" [(ngModel)]="model.SenderName" maxlength="50">
+        </mat-form-field>
+    </div>
+
+    <div class="col l3 x6 m3 s12">
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Address </mat-label>
+            <input matInput placeholder="Address" [(ngModel)]="model.Address" maxlength="100">
+        </mat-form-field>
+    </div>
+
+    <div class="col l3 x6 m3 s12">
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Mobile </mat-label>
+            <input matInput placeholder="Mobile" [(ngModel)]="model.Mobile" maxlength="10">
+        </mat-form-field>
+    </div>
+
+    <div class="col l3 x6 m3 s12">
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Action Taken By Department </mat-label>
+            <input matInput placeholder="Action Taken By Department" [(ngModel)]="model.ActionTakenByDepartment"
+                maxlength="100">
+        </mat-form-field>
+    </div>
+
+    <div class="col l3 x6 m3 s12">
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Action Taken By CMO </mat-label>
+            <input matInput placeholder="Action Taken By CMO" [(ngModel)]="model.ActionTakenByCMO" maxlength="100">
+        </mat-form-field>
+    </div>
+
+    <div class="col l3 x6 m3 s12">
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Commenting Officer</mat-label>
+            <mat-select [(ngModel)]="model.CommentingOfficerCode">
+                <mat-option value>--Select--</mat-option>
+                <mat-option value="{{item.Value}}" *ngFor="let item of dropdownList?.ddlUserGroup">{{item.Text}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <div class="col l3 x6 m3 s12">
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Referencee</mat-label>
+            <mat-select [(ngModel)]="model.ReferenceeCode">
+                <mat-option value>--Select--</mat-option>
+                <mat-option value="{{item.Value}}" *ngFor="let item of dropdownList?.ddlReferencee">{{item.Text}}</mat-option> 
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <div class="col l3 x6 m3 s12">
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Department</mat-label>
+            <mat-select [(ngModel)]="model.DepartmentCode">
+                <mat-option value>--Select--</mat-option>
+                <mat-option value="{{item.Value}}" *ngFor="let item of dropdownList?.ddlDepartment">{{item.Text}}</mat-option> 
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <div class="col l3 x6 m3 s12">
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Department Status</mat-label>
+            <mat-select [(ngModel)]="model.DepartmentStatusCode">
+                <mat-option value>--Select--</mat-option>
+                <mat-option value="{{item.Value}}" *ngFor="let item of dropdownList?.ddlVIPLMS_LetterAction">{{item.Text}}</mat-option> 
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <div class="col l3 x6 m3 s12">
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>CMO Status</mat-label>
+            <mat-select [(ngModel)]="model.CMOStatusCode">
+                <mat-option value>--Select--</mat-option>
+                <mat-option value="{{item.Value}}" *ngFor="let item of dropdownList?.ddlVIPLMS_LetterAction">{{item.Text}}</mat-option> 
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <div class="col l3 x6 m3 s12">
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Officer Group</mat-label>
+            <mat-select [(ngModel)]="model.OfficerGroupCode">
+                <mat-option>--Select--</mat-option>
+                <mat-option value="{{item.Value}}" *ngFor="let item of dropdownList?.ddlUserGroup">{{item.Text}}</mat-option> 
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <div class="col l3 x6 m3 s12">
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Entry Date From </mat-label>
+            <input matInput [(ngModel)]="model.EntryDateFrom" [matDatepicker]="edfPicker" (focus)="edfPicker.open()"
+                placeholder="Entry Date From" readonly>
+            <mat-datepicker-toggle matSuffix [for]="edfPicker"></mat-datepicker-toggle>
+            <mat-datepicker #edfPicker></mat-datepicker>
+        </mat-form-field>
+    </div>
+
+    <div class="col l3 x6 m3 s12">
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Entry Date To </mat-label>
+            <input matInput [(ngModel)]="model.EntryDateTo" [matDatepicker]="edtPicker" (focus)="edtPicker.open()"
+                placeholder="Entry Date To" readonly>
+            <mat-datepicker-toggle matSuffix [for]="edtPicker"></mat-datepicker-toggle>
+            <mat-datepicker #edtPicker></mat-datepicker>
+        </mat-form-field>
+    </div>
+
+    <div class="col l3 x6 m3 s12">
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Dept. Action Date From </mat-label>
+            <input matInput [(ngModel)]="model.DepartmentActionDateFrom" [matDatepicker]="dadfPicker"
+                (focus)="dadfPicker.open()" placeholder="Dept. Action Date From" readonly>
+            <mat-datepicker-toggle matSuffix [for]="dadfPicker"></mat-datepicker-toggle>
+            <mat-datepicker #dadfPicker></mat-datepicker>
+        </mat-form-field>
+    </div>
+
+    <div class="col l3 x6 m3 s12">
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Dept. Action Date To </mat-label>
+            <input matInput [(ngModel)]="model.DepartmentActionDateTo" [matDatepicker]="dadtPicker"
+                (focus)="dadtPicker.open()" placeholder="Dept. Action Date To" readonly>
+            <mat-datepicker-toggle matSuffix [for]="dadtPicker"></mat-datepicker-toggle>
+            <mat-datepicker #dadtPicker></mat-datepicker>
+        </mat-form-field>
+    </div>
+
+    <div class="col l3 x6 m3 s12">
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>CMO Action Date From </mat-label>
+            <input matInput [(ngModel)]="model.CMOActionDateFrom" [matDatepicker]="cadfPicker"
+                (focus)="cadfPicker.open()" placeholder="CMO Action Date From" readonly>
+            <mat-datepicker-toggle matSuffix [for]="cadfPicker"></mat-datepicker-toggle>
+            <mat-datepicker #cadfPicker></mat-datepicker>
+        </mat-form-field>
+    </div>
+
+    <div class="col l3 x6 m3 s12">
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>CMO Action Date To </mat-label>
+            <input matInput [(ngModel)]="model.CMOActionDateTo" [matDatepicker]="cadtPicker" (focus)="cadtPicker.open()"
+                placeholder="CMO Action Date To" readonly>
+            <mat-datepicker-toggle matSuffix [for]="cadtPicker"></mat-datepicker-toggle>
+            <mat-datepicker #cadtPicker></mat-datepicker>
+        </mat-form-field>
+    </div>
+
+    <div class="col l3 x6 m3 s12">
+        <mat-radio-group [(ngModel)]="model.LetterType"
+            class="example-full-width radio-bx-custom radio-bx-custom-with-label" aria-label="Select an option">
+            <mat-label class="mr-5">Letter Type </mat-label>
+            <mat-radio-button class="mr-5" value="">All</mat-radio-button>
+            <mat-radio-button class="mr-5" value="Receipt">Receipt</mat-radio-button>
+            <mat-radio-button class="mr-5" value="Dispatch">Dispatch</mat-radio-button>
+        </mat-radio-group>
+    </div>
+
+    <div class="col l3 x6 m3 s12">
+        <mat-radio-group [(ngModel)]="model.ReferenceeType"
+            class="example-full-width radio-bx-custom radio-bx-custom-with-label" aria-label="Select an option">
+            <mat-label class="mr-5">Referencee Type </mat-label>
+            <mat-radio-button class="mr-5" value="">All</mat-radio-button>
+            <mat-radio-button class="mr-5" value="VVIP">VVIP</mat-radio-button>
+            <mat-radio-button class="mr-5" value="VIP">VIP</mat-radio-button>
+        </mat-radio-group>
+    </div>
+
+    <div class="col l3 x6 m3 s12">
+        <mat-radio-group [(ngModel)]="model.haveAttachment"
+            class="example-full-width radio-bx-custom radio-bx-custom-with-label" aria-label="Select an option">
+            <mat-label class="mr-5">Have Attachment </mat-label>
+            <mat-radio-button class="mr-5" value="">All</mat-radio-button>
+            <mat-radio-button class="mr-5" value="Yes">Yes</mat-radio-button>
+            <mat-radio-button class="mr-5" value="No">No</mat-radio-button>
+        </mat-radio-group>
+    </div>
+
+    <div class="col l12 x12 m12 s12">
+        <button mat-button class="btn-submit mr-5" (click)="setSearchFilter()">Search</button>
+        <button mat-button class="btn-submit" (click)="resetAdvanceSearch()">Refresh</button>
+    </div>
+</div>

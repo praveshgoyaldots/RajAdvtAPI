@@ -1,0 +1,199 @@
+<form [formGroup]="formGroup">
+
+  <div class="row">
+
+      <div class="col l12 xl12 m12 s12">
+
+          <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label> VC Name </mat-label>
+              <mat-select formControlName="VCCreateCode" #VCCreateCode [(ngModel)]="model.VCCreateCode" (ngModelChange)="GetList()">
+                  <mat-option>--Select VC Name--</mat-option>
+                <mat-option value="{{ k.Code }}" *ngFor="let k of dDLList?.ddlCurrentDateVC">{{ k.ShortDescription }}
+                  <span>(</span> {{ k.Date| date: 'dd/MM/yyyy' }}<span *ngIf="k.Date && k.Time">/</span>{{ k.Time }} <span>)</span></mat-option>
+              </mat-select>
+            </mat-form-field>
+          <mat-error
+              *ngIf="formGroup.get('VCCreateCode').hasError('required') && (formGroup.get('VCCreateCode').touched && formGroup.get('VCCreateCode').invalid)">
+              VC Name is <strong>required!</strong>
+          </mat-error>
+      </div>
+
+    <div class="col l6 xl6 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Participant Category <span style="color: red">*</span> </mat-label>
+          <mat-select formControlName="ParticipantCategoryCode" #ParticipantCategoryCode (selectionChange)="GetParticipantClick($event.value)" [(ngModel)]="model.ParticipantCategoryCode">
+              <mat-option>--Select--</mat-option>
+              <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlVCParticipantCategory">{{ k.Text }} </mat-option>
+          </mat-select>
+      </mat-form-field>
+      <mat-error
+          *ngIf="formGroup.get('ParticipantCategoryCode').hasError('required') && (formGroup.get('ParticipantCategoryCode').touched && formGroup.get('ParticipantCategoryCode').invalid)">
+          Participant Category is <strong>required!</strong>
+      </mat-error>
+  </div>
+  <div class="col l6 xl6 m6 s12">
+    <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label> Participant <span style="color: red">*</span> </mat-label>
+        <mat-select *ngIf="model.Id" formControlName="ParticipantCode" #ParticipantCode (selectionChange)="participantClick($event.value)" [(ngModel)]="model.ParticipantCode">
+            <mat-option value="{{ k.Code }}" *ngFor="let k of dDLParticipant">{{ k.NameEnglish }} </mat-option>
+            <mat-option [value]="0">Others</mat-option>
+        </mat-select>
+        <mat-select *ngIf="!model.Id" formControlName="ParticipantCodeList" #ParticipantCodeList (selectionChange)="participantClick($event.value)" [(ngModel)]="model.ParticipantCodeList" multiple>
+            <mat-option value="{{ k.Code }}" *ngFor="let k of dDLParticipant">{{ k.NameEnglish }} </mat-option>
+            <mat-option [value]="0">Others</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-error
+        *ngIf="formGroup.get('ParticipantCode').hasError('required') && (formGroup.get('ParticipantCode').touched && formGroup.get('ParticipantCode').invalid)">
+        Participant is <strong>required!</strong>
+    </mat-error>
+
+    <mat-error
+    *ngIf="formGroup.get('ParticipantCodeList').hasError('required') && (formGroup.get('ParticipantCodeList').touched && formGroup.get('ParticipantCodeList').invalid)">
+    Participant is <strong>required!</strong>
+</mat-error>
+</div>
+      <div class="col l12 m12 s12" *ngIf="(model.Id==0 && !isEnableNameDesignation) || model.Id>0">
+          <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Name <span style="color: red">*</span>
+              </mat-label>
+              <input matInput placeholder="Name" *ngIf="isEnableNameDesignation" [(ngModel)]="model.Name" formControlName="Name" name="Name" readonly>
+              <input matInput placeholder="Name" *ngIf="!isEnableNameDesignation" [(ngModel)]="model.Name" formControlName="Name" name="Name">
+          </mat-form-field>
+          <mat-error
+              *ngIf="formGroup.get('Name').hasError('required') && (formGroup.get('Name').touched && formGroup.get('Name').invalid)">
+              Name is <strong>required!</strong>
+          </mat-error>
+      </div>
+      <div class="col l12 m12 s12" *ngIf="(model.Id==0 && !isEnableNameDesignation) || model.Id>0">
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Designation <span style="color: red">*</span>
+            </mat-label>
+            <!-- <input matInput placeholder="Designation" *ngIf="isEnableNameDesignation" [(ngModel)]="model.Designation" formControlName="Designation" name="Designation" readonly> -->
+            <input matInput placeholder="Designation" *ngIf="isEnableNameDesignation" [(ngModel)]="model.Designation" formControlName="Designation" name="Designation">
+            <input matInput placeholder="Designation" *ngIf="!isEnableNameDesignation" [(ngModel)]="model.Designation" formControlName="Designation" name="Designation" >
+          </mat-form-field>
+        <mat-error
+            *ngIf="formGroup.get('Designation').hasError('required') && (formGroup.get('Designation').touched && formGroup.get('Designation').invalid)">
+            Designation is <strong>required!</strong>
+        </mat-error>
+    </div>
+    <div class="col l12 m12 s12" *ngIf="(model.Id==0 && !isEnableNameDesignation) || model.Id>0">
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Mobile No.
+            </mat-label>
+            <!-- <input matInput placeholder="Mobile No." *ngIf="isEnableNameDesignation" [(ngModel)]="model.MobileNo" formControlName="MobileNo" name="MobileNo" readonly> -->
+            <input matInput placeholder="Mobile No." [(ngModel)]="model.MobileNo" formControlName="MobileNo" name="MobileNo" >
+        </mat-form-field>
+        <mat-error
+            *ngIf="formGroup.get('MobileNo').hasError('required') && (formGroup.get('MobileNo').touched && formGroup.get('MobileNo').invalid)">
+            Mobile No. is <strong>required!</strong>
+        </mat-error>
+    </div>
+    <div class="col l6 xl6 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label> District <span style="color: red">*</span> </mat-label>
+          <mat-select formControlName="DistrictCode" #DistrictCode  (selectionChange)="GetLocation($event.value)" [(ngModel)]="model.DistrictCode">
+              <mat-option>--Select--</mat-option>
+              <mat-option value="{{ k.DistrictCode }}" *ngFor="let k of ddlDistrict">{{ k.DistrictTitle }} </mat-option>
+
+          </mat-select>
+      </mat-form-field>
+      <mat-error
+          *ngIf="formGroup.get('DistrictCode').hasError('required') && (formGroup.get('DistrictCode').touched && formGroup.get('DistrictCode').invalid)">
+          District is <strong>required!</strong>
+      </mat-error>
+  </div>
+  <div class="col l6 xl6 m6 s12">
+    <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Location <span style="color: red">*</span> </mat-label>
+        <mat-select formControlName="LocationCode" #LocationCode  (selectionChange)="otherLocationClick()" [(ngModel)]="model.LocationCode">
+            <mat-option value="{{ k.Value }}" *ngFor="let k of dDLLocationByDistrict">{{ k.Text }} </mat-option>
+            <mat-option [value]="0" >Others</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-error
+        *ngIf="formGroup.get('LocationCode').hasError('required') && (formGroup.get('LocationCode').touched && formGroup.get('LocationCode').invalid)">
+        Location is <strong>required!</strong>
+    </mat-error>
+</div>
+<div class="col l6 xl6 m6 s12" *ngIf="isOtherLocation">
+  <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>Mode <span style="color: red">*</span> </mat-label>
+      <mat-select formControlName="ModeCode" #ModeCode [(ngModel)]="model.ModeCode">
+          <mat-option>--Select--</mat-option>
+          <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlVCMode">{{ k.Text }} </mat-option>
+      </mat-select>
+  </mat-form-field>
+  <mat-error
+      *ngIf="formGroup.get('ModeCode').hasError('required') && (formGroup.get('ModeCode').touched && formGroup.get('ModeCode').invalid)">
+      Mode is <strong>required!</strong>
+  </mat-error>
+</div>
+<div class="col l6 xl6 m6 s12" *ngIf="isOtherLocation">
+    <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Location  </mat-label>
+        <input matInput placeholder="Location" [(ngModel)]="model.LocationTextBox" formControlName="LocationTextBox" name="LocationTextBox" >
+    </mat-form-field>
+     </div>
+      <div class="col l12 x8 m4 s6 clearfix">
+          <button mat-button class="btn-submit" (click)="SaveClick();">{{title}}</button>
+      </div>
+  </div>
+</form>
+
+<div class="row light-bg">
+    <div class="col l6 xl6 m6 s6 ">
+      <h5 class="page-title">Participant List By VC :</h5>
+    </div>
+  </div>
+
+<div class="row">
+    <div class="col l12 s12">
+      <table mat-table [dataSource]="dataSource" matSort *ngIf="listModel?.length>0" (matSortChange)="SortData($event)"
+        class="mat-elevation-z8" style="vertical-align:top !important">
+        <ng-container matColumnDef="index">
+          <th mat-header-cell *matHeaderCellDef>#</th>
+          <td mat-cell *matCellDef="let element; let i = index">
+            {{ (indexModel.Page - 1) * indexModel.PageSize + (i + 1) }}
+          </td>
+        </ng-container>
+        <ng-container [matColumnDef]="column.Value" *ngFor="let column of ViewdisplayedColumns">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            {{ column.Text }}
+          </th>
+          <td mat-cell *matCellDef="let element">{{ element[column.Value] }}</td>
+        </ng-container>
+        <ng-container matColumnDef="NodalDepartmentTitle">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            Nodel Department Name~
+          </th>
+          <td mat-cell *matCellDef="let element">
+            <span innerHTML="{{element.NodalDepartmentTitle}}"></span>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="Action">
+          <th mat-header-cell *matHeaderCellDef>Action</th>
+          <td mat-cell *matCellDef="let element" class="action-link">
+
+            <a (click)="editClick(element.Id);" title="Edit" class="btn_edit" href="javascript:void(0)">
+              <mat-icon>edit</mat-icon>
+            </a>
+            <a (click)="onDelete(element.Id);" title="Delete" class="btn_delete" href="javascript:void(0)">
+              <mat-icon>delete</mat-icon>
+            </a>
+            <a class="prestntabsent-btn" (click)="markPresentAbsent(element.Id);" title="PrestntAbsent"href="javascript:void(0)">
+              <span class="badget" *ngIf="element.IsPresent" style="background-color: green;">Present</span>
+              <span class="badget" *ngIf="!element.IsPresent" style="background-color: red;">Absent</span>
+            </a>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+        <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
+      </table>
+      <mat-paginator #paginator *ngIf="listModel?.length>0" [length]="totalRecords" [pageSize]="indexModel.PageSize"
+        [pageSizeOptions]="[5, 10, 20, 50]" (page)="onPaginateChange($event)" showFirstLastButtons> </mat-paginator>
+
+      <div *ngIf="listModel?.length==0"> Record Not Found</div>
+    </div>
+  </div>

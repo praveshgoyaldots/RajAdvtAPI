@@ -1,0 +1,236 @@
+<form [formGroup]="formGroup">
+
+    <div class="row">
+
+        <div class="col l6 xl6 m6 s12">
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label> Department<span style="color: red">*</span> </mat-label>
+                <mat-select formControlName="DepartmentCode" #DepartmentCode [(ngModel)]="model.DepartmentCode">
+                    <mat-option>--Select--</mat-option>
+                    <mat-option value="{{ k.DepartmentCode }}" *ngFor="let k of ddlDepartment">{{ k.DepartmentTitle }}
+                    </mat-option>
+
+                </mat-select>
+            </mat-form-field>
+            <mat-error
+                *ngIf="formGroup.get('DepartmentCode').hasError('required') && (formGroup.get('DepartmentCode').touched && formGroup.get('DepartmentCode').invalid)">
+                Department is <strong>required!</strong>
+            </mat-error>
+        </div>
+        <div class="col l6 xl6 m6 s12">
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label> Office<span style="color: red">*</span> </mat-label>
+                <mat-select formControlName="OfficeCode" #OfficeCode [(ngModel)]="model.OfficeCode">
+                    <mat-option value="{{item.Value}}" *ngFor="let item of dDLList?.ddlOffice">{{item.Text}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-error
+                *ngIf="formGroup.get('OfficeCode').hasError('required') && (formGroup.get('OfficeCode').touched && formGroup.get('OfficeCode').invalid)">
+                Office is <strong>required!</strong>
+            </mat-error>
+        </div>
+        <div class="col l12 m12 s12">
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Header 1 in English <span style="color: red">*</span>
+                </mat-label>
+                <input matInput placeholder="Header 1 in English " [(ngModel)]="model.Address1"
+                    formControlName="Address1" name="Address1">
+            </mat-form-field>
+            <mat-error
+                *ngIf="formGroup.get('Address1').hasError('required') && (formGroup.get('Address1').touched && formGroup.get('Address1').invalid)">
+                Header 1 in English is <strong>required!</strong>
+            </mat-error>
+        </div>
+        <div class="col l12 m12 s12">
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Header 2 in English
+                </mat-label>
+                <input matInput placeholder="Header 2 in English " [(ngModel)]="model.Address2"
+                    formControlName="Address2" name="Address2">
+            </mat-form-field>
+        </div>
+        <div class="col l12 m12 s12">
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Header 3 in English
+                </mat-label>
+                <input matInput placeholder="Header 3 in English " [(ngModel)]="model.Address3"
+                    formControlName="Address3" name="Address3">
+            </mat-form-field>
+        </div>
+        <div class="col l12 m12 s12">
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Header 1 in Hindi
+                </mat-label>
+                <input matInput placeholder="Header 1 in Hindi" [(ngModel)]="model.AddressHindi1"
+                    formControlName="AddressHindi1" name="AddressHindi1">
+            </mat-form-field>
+        </div>
+        <div class="col l12 m12 s12">
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Header 2 in Hindi
+                </mat-label>
+                <input matInput placeholder="Header 2 in Hindi" [(ngModel)]="model.AddressHindi2"
+                    formControlName="AddressHindi2" name="AddressHindi2">
+            </mat-form-field>
+        </div>
+        <div class="col l12 m12 s12">
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Header 3 in Hindi
+                </mat-label>
+                <input matInput placeholder="Header 3 in Hindi" [(ngModel)]="model.AddressHindi3"
+                    formControlName="AddressHindi3" name="AddressHindi3">
+            </mat-form-field>
+        </div>
+        <div class="col l12 m12 s12">
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Footer 1 in English <span style="color: red">*</span>
+                </mat-label>
+                <input matInput placeholder="Footer 1 in English " [(ngModel)]="model.FooterLine1"
+                    formControlName="FooterLine1" name="FooterLine1">
+            </mat-form-field>
+            <mat-error
+                *ngIf="formGroup.get('FooterLine1').hasError('required') && (formGroup.get('FooterLine1').touched && formGroup.get('FooterLine1').invalid)">
+                Footer 1 in English is <strong>required!</strong>
+            </mat-error>
+        </div>
+
+        <div class="col l12 m12 s12">
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Footer 2 in English
+                </mat-label>
+                <input matInput placeholder="Footer 2 in English  " [(ngModel)]="model.FooterLine2"
+                    formControlName="FooterLine2" name="FooterLine2">
+            </mat-form-field>
+        </div>
+
+        <div class="col l12 m12 s12">
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Footer 1 in Hindi
+                </mat-label>
+                <input matInput placeholder="Footer 1 in Hindi" [(ngModel)]="model.FooterLineHindi1"
+                    formControlName="FooterLineHindi1" name="FooterLineHindi1">
+            </mat-form-field>
+        </div>
+
+        <div class="col l12 m12 s12">
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Footer 2 in Hindi
+                </mat-label>
+                <input matInput placeholder="Footer 2 in Hindi" [(ngModel)]="model.FooterLineHindi2"
+                    formControlName="FooterLineHindi2" name="FooterLineHindi2">
+            </mat-form-field>
+        </div>
+        <div class="col l6 xl6 m6 s12">
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>File Size(In MB)
+                </mat-label>
+                <input matInput placeholder="File Size(In MB)" [(ngModel)]="model.FileSize" type="number"
+                    onKeyPress="if(this.value.length==5) return false;" formControlName="FileSize" name="FileSize">
+            </mat-form-field>
+        </div>
+        <div class="col l6 xl6 m6 s12">
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Facebook Url
+                </mat-label>
+                <input matInput placeholder="Facebook Url" [(ngModel)]="model.FacebookUrl" formControlName="FacebookUrl"
+                    name="FacebookUrl">
+            </mat-form-field>
+            <mat-error
+                *ngIf="(formGroup.get('FacebookUrl').touched && formGroup.get('FacebookUrl').hasError('invalidUrl'))">
+                Facebook Url is <strong>not valid!</strong>
+            </mat-error>
+        </div>
+        <div class="col l6 xl6 m6 s12">
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Twitter Url
+                </mat-label>
+                <input matInput placeholder="Twitter Url" [(ngModel)]="model.Twitter" formControlName="Twitter"
+                    name="Twitter">
+            </mat-form-field>
+            <mat-error *ngIf="(formGroup.get('Twitter').touched && formGroup.get('Twitter').hasError('invalidUrl'))">
+                Twitter Url is <strong>not valid!</strong>
+            </mat-error>
+        </div>
+        <div class="col l6 xl6 m6 s12">
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>You Tube
+                </mat-label>
+                <input matInput placeholder="You Tube" [(ngModel)]="model.Youtube" formControlName="Youtube"
+                    name="Youtube">
+            </mat-form-field>
+            <mat-error *ngIf="(formGroup.get('Youtube').touched && formGroup.get('Youtube').hasError('invalidUrl'))">
+                Youtube Url is <strong>not valid!</strong>
+            </mat-error>
+        </div>
+
+        <div class="col l12 m12 s12">
+            <span style="color: red">{{fileSizeValidationMsg}}</span>
+        </div>
+
+        <div class="col l6 xl6 m6 s12">
+            <div class="upload-btn-wrapper">
+                <label>Logo 1</label>
+                <input type="file" id="Logo1" (change)="handleFileInput($event)" formControlName="Logo1">
+                <img *ngIf="model.Logo1" [src]="model.Logo1" height="100px" width="100px" />
+                <a title="Remove" (click)="RemoveLogo();">
+                    <mat-icon *ngIf="model?.Logo1?.length>0">delete</mat-icon></a>
+            </div>
+            <mat-error *ngIf="fileValidationMsgLogo1?.length>0" style="margin: 0px;position: relative;">{{fileValidationMsgLogo1}}</mat-error>
+        </div>
+        <div class="col l6 xl6 m6 s12">
+            <div class="upload-btn-wrapper">
+                <label>Logo 2</label>
+                <input type="file" id="Logo2" (change)="handleFileInputLogo2($event)" formControlName="Logo2">
+                <img *ngIf="model.Logo2" [src]="model.Logo2" height="100px" width="100px" />
+                <a title="Remove" (click)="RemoveLogo1();">
+                    <mat-icon *ngIf="model?.Logo2?.length>0">delete</mat-icon></a>
+            </div>
+            <mat-error *ngIf="fileValidationMsgLogo2?.length>0" style="margin: 0px;position: relative;">{{fileValidationMsgLogo2}}</mat-error>
+        </div>
+        <div class="col l4 xl4 m6 s12" style="margin-top:15px !important">
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Background Color
+                </mat-label>
+                <input matInput placeholder="Background Color" [(ngModel)]="model.Backgroundcolor"
+                    formControlName="Backgroundcolor" name="Backgroundcolor">
+            </mat-form-field>
+        </div>
+        <div class="col l4 xl4 m6 s12" style="margin-top:15px !important">
+            <mat-radio-group class="example-full-width radio-bx-custom radio-bx-custom-with-label"
+                aria-label="Select an option" #IsAutoEmail formControlName="IsAutoEmail" [(ngModel)]="model.IsAutoEmail">
+                <mat-label class="mr-5">Is Auto Email</mat-label>
+                <mat-radio-button [value]="true" class=" mr-5">Yes</mat-radio-button>
+                <mat-radio-button [value]="false">No</mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <div class="col l4 xl4 m6 s12" style="margin-top:15px !important">
+            <mat-radio-group class="example-full-width radio-bx-custom radio-bx-custom-with-label"
+                aria-label="Select an option" #IsAutoSMS formControlName="IsAutoSMS" [(ngModel)]="model.IsAutoSMS">
+                <mat-label class="mr-5">Is Auto SMS</mat-label>
+                <mat-radio-button [value]="true" class=" mr-5">Yes</mat-radio-button>
+                <mat-radio-button [value]="false">No</mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <div class="col l12 ">
+            <div class="opened">
+                <div class="colors">
+                    <a href="JavaScript:Void(0);" (click)="setColor(paint)" *ngFor="let paint of defaultColors">
+                        <div class="circle" [ngStyle]="{'background': paint}"></div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col l12 xl12 m12 s12">
+          <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Serial Number
+              </mat-label>
+              <input matInput placeholder="Serial Number" [(ngModel)]="model.SerialNumber" type="number"
+                  onKeyPress="if(this.value.length==5) return false;" formControlName="SerialNumber" name="SerialNumber">
+          </mat-form-field>
+      </div>
+        <div class="col l12 x8 m4 s6 clearfix">
+            <button mat-button class="btn-submit" (click)="SaveClick();">{{title}}</button>
+        </div>
+    </div>
+</form>

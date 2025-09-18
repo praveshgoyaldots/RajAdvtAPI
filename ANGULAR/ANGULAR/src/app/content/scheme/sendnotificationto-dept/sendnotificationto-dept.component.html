@@ -1,0 +1,26 @@
+<div class="modal-header">
+    <p>Send Notification To Department Officers</p>
+
+    <button mat-button (click)="onNoClick()">
+        <mat-icon>close</mat-icon>
+    </button>
+
+  </div>
+
+  <div class="col l12 s12 ">
+
+    <div class="col l6 xl6 m6 s12">
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label> SMS Content<span style="color: red">*</span>
+            </mat-label>
+            <textarea matInput placeholder="SMS Conten" [formControl]="content" name="content" [(ngModel)]="model.Content" id="content"></textarea>
+        </mat-form-field>
+        <mat-error *ngIf="content.invalid && content.touched">
+            SMS Conten is <strong>required</strong>
+          </mat-error>
+    </div>
+
+    <div class="col l12 x8 m4 s12 ">
+        <button mat-button class="btn-submit" (click)="SaveClick()">Send</button>
+    </div>
+  </div>

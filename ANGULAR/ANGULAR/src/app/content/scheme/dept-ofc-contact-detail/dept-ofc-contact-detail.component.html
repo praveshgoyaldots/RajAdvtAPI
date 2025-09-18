@@ -1,0 +1,35 @@
+<div>
+
+  <button mat-button (click)="onNoClick()">
+    <mat-icon>close</mat-icon>
+</button>
+
+<table class="table table_with_color" >
+  <thead>
+    <tr>
+      <th scope="col">S.no</th>
+      <th scope="col">SSOID</th>
+      <th scope="col">Role</th>
+      <th scope="col">Designation</th>
+      <th scope="col">Email</th>
+      <th scope="col">Mobile Number</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    <tr
+        *ngFor="let item of model; let i = index"
+        [attr.data-index]="i"
+      >
+      <th >{{i+1}}</th>
+      <td>{{ item.SSOID}}
+      <td>{{ item.UserTypeTitle }}</td>
+      <td>{{ item.DesignationName }}</td>
+      <td>{{ item.UserEmail }}</td>
+      <td>{{ item.Mobile }}</td>
+
+
+    </tr>
+  </tbody>
+</table>
+</div>

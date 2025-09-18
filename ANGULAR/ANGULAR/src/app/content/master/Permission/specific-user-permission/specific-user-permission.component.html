@@ -1,0 +1,230 @@
+<div class="row m-0">
+  <div class="col l6 xl6 m6 s12">
+    <mat-form-field appearance="outline">
+      <mat-label>Application </mat-label>
+      <mat-select name="Application" [(ngModel)]="Application" (selectionChange)="BindUserList();UserPermissionList">
+        <mat-option value>--Select--</mat-option>
+        <mat-option value="{{k.Value}}" *ngFor="let k of dropdownList?.ddlApplicationType">{{k.Text}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="col l6 xl6 m6 s12">
+    <mat-form-field appearance="outline">
+      <mat-label>User Type </mat-label>
+      <mat-select name="UserType" [(ngModel)]="UserType" (selectionChange)="BindUserList()">
+        <mat-option value>--Select--</mat-option>
+        <mat-option value="{{k.Value}}" *ngFor="let k of dropdownList?.ddlUserType">{{k.Text}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="col l6 xl6 m6 s12">
+    <mat-form-field appearance="outline">
+      <mat-label> Department </mat-label>
+      <mat-select name="Department" [(ngModel)]="DepartmentCode"
+        (selectionChange)="getOfficeList(DepartmentCode);BindUserList()" multiple>
+        <mat-option disabled="disabled" (click)="selectAll()">
+          <mat-checkbox [disabled]="true"
+            [checked]="selectedAll>0 ||  searchModel.DepartmentCode?.length==dDLList?.ddlDepartment?.length"> SelectAll
+          </mat-checkbox>
+        </mat-option>
+        <mat-option value="{{k.Value}}" *ngFor="let k of dDLList?.ddlDepartment">{{k.Text}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+  </div>
+  <div class="col l6 xl6 m6 s12">
+    <mat-form-field appearance="outline">
+      <mat-label>Office :</mat-label>
+      <mat-select name="office" [(ngModel)]="office" multiple (selectionChange)="BindUserList()">
+
+        <mat-option disabled="disabled">
+          <mat-checkbox [disabled]="true" [checked]="selectedAlloffice>0 ||  office?.length==dDLList?.ddlOffice?.length"
+            (click)="selectAlloffice()">
+            SelectAll
+          </mat-checkbox>
+        </mat-option>
+        <mat-option value="{{k.Value}}" *ngFor="let k of dDLList?.ddlOffice">{{k.Text}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+
+
+  <div class="col l6 xl6 m6 s12">
+    <mat-form-field appearance="outline">
+      <mat-label>User Name</mat-label>
+      <mat-select name="UserId" [(ngModel)]="UserId" (selectionChange)="UserPermissionList();">
+        <mat-option value>--Select--</mat-option>
+        <mat-option value="{{k.Value}}" *ngFor="let k of dropdownList?.ddlUser">{{k.Text}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="col l12 m12 s12 text-center mb-20">
+    <button (click)="GetList();" class="btn btn_note btn_green" style="margin-right: 10px;">Search</button>
+    <button  (click)="ClearList();" class="btn btn_note btn_orange" style="margin-right: 10px;">Clear Search</button>
+  </div>
+
+</div>
+
+
+
+
+
+
+<div class="row">
+  <div class="col l12 s12">
+
+
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" *ngIf="userPagePermissionList.length > 0">
+      <ng-container matColumnDef="s_no">
+        <th mat-header-cell *matHeaderCellDef> S.No. </th>
+        <td mat-cell *matCellDef="let row; let i = index;">{{i+1}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="permission_name">
+        <th mat-header-cell *matHeaderCellDef>Permission Name</th>
+        <td mat-cell *matCellDef="let row">{{row.PageTitle}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="PageTypeName">
+        <th mat-header-cell *matHeaderCellDef>Page Type Name</th>
+        <td mat-cell *matCellDef="let row">{{row.PageTypeName}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="add_permission">
+        <th mat-header-cell *matHeaderCellDef>
+          <mat-checkbox [(ngModel)]="IsHeaderAddSelected" (change)="CheckUncheckAll('Add')"></mat-checkbox>
+          Add
+        </th>
+        <td mat-cell *matCellDef="let row">
+          <mat-checkbox [(ngModel)]="row.AddPermission" (change)="IsAllSelected('Add')"></mat-checkbox>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="edit_permission">
+        <th mat-header-cell *matHeaderCellDef>
+          <mat-checkbox [(ngModel)]="IsHeaderEditSelected" (change)="CheckUncheckAll('Edit')"></mat-checkbox>
+          Edit
+        </th>
+        <td mat-cell *matCellDef="let row">
+          <mat-checkbox [(ngModel)]="row.EditPermission" (change)="IsAllSelected('Edit')"></mat-checkbox>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="delete_permission">
+        <th mat-header-cell *matHeaderCellDef>
+          <mat-checkbox [(ngModel)]="IsHeaderDeleteSelected" (change)="CheckUncheckAll('Delete')">
+          </mat-checkbox>
+          Delete
+        </th>
+        <td mat-cell *matCellDef="let row">
+          <mat-checkbox [(ngModel)]="row.DeletePermission" (change)="IsAllSelected('Delete')"></mat-checkbox>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="view_permission">
+        <th mat-header-cell *matHeaderCellDef>
+          <mat-checkbox [(ngModel)]="IsHeaderViewSelected" (change)="CheckUncheckAll('View')"></mat-checkbox>
+          View
+        </th>
+        <td mat-cell *matCellDef="let row">
+          <mat-checkbox [(ngModel)]="row.ViewPermission" (change)="IsAllSelected('View')"></mat-checkbox>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+      <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+    </table>
+    <ng-container *ngIf="userPagePermissionList.length === 0">
+      No permission found.
+    </ng-container>
+
+    <div class="col l12 x8 m4 s12 clearfix mt-20" style="margin-top: 20px !important;"
+      *ngIf="userPagePermissionList.length > 0">
+      <button mat-button class="btn-submit" (click)="SavePermissions();">Submit</button>
+    </div>
+
+    <div class="row" *ngIf="isShow">
+      <div class="col l6 xl6 m6 s6 ">
+        <h5 class="page-title"> User Default Permission</h5>
+      </div>
+    </div>
+
+    <table mat-table [dataSource]="dataSource1" class="mat-elevation-z8"
+      *ngIf="userPageDefaultPermissionList.length > 0">
+
+      <ng-container matColumnDef="s_no">
+        <th mat-header-cell *matHeaderCellDef> S.No. </th>
+        <td mat-cell *matCellDef="let row; let i = index;">{{i+1}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="permission_name">
+        <th mat-header-cell *matHeaderCellDef>Permission Name</th>
+        <td mat-cell *matCellDef="let row">{{row.PageTitle}}</td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="PageTypeName">
+        <th mat-header-cell *matHeaderCellDef>Page Type Name</th>
+        <td mat-cell *matCellDef="let row">{{row.PageTypeName}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="add_permission">
+        <th mat-header-cell *matHeaderCellDef>
+          <mat-checkbox [disabled]="true" [(ngModel)]="IsHeaderAddSelected" (change)="CheckUncheckAll('Add')">
+          </mat-checkbox>
+          Add
+        </th>
+        <td mat-cell *matCellDef="let row">
+          <mat-checkbox [disabled]="true" [(ngModel)]="row.AddPermission" (change)="IsAllSelected('Add')">
+          </mat-checkbox>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="edit_permission">
+        <th mat-header-cell *matHeaderCellDef>
+          <mat-checkbox [disabled]="true" [(ngModel)]="IsHeaderEditSelected" (change)="CheckUncheckAll('Edit')">
+          </mat-checkbox>
+          Edit
+        </th>
+        <td mat-cell *matCellDef="let row">
+          <mat-checkbox [disabled]="true" [(ngModel)]="row.EditPermission" (change)="IsAllSelected('Edit')">
+          </mat-checkbox>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="delete_permission">
+        <th mat-header-cell *matHeaderCellDef>
+          <mat-checkbox [disabled]="true" [(ngModel)]="IsHeaderDeleteSelected" (change)="CheckUncheckAll('Delete')">
+          </mat-checkbox>
+          Delete
+        </th>
+        <td mat-cell *matCellDef="let row">
+          <mat-checkbox [disabled]="true" [(ngModel)]="row.DeletePermission" (change)="IsAllSelected('Delete')">
+          </mat-checkbox>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="view_permission">
+        <th mat-header-cell *matHeaderCellDef>
+          <mat-checkbox [disabled]="true" [(ngModel)]="IsHeaderViewSelected" (change)="CheckUncheckAll('View')">
+          </mat-checkbox>
+          View
+        </th>
+        <td mat-cell *matCellDef="let row">
+          <mat-checkbox [disabled]="true" [(ngModel)]="row.ViewPermission" (change)="IsAllSelected('View')">
+          </mat-checkbox>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+      <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+    </table>
+    <ng-container *ngIf="userPagePermissionList.length === 0">
+      No permission found.
+    </ng-container>
+  </div>
+
+</div>

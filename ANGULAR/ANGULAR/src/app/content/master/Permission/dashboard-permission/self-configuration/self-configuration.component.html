@@ -1,0 +1,75 @@
+<div class="row mb-0">
+
+    <div class="col l4 xl4 m6 s12 t-border-bx">
+  
+      <table class="table new_table table_border mb-20">
+        <thead>
+        <tr>
+          <th>Department</th>
+          <th>Priority</th>
+        </tr>
+      </thead>
+        <tr *ngFor="let item of departmentDataModel">
+          <td>
+             {{ item.DataText }} </td>
+          <td>
+            <mat-form-field appearance="outline">
+              <input matInput maxlength="2" [(ngModel)]="item.Priority" (keypress)="numberOnly($event)"
+                disabled="{{item.Type=='assign'}}" />
+            </mat-form-field>
+          </td>
+        </tr>
+      </table>
+    </div>
+  
+    <div class="col l4 xl4 m6 s12 t-border-bx">
+    <table class="table new_table table_border mb-20">
+      <thead>
+      <tr>
+        <th>Scheme</th>
+        <th>Priority</th>
+      </tr>
+    </thead>
+      <tr *ngFor="let item of schemeDataModel">
+        <td>
+          {{ item.DataText }} </td>
+        <td>
+          <mat-form-field appearance="outline">
+            <input matInput maxlength="2" [(ngModel)]="item.Priority" (keypress)="numberOnly($event)"
+              disabled="{{item.Type=='assign'}}" />
+          </mat-form-field>
+        </td>
+      </tr>
+    </table>
+  </div>
+  
+    <div class="col l4 xl4 m6 s12 t-border-bx">
+    <table class="table new_table table_border mb-20">
+      <thead>
+      <tr>
+        <th>Service</th>
+        <th>Priority</th>
+      </tr>
+    </thead>
+      <tr *ngFor="let item of serviceDataModel">
+        <td>
+          {{ item.DataText }} </td>
+        <td>
+          <mat-form-field appearance="outline">
+            <input matInput maxlength="2" [(ngModel)]="item.Priority" (keypress)="numberOnly($event)"
+              disabled="{{item.Type=='assign'}}" />
+          </mat-form-field>
+        </td>
+      </tr>
+    </table>
+  </div>
+  
+  
+  </div>
+  <div class="row text-right">
+      <div class="col l12">
+      <button mat-button class="btn-submit mr-5" (click)="Onsubmit()">Submit</button>
+      <button mat-button class="btn-submit btn_orange">cancel</button>
+    </div>
+    
+  </div>

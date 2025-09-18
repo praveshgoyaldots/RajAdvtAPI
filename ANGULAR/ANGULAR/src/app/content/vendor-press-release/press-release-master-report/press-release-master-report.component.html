@@ -1,0 +1,382 @@
+<div class="row">
+  <!-- Start of category dropdown -->
+  <div class="col l3 xl3 m6 s12">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>Category<span style="color: red">*</span> </mat-label>
+      <mat-select
+        [(ngModel)]="indexModel.CategoryCode"
+        (selectionChange)="
+          GetJankalyanEntryTypebyDepartmentCode('', $event.value)
+        "
+      >
+        <mat-option>--Select--</mat-option>
+        <mat-option
+          value="{{ k.Value }}"
+          *ngFor="let k of dDLList?.ddlPressReleaseCategory"
+          >{{ k.Text }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <!-- End of category dropdown -->
+
+  <!-- Start of sub category dropwdown -->
+  <div class="col l3 xl3 m6 s12">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label> Sub Category <span style="color: red">*</span></mat-label>
+      <mat-select [(ngModel)]="indexModel.SubCategoryCode">
+        <mat-option>--Select--</mat-option>
+        <mat-option value="{{ k.Value }}" *ngFor="let k of ddlEntryTypeMaster"
+          >{{ k.Text }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <!-- End of sub category dropdown -->
+
+  <!-- Start of department dropdown -->
+  <div class="col l3 xl3 m6 s12">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>Department</mat-label>
+      <mat-select [(ngModel)]="indexModel.DeptValue" multiple>
+        <!-- <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlDistrict">{{k.Text}}</mat-option> -->
+        <!-- <mat-option value="{{ k.DepartmentCode }}" *ngFor="let k of ddlDepartment">{{ k.DepartmentTitle }} -->
+        <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlPressReleaseDepartment">{{ k.Text }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <!-- End of department dropdown -->
+
+  <!-- Start of district dropdown -->
+  <div class="col l3 xl3 m6 s12">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>District</mat-label>
+      <mat-select name="DistrictCode" [(ngModel)]="indexModel.DistValue">
+        <mat-option>--Select--</mat-option>
+        <!-- <mat-option value="{{k.Value}}" *ngFor="let k of dDLList?.ddlDistrict">{{k.Text}}</mat-option> -->
+        <mat-option
+          value="{{ k.Value }}"
+          *ngFor="let k of dDLList?.ddlDepartmentForDistrictKPIList"
+          >{{ getEnglishName(k?.Text) }}</mat-option
+        >
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <!-- End of district dropdown -->
+
+  <!-- Start of vip category dropdown -->
+  <div class="col l3 xl3 m6 s12">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>VIP Category </mat-label>
+      <mat-select
+        [(ngModel)]="indexModel.VipCategory"
+        multiple
+        (ngModelChange)="getParticipantList($event)"
+      >
+        <mat-option
+          value="{{ k.Value }}"
+          *ngFor="let k of dDLList?.ddlDesignationForPressRelease"
+          >{{ k.Text }}</mat-option
+        >
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <!-- End of department dropdown -->
+
+  <!-- Start of vip person dropdown -->
+  <div class="col l3 xl3 m6 s12">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>VIP person </mat-label>
+      <mat-select [(ngModel)]="indexModel.VipPerson" multiple>
+        <mat-option value="{{ k.Value }}" *ngFor="let k of ddlParticipant">{{
+          k.Text
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <!-- End of vip person drowdown -->
+
+  <!-- start of modified from date  -->
+  <div class="col l3 xl3 m6 s12">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>Modified From Date</mat-label>
+      <input
+        matInput
+        [matDatepicker]="picker2"
+        (focus)="picker2.open()"
+        readonly
+        placeholder="Modified From Date"
+        [(ngModel)]="indexModel.FromDate"
+        [max]="indexModel.ToDate"
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker #picker2></mat-datepicker>
+    </mat-form-field>
+  </div>
+  <!-- End of modified from date -->
+
+  <!-- Start of modified to date -->
+  <div class="col l3 xl3 m6 s12">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>Modified To Date</mat-label>
+      <input
+        matInput
+        [matDatepicker]="picker1"
+        (focus)="picker1.open()"
+        readonly
+        placeholder="Modified To Date"
+        [(ngModel)]="indexModel.ToDate"
+        [min]="indexModel.FromDate"
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+      <mat-datepicker #picker1></mat-datepicker>
+    </mat-form-field>
+  </div>
+  <!-- End of modified from date -->
+
+  <!-- Start of press release from date -->
+  <div class="col l3 xl3 m6 s12">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>Press Release From Date</mat-label>
+      <input
+        matInput
+        [matDatepicker]="picker3"
+        (focus)="picker3.open()"
+        readonly
+        placeholder="Press Release From Date"
+        [(ngModel)]="indexModel.PressReleaseFromDate"
+        [max]="indexModel.PressReleaseToDate"
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+      <mat-datepicker #picker3></mat-datepicker>
+    </mat-form-field>
+  </div>
+  <!-- End of press release from date -->
+
+  <!-- Start of press release to date -->
+  <div class="col l3 xl3 m6 s12">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>Press Release To Date</mat-label>
+      <input
+        matInput
+        [matDatepicker]="picker4"
+        (focus)="picker4.open()"
+        readonly
+        placeholder="Press Release To Date"
+        [(ngModel)]="indexModel.PressReleaseToDate"
+        [min]="indexModel.PressReleaseFromDate"
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
+      <mat-datepicker #picker4></mat-datepicker>
+    </mat-form-field>
+  </div>
+  <!-- End of press release to date -->
+
+  <!-- Start of get active de-active data -->
+  <div class="col l3 xl3 m6 s12">
+    <mat-label class="mb-10 d-block">Get Active De-Active Data</mat-label>
+    <mat-radio-group
+      class="radio_grp"
+      aria-label="Select an option"
+      [(ngModel)]="indexModel.Status"
+    >
+      <mat-radio-button
+        [value]="1"
+        (change)="getActiveDeActiveData(1)"
+        [checked]="indexModel.Status == 1"
+        >Active
+      </mat-radio-button>
+      <mat-radio-button [value]="0" (change)="getActiveDeActiveData(0)"
+        >De-Active</mat-radio-button
+      >
+      <mat-radio-button [value]="-1" (change)="getActiveDeActiveData(-1)"
+        >Both</mat-radio-button
+      >
+    </mat-radio-group>
+  </div>
+  <!-- End of get active de-active data -->
+
+  
+  <div class="col l3 xl3 m6 s12">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <input
+        matInput
+        placeholder="Entry Number"
+        [(ngModel)]="indexModel.Id"
+        type="number"
+      />
+    </mat-form-field>
+  </div>
+
+  <div class="col l3 xl3 m6 s12">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <input
+        matInput
+        placeholder="DIPR Number"
+        [(ngModel)]="indexModel.DIPR_Id"
+        type="number"
+      />
+    </mat-form-field>
+  </div>
+
+  <div class="col l3 xl3 m6 s12">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label> Modified By</mat-label>
+      <mat-select [(ngModel)]="indexModel.ModifiedBy">
+        <mat-option
+          value="{{ item.Value }}"
+          *ngFor="let item of dDLList?.ddlModifiedBypressRelease"
+        >
+          {{ item.Text }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="row">
+    <div class="col l12 xl12 m12 s12">
+      <button
+        (click)="clearClick()"
+        mat-button
+        class="btn-submit btn_orange mat-button mr-5"
+      >
+        Reset<mat-icon>refresh</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col l3 xl3 m6 s12">
+      <button
+        id = "CreatedByUser"
+        (click)="showReport($event)"
+        mat-button
+        class="btn-submit mat-button mb-2 report-btn"
+        style="margin-bottom: 3px"
+      >
+        Created By Users
+      </button>
+    </div>
+    <div class="col l3 xl3 m6 s12">
+      <button
+        id = "CategorySubCategory"
+        (click)="showReport($event)"
+        mat-button
+        class="btn-submit mat-button report-btn"
+        style="margin-bottom: 3px"
+      >
+      Category SubCategory
+      </button>
+    </div>
+    <div class="col l3 xl3 m6 s12">
+      <button
+        id = "DeptCatSubcat"
+        (click)="showReport($event)"
+        mat-button
+        class="btn-submit mat-button report-btn"
+        style="margin-bottom: 3px"
+      >
+      DeptCatSubcat
+      </button>
+    </div>
+    <div class="col l3 xl3 m6 s12">
+      <button
+        id = "LookupCategory"
+        (click)="showReport($event)"
+        mat-button
+        class="btn-submit mat-button report-btn"
+        style="margin-bottom: 3px"
+      >
+      Lookup Category
+      </button>
+    </div>
+    <div class="col l3 xl3 m6 s12">
+      <button
+        id = "DeptLookupCat"
+        (click)="showReport($event)"
+        mat-button
+        class="btn-submit mat-button report-btn"
+        style="margin-bottom: 3px"
+      >
+      Dept LookupCat
+      </button>
+    </div>
+    <div class="col l3 xl3 m6 s12">
+      <button
+        id = "VIPDepartment"
+        (click)="showReport($event)"
+        mat-button
+        class="btn-submit mat-button report-btn"
+        style="margin-bottom: 3px"
+      >
+      VIP Department
+      </button>
+    </div>
+    <div class="col l3 xl3 m6 s12">
+      <button
+        id = "DistCatSubcat"
+        (click)="showReport($event)"
+        mat-button
+        class="btn-submit mat-button report-btn"
+        style="margin-bottom: 3px"
+      >
+      DistCatSubcat
+      </button>
+    </div>
+    <div class="col l3 xl3 m6 s12">
+      <button
+        id = "DistLookupCategory"
+        (click)="showReport($event)"
+        mat-button
+        class="btn-submit mat-button report-btn"
+        style="margin-bottom: 3px"
+      >
+      Dist Lookup Category
+      </button>
+    </div>
+    <div class="col l3 xl3 m6 s12">
+      <button
+        id = "DepartmentDistrict"
+        (click)="showReport($event)"
+        mat-button
+        class="btn-submit mat-button report-btn"
+        style="margin-bottom: 3px"
+      >
+      Department District
+      </button>
+    </div>
+    <div class="col l3 xl3 m6 s12">
+      <button
+        id = "VIPDistrict"
+        (click)="showReport($event)"
+        mat-button
+        class="btn-submit mat-button report-btn"
+        style="margin-bottom: 3px"
+      >
+      VIPDistrict
+      </button>
+    </div>
+    <div class="col l3 xl3 m6 s12">
+      <button
+        id = "VIPDeptDist"
+        (click)="showReport($event)"
+        mat-button
+        class="btn-submit mat-button report-btn"
+        style="margin-bottom: 3px"
+      >
+      VIP Dept Dist
+      </button>
+    </div>
+    <div class="col l3 xl3 m6 s12">
+      <button
+        id = "UserDate"
+        (click)="showReport($event)"
+        mat-button
+        class="btn-submit mat-button report-btn"
+        style="margin-bottom: 3px"
+      >
+      User Date
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,99 @@
+<div class="modal-header">
+  <p>Add Data For Monitoring Parameter</p>
+
+  <button mat-button (click)="onNoClick()">
+    <mat-icon>close</mat-icon>
+  </button>
+
+</div>
+<div class="col l12 s12 " *ngIf="!isRecord">
+  <span style="color: red;">Monitoring Parameter is not added</span></div>
+<div class="col l12 s12 " *ngIf="isRecord">
+  <!-- <alert></alert> -->
+  <div class="col s12" *ngIf="DDLModel?.ddlSchemeMaster?.length>0">
+    <mat-form-field appearance="outline">
+      <mat-label>Scheme</mat-label>
+      <mat-select name="SchemeId" [formControl]="scheme" [(ngModel)]="entryModel.SchemeId" [disabled]="true">
+        <mat-option>--Select--</mat-option>
+        <mat-option value="{{item.Value}}" *ngFor="let item of DDLModel?.ddlSchemeMaster">{{item.Text}} </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-error *ngIf="scheme.invalid && scheme.touched"> Scheme is <strong>required</strong> </mat-error>
+  </div>
+  <div class="" *ngIf="model?.DataDDLListDynamic?.length>0">
+    <div>
+      <div class="col l4 x8 m4 s12">
+       
+        <mat-form-field appearance="outline" class="example-full-width">
+          <mat-label>Year and Month</mat-label>
+          <input matInput [matDatepicker]="picker" (focus)="picker.open()" readonly placeholder="Choose a date"
+            [formControl]="yearMonth" name="FieldValue" id="FieldValue"
+            [(ngModel)]="entryModel.DataEntryList[0].YearMonth">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-error *ngIf="yearMonth.invalid && yearMonth.touched"> Year and Month is <strong>required</strong>
+        </mat-error>
+
+      </div>
+
+      <h5 class="col s12">Monitoring Parameters</h5>
+
+      <div class="col l4 x8 m4 s12" *ngFor="let item of model.MonitoringParameterList; let i = index"
+        [attr.data-index]="i">
+        <input matInput [(ngModel)]="entryModel.DataEntryList[0].MonitoringParameterList[i].MonitoringParamId"
+          *ngIf="SetValue(i,item.MonitoringParamId,item.MappingId);">
+        <mat-form-field appearance="outline" class="example-full-width" *ngIf="item.Type.toLowerCase()=='ddl'.toLowerCase()">
+          <mat-label>{{item.ParamName}} </mat-label>
+
+          <div *ngFor="let dDLItem of model?.DataDDLListDynamic;let j = index">
+
+
+            <mat-select appearance="outline"  *ngIf="(model?.DataDDLListDynamic.length>1) && (checkIsSelect(dDLItem.Text.toLowerCase(),item.FieldName.toLowerCase(),i,j))"
+              [(ngModel)]="entryModel.DataEntryList[0]?.MonitoringParameterList[i].FieldValue">
+              <mat-option> --Select-- </mat-option>
+
+              <mat-option value="{{ditem.Value}}" *ngFor="let ditem of dDLItem?.Value"> {{ditem.Text}}
+              </mat-option>
+            </mat-select>
+
+            <mat-select appearance="outline"  *ngIf="(dDLItem.Text.toLowerCase()==item.FieldName.toLowerCase()) && !(model?.DataDDLListDynamic.length>1) "
+              [(ngModel)]="entryModel.DataEntryList[0]?.MonitoringParameterList[i].FieldValue">
+              <mat-option> --Select-- </mat-option>
+
+              <mat-option value="{{ditem.Value}}" *ngFor="let ditem of dDLItem?.Value"> {{ditem.Text}}
+              </mat-option>
+            </mat-select>
+     
+          </div>
+
+
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="example-full-width" *ngIf="(item.Type.toLowerCase()=='textbox'.toLowerCase())">
+          <mat-label>{{item.ParamName}}</mat-label>
+          <input matInput placeholder="Name" 
+            [(ngModel)]="entryModel.DataEntryList[0].MonitoringParameterList[i].FieldValue">
+        </mat-form-field>
+
+      </div>
+      <div class="col l4 x8 m4 s12">
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label> Count </mat-label>
+          <input matInput placeholder="Count" [formControl]="count" [(ngModel)]="entryModel.DataEntryList[0].Count">
+        </mat-form-field>
+        <mat-error *ngIf="count.invalid && count.touched"> Count is <strong>required</strong> </mat-error>
+      </div>
+
+      <!-- <div class="col l4 x8 m4 s12">
+        <a href="javascript:void(0)" (click)="removeItem(iEM)" *ngIf="iEM==(entryModel.DataEntryList.length-1)">
+            <mat-icon aria-hidden="false" aria-label="Example home icon" style="color: red">delete</mat-icon>
+            </a>
+      </div> -->
+    </div>
+
+  </div>
+  <div class="col l12 x8 m4 s12 ">
+    <button mat-button class="btn-submit" (click)="saveClick()">Submit</button>
+  </div>
+</div>

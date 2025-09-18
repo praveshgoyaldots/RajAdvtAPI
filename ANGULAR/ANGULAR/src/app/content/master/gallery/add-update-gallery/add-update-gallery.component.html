@@ -1,0 +1,120 @@
+<form [formGroup]="frmGrp" (ngSubmit)="saveClick();">
+    <div class="row">
+
+        <div class="col l6 xl6 m6 s12">
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Department <span style="color: red">*</span></mat-label>
+                <mat-select placeholder="Department" name="DepartmentCode" [(ngModel)]="model.DepartmentCode"
+                    formControlName="DepartmentCode" (selectionChange)="GetSchemes();" #DepartmentCode>
+                    <mat-option>--Select--</mat-option>
+                    <mat-option value="{{k.Value}}" *ngFor="let k of ddlList?.ddlDepartment">{{k.Text}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-error
+                *ngIf="(frmGrp.get('DepartmentCode').hasError('required') && frmGrp.get('DepartmentCode').touched)">
+                <strong>Department</strong> is required!
+            </mat-error>
+        </div>
+
+        <div class="col l6 xl6 m6 s12">
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Scheme <span style="color: red">*</span></mat-label>
+                <mat-select placeholder="Scheme" name="TypeCode" [(ngModel)]="model.TypeCode" formControlName="TypeCode"
+                    (selectionChange)="GetSchemes();" #TypeCode>
+                    <mat-option>--Select--</mat-option>
+                    <mat-option value="{{k.Value}}" *ngFor="let k of ddlList?.ddlSchemes">{{k.Text}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-error *ngIf="(frmGrp.get('TypeCode').hasError('required') && frmGrp.get('TypeCode').touched)">
+                <strong>Scheme</strong> is required!
+            </mat-error>
+        </div>
+
+        <div class="col l12 xl12 m12 s12">
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Title</mat-label>
+                <textarea matInput placeholder="Caption" [(ngModel)]="model.Caption" maxlength="250" #Caption
+                    formControlName="Caption"></textarea>
+                <mat-hint class="pull-right">{{Caption.value.length}}/250</mat-hint>
+            </mat-form-field>
+        </div>
+
+        <div class="col l6 xl6 m6 s12">
+            <mat-radio-group class="example-full-width radio-bx-custom radio-bx-custom-with-label"
+                aria-label="Upload Type" [(ngModel)]="model.UploadType" formControlName="UploadType" #UploadType
+                (change)="resetUploadType()">
+                <mat-label class="mr-5">Upload Type</mat-label>
+                <mat-radio-button class="mr-5" value="{{ item.Value }}"
+                    *ngFor="let item of ddlList?.ddlGalleryUploadType">
+                    {{ item.Text }}
+                </mat-radio-button>
+                <mat-error *ngIf="(frmGrp.get('UploadType').hasError('required') && frmGrp.get('UploadType').touched)">
+                    Upload Type <strong>required!</strong>
+                </mat-error>
+            </mat-radio-group>
+        </div>
+
+        <div class="col l6 xl6 m6 s12 singleupload">
+            <div class="upload-btn-wrapper">
+                <label>Thumbnail <span style="color: red">*</span></label>
+                <input type="file" id="Thumbnail" (change)="handleThumbnailInput($event)" accept="image/*"
+                    formControlName="Thumbnail" #Thumbnail>
+                <span class='placeholder'>{{thumbnailSizeValidationMsg}}</span>
+                <img [src]="model.ThumbnailViewLink" *ngIf="model.ThumbnailViewLink" height="50px" width="50px" />
+            </div>
+            <mat-error *ngIf="thumbnailValidationMsg?.length>0" style="margin: 0px;position: relative;">
+                {{thumbnailValidationMsg}}
+            </mat-error>
+            <mat-error *ngIf="(frmGrp.get('Thumbnail').hasError('required') && frmGrp.get('Thumbnail').touched)">
+                Please upload <strong>Thumbnail</strong>!
+            </mat-error>
+        </div>
+
+        <div *ngIf="IsUploadTypeUrl" class="col l6 xl6 m6 s12">
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>URL <span style="color: red">*</span></mat-label>
+                <input matInput placeholder="URL" [(ngModel)]="model.Url" #Url maxlength="250" formControlName="Url" />
+            </mat-form-field>
+            <mat-error *ngIf="(frmGrp.get('Url').hasError('required') && frmGrp.get('Url').touched)">
+                <strong>URL</strong> is required!
+            </mat-error>
+            <mat-error *ngIf="(frmGrp.get('Url').hasError('pattern') && frmGrp.get('Url').touched)">
+                <strong>URL</strong> is not valid!
+            </mat-error>
+        </div>
+
+        <div *ngIf="!IsUploadTypeUrl" class="col l6 xl6 m6 s12 multi-upload">
+            <div class="upload-btn-wrapper">
+                <label>Multiple Attachment <span style="color: red">*</span></label>
+                <input type="file" id="file" (change)="handleFileInput($event.target.files)" [accept]="valid_FileType"
+                    formControlName="MultipleAttachment" #MultipleAttachment multiple>
+            </div>
+            <ul class="image-list">
+                <li *ngFor="let file of model.GalleryFileList; let i=index;">
+                    <a [href]="file?.FilePath" target="_blank" title="{{file.FileName}}">
+                        <img *ngIf="model.UploadType==uploadType_Photo" [src]="file?.FilePath" height="100px"
+                            width="100px" />
+                        <mat-icon *ngIf="model.UploadType==uploadType_PDF">picture_as_pdf</mat-icon>
+                        <mat-icon *ngIf="model.UploadType==uploadType_Video">smart_display</mat-icon>
+                    </a>
+                    <a (click)="deleteFile(file?.FileCode, i)" title="Delete" class="txtIcon">
+                        <mat-icon style="color:#f44336">delete</mat-icon>
+                    </a>
+                </li>
+            </ul>
+            <mat-error *ngIf="fileValidationMsg?.length>0" style="margin: 0px;position: relative;">{{fileValidationMsg}}
+            </mat-error>
+            <mat-error
+                *ngIf="(frmGrp.get('MultipleAttachment').hasError('required') && frmGrp.get('MultipleAttachment').touched)">
+                Please upload <strong>Attachment</strong>!
+            </mat-error>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col l12 x8 m4 s12 clearfix">
+            <button type="submit" mat-button class="btn-submit">Submit</button>
+        </div>
+    </div>
+</form>

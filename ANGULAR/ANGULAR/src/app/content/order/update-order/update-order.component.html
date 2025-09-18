@@ -1,0 +1,386 @@
+<div class="row">
+  <div style="text-align: right;" class="col l6 s12 download_pdf" *ngIf="helpDocument?.Url"> <a (click)="downloadPdf(helpDocument.Url,true)"
+  href="JavaScript:Void(0);">
+  <mat-icon>picture_as_pdf</mat-icon>
+  Click to download Help Document
+  </a> </div>
+
+  <div style="text-align: left;" class="col l6 s12 download_pdf" *ngIf="helpDocument?.BlankDocUrl"> <a (click)="downloadPdf(helpDocument.BlankDocUrl)"
+  href="JavaScript:Void(0);">
+  <mat-icon>picture_as_pdf</mat-icon>
+  Click to download Blank Document
+  </a> </div>
+  </div>
+
+
+
+<div class="row">
+  <div class="col l12 m12 s12 mb-20 mt-10">
+    <section class="mat-typography">
+        <h2 class="color-blue">Issuer Details</h2>
+      </section>
+</div>
+  <div class="row mb-0">
+    <div class="col l3 xl3 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Nodal Department <span style="color: red">*</span></mat-label>
+        <mat-select name="DepartmentCode" [(ngModel)]="model.DepartmentCode" [formControl]="department" (selectionChange)="GetSubType(model.DepartmentCode,model.Type,true)">
+            <mat-option value="{{ k.DepartmentCode }}" *ngFor="let k of ddlDepartment">
+                {{ k.DepartmentTitle }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-error *ngIf="department.invalid && department.touched">
+        Nodal  Department is <strong>required</strong>
+        </mat-error>
+    </div>
+    <div class="col l3 xl3 m6 s12">
+      <mat-form-field appearance="outline">
+        <mat-label>Document Type <span style="color: red">*</span> </mat-label>
+        <mat-select name="Type" [(ngModel)]="model.Type" [formControl]="type" (selectionChange)="checkValid($event.value);GetSubType(model.DepartmentCode,$event.value)">
+          <mat-option>--Select--</mat-option>
+          <mat-option value="{{item.Code}}" *ngFor="let item of dDLList?.OrderWithRequiredType">{{item.Name}} </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-error *ngIf="type.invalid && type.touched">
+         Type is <strong>required</strong>
+      </mat-error>
+    </div>
+
+    <div class="col l3 xl3 m6 s12">
+      <mat-form-field  appearance = "outline">
+        <mat-label> Document Sub Type <span style="color: red">*</span> </mat-label>
+        <mat-select name="SubTypeCode" [(ngModel)]="model.SubTypeCode" [formControl]="SubType">
+          <mat-option>--Select--</mat-option>
+          <mat-option value="{{item.Value}}" *ngFor="let item of ddlSubType">{{item.Text}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-error *ngIf="SubType.invalid && SubType.touched">
+          Document Sub Type is <strong>required</strong>
+        </mat-error>
+    </div>
+    <div class="col l3 xl3 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Sector <span style="color: red">*</span></mat-label>
+        <mat-select name="Sector" [(ngModel)]="model.Sector" multiple [formControl]="Sector">
+          <mat-option value="{{item.Value}}" *ngFor="let item of dDLList?.ddlOrderSector">{{item.Text}} </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-error *ngIf="Sector.invalid && Sector.touched">
+          Sector is <strong>required</strong>
+        </mat-error>
+    </div>
+
+
+    <!-- <div class="col l4 xl4 m6 s12">
+      <mat-form-field class="example-full-width"  appearance = "outline">
+        <mat-label>Office</mat-label>
+        <input matInput name="Remarks" [(ngModel)]="loginData.OfficeName" readonly>
+      </mat-form-field>
+    </div>
+    <div class="col l3 xl3 m6 s12">
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label> District <span style="color: red">*</span> </mat-label>
+            <mat-select  #DistrictCode [formControl]="district" [(ngModel)]="model.DistrictCode">
+                <mat-option>--Select--</mat-option>
+                <mat-option value="{{ k.DistrictCode }}" *ngFor="let k of ddlDistrict">{{ k.DistrictTitle }} </mat-option>
+
+            </mat-select>
+        </mat-form-field>
+        <mat-error *ngIf="district.invalid && district.touched">
+          District is <strong>required</strong>
+          </mat-error>
+    </div> -->
+
+
+    <div class="col l12 m12 s12 mb-20 mt-10">
+      <section class="mat-typography">
+          <h2 class="color-blue">Orders/Circulars/Notification Details</h2>
+        </section>
+  </div>
+  <div class="col l12 m12 s12 mb-20 mt-10">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label> Title/Subject <span style="color: red">*</span></mat-label>
+      <textarea matInput placeholder="Title/Subject"  name="Title" [(ngModel)]="model.Title" [formControl]="title"
+        ></textarea>
+    </mat-form-field>
+    <mat-error *ngIf="title.invalid && title.touched">
+      Title is <strong>required</strong>
+    </mat-error>
+
+  </div>
+  <div class="col l12 m12 s12 mb-20 mt-10">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Brief Description </mat-label>
+        <textarea matInput placeholder="Brief Description" name="Description" [(ngModel)]="model.Description"
+          [formControl]="description"  style="height: 200px;"></textarea>
+      </mat-form-field>
+      <mat-error *ngIf="description.invalid && description.touched">
+        Brief Description is <strong>required</strong>
+      </mat-error>
+    </div>
+    <div class="col l4 xl4 m6 s12" *ngIf="orderTypeData?.IsDocumentNoMandatory!=this.orderDocumentNoValidationEnum.No">
+      <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>Document No. <span style="color: red" *ngIf="orderTypeData?.IsDocumentNoMandatory===this.orderDocumentNoValidationEnum.Yes">*</span></mat-label>
+      <input matInput placeholder="12DD" name="OrderNo" [(ngModel)]="model.OrderNo">
+      </mat-form-field>
+      </div>
+  <div class="col l4 xl4 m6 s12" *ngIf="orderTypeData?.IsDateMandatory">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>Date of Issue <span style="color: red">*</span>
+
+      </mat-label>
+      <input matInput [matDatepicker]="picker1" (focus)="picker1.open()" readonly placeholder="Issue Date" name="Date"
+        id="Date" [(ngModel)]="model.Date" [max]="tomorrow" [formControl]="date" (ngModelChange)="modelChanged()">
+      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+      <mat-datepicker #picker1></mat-datepicker>
+    </mat-form-field>
+    <mat-error *ngIf="date.invalid && date.touched">
+      Date of Issue is <strong>required</strong>
+    </mat-error>
+  </div>
+  <div class="col l4 xl4 m6 s12" *ngIf="orderTypeData?.IsDateMandatory">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>With Affect From (Date)
+      </mat-label>
+      <input matInput [matDatepicker]="picker" (focus)="picker.open()" readonly placeholder="With Affect From (Date)"
+        name="EffectForm" id="EffectForm" [min]="model.Date" [(ngModel)]="model.EffectForm">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+  </div>
+  <!-- <div class="col l4 xl4 m6 s12">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>Departments Affected</mat-label>
+      <mat-select name="DepartmentEffected" [(ngModel)]="model.DepartmentEffected" multiple>
+
+          <mat-option disabled="disabled" (click)="selectAll()">
+              <mat-checkbox [disabled]="true" [checked]="selectedAll>0 || model?.DepartmentEffected?.length==dDLList?.ddlDepartment?.length"> SelectAll </mat-checkbox>
+          </mat-option>
+        <mat-option value="{{item.Value}}" *ngFor="let item of dDLList?.ddlDepartment">{{item.Text}} </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div> -->
+  <div class="col l4 xl4 m6 s12">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>Previous Document Reference No</mat-label>
+      <input matInput placeholder="Previous Document Reference No" name="ReferenceNumber"
+        [(ngModel)]="model.ReferenceNumber">
+    </mat-form-field>
+  </div>
+
+
+  <div class="col l4 xl4 m6 s12">
+    <mat-form-field class="example-full-width" appearance = "outline">
+      <mat-label>File no.</mat-label>
+      <input matInput placeholder="File Number" name="File Number" [(ngModel)]="model.FileNumber">
+    </mat-form-field>
+  </div>
+
+
+  <div class="col l4 xl4 m6 s12">
+    <mat-radio-group class="example-full-width radio-bx-custom radio-bx-custom-with-label mb-20"  aria-label="Select an option"  [(ngModel)]="model.LinkToScheme" name="LinkToScheme"  >
+      <mat-label class="mr-5" style="display: inline;">Linked To Scheme(If Any) </mat-label>
+      <mat-radio-button class="mr-5" value="{{item.Value}}" *ngFor="let item of dDLList?.RadioLinkedToScheme;let i = index" >{{item.Text}}</mat-radio-button>
+    </mat-radio-group>
+  </div>
+
+
+  <div class="col l4 xl4 m6 s12" >
+    <mat-form-field class="example-full-width" appearance = "outline">
+      <mat-label>Beneficiary Category</mat-label>
+      <mat-select name="BeneficiaryCategory"  [(value)]='model.BeneficiaryCategory' [(ngModel)]="model.BeneficiaryCategory" multiple>
+          <!-- <mat-option disabled="disabled" (click)="selectBenificiaryAll()">
+              <mat-checkbox [disabled]="true" [checked]="selectedBenAll>0 || model?.BeneficiaryCategory?.length==dDLList?.ddlBeneficiaryCategory?.length"> SelectAll </mat-checkbox>
+          </mat-option> -->
+        <mat-option value="{{item.Value}}" *ngFor="let item of dDLList?.ddlBeneficiaryCategory">{{item.Text}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="col l4 xl4 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Remarks</mat-label>
+        <input matInput placeholder="Remarks if any" name="Remarks" [(ngModel)]="model.Remarks">
+      </mat-form-field>
+    </div>
+
+
+
+
+
+
+  <div class="col l12 xl12 m12 s12 mat-list-n-d" *ngIf="model.LinkToScheme==orderEnum.LinkToScheme">
+      <mat-label class="cc-ref">Scheme<mat-checkbox (change)="showAllScheme($event);"> Show All Scheme </mat-checkbox>
+      </mat-label>
+      <mat-selection-list  [(ngModel)]="model.BenificiarySchemeIds" (selectionChange)="onSelection()" >
+                <mat-list-option [value]="item.Value" *ngFor="let item of dDLList?.ddlSchemeName ;let i = index">
+                  <span> {{ i+1 }} <span>. </span> {{ item.Text}}</span>
+                                  </mat-list-option>
+      </mat-selection-list>
+  </div>
+
+
+  <div class="col l8 xl8 m8 s12" *ngIf="model.LinkToScheme==orderEnum.LinkToScheme">
+    <mat-form-field class="example-full-width" appearance = "outline">
+      <mat-label>Individual Beneficiary Scheme</mat-label>
+      <textarea matInput placeholder="Individual Beneficiary Scheme" name="IndividualBeneficiaryScheme"
+        [(ngModel)]="model.IndividualBeneficiaryScheme">
+      </textarea>
+    </mat-form-field>
+  </div>
+
+
+
+  <div class="col l4 xl4 m6 s12" *ngIf="false">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>URL (Reference Link)</mat-label>
+      <input matInput placeholder="References Link" name="ReferenceLink" [(ngModel)]="model.ReferenceLink">
+    </mat-form-field>
+
+  </div>
+  <div class="col l4 xl4 m6 s12" style="display: none;">
+    <mat-radio-group class="example-full-width radio-bx-custom radio-bx-custom-with-label mb-20" disabled="true"
+    aria-label="Select an option" [(ngModel)]="model.IssueBy" name="IssueBy">
+    <mat-label class="mr-5">Order Issue By </mat-label>
+    <mat-radio-button class="mr-5"  [checked]="item.Value === model.IssueBy" value="{{item.Value}}" *ngFor="let item of dDLList?.ddlOrderIssueBy;let i = index">{{item.Text}}</mat-radio-button>
+  </mat-radio-group>
+
+    </div>
+
+
+
+
+    <div class="col l4 xl4 m4 s12">
+        <div class="upload-btn-wrapper">
+          <label>Attachment(Pdf Only) </label>
+          <span style="color: red">{{fileSizeValidationMsg}}</span>
+          <input type="file" id="file" (change)="handleFileInput($event.target.files)" accept="application/pdf" multiple>
+        </div>
+
+        <ul class="image-list">
+        <li *ngFor="let url of documentUrlList; let i = index;">
+
+          <a *ngIf="url.Extension?.toLowerCase()=='pdf'" (click)="downloadPdf(url?.Url,url.DisplayName)" href="JavaScript:Void(0);">
+            {{ url.DisplayName}}
+          </a>
+          <a title="Remove" (click)="RemoveImageFile(i)">
+            <mat-icon>delete</mat-icon>
+          </a>
+          <div *ngIf="url.Extension?.toLowerCase()!='pdf'"> <img [src]="url?.Url" /></div>
+
+        </li>
+      </ul>
+
+        <mat-error *ngIf="fileValidationMsg?.length>0" style="margin: 0px;position: relative;">{{fileValidationMsg}}</mat-error>
+      </div>
+
+
+
+
+        <div class="col l12 xl12 m12 s12">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label> Search criteria keyword</mat-label>
+              <textarea matInput placeholder="Search keyword" name="SearchCriteria" [(ngModel)]="model.SearchCriteria" [formControl]="searchCriteria"  ></textarea>
+            </mat-form-field>
+            <mat-error *ngIf="searchCriteria.errors?.minlength || (searchCriteria.invalid && searchCriteria.touched)">
+              Search criteria keyword must be at least 50 characters long.
+         </mat-error>
+
+          </div>
+      <div class="col l12 m12 s12 mb-20">
+          <section class="mat-typography">
+              <h2 class="color-blue mb-0">Linked with (Budget/CM Announcement/CM Directions/Jan Ghoshna Patra)</h2>
+            </section>
+      </div>
+
+      <div class="row highlight_view btn_add_box">
+
+    <div class="col l4 xl4 m6 s12">
+      <mat-form-field  appearance="outline">
+        <mat-label>Module</mat-label>
+        <mat-select [(ngModel)]="orderRelatedTo.ModuleId">
+          <mat-option >--Select--</mat-option>
+          <mat-option value="{{item.Value}}" *ngFor="let item of dDLList?.ddlOrderModuleName">{{item.Text}} </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+    </div>
+    <div class="col l4 x8 m4 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Year </mat-label>
+
+        <mat-select [(ngModel)]="orderRelatedTo.YearValue">
+          <mat-option >--Select--</mat-option>
+          <!-- <mat-option value="{{item.rowno}}" *ngFor="let item of dDLList?.ddlOrderRelatedToYear">{{item.particulars}} </mat-option> -->
+          <mat-option value="{{item.Value}}" *ngFor="let item of dDLList?.ddlCMISBudgetYear">
+            {{item.Text}} </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+    </div>
+    <div class="col l4 x8 m4 s12  pos_relative">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Department</mat-label>
+        <mat-select [(ngModel)]="orderRelatedTo.DepartmentId">
+          <mat-option >--Select--</mat-option>
+          <!-- <mat-option value="{{item.prj_dept}}" *ngFor="let item of dDLList?.ddlOrderRelatedToDepartment">{{item.particulars}} </mat-option> -->
+          <mat-option value="{{item.Value}}" *ngFor="let item of dDLList?.ddlDepartmentForCMISReport">
+            {{item.Text}} </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div class="d-inline" *ngIf="model?.RelatedToOrderParameterList?.length <5"><a class="btn_add" href="javascript:void(0)"
+        (click)="AddMoreItems()">
+        <mat-icon aria-hidden="false" aria-label="Example home icon">add</mat-icon>
+      </a></div>
+    </div>
+
+    <div class="col l12 m12 s12">
+      <table class="table new_table table_border mb-20" *ngIf="model?.RelatedToOrderParameterList?.length>0">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col" colspan="3">Details</th>
+            <th scope="col" width="100">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of model?.RelatedToOrderParameterList; let i = index" [attr.data-index]="i">
+              <th scope="row">{{i+1}}</th>
+              <td colspan="3">
+                <div class="footer-info-bx">
+
+                    <div class="d-inline"> <strong>Module: </strong><span  *ngIf="item?.ModuleId">{{moduleNameItems[item?.ModuleId]}}</span><span  *ngIf="!item?.ModuleId">--</span> </div>
+                    <div class="d-inline"> <strong>Year: </strong><span  *ngIf="item?.YearValue">{{yearItems[item?.YearValue]}}</span><span  *ngIf="!item?.YearValue">--</span> </div>
+                    <div class="d-inline"> <strong>Department: </strong><span  *ngIf="item?.DepartmentId">{{departmentItems[item?.DepartmentId]}}</span><span  *ngIf="!item?.DepartmentId">--</span> </div>
+
+                  </div>
+                  <div class="footer-info-bx" *ngIf="item.RelatedToResult">
+
+                      <div class="d-inline" *ngIf="item.RelatedToResult.prj_description"><strong>Description:</strong>
+                        {{item.RelatedToResult.prj_description}}</div>
+
+                    </div>
+                </td>
+                <td class="action_icon"><a  class="del-icon" href="javascript:void(0)" (click)="RemoveClick(i)">
+                    <mat-icon aria-hidden="false" aria-label="Example home icon">delete</mat-icon>
+                  </a>
+                  <a class="get-icon" href="javascript:void(0)"
+                  (click)="GetRelatedToResult(item.ModuleName,item.DepartmentId,item.DepartmentName,item.YearText,i)">Budget Details</a>
+                </td>
+
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+
+  <div class="col l12 x8 m4 s12 ">
+    <button mat-button class="btn-submit" (click)="Saveclick()">Submit</button>
+  </div>
+</div>

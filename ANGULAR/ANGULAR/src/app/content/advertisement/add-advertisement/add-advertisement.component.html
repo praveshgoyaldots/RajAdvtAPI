@@ -1,0 +1,125 @@
+
+
+  <div class="row">
+      <div class="col l12 m12 s12">
+          <span style="color: red">{{fileSizeValidationMsg}}</span>
+      </div>
+    <div class="col l6 xl6 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Category </mat-label>
+          <mat-select name="Category" [(ngModel)]="model.Category">
+            <mat-option>--Select--</mat-option>
+            <mat-option value="{{k.Value}}" *ngFor="let k of dDLList?.ddlAdvCategory">{{k.Text}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+    </div>
+
+    <div class="col l6 xl6 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Sub Category </mat-label>
+        <mat-select name="SubCategory" [(ngModel)]="model.SubCategory">
+          <mat-option>--Select--</mat-option>
+          <mat-option value="{{k.Value}}" *ngFor="let k of dDLList?.ddlAdvSubCategory">{{k.Text}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="col l6 xl6 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Url</mat-label>
+        <input matInput placeholder="Url" [(ngModel)]="model.SubjectHin" />
+        <!-- <textarea matInput placeholder="Url" [(ngModel)]="model.SubjectHin"></textarea> -->
+      </mat-form-field>
+
+    </div>
+
+    <div class="col l6 xl6 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Subject (in English) </mat-label>
+
+        <textarea matInput placeholder="Subject English" [(ngModel)]="model.SubjectEng"></textarea>
+      </mat-form-field>
+
+    </div>
+
+    <div class="col l6 xl6 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Start Date</mat-label>
+        <input matInput [matDatepicker]="picker" (focus)="picker.open()" readonly
+          placeholder="Start Date" name="AdvDate" id="AdvDate" [(ngModel)]="model.AdvDate" [max]="minDate">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+    </div>
+    <div class="col l6 xl6 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Admin Department </mat-label>
+        <mat-select name="AdminDepartment" [(ngModel)]="model.AdminDepartment" multiple>
+          <mat-option value="{{k.Value}}" *ngFor="let k of dDLList?.ddlAdminDepartment">{{k.Text}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+
+    <div class="col l6 xl6 m6 s12">
+
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>District </mat-label>
+        <mat-select name="District" [(ngModel)]="model.Districts" multiple>
+          <mat-option value="{{k.Value}}" *ngFor="let k of dDLList?.ddlDistrict">{{k.Text}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col l6 xl6 m6 s12">
+
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Beneficiary Category </mat-label>
+        <mat-select name="BeneficiaryCategories" [(ngModel)]="model.BeneficiaryCategories" multiple>
+          <mat-option value="{{k.Value}}" *ngFor="let k of dDLList?.ddlBeneficiaryCategory">{{k.Text}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="col l6 xl6 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Expiry Date</mat-label>
+        <input matInput [matDatepicker]="picker1" (focus)="picker1.open()" readonly
+          placeholder="Choose a date" name="ExpiryDate" id="ExpiryDate" [(ngModel)]="model.ExpiryDate" [min]="minDate">
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+      </mat-form-field>
+
+    </div>
+
+    <div class="col l6 xl6 m6 s12">
+      <div class="upload-btn-wrapper">
+        <label>Upload Image</label>
+        <input type="file" id="file" (change)="handleFileInput($event)">
+        <img *ngIf="model.DocumentUrl" [src]="model.DocumentUrl" height="100px" width="100px"/>
+        <a title="Remove" (click)="RemoveImage();">
+          <mat-icon *ngIf="model?.DocumentUrl?.length>0">delete</mat-icon></a>
+      </div>
+      <mat-error *ngIf="fileValidationMsg?.length>0">{{fileValidationMsg}}</mat-error>
+    </div>
+
+    <div class="col l6 xl6 m6 s12">
+      <div class="upload-btn-wrapper">
+        <label>Add Pdf File </label>
+        <input type="file" id="file" (change)="handleFileInput($event,true)" accept="application/pdf">
+        </div>
+      <ul class="image-list">
+        <li> <a href="{{model.PdfUrl}}" (click)="downloadMyFile(model.PdfUrl)" *ngIf="model.PdfUrl" target="_blank" > Click here for pdf </a>
+          <a title="Remove" (click)="RemovePdf();">
+            <mat-icon *ngIf="model?.PdfUrl?.length>0">delete</mat-icon></a>
+        </li>
+      </ul>
+      <mat-error *ngIf="fileValidationMsg1?.length>0">{{fileValidationMsg1}}</mat-error>
+    </div>
+
+    <div class="col l12 x8 m4 s12 clearfix">
+      <button mat-button class="btn-submit" (click)="SaveClick();">Add</button>
+    </div>
+
+  </div>
+

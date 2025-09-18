@@ -1,0 +1,50 @@
+<div class="modal-header">
+  <p>Temporary Login</p>
+</div>
+
+<div class="row">
+  <div class="col l6 xl4 m4 s4">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>UserType</mat-label>
+      <mat-select name="Userby" [(ngModel)]="userType" (selectionChange)="getSSOIDList($event.value,DepartmentCode)">
+        <mat-option value="">--Select--</mat-option>
+        <mat-option value="{{k.Value}}" *ngFor="let k of ddlUserType"> {{k.Text}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="col l6 xl4 m4 s4">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>Department</mat-label>
+      <mat-select name="DepartmentCode" [(ngModel)]="DepartmentCode" (selectionChange)="getSSOIDList(userType,$event.value)">
+        <mat-option>--Select--</mat-option>
+        <mat-option value="{{k.DepartmentCode}}" *ngFor="let k of  ddlDepartment">{{k.DepartmentTitle}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="col l6 xl4 m4 s4">
+    <mat-form-field appearance="outline">
+      <mat-label>SSOID </mat-label>
+      <mat-select [(ngModel)]="selSSOId" name="ssoid" id="ssoid" [formControl]="ssoid">
+        <mat-option value>--Select--</mat-option>
+        <mat-option value="{{k.Value}}" *ngFor="let k of ddlSSOId">{{k.Text}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <!-- <div class="col l6 xl6 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>SSOID
+          </mat-label>
+          <input matInput placeholder="SSOID" [formControl]="ssoid"  name="ssoid" id="ssoid" [(ngModel)]="selSSOId">
+      </mat-form-field>
+      <mat-error *ngIf="ssoid.invalid && ssoid.touched">
+        SSOID is <strong>required</strong>
+     </mat-error>
+  </div> -->
+
+  <div class="col l12 xl12 m12 s12">
+    <button mat-button class="btn-submit float-right" (click)="SaveClick()">Submit</button>
+  </div>
+</div>

@@ -1,0 +1,37 @@
+<div class="modal-header">
+  <p>{{title}} News Classification</p>
+
+  <button mat-button (click)="onNoClick()">
+      <mat-icon>close</mat-icon>
+  </button>
+
+</div>
+
+<div class="col l12 s12 ">
+  <div class="col l6 xl6 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label> Name in English
+          </mat-label>
+          <input matInput placeholder="Name in English" [formControl]="Name" name="Name" [(ngModel)]="model.Name" id="Name">
+      </mat-form-field>
+      <mat-error *ngIf="Name.invalid && Name.touched">
+         Name in English is <strong>required</strong>
+        </mat-error>
+  </div>
+
+  <div class="col l6 xl6 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label> Name in Hindi
+          </mat-label>
+          <input matInput placeholder="Name in Hindi" [formControl]="NameHindi" name="NameHindi" [(ngModel)]="model.NameHindi" id="NameHindi">
+      </mat-form-field>
+      <mat-error *ngIf="NameHindi.invalid && NameHindi.touched">
+         Name in Hindi is <strong>required</strong>
+        </mat-error>
+  </div>
+
+
+  <div class="col l12 x8 m4 s12 ">
+      <button mat-button class="btn-submit" (click)="SaveClick()">{{title}}</button>
+  </div>
+</div>

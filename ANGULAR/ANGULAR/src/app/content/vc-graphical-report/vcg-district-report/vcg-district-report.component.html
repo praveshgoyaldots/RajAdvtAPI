@@ -1,0 +1,47 @@
+<div class="row top_bar_title">
+  <div class="col s12 m6 l8 xl8">
+    <h3>
+      Meeting Title : <strong> {{ model?.ShortDescription }} </strong>
+    </h3>
+  </div>
+  <div class="col s12 m6 l4 xl4" *ngIf="model?.Date && model?.Time">
+    <h3>
+      Date & Time :
+      <strong
+        >{{ model?.Date | date: "dd/MM/yyyy" }} at {{ model?.Time }}
+      </strong>
+    </h3>
+  </div>
+   <div class="col s12 m6 l4 xl4" *ngIf="model?.Date && !model?.Time">
+    <h3>
+      Date :
+      <strong
+        >{{ model?.Date | date: "dd/MM/yyyy" }}
+      </strong>
+    </h3>
+  </div>
+</div>
+
+<div class="row top_bar_blue">
+  <div class="col s12 d-flex justify-space-between">
+    <ul class="breadcrumb">
+
+        <li> <button type="button" routerLink="/vc/participant/{{vCCode}}">
+          Participant Report
+        </button></li>
+        <li><button routerLink="/vcreport/vcagendareport/{{vCCode}}">Agenda</button></li>
+        <li><button type="button">District</button></li>
+    </ul>
+
+    <button class="btn btn-info" routerLink="/vc/participant/{{vCCode}}">Back To Main</button>
+  </div>
+</div>
+<div class="row pattern_bg" *ngIf="listModel?.length > 0">
+  <div class="col s12 m6 l3 xl3" *ngFor="let dist of listModel; let i = index">
+  <a href="javascript:void(0);" routerLink="/vcreport/vclocationreport/{{vCCode}}/{{dist.DistrictCode}}" class="location-bx"
+  [ngStyle]="{'background': defaultColors[i]}">
+  <div class="location_title">{{dist.DistrictTitle}}</div>
+  <div class="location_count">{{dist.ParticipantCountByDistrict}}</div>
+  </a>
+  </div>
+</div>

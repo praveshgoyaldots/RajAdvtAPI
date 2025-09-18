@@ -1,0 +1,59 @@
+<div class="row">
+  <div class="col l12 xl12 m12 s12 mb-10 text-center">
+    <mat-radio-group class=" mb-10 example-full-width radio-bx-custom radio-bx-custom-with-label" appearance="outline"
+      aria-label="Select an option" [(ngModel)]="model.CategoryWiseRadio" >
+      <!-- <mat-label class="mr-5">Year Wise or Grand Total</mat-label> -->
+      <mat-radio-button class="mr-5" value="{{item.Value}}" *ngFor="let item of dDLList?.RadioDepartmentCategory;" (change)="RadioChanges();">
+        {{item.Text}}
+      </mat-radio-button>
+    </mat-radio-group>
+
+  </div>
+
+  <div class="col l12 xl12 m12 s12 mb-10" *ngIf="this.model.CategoryWiseRadio == ebookletEnum.department">
+    <mat-form-field appearance="outline">
+      <mat-label>Department </mat-label>
+      <mat-select [(ngModel)]="model.DepartmentCode"
+        (selectionChange)="getBookletList()">
+        <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlDepartmentForDepartmentalProgressList">{{ k.Text }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+  </div>
+
+  <div class="col l12 xl12 m12 s12 mb-10" *ngIf="this.model.CategoryWiseRadio == ebookletEnum.category">
+    <mat-form-field appearance="outline">
+      <mat-label>Beneficiary Category </mat-label>
+      <mat-select [(ngModel)]="model.BeneficiaryCategoryCode"
+        (selectionChange)="getBookletList()">
+        <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlBeneficiaryCategory">{{ k.Text }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="col l12 xl12 m12 s12 mb-10" *ngIf="this.model.CategoryWiseRadio == ebookletEnum.KPICategory">
+    <mat-form-field appearance="outline">
+      <mat-label>KPI Category </mat-label>
+      <mat-select [(ngModel)]="model.KPICategoryCode"
+        (selectionChange)="getBookletList()">
+        <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlKPICategory">{{ k.Text }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <!-- <div>
+    <mat-label>{{dataModel?.Logo}}</mat-label>
+    <mat-label>{{dataModel?.Name}}</mat-label>
+  </div> -->
+  <div class="ebooklet-discription-list" *ngIf="dataModel?.Logo ||dataModel?.Name ||dataModel?.EBookletList?.length>0">
+    <div class="ebooklet-discription-list-img" *ngIf="dataModel?.Logo"><img [src]="dataModel?.Logo"></div>
+    <div class="ebooklet-discription-list-info">
+      <h2>{{dataModel?.Name}}</h2>
+      <ul *ngIf="dataModel?.EBookletList?.length>0">
+      <li *ngFor="let item of dataModel?.EBookletList">{{item.Description}}</li>
+    </ul>
+    </div>
+  </div>
+
+</div>

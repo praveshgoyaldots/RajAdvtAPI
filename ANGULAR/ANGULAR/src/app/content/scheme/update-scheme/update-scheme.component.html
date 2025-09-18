@@ -1,0 +1,2119 @@
+<div class="row m-20 d-flex align-items-center justify-content-center">
+
+  <!-- <div class="col l3 xl3 m6 s12 download_pdf" *ngIf="helpDocument">
+      <a (click)="downloadPdf(helpDocument)" href="JavaScript:Void(0);">
+          <mat-icon>picture_as_pdf</mat-icon>
+          Click to download Help Document
+      </a>
+  </div> -->
+
+
+  <div class="row" style="margin: 0px;">
+    <div style="text-align: center;" class="col l12 s12 download_pdf" *ngIf="helpDocument?.Url"> <a
+        (click)="downloadPdf(helpDocument.Url,true)" href="JavaScript:Void(0);">
+        <mat-icon>picture_as_pdf</mat-icon>
+        Click to download Help Document
+      </a> </div>
+  </div>
+
+  <div class="row" style="margin: 0px;">
+    <div style="text-align: center;" class="col l12 s12 download_pdf" *ngIf="helpDocument?.BlankDocUrl"> <a
+        (click)="downloadPdf(helpDocument.BlankDocUrl)" href="JavaScript:Void(0);">
+        <mat-icon>picture_as_pdf</mat-icon>
+        Click to download Blank Document
+      </a> </div>
+  </div>
+
+
+  <div class="col l4 xl4 m6 s12">
+    <button class="btn-submit mat-button" mat-button (click)="saveAsDrafts();">Save As Drafts</button>
+  </div>
+  <div class="col l4 xl4 m6 s12">
+    <mat-radio-group class="example-full-width radio-bx-custom radio-bx-custom-with-label" aria-label="Select an option"
+      [(ngModel)]="model.PageType">
+      <mat-label class="mr-5">Group/Individual</mat-label>
+      <mat-radio-button class="mr-5" [value]="k.Value" disabled="true" *ngFor="let k of dDLList?.ddlSchemePageType"
+        (change)="AddAndRemoveValidationGroup($event.value)"> {{ k.Text }} </mat-radio-button>
+    </mat-radio-group>
+  </div>
+
+  <div class="col l4 xl4 m6 s12">
+    <mat-radio-group class="example-full-width radio-bx-custom radio-bx-custom-with-label" aria-label="Select an option"
+      [(ngModel)]="model.SchemeOrServiceCode">
+      <mat-label class="mr-5">Scheme/Service</mat-label>
+      <mat-radio-button class="mr-5" [value]="k.Value" *ngFor="let k of dDLList?.RadioSchemeService"> {{ k.Text }}
+      </mat-radio-button>
+    </mat-radio-group>
+  </div>
+
+  <div class="col l4 xl4 m6 s12 text-right">
+    <h6 class="mr-5">Last Modification Date</h6>
+    <mat-label class="mr-5">{{model.ModifiedDate| date : 'dd-MM-yyyy h:mm:ss'}}</mat-label>
+  </div>
+</div>
+
+<div class="row add_scheme">
+  <mat-horizontal-stepper labelPosition="bottom" [linear]="isLinear" #stepper>
+    <mat-step [stepControl]="firstFormGroup">
+      <form [formGroup]="firstFormGroup">
+        <ng-template matStepLabel><a href="javascript:void(0);">Scheme/Service Details</a></ng-template>
+        <div class="col l12 m12 s12 mb-35 text-center">
+          <section class="mat-typography">
+            <h2 class="color-blue mb-0">Scheme/Service Details</h2>
+          </section>
+        </div>
+        <div class="col l4 xl4 m6 s12">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Scheme/Service Name (English)<span style="color: red">*</span></mat-label>
+            <input matInput placeholder="Scheme/Service Name (English)" #NameEnglish [(ngModel)]="model.NameEnglish"
+              formControlName="NameEnglish" maxlength="250" />
+            <mat-hint>{{ NameEnglish.value.length }}/250</mat-hint>
+          </mat-form-field>
+          <mat-error
+            *ngIf="firstFormGroup.get('NameEnglish').hasError('required') && (firstFormGroup.get('NameEnglish').touched && firstFormGroup.get('NameEnglish').invalid)">
+            Scheme/Service Name (English) is <strong>required!</strong>
+          </mat-error>
+        </div>
+        <div class="col l4 xl4 m6 s12">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Scheme/Service Short Name (English)</mat-label>
+            <input matInput placeholder="Scheme/Service Short Name (English)" #ShortNameEnglish
+              [(ngModel)]="model.ShortNameEnglish" formControlName="ShortNameEnglish" maxlength="10" />
+            <mat-hint>{{ ShortNameEnglish.value.length }}/10</mat-hint>
+          </mat-form-field>
+
+          <mat-error
+            *ngIf="firstFormGroup.get('ShortNameEnglish').hasError('required') && (firstFormGroup.get('ShortNameEnglish').touched && firstFormGroup.get('ShortNameEnglish').invalid)">
+            Short Name is <strong>not valid! Please remove space.</strong>
+          </mat-error>
+
+
+        </div>
+        <div class="col l4 xl4 m6 s12">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Scheme/Service Name (Hindi)</mat-label>
+            <input matInput placeholder="Scheme/Service Name (Hindi)" #NameHindi [(ngModel)]="model.NameHindi"
+              maxlength="250" formControlName="NameHindi" />
+            <mat-hint>{{ NameHindi.value.length }}/250</mat-hint>
+          </mat-form-field>
+        </div>
+        <div class="col l4 xl4 m6 s12">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Scheme/Service Short Name (Hindi)</mat-label>
+            <input matInput placeholder="Scheme/Service Short Name (Hindi)" #ShortNameHindi
+              [(ngModel)]="model.ShortNameHindi" maxlength="20" formControlName="ShortNameHindi" />
+            <mat-hint>{{ ShortNameHindi.value.length }}/20</mat-hint>
+          </mat-form-field>
+        </div>
+        <div class="col l4 xl4 m6 s12">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Scheme/Service Start Date </mat-label>
+            <input matInput placeholder="Enter a date" name="StartDate" id="StartDate" formControlName="StartDate"
+              [(ngModel)]="model.StartDate" />
+          </mat-form-field>
+        </div>
+        <div class="col l4 xl4 m6 s12">
+          <div class="upload-btn-wrapper">
+            <mat-label>Scheme/Service Logo</mat-label>
+            <input type="file" id="Logo" formControlName="Logo" (change)="handleFileLogo($event,true)" accept="image/*">
+            <img *ngIf="model.Logo" [src]="model.Logo" height="100px" width="100px" /><a title="Remove"
+              (click)="RemoveLogo();">
+              <mat-icon *ngIf="model?.Logo?.length>0">delete</mat-icon>
+            </a>
+          </div>
+          <span style="color: red">{{filelogoSizeValidationMsg}}</span>
+
+          <!-- <div> <img [src]="item" /> <a title="Remove" (click)="RemoveImageFile(i)">
+                    <mat-icon>delete</mat-icon>
+                  </a></div> -->
+
+
+          <mat-error *ngIf="fileValidationMsgLogo?.length>0" style="margin: 0px;position: relative;">
+            {{fileValidationMsgLogo}}</mat-error>
+        </div>
+        <div class="col l4 xl4 m6 s12">
+          <div class="upload-btn-wrapper">
+            <mat-label>Scheme/Service Banner</mat-label>
+            <input type="file" id="Banner" formControlName="Banner" (change)="handleFileLogo($event)" accept="image/*">
+            <img *ngIf="model.BannerImage" [src]="model.BannerImage" height="100px" width="100px" /><a title="Remove"
+              (click)="RemoveLogo(false);">
+              <mat-icon *ngIf="model?.BannerImage?.length>0">delete</mat-icon>
+            </a>
+          </div>
+          <mat-error *ngIf="fileValidationMsgBanner?.length>0" style="margin: 0px;position: relative;">
+            {{fileValidationMsgBanner}}</mat-error>
+          <span style="color: red">{{fileSizeValidationMsg}}</span>
+
+        </div>
+
+
+        <div class="col l4 xl4 m6 s12">
+
+          <mat-label>Scheme/Service Type</mat-label>
+          <mat-selection-list formControlName="Type" [(ngModel)]="model.Type">
+            <mat-list-option [value]=" k.Value" *ngFor="let k of dDLList?.ddlSchemeServiceType">
+              {{ k.Text }}
+            </mat-list-option>
+          </mat-selection-list>
+
+        </div>
+
+
+        <div class="col l4 xl4 m6 s12">
+          <mat-radio-group class="example-full-width radio-bx-custom radio-bx-custom-with-label"
+            aria-label="Select an option" [(ngModel)]="model.OwnedBy" formControlName="OwnedBy" (click)="resetModel()">
+            <mat-label class="mr-5">Scheme/Service Funding Agency</mat-label>
+            <mat-radio-button class="mr-5" value="{{ item.Value }}" *ngFor="let item of dDLList?.RadioSchemeOwnedBy"
+              (change)="addCenterStateValidation($event.value)"> {{ item.Text }} </mat-radio-button>
+          </mat-radio-group>
+          <div *ngIf="model.OwnedBy == '28'" class="row" style="margin-bottom:0px; margin-top:15px">
+            <div class="col l6" style="margin-bottom:0px;">
+              <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>State % </mat-label>
+                <input matInput placeholder="State" name="OwnedBySate" formControlName="OwnedBySate"
+                  [(ngModel)]="model.OwnedBySate" maxlength="5" />
+              </mat-form-field>
+              <mat-error
+                *ngIf="firstFormGroup.get('OwnedBySate').hasError('required') && (firstFormGroup.get('OwnedBySate').touched && firstFormGroup.get('OwnedBySate').invalid)">
+                State percent is <strong>required</strong>
+              </mat-error>
+              <mat-error
+                *ngIf="!firstFormGroup.get('OwnedBySate').hasError('required') && firstFormGroup.get('OwnedBySate').touched && firstFormGroup.get('OwnedBySate').invalid">
+                Only Accept numeric value
+              </mat-error>
+            </div>
+            <div class="col l6" style="margin-bottom:0px;">
+              <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Center %</mat-label>
+                <input matInput placeholder="Center" name="OwnedByCenter" formControlName="OwnedByCenter"
+                  [(ngModel)]="model.OwnedByCenter" maxlength="5" />
+              </mat-form-field>
+              <mat-error
+                *ngIf="firstFormGroup.get('OwnedByCenter').hasError('required') && (firstFormGroup.get('OwnedByCenter').touched && firstFormGroup.get('OwnedByCenter').invalid)">
+                Center percent is <strong>required</strong>
+              </mat-error>
+              <mat-error
+                *ngIf="!firstFormGroup.get('OwnedByCenter').hasError('required') && firstFormGroup.get('OwnedByCenter').touched && firstFormGroup.get('OwnedByCenter').invalid">
+                Only Accept numeric value
+              </mat-error>
+            </div>
+          </div>
+          <mat-error *ngIf="firstFormGroup.hasError('notValid')"> sum of State and Center Value not more 100
+            <strong>required!</strong> </mat-error>
+          <!-- <mat-checkbox [(ngModel)]="model.IsListedRGDPSAct" (change)="addDeliveryTimeInDaysValidation()"
+formControlName="IsListedRGDPSAct"></mat-checkbox> -->
+        </div>
+        <div class="col l4 xl4 m6 s12">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Admin Department<span style="color: red">*</span> </mat-label>
+            <mat-select formControlName="AdminDepartmentCode" #AdminDepartmentCode
+              [(ngModel)]="model.AdminDepartmentCode" (ngModelChange)="getSchemeDepartmentList($event)">
+              <mat-option>--Select--</mat-option>
+              <mat-option value="{{ k.AdmDepartmentCode }}" *ngFor="let k of ddlAdminDepartment">
+                {{ k.AdmDepartmentTitle }}</mat-option>
+
+            </mat-select>
+          </mat-form-field>
+          <mat-error *ngIf="
+    firstFormGroup.get('AdminDepartmentCode').hasError('required') &&
+    (firstFormGroup.get('AdminDepartmentCode').touched &&
+      firstFormGroup.get('AdminDepartmentCode').invalid)
+  "> Admin Department is <strong>required!</strong> </mat-error>
+        </div>
+        <div class="col l4 xl4 m6 s12">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Nodal Department<span style="color: red">*</span> </mat-label>
+            <mat-select formControlName="ParentNodelDepartmentCode" [(ngModel)]="model.NodelDepartmentCode"
+              name="ParentNodelDepartmentCode" id=ParentNodelDepartmentCode>
+              <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlDepartment">{{ k.Text }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-error *ngIf="
+    firstFormGroup.get('ParentNodelDepartmentCode').hasError('required') &&
+    (firstFormGroup.get('ParentNodelDepartmentCode').touched &&
+      firstFormGroup.get('ParentNodelDepartmentCode').invalid)
+  "> Nodal Department is <strong>required!</strong> </mat-error>
+        </div>
+
+        <div class="col l4 xl4 m6 s12">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label class="mr-5">Department Website Url </mat-label>
+            <input matInput placeholder="www.xyz.com" name="DepartmentWebsiteUrl" formControlName="DepartmentWebsiteUrl"
+              [(ngModel)]="model.DepartmentWebsiteUrl" />
+          </mat-form-field>
+        </div>
+
+        <div class="col s12 text-area-space">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label class="mr-5">URL of Data of Beneficiary on Jansoochna Portal</mat-label>
+            <input matInput placeholder="URL of Data of Beneficiaryon Jansoochna Portal"
+              #URLofDataofBeneficiaryonJansoochnaPortal formControlName="URLofDataofBeneficiaryonJansoochnaPortal"
+              [(ngModel)]="model.URLofDataofBeneficiaryonJansoochnaPortal" />
+          </mat-form-field>
+
+          <mat-error *ngIf="
+                firstFormGroup.get('URLofDataofBeneficiaryonJansoochnaPortal').touched &&
+                firstFormGroup.get('URLofDataofBeneficiaryonJansoochnaPortal').invalid
+              "> Please Enter Valid Url </mat-error>
+
+        </div>
+
+        <div class="col l12 xl12 m6 s12">
+          <mat-label class="d-block mb-10">Description
+          </mat-label>
+          <mat-form-field class="example-full-width" appearance="outline">
+
+            <input style="display:none; " matInput placeholder="Description" name="Description">
+            <angular-editor formControlName="Description" name="Description" id="Description"
+              [(ngModel)]="model.Description" [config]="editorConfig" style="margin-top: 30px;"></angular-editor>
+          </mat-form-field>
+          <mat-error *ngIf="
+                firstFormGroup.get('Description').hasError('required') &&
+                (firstFormGroup.get('Description').touched &&
+                  firstFormGroup.get('Description').invalid)
+              ">
+            Scheme/Service Description is <strong>required!</strong>
+          </mat-error>
+        </div>
+
+        <!-- <div class="col s12 text-area-space">
+                  <mat-form-field class="example-full-width" appearance="outline">
+                      <label style="padding: 10px 0px; display: inline-block; color: #000;">Scheme/Service Description
+                          <span style="color: red">*</span></label>
+                      <textarea style="display:none;" matInput placeholder="Description" #Description
+                          formControlName="Description" maxlength="100000"></textarea>
+
+                      <ckeditor [config]="{uiColor: '#26389b'}" [(ngModel)]="model.Description"
+                          placeholder="Description" formControlName="Description" #Description></ckeditor>
+
+                  </mat-form-field>
+                  <mat-error *ngIf="
+            firstFormGroup.get('Description').hasError('required') &&
+            (firstFormGroup.get('Description').touched &&
+              firstFormGroup.get('Description').invalid)
+          ">
+                      Scheme/Service Description is <strong>required!</strong>
+                  </mat-error>
+              </div> -->
+        <section class="mat-typography col l12 s12">
+          <h2 class="color-grey mb-0">Contact Person Details For Citizen</h2>
+        </section>
+        <div class="row highlight_view btn_add_data" id="destination">
+
+          <div class="col l6 xl6 m6 s12">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Nodal Department<span style="color: red">*</span> </mat-label>
+              <mat-select formControlName="NodelDepartmentCode" [(ngModel)]="EntryLookUpModel.NodelDepartmentCode"
+                name="NodelDepartmentCode">
+                <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlDepartment">{{ k.Text }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-error *ngIf="
+      firstFormGroup.get('NodelDepartmentCode').hasError('required') &&
+      (firstFormGroup.get('NodelDepartmentCode').touched &&
+        firstFormGroup.get('NodelDepartmentCode').invalid)
+    "> Nodal Department is <strong>required!</strong> </mat-error>
+          </div>
+          <div class="col l6 xl6 m6 s12">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Nodal Officer Name </mat-label>
+              <input matInput placeholder="Nodel Officer Name" name="NodelOfficerName"
+                [(ngModel)]="EntryLookUpModel.NodelOfficerName" formControlName="NodelOfficerName" maxlength="1000" />
+            </mat-form-field>
+          </div>
+          <div class="col l12 xl12 m6 s12">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Phone Number </mat-label>
+              <input matInput *ngIf="isEditPhone" placeholder="Phone Number" #MobileNoString
+                formControlName="MobileNoString" [(ngModel)]="EntryLookUpModel.MobileNo" />
+              <input matInput *ngIf="!isEditPhone" placeholder="Phone Number" #MobileNo formControlName="MobileNo"
+                [(ngModel)]="EntryLookUpModel.MobileNo" maxlength="10" (keypress)="numberonly($event)" />
+            </mat-form-field>
+
+
+            <div class="number_add "> <span *ngIf="phoneNumberString">{{phoneNumberString}} <a href="javascript:void(0)"
+                  (click)="AddPhoneNumber(true)">
+                  <mat-icon aria-hidden="false" aria-label="Example home icon" class="icon_edit">edit
+                  </mat-icon>
+                </a> </span>
+              <a href="javascript:void(0)" (click)="AddPhoneNumber()">
+                <mat-icon aria-hidden="false" aria-label="Example home icon" class="icon_add">add
+                </mat-icon>
+              </a>
+            </div>
+          </div>
+
+          <div class="col l4 xl4 m6 s12">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>EmailId </mat-label>
+              <input matInput placeholder="EmailId" name="EmailId" formControlName="EmailId"
+                [(ngModel)]="EntryLookUpModel.EmailId" maxlength="1000"
+                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" />
+            </mat-form-field>
+            <mat-hint>Example:XYZ@gmail.com</mat-hint>
+            <mat-error *ngIf="
+      firstFormGroup.get('EmailId').touched &&
+      firstFormGroup.get('EmailId').invalid
+    "> Only Accept Email Format </mat-error>
+          </div>
+          <div class="col l4 xl4 m6 s12">
+            <mat-form-field class="example-full-width designation-bx" appearance="outline">
+              <mat-label>Designation <span style="color: red">*</span></mat-label>
+              <input matInput placeholder="Designation" name="Designation" formControlName="Designation"
+                [(ngModel)]="EntryLookUpModel.Designation" maxlength="1000" />
+            </mat-form-field>
+            <mat-error style="top: 45px;" *ngIf="
+  firstFormGroup.get('Designation').hasError('required') &&
+      (firstFormGroup.get('Designation').touched &&
+      firstFormGroup.get('Designation').invalid)
+    "> Scheme/Service Designation is <strong>required!</strong> </mat-error>
+
+          </div>
+
+          <div class="col l4 xl4 m6 s12">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Latitude </mat-label>
+              <input matInput placeholder="Latitude" name="Latitude" formControlName="Latitude"
+                [(ngModel)]="EntryLookUpModel.Lat" maxlength="1000" />
+            </mat-form-field>
+
+          </div>
+
+          <div class="col l3 xl3 m6 s12">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Longitude </mat-label>
+              <input matInput placeholder="Longitude" name="Longitude" formControlName="Longitude"
+                [(ngModel)]="EntryLookUpModel.Long" maxlength="1000" />
+            </mat-form-field>
+
+          </div>
+
+          <div class="col l1 xl1 m6 s12">
+            <a href="javascript:void(0)" (click)="GetLatLongByAddress()" class="s-icon-search">
+              <mat-icon aria-hidden="false" aria-label="Example home icon" class="icon_add">search
+              </mat-icon>
+            </a>
+
+          </div>
+
+          <div class="col l4 xl4 m6 s12">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Address </mat-label>
+              <input matInput placeholder="Address" name="Address" formControlName="Address"
+                [(ngModel)]="EntryLookUpModel.Address" maxlength="1000" />
+            </mat-form-field>
+
+          </div>
+
+          <div class="col l4 xl4 m6 s12">
+            <mat-form-field class="example-full-width check-sel-all" appearance="outline">
+              <mat-label>Type</mat-label>
+              <mat-select name="ContactPersonType" id="ContactPersonType" [(ngModel)]="EntryLookUpModel.Type"
+                formControlName="ContactPersonType">
+                <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlContactPersonType">{{ k.Text }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col l4 xl4 m6 s12">
+            <mat-form-field class="example-full-width check-sel-all" appearance="outline">
+              <mat-label> District</mat-label>
+              <mat-select name="DistrictCode" id="DistrictCode" [(ngModel)]="EntryLookUpModel.DistrictCode"
+                formControlName="DistrictCode" (selectionChange)="getBlockByDistrict($event.value)">
+                <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlDistrict">{{ k.Text }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="col l4 xl4 m6 s12"
+            *ngIf="EntryLookUpModel.Type==contactTypeEnum.DistrictLabel|| EntryLookUpModel.Type==contactTypeEnum.BlockLabel">
+            <mat-form-field class="example-full-width check-sel-all" appearance="outline">
+              <mat-label>Block</mat-label>
+              <mat-select name="BlockCode" id="BlockCode" [(ngModel)]="EntryLookUpModel.BlockCode"
+                formControlName="BlockCode">
+                <mat-option value="{{ k.Value }}" *ngFor="let k of ddlBlockByDistrict">{{ k.Text }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col l4 xl4 m6 s12" *ngIf="EntryLookUpModel.Type==contactTypeEnum.BlockLabel">
+
+            <mat-form-field class="example-full-width check-sel-all" appearance="outline">
+              <mat-label>Tehsil</mat-label>
+              <mat-select name="TahsilCode" id="TahsilCode" [(ngModel)]="EntryLookUpModel.TahsilCode"
+                formControlName="TahsilCode">
+                <mat-option value="{{ k.Value }}" *ngFor="let k of ddlTahsilByBlock">{{ k.Text }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+          </div>
+
+          <div class="col l8 xl8 m6 s12 add_btn_full">
+            <button (click)="GetContactData()" class="btn btn-info get-btn">Import Contact From Other Scheme</button>
+
+            <a class="btn_add" href="javascript:void(0)" (click)="AddMoreEntry()">
+              <mat-icon aria-hidden="false" aria-label="Example home icon">add</mat-icon>
+            </a>
+          </div>
+
+
+          <!-- <mat-error *ngIf="model.EntryLookUp.length == 0 && iCustomValidation"> Admin Department and nodal department should not be null </mat-error>-->
+          <div class="col l12 m12 s12" *ngIf="model.EntryLookUp.length > 0">
+            <div class="table-responsive">
+              <table class="table new_table table_border table_custom mb-20">
+                <thead>
+                  <tr>
+                    <th scope="col">Sr.No</th>
+                    <!-- <th scope="col">Admin Department</th> -->
+                    <th scope="col">Type</th>
+                    <th scope="col">District</th>
+                    <th scope="col">Block</th>
+                    <th scope="col">Tehsil</th>
+                    <th scope="col">Nodal Department</th>
+                    <th scope="col">Nodal Officer</th>
+                    <th scope="col">Phone Number</th>
+                    <th scope="col">Email </th>
+                    <th scope="col">Designation</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Latitude</th>
+                    <th scope="col">Longitude</th>
+                    <th scope="col" style="width:120px;">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of model.EntryLookUp; let i = index" [attr.data-index]="i">
+                    <th scope="row">{{ i + 1 }}</th>
+                    <!-- <td>{{ AdminItems[(item?.AdminDepartmentCode)] }}</td> -->
+                    <td>{{ ContactPersonTypeItems[(item?.Type)] }}</td>
+                    <td>{{ DistrictItems[(item?.DistrictCode)] }}</td>
+                    <td><span *ngIf="item?.BlockCode">{{ BlockItems[(item?.BlockCode)] }}</span><span
+                        *ngIf="!item?.BlockCode">--</span></td>
+                    <td><span *ngIf="item?.TahsilCode">{{ TahsilItems[(item?.TahsilCode)] }}</span><span
+                        *ngIf="!item?.TahsilCode">--</span> </td>
+                    <td>{{ NodelItems[(item?.NodelDepartmentCode)] }}</td>
+                    <td>{{ item.NodelOfficerName }}</td>
+                    <td>{{ item.MobileNo }}</td>
+                    <td>{{ item.EmailId }}</td>
+                    <td>{{ item.Designation }}</td>
+                    <td>{{ item.Address }}</td>
+                    <td>{{ item.Lat }}</td>
+                    <td>{{ item.Long }}</td>
+                    <td class="action-link mat-column-Action">
+                      <a class="btn_delete" href="javascript:void(0)" (click)="RemoveEntryClick(i)">
+                        <mat-icon aria-hidden="false" aria-label="Example home icon" style="color: red">delete
+                        </mat-icon>
+                      </a>
+                      <a class="btn_edit" href="javascript:void(0)" (click)="editEntryClick(i,item);Scrolltop();">
+                        <mat-icon aria-hidden="false" aria-label="Example home icon">edit</mat-icon>
+                      </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+        </div>
+
+
+
+        <div class="col l 12 s12">
+          <div class="key_search_bx">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>keyword For Search For Scheme/Service Details</mat-label>
+              <textarea matInput placeholder="keyword For Search For Scheme/Service Details" #SearchKeyWordOfDetails
+                formControlName="SearchKeyWordOfDetails" [(ngModel)]="model.SearchKeyWordOfDetails"
+                maxlength="10000"></textarea>
+              <mat-hint>{{ SearchKeyWordOfDetails.value.length }}/10000</mat-hint>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col l12 m12 s12 text-right">
+          <button class="btn-submit mat-button" mat-button matStepperNext (click)="touchFirst(stepper)"> Next
+          </button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup">
+      <form [formGroup]="secondFormGroup">
+        <ng-template matStepLabel><a href="javascript:void(0);" (click)="touchFirst(stepper)">Scheme/Service
+            Execution Details</a></ng-template>
+        <div class="col l12 m12 s12 mb-35 text-center">
+          <section class="mat-typography">
+            <h2 class="color-blue mb-0">Scheme/Service Execution Details</h2>
+          </section>
+        </div>
+        <div class="row inner_row">
+          <!-- <div class="col l4 xl4 m6 s12">
+                      <mat-form-field class="example-full-width check-sel-all" appearance="outline">
+                          <mat-label>Scheme/Service District<span style="color: red">*</span></mat-label>
+                          <mat-select name="district" id="district" [(ngModel)]="model.District" multiple
+                              formControlName="district">
+                              <mat-option disabled="disabled" (click)="selectAll()">
+                                  <mat-checkbox [checked]="selectedAll>0"> SelectAll </mat-checkbox>
+                              </mat-option>
+                              <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlDistrict">{{ k.Text }}
+                              </mat-option>
+                          </mat-select>
+
+                      </mat-form-field>
+                      <mat-error *ngIf="
+        secondFormGroup.get('district').hasError('required') &&
+            (secondFormGroup.get('district').touched &&
+            secondFormGroup.get('district').invalid)
+          "> Scheme/Service district is <strong>required!</strong> </mat-error>
+                  </div> -->
+
+          <div class="col l6 xl6 m6 s12 app_mode">
+
+            <mat-label>Scheme/Service District<span style="color: red">*</span></mat-label>
+
+            <mat-selection-list formControlName="district" [(ngModel)]="model.District" class="matlistscroll">
+              <mat-list-option disabled="disabled" (click)="selectAll()">
+                <mat-checkbox [checked]="selectedAll>0"> SelectAll </mat-checkbox>
+              </mat-list-option>
+              <mat-list-option [value]="item.Value" *ngFor="let item of dDLList?.ddlDistrict">
+                {{item.Text}}
+              </mat-list-option>
+            </mat-selection-list>
+            <mat-error *ngIf="
+                    secondFormGroup.get('district').hasError('required') &&
+                        (secondFormGroup.get('district').touched &&
+                        secondFormGroup.get('district').invalid)
+                      "> Scheme/Service district is <strong>required!</strong> </mat-error>
+          </div>
+
+          <div class="col l6 xl6 m6 s12">
+            <mat-label> &nbsp; </mat-label>
+            <mat-radio-group class="example-full-width radio-bx-custom radio-bx-custom-with-label"
+              aria-label="Select an option" [(ngModel)]="model.IsListedRGDPSAct" formControlName="IsListedRGDPSAct">
+              <mat-label>Is Listed in RGDPS Act </mat-label>
+              <mat-radio-button class="mr-5" value="{{ item.Value }}" *ngFor="let item of dDLList?.RadioRGDPSAct"
+                (change)="addDeliveryTimeInDaysValidation($event.value)"> {{ item.Text }}</mat-radio-button>
+            </mat-radio-group>
+          </div>
+          <div class="col l4 xl4 m6 s12">
+            <div *ngIf="
+            model.IsListedRGDPSAct == '29' || model.IsListedRGDPSAct == '30'
+          ">
+              <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Scheme/Service Delivery Time(In Days)</mat-label>
+                <input matInput placeholder="Delivery Time (InDays)" name="DeliveryTimeInDays"
+                  [(ngModel)]="model.DeliveryTimeInDays" formControlName="DeliveryTimeInDays"
+                  (keypress)="numberonly($event)" maxlength="3" />
+              </mat-form-field>
+              <mat-error *ngIf="
+              secondFormGroup
+                .get('DeliveryTimeInDays')
+                .hasError('required') &&
+              (secondFormGroup.get('DeliveryTimeInDays').touched &&
+                secondFormGroup.get('DeliveryTimeInDays').invalid)
+            "> Scheme/Service Delivery Time(InDays) is <strong>required!</strong> </mat-error>
+            </div>
+          </div>
+          <div class="col l4 xl4 m6 s12">
+            <div *ngIf="
+            model.IsListedRGDPSAct == '29' || model.IsListedRGDPSAct == '30'
+          ">
+              <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Designated Officer Details </mat-label>
+                <mat-select name="DesignatedOfficerReceivingDetailCode"
+                  [(ngModel)]="model.DesignatedOfficerReceivingDetailCode"
+                  formControlName="DesignatedOfficerReceivingDetailCode">
+                  <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlDesignation">
+                    {{ k.Text }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col l4 xl4 m6 s12">
+            <div *ngIf="model.IsListedRGDPSAct == '29'">
+              <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>First Appeallate</mat-label>
+                <mat-select name="FirstAppeallateCode" [(ngModel)]="model.FirstAppeallateCode"
+                  formControlName="FirstAppeallateCode">
+                  <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlDesignation">
+                    {{ k.Text }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="col l4 xl4 m6 s12">
+            <div *ngIf="model.IsListedRGDPSAct == '29'">
+              <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Second Appeallate</mat-label>
+                <mat-select name="SecondAppeallateCode" [(ngModel)]="model.SecondAppeallateCode"
+                  formControlName="SecondAppeallateCode">
+                  <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlDesignation">
+                    {{ k.Text }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <mat-error *ngIf="secondFormGroup.hasError('fieldValid')"
+              style=" font-size:12px; line-height:10px; bottom:-6px;"> Combination of any two( Designated
+              Officer Details, First and second Appeallate) should not <strong>be equal!</strong>
+            </mat-error>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col l4 xl4 m6 s12">
+
+            <mat-label>Scheme/Service Program Area</mat-label>
+            <mat-selection-list formControlName="programAreas" [(ngModel)]="model.programAreas">
+              <mat-list-option [value]=" k.Value" *ngFor="let k of dDLList?.ddlSchemeServiceProgramArea">
+                {{ k.Text }}
+              </mat-list-option>
+            </mat-selection-list>
+
+            <mat-error style="top:45px;" *ngIf="
+            secondFormGroup.get('programAreas').hasError('required') &&
+            (secondFormGroup.get('programAreas').touched &&
+              secondFormGroup.get('programAreas').invalid)
+          "> Scheme/Service Program Area is <strong>required!</strong> </mat-error>
+          </div>
+
+          <div class="col l4 xl4 m6 s12">
+            <mat-label> &nbsp; </mat-label>
+
+            <mat-radio-group class="example-full-width radio-bx-custom radio-bx-custom-with-label"
+              aria-label="Select an option" [(ngModel)]="model.SchemeType" formControlName="SchemeType">
+              <mat-label class="mr-5">Scheme/Service Duration</mat-label>
+              <mat-radio-button class="mr-5" value="{{ item.Value }}" *ngFor="let item of dDLList?.RadioSchemeType">
+                {{ item.Text }}</mat-radio-button>
+            </mat-radio-group>
+
+          </div>
+          <div class="col l4 xl4 m6 s12" *ngIf="model.SchemeType == '10055'">
+            <mat-label> &nbsp; </mat-label>
+
+            <mat-radio-group class="example-full-width radio-bx-custom radio-bx-custom-with-label"
+              aria-label="Select an option" [(ngModel)]="model.ExpiredOn" formControlName="ExpiredOn"
+              (change)="IsDurationApplyRemoveValidation($event.value)">
+              <mat-label class="mr-5">Scheme Expires On</mat-label>
+              <mat-radio-button class="mr-5" value="{{ item.Value }}"
+                *ngFor="let item of dDLList?.RadioSchemeExpriedOn"> {{ item.Text }}</mat-radio-button>
+            </mat-radio-group>
+            <div *ngIf="model.ExpiredOn == '34'" style="margin-top:15px;">
+              <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Scheme Expries on (In Months)<span style="color: red"
+                    *ngIf="model.ExpiredOn == '34'">*</span></mat-label>
+                <input matInput placeholder="Time Of Validity(In Month)" name="ExpriedDurationInMonth"
+                  [(ngModel)]="model.ExpriedDurationInMonth" formControlName="ExpriedDurationInMonth" maxlength="10" />
+              </mat-form-field>
+              <mat-error
+                *ngIf="secondFormGroup.get('ExpriedDurationInMonth').hasError('required') && (secondFormGroup.get('ExpriedDurationInMonth').touched && secondFormGroup.get('ExpriedDurationInMonth').invalid)">
+                Scheme Expries on is <strong>required</strong>
+              </mat-error>
+              <mat-error
+                *ngIf="!secondFormGroup.get('ExpriedDurationInMonth').hasError('required') && secondFormGroup.get('ExpriedDurationInMonth').touched && secondFormGroup.get('ExpriedDurationInMonth').invalid">
+                Only Accept numeric value
+              </mat-error>
+            </div>
+            <div *ngIf="model.ExpiredOn == '33'" style="margin-top:15px;">
+              <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label> Date </mat-label>
+                <input matInput [matDatepicker]="picker1" (focus)="picker1.open()" readonly placeholder="Date"
+                  name="ExpriedOnDate" id="ExpriedOnDate" [(ngModel)]="model.ExpriedOnDate" [min]="minDate"
+                  formControlName="ExpriedOnDate">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+              </mat-form-field>
+              <mat-error
+                *ngIf="secondFormGroup.get('ExpriedOnDate').hasError('required') && (secondFormGroup.get('ExpriedOnDate').touched)">
+                Date is <strong>required</strong>
+              </mat-error>
+            </div>
+          </div>
+          <div class="col l4 xl4 m6 s12">
+            <mat-label> &nbsp; </mat-label>
+
+            <mat-radio-group class="example-full-width radio-bx-custom radio-bx-custom-with-label"
+              aria-label="Select an option" [(ngModel)]="model.ApplyForScheme" formControlName="ApplyForScheme"
+              (change)="IsRenewalApplyRemoveValidation($event.value)">
+              <mat-label class="mr-5">Is Renewal</mat-label>
+              <mat-radio-button class="mr-5" value="{{ item.Value }}" *ngFor="let item of dDLList?.RadioApplyForScheme">
+                {{ item.Text }}</mat-radio-button>
+            </mat-radio-group>
+
+          </div>
+
+          <div class="col l4 xl4 m6 s12" *ngIf="model.ApplyForScheme == '32'">
+            <mat-label> &nbsp; </mat-label>
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Number Of Months <span style="color: red" *ngIf="model.ApplyForScheme == '32'">*</span>
+              </mat-label>
+              <input matInput placeholder="Number Of Months" name="TimeOfValidationInMonth"
+                [(ngModel)]="model.TimeOfValidationInMonth" formControlName="TimeOfValidationInMonth" maxlength="10" />
+            </mat-form-field>
+
+            <mat-error
+              *ngIf="secondFormGroup.get('TimeOfValidationInMonth').hasError('required') && (secondFormGroup.get('TimeOfValidationInMonth').touched && secondFormGroup.get('TimeOfValidationInMonth').invalid)">
+              Number Of Months is <strong>required</strong>
+            </mat-error>
+            <mat-error
+              *ngIf="!secondFormGroup.get('TimeOfValidationInMonth').hasError('required') && secondFormGroup.get('TimeOfValidationInMonth').touched && secondFormGroup.get('TimeOfValidationInMonth').invalid">
+              Only Accept numeric value
+            </mat-error>
+          </div>
+
+
+        </div>
+        <div class="col l12 s12">
+          <div class="key_search_bx">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>keyword For Search For Scheme/Service Execution Details</mat-label>
+              <textarea matInput placeholder="keyword For Search For Scheme/Service Execution Details"
+                #SearchKeyWordOfExecution formControlName="SearchKeyWordOfExecution"
+                [(ngModel)]="model.SearchKeyWordOfExecution" maxlength="10000"></textarea>
+              <mat-hint>{{ SearchKeyWordOfExecution.value.length }}/10000</mat-hint>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col l12 m12 s12 text-right">
+          <button class="grey_btn mr-5" mat-button matStepperPrevious>Back</button>
+          <button class="btn-submit mat-button" mat-button matStepperNext (click)="touchSecond(stepper)"> Next
+          </button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="ThirdFormGroup">
+      <form [formGroup]="ThirdFormGroup">
+        <ng-template matStepLabel><a href="javascript:void(0);" (click)="touchSecond(stepper)">Who is
+            Eligible</a></ng-template>
+        <div class="col l12 m12 s12 mb-35 text-center">
+          <section class="mat-typography">
+            <h2 class="color-blue mb-0">Who is Eligible</h2>
+          </section>
+        </div>
+        <div class="col l6 xl6 m6 s12">
+
+          <mat-label>Beneficiary Category<span style="color: red">*</span></mat-label>
+
+          <mat-selection-list formControlName="BeneficiaryCategory" [(ngModel)]="model.BeneficiaryCategory"
+            class="matlistscroll">
+            <mat-list-option [value]="item.Value" *ngFor="let item of dDLList?.ddlBeneficiaryCategory">
+              {{item.Text}}
+            </mat-list-option>
+          </mat-selection-list>
+
+          <mat-error *ngIf="
+          ThirdFormGroup.get('BeneficiaryCategory').hasError('required') &&
+          (ThirdFormGroup.get('BeneficiaryCategory').touched &&
+            ThirdFormGroup.get('BeneficiaryCategory').invalid)
+        "> Beneficiary Category is <strong>required!</strong> </mat-error>
+        </div>
+
+
+        <div class="col l6 xl6 m6 s12">
+          <mat-label>Category<span style="color: red">*</span></mat-label>
+
+          <mat-selection-list formControlName="CasteCategory" [(ngModel)]="model.CasteCategory" class="matlistscroll">
+            <mat-list-option [value]="item.Value" *ngFor="let item of dDLList?.ddlCategory">
+              {{item.Text}}
+            </mat-list-option>
+          </mat-selection-list>
+
+          <mat-error *ngIf="
+                  ThirdFormGroup.get('CasteCategory').hasError('required') &&
+                  (ThirdFormGroup.get('CasteCategory').touched &&
+                    ThirdFormGroup.get('CasteCategory').invalid)
+                "> Category is <strong>required!</strong> </mat-error>
+        </div>
+
+        <div class="row highlight_view">
+
+          <div class="col l4 xl4 m6 s12">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Eligibility</mat-label>
+              <mat-select [(ngModel)]="EligibilityCriteriaModel.EligibilityDropDownCode"
+                formControlName="EligibilityDropDownCode" name="EligibilityDropDownCode">
+                <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlSchemeEligibility">
+                  {{ k.Text }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col l8 xl8 m6 s12  btn_add_box">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Remarks </mat-label>
+
+              <textarea matInput placeholder="Nodel Officer Name" #Remarks
+                [(ngModel)]="EligibilityCriteriaModel.Remarks" formControlName="Remarks" maxlength="10000"></textarea>
+              <mat-hint>{{ Remarks.value.length }}/10000</mat-hint>
+            </mat-form-field>
+            <a class="btn_add" href="javascript:void(0)" (click)="AddMoreEligibility()">
+              <mat-icon aria-hidden="false" aria-label="Example home icon">add</mat-icon>
+            </a>
+          </div>
+          <mat-error>{{temp}}</mat-error>
+          <div class="col l12 m12 s12">
+            <table class="table table_custom new_table table_border" *ngIf="model.EligibilityCriteria.length > 0">
+              <thead>
+                <tr>
+                  <th scope="col">Sr.No</th>
+                  <th scope="col">Eligibility</th>
+                  <th scope="col">Remarks</th>
+                  <th scope="col" style="width:120px;">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of model.EligibilityCriteria; let i = index" [attr.data-index]="i">
+                  <th scope="row">{{ i + 1 }}</th>
+                  <td>{{ EligibilityItems[(item?.EligibilityDropDownCode)] }}</td>
+                  <td>{{ item.Remarks }}</td>
+                  <td class="action-link mat-column-Action">
+                    <a class="btn_delete" href="javascript:void(0)" (click)="RemoveEligibility(i)">
+                      <mat-icon aria-hidden="false" aria-label="Example home icon">delete
+                      </mat-icon>
+                    </a>
+                    <a class="btn_edit" href="javascript:void(0)" (click)="EditEligibility(i,item)">
+                      <mat-icon aria-hidden="false" aria-label="Example home icon">edit</mat-icon>
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+
+        <div class="col l4 xl4 m6 s12">
+          <section class="example-full-width  checkbox-bx-custom checkbox-bx-custom-with-label" appearance="outline">
+            <mat-label>Is Eligibility Text </mat-label>
+            <mat-checkbox [(ngModel)]="model.IsEligibityText" #IsEligibityText formControlName="IsEligibityText"> Is
+              Eligibility Text</mat-checkbox>
+          </section>
+        </div>
+        <!-- <div class="col l12 xl12 m6 s12">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Eligibility Text</mat-label>
+
+                        <textarea style="display:none;" matInput placeholder="Eligibility" #EligiblityText
+                        formControlName="EligiblityText" maxlength="100000"></textarea>
+
+                        <ckeditor [config]="{uiColor: '#26389b'}" [(ngModel)]="model.EligiblityText"
+                        placeholder="Eligiblity"  [(ngModel)]="model.EligiblityText" #EligiblityText></ckeditor>
+
+
+                </mat-form-field>
+            </div> -->
+        <div class="col l12 xl12 m6 s12">
+          <mat-label class="d-block mb-10">Eligibility Text
+          </mat-label>
+          <mat-form-field class="example-full-width" appearance="outline">
+
+            <input style="display:none; " matInput placeholder="Eligibility" name="EligiblityText">
+            <angular-editor formControlName="EligiblityText" name="EligiblityText" id="EligiblityText"
+              [(ngModel)]="model.EligiblityText" [config]="editorConfig" style="margin-top: 30px;">
+            </angular-editor>
+          </mat-form-field>
+
+        </div>
+
+        <div class="col l4 xl4 m6 s12">
+          <section class="example-full-width  checkbox-bx-custom checkbox-bx-custom-with-label" appearance="outline">
+            <mat-label>Is beneficiary Text </mat-label>
+            <mat-checkbox [(ngModel)]="model.IsbeneficiaryText" #IsbeneficiaryText formControlName="IsbeneficiaryText">
+              Is beneficiary Text</mat-checkbox>
+          </section>
+        </div>
+
+        <div class="col l12 xl12 m6 s12">
+          <mat-label class="d-block mb-10">Beneficiary Text
+          </mat-label>
+          <mat-form-field class="example-full-width" appearance="outline">
+
+            <input style="display:none; " matInput placeholder="Benificiary Text" name="Benificiarytext">
+            <angular-editor formControlName="Benificiarytext" name="Benificiarytext" id="Benificiarytext"
+              [(ngModel)]="model.Benificiarytext" [config]="editorConfig" style="margin-top: 30px;"></angular-editor>
+          </mat-form-field>
+
+        </div>
+        <!-- <div class="col l12 xl12 m6 s12">
+                <mat-form-field class="example-full-width" appearance="outline">
+
+                    <mat-label>Beneficiary</mat-label>
+
+                        <textarea style="display:none;" matInput placeholder="Description" #Benificiarytext
+                        formControlName="Benificiarytext" maxlength="100000"></textarea>
+
+                        <ckeditor [config]="{uiColor: '#26389b'}" [(ngModel)]="model.Benificiarytext"
+                        placeholder="Benificiary" formControlName="Benificiarytext" #Benificiarytext></ckeditor>
+
+                   </mat-form-field>
+            </div> -->
+
+        <div class="col l12 s12">
+          <div class="key_search_bx">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>keyword For Search For Who is Eligible</mat-label>
+              <textarea matInput placeholder="keyword For Search For Who is Eligible" #SearchKeyWordOfEligible
+                formControlName="SearchKeyWordOfEligible" [(ngModel)]="model.SearchKeyWordOfEligible" maxlength="10000"
+                b></textarea>
+              <mat-hint>{{ SearchKeyWordOfEligible.value.length }}/10000</mat-hint>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col l12 m12 s12 text-right">
+          <button class="grey_btn mr-5" mat-button matStepperPrevious>Back</button>
+          <button class="btn-submit mat-button" mat-button matStepperNext (click)="touchThird()"> Next
+          </button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="fourFormGroup">
+      <form [formGroup]="fourFormGroup">
+        <ng-template matStepLabel><a href="javascript:void(0);" (click)="touchThird()">How to apply</a>
+        </ng-template>
+        <div class="col l12 m12 s12 mb-35 text-center">
+          <section class="mat-typography">
+            <h2 class="color-blue mb-0">How to apply</h2>
+          </section>
+        </div>
+
+        <div class="col l12 xl12 m6 s12">
+          <mat-radio-group class="example-full-width radio-bx-custom radio-bx-custom-with-label"
+            aria-label="Select an option" [(ngModel)]="model.MadeOfAppling" formControlName="MadeOfAppling">
+            <mat-label class="mr-5">Mode of Application <span style="color: red">*</span></mat-label>
+            <mat-radio-button class="mr-5" value="{{ item.Value }}"
+              *ngFor="let item of dDLList?.RadioSchemeModeofApplying"> {{ item.Text }}</mat-radio-button>
+          </mat-radio-group>
+          <mat-error *ngIf="
+            fourFormGroup.get('MadeOfAppling').hasError('required') &&
+            (fourFormGroup.get('MadeOfAppling').touched &&
+              fourFormGroup.get('MadeOfAppling').invalid)
+          "> Made Of Application is <strong>required!</strong> </mat-error>
+        </div>
+        <div class="row inner_row">
+          <div class="col l6 xl6 m6 s12 app_mode" *ngIf="model.MadeOfAppling == '39' || model.MadeOfAppling == '38'">
+
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Modeof Application Text</mat-label>
+              <textarea matInput placeholder="Modeof Application Text" #ModeofApplicationText
+                formControlName="ModeofApplicationText" [(ngModel)]="model.ModeofApplicationText"
+                maxlength="10000"></textarea>
+              <mat-hint>{{ ModeofApplicationText.value.length }}/10000</mat-hint>
+            </mat-form-field>
+
+          </div>
+
+          <div class="col l6 xl6 m6 s12 app_mode" *ngIf="model.MadeOfAppling == '37' || model.MadeOfAppling == '39'">
+
+            <mat-label class="cc-ref">Mode's<span style="color: red">*</span>
+            </mat-label>
+            <mat-selection-list formControlName="ModeofApplicationList" [(ngModel)]="model.ModeofApplicationList"
+              (selectionChange)="setValidationOnWebsiteUrl($event.source._value);">
+              <mat-list-option [value]="item.Value" *ngFor="let item of dDLList?.RadioMadeOfApplingOnlineAndBoth">
+                {{item.Text}}
+              </mat-list-option>
+            </mat-selection-list>
+
+          </div>
+
+          <div class="col l6 xl6 m6 s12" *ngIf="madeOfApplingCondition(45)||madeOfApplingCondition(48)">
+            <mat-label> &nbsp; </mat-label>
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label class="mr-5">Scheme Website Url </mat-label>
+              <input matInput placeholder="Scheme Website Url" name="WebsiteUrl" formControlName="WebsiteUrl"
+                [(ngModel)]="model.WebsiteUrl" />
+            </mat-form-field>
+            <mat-error
+              *ngIf="fourFormGroup.get('WebsiteUrl').hasError('required') && fourFormGroup.get('WebsiteUrl').touched">
+              Website Url is <strong>required!</strong>
+            </mat-error>
+            <mat-error
+              *ngIf="!fourFormGroup.get('WebsiteUrl').hasError('required') && fourFormGroup.get('WebsiteUrl').touched && fourFormGroup.get('WebsiteUrl').hasError('invalidUrl')">
+              Website Url is <strong>not valid!</strong>
+            </mat-error>
+            <!-- <mat-error
+                          *ngIf="(fourFormGroup.get('WebsiteUrl').touched && (fourFormGroup.get('WebsiteUrl').hasError('invalidUrl') || fourFormGroup.get('WebsiteUrl').hasError('required')))">
+                          Website Url is <strong>not valid!</strong>
+                       </mat-error>
+                       <mat-error
+                       *ngIf="!(fourFormGroup.get('WebsiteUrl').touched && (fourFormGroup.get('WebsiteUrl').hasError('invalidUrl') || fourFormGroup.get('WebsiteUrl').hasError('required')))">
+
+                       Website Url is <strong>required!</strong>
+                    </mat-error> -->
+            <!-- <mat-error *ngIf="
+                          fourFormGroup.get('WebsiteUrl').hasError('required') &&
+                          (fourFormGroup.get('WebsiteUrl').touched &&
+                            fourFormGroup.get('WebsiteUrl').invalid)
+                        "> ServiceFees is <strong>required!</strong> </mat-error> -->
+          </div>
+          <!-- <div class="col l4 xl4 m6 s12">
+                      <mat-form-field class="example-full-width" appearance="outline">
+                          <mat-label class="mr-5">Mobile App Icon </mat-label>
+                          <input matInput placeholder="Mobile App con" name="MobileAppIcon"
+                              formControlName="MobileAppIcon" [(ngModel)]="model.MobileAppIcon" />
+                      </mat-form-field>
+                  </div> -->
+
+        </div>
+        <div *ngIf="madeOfApplingCondition(49)">
+
+          <div class="col l6 xl6 m6 s12">
+            <div class="upload-btn-wrapper">
+              <mat-label>Mobile App Icon</mat-label>
+              <input type="file" id="MobileAppIcon" formControlName="MobileAppIcon"
+                (change)="handleFileMobileIcon($event)" accept="image/*">
+              <img *ngIf="model.MobileAppIcon" [src]="model.MobileAppIcon" height="100px" width="100px" />
+              <a title="Remove" (click)="RemoveMobileAppIcon();">
+                <mat-icon *ngIf="model?.MobileAppIcon?.length>0">delete</mat-icon>
+              </a>
+            </div>
+            <mat-error *ngIf="fileValidationMsgIcon?.length>0" style="margin: 0px;position: relative;">
+              {{fileValidationMsgIcon}}</mat-error>
+          </div>
+          <div class="col l6 xl6 m6 s12">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label class="mr-5">Mobile App Name</mat-label>
+              <input matInput placeholder="Mobile App Name" name="MobileAppUrl" formControlName="MobileAppUrl"
+                [(ngModel)]="model.MobileAppUrl" />
+            </mat-form-field>
+          </div>
+          <!-- region "mobile platform" -->
+          <div class="row highlight_view">
+
+            <div class="col l4 xl4 m6 s12">
+              <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Platform Name</mat-label>
+                <input matInput placeholder="Platform Name" #PlatformName formControlName="PlatformName"
+                  [(ngModel)]="mobileAppLookupModel.PlatformName" />
+              </mat-form-field>
+            </div>
+            <div class="col l4 xl4 m6 s12 btn_add_box">
+              <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>App URl</mat-label>
+                <input matInput placeholder="App URl" #AppURl formControlName="AppURl"
+                  [(ngModel)]="mobileAppLookupModel.AppUrl" />
+              </mat-form-field>
+              <a class="btn_add" href="javascript:void(0)" (click)="AddMoreMobilePlatform()">
+                <mat-icon aria-hidden="false" aria-label="Example home icon">add</mat-icon>
+              </a>
+            </div>
+            <mat-error>{{temp}}</mat-error>
+            <div class="col l12 m12 s12">
+              <table class="table table_custom new_table table_border" *ngIf="model?.MobileAppLookupList?.length > 0">
+                <thead>
+                  <tr>
+                    <th scope="col">Sr.No</th>
+                    <th scope="col">Platform Name</th>
+                    <th scope="col">App URl</th>
+                    <th scope="col" style="width:120px;">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of model?.MobileAppLookupList; let i = index" [attr.data-index]="i">
+                    <th scope="row">{{ i + 1 }}</th>
+                    <td>{{ item.PlatformName }}</td>
+                    <td>{{ item.AppUrl }}</td>
+                    <td class="action-link mat-column-Action">
+                      <a class="btn_delete" href="javascript:void(0)" (click)="RemoveMobilePlatform(i)">
+                        <mat-icon aria-hidden="false" aria-label="Example home icon">delete
+                        </mat-icon>
+                      </a>
+                      <a class="btn_edit" href="javascript:void(0)" (click)="EditMobilePlatform(i,item)">
+                        <mat-icon aria-hidden="false" aria-label="Example home icon">edit</mat-icon>
+                      </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+          <!-- end region "mobile platform" -->
+
+        </div>
+
+
+        <!-- end -->
+        <div class="col l6 xl6 m6 s12">
+          <mat-radio-group class="example-full-width radio-bx-custom radio-bx-custom-with-label"
+            aria-label="Select an option" [(ngModel)]="model.IsServiceFees" formControlName="IsServiceFees"
+            (change)="IsServiceApplyRemoveValidation($event.value)">
+            <mat-label class="mr-5">Service Fee <span style="color: red">*</span></mat-label>
+            <mat-radio-button class="mr-5" value="{{ item.Value }}" *ngFor="let item of dDLList?.RadioServiceFee">
+              {{ item.Text }}</mat-radio-button>
+          </mat-radio-group>
+          <mat-error *ngIf="
+            fourFormGroup.get('IsServiceFees').hasError('required') &&
+            (fourFormGroup.get('IsServiceFees').touched &&
+              fourFormGroup.get('IsServiceFees').invalid)
+          "> ServiceFees is <strong>required!</strong> </mat-error>
+        </div>
+        <div class="col l6 xl6 m6 s12" *ngIf="model.IsServiceFees == '35'">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Service Fee Amount <span style="color: red">*</span></mat-label>
+            <input matInput placeholder="Service Fee Amount" name="ServiceFeeAmount" formControlName="ServiceFeeAmount"
+              [(ngModel)]="model.ServiceFeeAmount" />
+          </mat-form-field>
+
+          <mat-error
+            *ngIf="fourFormGroup.get('ServiceFeeAmount').hasError('required') && (fourFormGroup.get('ServiceFeeAmount').touched && fourFormGroup.get('ServiceFeeAmount').invalid)">
+            Service Fee Amount is <strong>required!</strong>
+          </mat-error>
+          <mat-error
+            *ngIf="!fourFormGroup.get('ServiceFeeAmount').hasError('required') && fourFormGroup.get('ServiceFeeAmount').touched && fourFormGroup.get('ServiceFeeAmount').invalid">
+            Only Accept numeric value
+          </mat-error>
+
+        </div>
+        <div class="col l6 xl6 m6 s12" *ngIf="model.IsServiceFees == '35'">
+          <mat-label>How to Pay Fees </mat-label>
+          <mat-selection-list formControlName="HowToPayFeeCode" [(ngModel)]="model.HowToPay" class="matlistscroll">
+            <mat-list-option disabled="disabled" (click)="selectAllHowToPay()">
+              <mat-checkbox [checked]="selectedAllHowToPay>0"> SelectAll </mat-checkbox>
+            </mat-list-option>
+            <mat-list-option [value]="item.Value" *ngFor="let item of dDLList?.ddlSchemePayFees">
+              {{item.Text}}
+            </mat-list-option>
+          </mat-selection-list>
+        </div>
+        <div class="col l6 xl6 m6 s12" *ngIf="model.IsServiceFees == '35'">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>How To Pay Fee Remarks </mat-label>
+            <input matInput placeholder="How To Pay Fee Remarks" name="HowtoPayFeeRemarks"
+              formControlName="HowtoPayFeeRemarks" [(ngModel)]="model.HowtoPayFeeRemarks" />
+          </mat-form-field>
+
+        </div>
+        <div class="col l6 xl6 m6 s12" *ngIf="model.IsServiceFees == '35'">
+          <div class="upload-btn-wrapper">
+            <mat-label>Service Fee Detail</mat-label>
+            <input type="file" id="ServiceFeePdf" formControlName="ServiceFeePdf"
+              (change)="handleFileForMoreDetail($event,true)" accept="application/pdf">
+            <a *ngIf="model.ServiceFeePdf" (click)="downloadOtherDocPdf(model.ServiceFeePdf)"
+              href="JavaScript:Void(0);">
+              Show More Details
+            </a>
+            <a title="Remove" (click)="RemoveServiceFee();">
+              <mat-icon *ngIf="model?.ServiceFeePdf?.length>0">delete</mat-icon>
+            </a>
+          </div>
+          <span style="color: red">only pdf file accepted</span>
+
+          <mat-error *ngIf="fileValidationMsgServicefee?.length>0" style="margin: 0px;position: relative;">
+            {{fileValidationMsgServicefee}}</mat-error>
+        </div>
+        <div class="col l6 xl6 m6 s12">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>HelpLine No. </mat-label>
+            <input matInput placeholder="HelpLine No." #HelplineNo formControlName="HelplineNo"
+              [(ngModel)]="model.HelplineNo" maxlength="30" />
+            <mat-hint>{{ HelplineNo.value.length }}/30</mat-hint>
+          </mat-form-field>
+        </div>
+
+
+
+        <!-- List Of Required Document -->
+        <div class="col l12 m12 s12">
+          <section class="mat-typography">
+            <h2 class="color-grey mb-0"> Required Documents </h2>
+          </section>
+        </div>
+        <mat-error>{{fileValidationMsg}}</mat-error>
+
+        <div class="row highlight_view">
+          <div class="col l4 xl4 m6 s12">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Name Of Document</mat-label>
+              <mat-select formControlName="NameOfDocumentCode" [(ngModel)]="RequiredDocumentModel.NameOfDocumentCode"
+                name="EligibilityDropDownCode">
+                <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlSchemeNameOfDocument">
+                  {{ k.Text }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-error *ngIf="
+            fourFormGroup.get('NameOfDocumentCode').hasError('required') &&
+            (fourFormGroup.get('NameOfDocumentCode').touched &&
+              fourFormGroup.get('NameOfDocumentCode').invalid)
+          "> Name Of Document is <strong>required!</strong> </mat-error>
+          </div>
+          <div class="col l4 xl4 m6 s12">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Remarks </mat-label>
+              <input matInput placeholder="Remarks" name="Remarks" formControlName="Remarkslist"
+                [(ngModel)]="RequiredDocumentModel.Remarks" />
+            </mat-form-field>
+            <mat-error *ngIf="
+            fourFormGroup.get('Remarkslist').hasError('required') &&
+            (fourFormGroup.get('Remarkslist').touched &&
+              fourFormGroup.get('Remarkslist').invalid)
+          "> Remarks is <strong>required!</strong> </mat-error>
+          </div>
+          <!-- <div class="col l4 m6 s12">
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Type Of Document </mat-label>
+          <mat-select
+            [(ngModel)]="RequiredDocumentModel.TypeOfDocumentCode"
+            formControlName="TypeOfDocumentCode"
+            name="TypeOfDocumentCode"
+          >
+            <mat-option
+              value="{{ k.Value }}"
+              *ngFor="let k of dDLList?.ddlSchemeListOfRequiredDoc"
+              >{{ k.Text }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-error
+          *ngIf="
+            fourFormGroup.get('TypeOfDocumentCode').hasError('required') &&
+            (fourFormGroup.get('TypeOfDocumentCode').touched &&
+              fourFormGroup.get('TypeOfDocumentCode').invalid)
+          "
+        >
+          Type Of Document is <strong>required!</strong>
+        </mat-error>
+      </div> -->
+          <div class="col l4 m6 s12 btn_add_box">
+            <mat-radio-group class="example-full-width radio-bx-custom radio-bx-custom-with-label"
+              aria-label="Select an option" formControlName="IsMandatory"
+              [(ngModel)]="RequiredDocumentModel.IsMandatory">
+              <mat-label class="mr-5"></mat-label>
+              <mat-radio-button class="mr-5" value="{{ item.Value }}"
+                *ngFor="let item of dDLList?.RadioListOfRequiredDoc ;let i = index" [checked]="i === 0">
+                {{ item.Text }}</mat-radio-button>
+            </mat-radio-group>
+            <mat-error *ngIf="
+            fourFormGroup.get('IsMandatory').hasError('required') &&
+            (fourFormGroup.get('IsMandatory').touched &&
+              fourFormGroup.get('IsMandatory').invalid)
+          "> This field is <strong>required!</strong> </mat-error>
+            <a class="btn_add" href="javascript:void(0)" (click)="AddMoreRequiredDocument()">
+              <mat-icon aria-hidden="false" aria-label="Example home icon">add</mat-icon>
+            </a>
+          </div>
+
+          <!-- End -->
+          <!-- <mat-error
+        *ngIf="model.RequiredDocument.length == 0 && iCustomValidation"
+      >
+        List Of Required Document grid is Mandatory
+      </mat-error> -->
+
+          <div class="col l12 m12 s12">
+            <table class="table new_table table_border table_custom mb-20" *ngIf="model.RequiredDocument.length > 0">
+              <thead>
+                <tr>
+                  <th scope="col">Sr.No</th>
+                  <th scope="col">Name Of Document</th>
+                  <th scope="col">Remarks</th>
+                  <!-- <th scope="col">Type Of Document</th> -->
+                  <th scope="col">Mandatory/Non-Mandatory</th>
+                  <th scope="col" style="width:120px;">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of model.RequiredDocument; let i = index" [attr.data-index]="i">
+                  <th scope="row">{{ i + 1 }}</th>
+                  <td>{{ RequiredDocItems[(item?.NameOfDocumentCode)] }}</td>
+                  <td>{{ item.Remarks }}</td>
+                  <!-- <td>{{ RequiredDoctypeItems[(item?.TypeOfDocumentCode)] }}</td> -->
+                  <td>{{ RequiredDocmandatoryItems[(item?.IsMandatory)] }}</td>
+                  <td class="action-link mat-column-Action">
+                    <a class="btn_delete" href="javascript:void(0)" (click)="RemoveRequiredDocument(i)">
+                      <mat-icon aria-hidden="false" aria-label="Example home icon">delete
+                      </mat-icon>
+                    </a>
+                    <a class="btn_edit" href="javascript:void(0)" (click)="editRequiredDocument(i,item)">
+                      <mat-icon aria-hidden="false" aria-label="Example home icon">edit</mat-icon>
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="col l4 xl4 m6 s12">
+          <section class="example-full-width  checkbox-bx-custom checkbox-bx-custom-with-label" appearance="outline">
+            <mat-label>Is How To Apply Text </mat-label>
+            <mat-checkbox [(ngModel)]="model.IsHowToApply" #IsHowToApply formControlName="IsHowToApply"> Is
+              How To Text</mat-checkbox>
+          </section>
+        </div>
+        <!-- <div class="col l12 xl12 m6 s12">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label> How to apply Text</mat-label>
+
+                        <textarea style="display:none;" matInput placeholder="Execution How to apply" #HowToApplyText
+                        formControlName="HowToApplyText" maxlength="100000"></textarea>
+
+                        <ckeditor [config]="{uiColor: '#26389b'}" [(ngModel)]="model.HowToApplyText"
+                        placeholder="Execution How to apply" formControlName="HowToApplyText" #HowToApplyText></ckeditor>
+
+                </mat-form-field>
+            </div> -->
+
+        <div class="col l12 xl12 m6 s12">
+          <mat-label class="d-block mb-10">How to apply Text
+          </mat-label>
+          <mat-form-field class="example-full-width" appearance="outline">
+
+            <input style="display:none; " matInput placeholder="Execution How to apply" name="HowToApplyText">
+            <angular-editor formControlName="HowToApplyText" name="HowToApplyText" id="HowToApplyText"
+              [(ngModel)]="model.HowToApplyText" [config]="editorConfig" style="margin-top: 30px;">
+            </angular-editor>
+          </mat-form-field>
+
+        </div>
+
+        <div class="col l12 s12">
+          <div class="key_search_bx">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>keyword For Search For How to apply </mat-label>
+              <textarea matInput placeholder="keyword For Search For How to apply" #SearchKeyWordOfHowToApply
+                formControlName="SearchKeyWordOfHowToApply" [(ngModel)]="model.SearchKeyWordOfHowToApply"
+                maxlength="10000"></textarea>
+              <mat-hint>{{ SearchKeyWordOfHowToApply.value.length }}/10000</mat-hint>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col l12 m12 s12 text-right">
+          <button class="grey_btn mr-5" mat-button matStepperPrevious>Back</button>
+          <button class="btn-submit mat-button" mat-button matStepperNext (click)="touchFour(stepper)"> Next
+          </button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="fifthformGroup">
+      <form [formGroup]="fifthformGroup">
+        <ng-template matStepLabel><a href="javascript:void(0);" (click)="touchFour(stepper)">What will
+            Beneficiary Get</a></ng-template>
+        <div class="col l12 m12 s12 mb-35 text-center">
+          <section class="mat-typography">
+            <h2 class="color-blue mb-0">What will Beneficiary Get</h2>
+          </section>
+        </div>
+
+
+        <div class="row w-100">
+          <div class="col l4 xl4 m6 s12">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Scheme/Service Delivarable <span style="color: red">*</span></mat-label>
+              <mat-select [(ngModel)]="model.DelivarebleCode" formControlName="DelivarebleCode">
+                <mat-option value="{{ k.Value }}" (click)="addDeliveryServiceValidation()"
+                  *ngFor="let k of dDLList?.ddlSchemeOutput">{{ k.Text }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-error *ngIf="
+            fifthformGroup.get('DelivarebleCode').hasError('required') &&
+            (fifthformGroup.get('DelivarebleCode').touched &&
+              fifthformGroup.get('DelivarebleCode').invalid)
+          "> Scheme/Service Delivarable is <strong>required!</strong> </mat-error>
+          </div>
+
+          <div class="col l4 xl4 m6 s12" *ngIf="model.DelivarebleCode==5">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label class="mr-5">Document/Certificate/LicenseDocument Details</mat-label>
+              <input matInput placeholder="Document/Certificate/LicenseDocument Details"
+                #DocumentCertificateLicenseDocument formControlName="DocumentCertificateLicenseDocument"
+                [(ngModel)]="model.DocumentCertificateLicenseDocument" />
+            </mat-form-field>
+          </div>
+
+          <div class="col l4 xl4 m6 s12" *ngIf="
+            model.DelivarebleCode == 2 ||
+            model.DelivarebleCode == 3 ||
+            model.DelivarebleCode == 4
+          ">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Delivery Payment Detail <span style="color: red">*</span> </mat-label>
+              <input matInput placeholder="Delivery Payment Detail" name="deliveryPaymentDetail"
+                [(ngModel)]="model.deliveryPaymentDetail" formControlName="deliveryPaymentDetail" />
+            </mat-form-field>
+            <mat-error *ngIf="
+              fifthformGroup
+                .get('deliveryPaymentDetail')
+                .hasError('required') &&
+              (fifthformGroup.get('deliveryPaymentDetail').touched &&
+                fifthformGroup.get('deliveryPaymentDetail').invalid)
+            "> Delivery Payment Detail is <strong>required!</strong> </mat-error>
+          </div>
+          <div class="col l4 xl4 m6 s12" *ngIf="
+            model.DelivarebleCode == 2 ||
+            model.DelivarebleCode == 3 ||
+            model.DelivarebleCode == 4
+          ">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Mode Of Disbursement <span style="color: red">*</span></mat-label>
+              <mat-select [(ngModel)]="model.ModeOfDisbursmentList" formControlName="ModeOfDisbursmentCode"
+                name="ModeOfDisbursmentCode" multiple>
+                <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlSchemeModeOfDisbursement">{{ k.Text }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-error *ngIf="
+              fifthformGroup
+                .get('ModeOfDisbursmentCode')
+                .hasError('required') &&
+              (fifthformGroup.get('ModeOfDisbursmentCode').touched &&
+                fifthformGroup.get('ModeOfDisbursmentCode').invalid)
+            "> Mode Of Disbursement is <strong>required!</strong> </mat-error>
+          </div>
+          <div class="col l4 xl4 m6 s12"
+            *ngIf="model.DelivarebleCode==2 || model.DelivarebleCode==3 || model.DelivarebleCode==4">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Mode Of Disbursement Description <span style="color: red">*</span> </mat-label>
+              <input matInput placeholder="Mode Of Disbursement Description" name="ModeOfDisbursment"
+                [(ngModel)]="model.ModeOfDisbursment" formControlName="ModeOfDisbursment" />
+            </mat-form-field>
+            <mat-error *ngIf="
+              fifthformGroup.get('ModeOfDisbursment').hasError('required') &&
+              (fifthformGroup.get('ModeOfDisbursment').touched &&
+                fifthformGroup.get('ModeOfDisbursment').invalid)
+            "> Mode Of Disbursement Description is <strong>required!</strong> </mat-error>
+          </div>
+          <div class="col l4 xl4 m6 s12" *ngIf="
+            model.DelivarebleCode == 2 ||
+            model.DelivarebleCode == 3 ||
+            model.DelivarebleCode == 4
+          ">
+            <mat-radio-group class="example-full-width radio-bx-custom radio-bx-custom-with-label"
+              aria-label="Select an option" [(ngModel)]="model.PaymentDisbursmentFrequency"
+              formControlName="PaymentDisbursmentFrequency">
+              <mat-label class="mr-5">Payment Disbursement Frequency <span style="color: red">*</span>
+              </mat-label>
+              <mat-radio-button class="mr-5" value="{{ item.Value }}"
+                *ngFor="let item of dDLList?.RadioPaymentDisbursementFrequency"
+                (change)="addPaymentDisbFrequencyValidation($event.value)">{{ item.Text }}
+              </mat-radio-button>
+            </mat-radio-group>
+            <mat-error *ngIf="
+              fifthformGroup
+                .get('PaymentDisbursmentFrequency')
+                .hasError('required') &&
+              (fifthformGroup.get('PaymentDisbursmentFrequency').touched &&
+                fifthformGroup.get('PaymentDisbursmentFrequency').invalid)
+            "> Payment Disbursement Frequency is <strong>required!</strong> </mat-error>
+          </div>
+          <div class="col l4 xl4 m6 s12" *ngIf="
+            model.PaymentDisbursmentFrequency == '41' &&
+            (model.DelivarebleCode == 2 ||
+              model.DelivarebleCode == 3 ||
+              model.DelivarebleCode == 4)
+          ">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Payment Disbursement Frequency Periods </mat-label>
+              <mat-select [(ngModel)]="model.PaymentDisbursmentFrequencyInstallments"
+                name="PaymentDisbursmentFrequencyInstallments"
+                formControlName="PaymentDisbursmentFrequencyInstallments">
+                <mat-option>--Select--</mat-option>
+                <mat-option value="{{ k.Value }}" *ngFor="
+                  let k of dDLList?.ddlSchemePaymentDisbursementFrequency
+                ">{{ k.Text }} </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col l4 xl4 m6 s12" *ngIf="
+            model.PaymentDisbursmentFrequency == '41' &&
+            (model.DelivarebleCode == 2 ||
+              model.DelivarebleCode == 3 ||
+              model.DelivarebleCode == 4)
+          ">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Time Of Validity(In Month) </mat-label>
+              <input matInput placeholder="Time Of Validity(In Month)" name="PaymentDisbursmentFrequencyTillAPeriod"
+                formControlName="PaymentDisbursmentFrequencyTillAPeriod"
+                [(ngModel)]="model.PaymentDisbursmentFrequencyTillAPeriod" />
+            </mat-form-field>
+            <mat-error
+              *ngIf="fifthformGroup.get('PaymentDisbursmentFrequencyTillAPeriod').hasError('required') && (fifthformGroup.get('PaymentDisbursmentFrequencyTillAPeriod').touched && fifthformGroup.get('PaymentDisbursmentFrequencyTillAPeriod').invalid)">
+              Number Of Months is <strong>required</strong>
+            </mat-error>
+            <mat-error
+              *ngIf="!fifthformGroup.get('PaymentDisbursmentFrequencyTillAPeriod').hasError('required') && fifthformGroup.get('PaymentDisbursmentFrequencyTillAPeriod').touched && fifthformGroup.get('PaymentDisbursmentFrequencyTillAPeriod').invalid">
+              Only Accept numeric value
+            </mat-error>
+            <!-- <mat-error *ngIf="!fifthformGroup.get('PaymentDisbursmentFrequencyTillAPeriod').hasError('required') && fifthformGroup.get('PaymentDisbursmentFrequencyTillAPeriod').touched && fifthformGroup.get('PaymentDisbursmentFrequencyTillAPeriod').invalid">
+                          Only Accept numeric value
+                         </mat-error> -->
+          </div>
+
+          <div class="col l4 xl4 m6 s12"
+            *ngIf="model.PaymentDisbursmentFrequency == '41' && ( model.DelivarebleCode == 2 || model.DelivarebleCode == 3 ||model.DelivarebleCode == 4)">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Number of Installments </mat-label>
+              <input matInput placeholder="Number of Installments" onKeyPress="if(this.value.length==3) return false;"
+                name="NumberOfInstallments" formControlName="NumberOfInstallments"
+                [(ngModel)]="model.NumberOfInstallments" type="number" />
+            </mat-form-field>
+            <mat-error
+              *ngIf="fifthformGroup.get('NumberOfInstallments').hasError('required') && (fifthformGroup.get('NumberOfInstallments').touched && fifthformGroup.get('NumberOfInstallments').invalid)">
+              Number of Installments is <strong>required</strong>
+            </mat-error>
+            <mat-error
+              *ngIf="!fifthformGroup.get('NumberOfInstallments').hasError('required') && fifthformGroup.get('NumberOfInstallments').touched && fifthformGroup.get('NumberOfInstallments').invalid">
+              Only Accept numeric value
+            </mat-error>
+          </div>
+
+          <div class="col l4 xl4 m6 s12" *ngIf="model.DelivarebleCode == 5">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Mode Of Delivery</mat-label>
+              <mat-select [(ngModel)]="model.ModeOfDelivery" formControlName="ModeOfDelivery" name="ModeOfDelivery"
+                multiple>
+                <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlSchemeModeOfDelivery">
+                  {{ k.Text }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col l4 xl4 m6 s12" *ngIf="model.DelivarebleCode == 6">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Item Details </mat-label>
+              <input matInput placeholder="ItemDetails" name="ItemDetails" formControlName="ItemDetails"
+                [(ngModel)]="model.ItemDetails" />
+            </mat-form-field>
+          </div>
+
+
+
+
+          <div class="col l4 xl4 m6 s12">
+            <div class="upload-btn-wrapper">
+              <mat-label>More Detail Upload pdf</mat-label>
+              <input type="file" id="BeneficiaryPdf" formControlName="BeneficiaryPdf"
+                (change)="handleFileForMoreDetail($event)" accept="application/pdf">
+              <a *ngIf="model.BeneficiaryPdf" (click)="downloadOtherDocPdf(model.BeneficiaryPdf)"
+                href="JavaScript:Void(0);">
+                Show More Details
+              </a>
+              <a title="Remove" (click)="RemoveBeneficiaryPdf();">
+                <mat-icon *ngIf="model?.BeneficiaryPdf?.length>0">delete</mat-icon>
+              </a>
+            </div>
+            <span style="color: red">only pdf file accepted</span>
+
+            <mat-error *ngIf="fileValidationMsgHowtoPay?.length>0" style="margin: 0px;position: relative;">
+              {{fileValidationMsgHowtoPay}}</mat-error>
+          </div>
+
+        </div>
+        {{fileSizeValidationMsg}}
+
+
+        <div class="row highlight_view" *ngIf="model.DelivarebleCode">
+          <div class="col l4 xl4 m6 s12">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Category</mat-label>
+              <input matInput placeholder="Category" name="Category" formControlName="Category"
+                [(ngModel)]="getBeneficiaryLookupModel.Category" />
+            </mat-form-field>
+            <mat-error
+              *ngIf="fifthformGroup.get('Category').hasError('required') &&(fifthformGroup.get('Category').touched &&fifthformGroup.get('Category').invalid)">
+              Category is <strong>required!</strong>
+            </mat-error>
+          </div>
+          <div class="col l4 xl4 m6 s12"
+            *ngIf="model.DelivarebleCode == 2 ||model.DelivarebleCode == 3 ||model.DelivarebleCode == 4">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Payment Frequency</mat-label>
+              <input matInput placeholder="Payment Frequency" name="PaymentFrequency" formControlName="PaymentFrequency"
+                [(ngModel)]="getBeneficiaryLookupModel.PaymentFrequency" />
+            </mat-form-field>
+          </div>
+
+          <div class="col l4 xl4 m6 s12" *ngIf="model.DelivarebleCode == 5">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Remark</mat-label>
+              <input matInput placeholder="Remark" name="Remark" formControlName="Remark"
+                [(ngModel)]="getBeneficiaryLookupModel.Remark" />
+            </mat-form-field>
+          </div>
+          <div class="col l4 xl4 m6 s12" *ngIf="model.DelivarebleCode == 6">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Physical Item</mat-label>
+              <input matInput placeholder="Physical Item" name="PhysicalItem" formControlName="PhysicalItem"
+                [(ngModel)]="getBeneficiaryLookupModel.PhysicalItem" />
+            </mat-form-field>
+          </div>
+          <a class="btn_delete" href="javascript:void(0)" (click)="AddGetBeneficiary()">
+            <mat-icon aria-hidden="false" aria-label="Example home icon">add</mat-icon>
+          </a>
+
+          <div class="col l12 m12 s12">
+            <table class="table new_table table_border table_custom" *ngIf="model.GetBeneficiaryLookup.length > 0">
+              <thead>
+                <tr>
+                  <th scope="col">Sr.No</th>
+                  <th scope="col">Category</th>
+                  <th scope="col" *ngIf="model.DelivarebleCode == 5">Remark</th>
+                  <th scope="col" *ngIf="model.DelivarebleCode == 6">Physical Item</th>
+                  <th scope="col"
+                    *ngIf="model.DelivarebleCode == 2 ||model.DelivarebleCode == 3 ||model.DelivarebleCode == 4">Payment
+                    Frequency</th>
+                  <th scope="col" style="width:120px;">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of model.GetBeneficiaryLookup ; let i = index" [attr.data-index]="i">
+                  <th scope="row">{{ i + 1 }}</th>
+                  <td>{{ item.Category}}</td>
+                  <td *ngIf="model.DelivarebleCode == 6">{{ item.PhysicalItem }}</td>
+                  <td *ngIf="model.DelivarebleCode == 2 ||model.DelivarebleCode == 3 ||model.DelivarebleCode == 4">
+                    {{ item.PaymentFrequency }}</td>
+                  <td *ngIf="model.DelivarebleCode == 5">{{ item.Remark }}</td>
+                  <td class="action-link mat-column-Action">
+                    <a class="btn_delete" href="javascript:void(0)" (click)="RemoveGetBeneficiary(i)">
+                      <mat-icon aria-hidden="false" aria-label="Example home icon">delete</mat-icon>
+                    </a>
+                    <a class="btn_edit" href="javascript:void(0)" (click)="EditGetBeneficiary(i,item)">
+                      <mat-icon aria-hidden="false" aria-label="Example home icon">edit</mat-icon>
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+
+        <div class="col l4 xl4 m6 s12">
+          <section class="example-full-width  checkbox-bx-custom checkbox-bx-custom-with-label" appearance="outline">
+            <mat-label>Is What will Beneficiary Get </mat-label>
+            <mat-checkbox [(ngModel)]="model.IsWhatWillBeneficiaryGet" #IsWhatWillBeneficiaryGet
+              formControlName="IsWhatWillBeneficiaryGet"> Is What will Beneficiary Get</mat-checkbox>
+          </section>
+        </div>
+        <!-- <div class="col l12 xl12 m6 s12">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>What will Beneficiary Get</mat-label>
+
+                            <textarea style="display:none;" matInput placeholder="What will Beneficiary Get" #WhatWillBeneficiaryGet
+                            formControlName="WhatWillBeneficiaryGet" maxlength="100000"></textarea>
+
+                            <ckeditor [config]="{uiColor: '#26389b'}" [(ngModel)]="model.WhatWillBeneficiaryGet"
+                            placeholder="What will Beneficiary Get" formControlName="WhatWillBeneficiaryGet" #WhatWillBeneficiaryGet></ckeditor>
+
+                    </mat-form-field>
+                </div> -->
+        <div class="col l12 x8 m4 s12">
+          <mat-label class="d-block mb-10">What will Beneficiary Get
+          </mat-label>
+          <mat-form-field class="example-full-width" appearance="outline">
+
+            <input style="display:none; " matInput placeholder="What will Beneficiary Get"
+              name="WhatWillBeneficiaryGet">
+            <angular-editor formControlName="WhatWillBeneficiaryGet" name="WhatWillBeneficiaryGet"
+              id="WhatWillBeneficiaryGet" [(ngModel)]="model.WhatWillBeneficiaryGet" [config]="editorConfig"
+              style="margin-top: 30px;"></angular-editor>
+          </mat-form-field>
+
+        </div>
+
+
+        <div class="col l12 s12">
+          <div class="key_search_bx">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>keyword For Search For What will Beneficiary Get</mat-label>
+              <textarea matInput placeholder="keyword For Search For What will Beneficiary Get"
+                #SearchKeyWordOfBeneficiaryGet formControlName="SearchKeyWordOfBeneficiaryGet"
+                [(ngModel)]="model.SearchKeyWordOfBeneficiaryGet" maxlength="10000"></textarea>
+              <mat-hint>{{ SearchKeyWordOfBeneficiaryGet.value.length }}/10000</mat-hint>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col l12 m12 s12 text-right">
+          <button class="grey_btn mr-5" mat-button matStepperPrevious>Back</button>
+          <button class="btn-submit mat-button" mat-button matStepperNext (click)="touchFifth()"> Next
+          </button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="SixthformGroup">
+      <form [formGroup]="SixthformGroup">
+        <ng-template matStepLabel><a href="javascript:void(0);" (click)="touchFifth()">Scheme/Service Related
+            Other Document</a></ng-template>
+        <div class="col l12 m12 s12 mb-35 text-center">
+          <section class="mat-typography">
+            <h2 class="color-blue mb-0">Scheme/Service Related Other Document</h2>
+          </section>
+        </div>
+
+        <!-- <div class="col l4 m6 s12">
+                  <div class="upload-btn-wrapper">
+                      <label>Scheme Image <span style="color: red">*</span></label>
+                      <input type="file" id="Scheme_URL" (change)="handleFileInputforscheme($event)"
+                          formControlName="Scheme_URL">
+                      <img *ngIf="model.Scheme_URL" [src]="model.Scheme_URL" height="100px" width="100px" /> </div>
+              </div> -->
+
+        <div class="row highlight_view">
+          <div class="col l4 m6 s12">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Type of Document</mat-label>
+              <mat-select [(ngModel)]="OtherDocumentModel.ListOfOtherDocumentCode" name="OtherDocumentModelCode"
+                formControlName="OtherDocumentModelCode" #OtherDocumentModelCode>
+                <mat-option>--Select--</mat-option>
+                <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlSchemeListOfOtherDoc">
+                  {{ k.Text }} </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col l4 m6 s12 btn_add_box">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Name of Document </mat-label>
+              <input matInput placeholder="Name of Document" name="Remarks" formControlName="Remarksother"
+                [(ngModel)]="OtherDocumentModel.Remarks" />
+            </mat-form-field>
+            <mat-error
+              *ngIf="SixthformGroup.get('Remarksother').hasError('required') && (SixthformGroup.get('Remarksother').touched && SixthformGroup.get('Remarksother').invalid)">
+              Name Of Document is <strong>required!</strong>
+            </mat-error>
+          </div>
+          <div class="col l4 m6 s12">
+            <!-- <mat-form-field class="example-full-width" appearance="outline">
+                      <mat-label> Create Date </mat-label>
+                      <input matInput [matDatepicker]="pickerdocdate" (focus)="pickerdocdate.open()" readonly
+                          placeholder="Create Date" name="DocDate" id="DocDate"
+                          [(ngModel)]="OtherDocumentModel.DocDate" [min]="minDate" formControlName="DocDate">
+                      <mat-datepicker-toggle matSuffix [for]="pickerdocdate"></mat-datepicker-toggle>
+                      <mat-datepicker #pickerdocdate></mat-datepicker>
+                  </mat-form-field> -->
+
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Date of Issue
+              </mat-label>
+              <input matInput [matDatepicker]="picker11" (focus)="picker11.open()" readonly placeholder="Date of Issue"
+                name="DocDate" id="DocDate" [(ngModel)]="OtherDocumentModel.DocDate" [max]="tomorrow"
+                formControlName="DocDate">
+              <mat-datepicker-toggle matSuffix [for]="picker11"></mat-datepicker-toggle>
+              <mat-datepicker #picker11></mat-datepicker>
+            </mat-form-field>
+          </div>
+
+          <div class="col l4 m6 s12 btn_add_box">
+            <div class="upload-btn-wrapper">
+              <label>Upload File</label>
+              <input type="file" id="file" (change)="handleFileInput($event)" formControlName="URL" />
+              <img *ngIf="OtherDocumentModel.URL && !OtherDocumentModel.IsPdf" [src]="OtherDocumentModel.URL"
+                height="100px" width="100px" />
+              <a *ngIf="OtherDocumentModel.URL && OtherDocumentModel.IsPdf"
+                (click)="downloadOtherDocPdf(OtherDocumentModel.URL)" href="JavaScript:Void(0);">
+                Show More Details
+              </a>
+            </div>
+            <span style="color: red">only *images and pdf file accepted</span>
+
+            <mat-error *ngIf="fileValidationMsgDocs?.length>0" style="margin: 0px;position: relative;">
+              {{fileValidationMsgDocs}}</mat-error>
+            <a class="btn_add" href="javascript:void(0)" (click)="AddMoreOtherDocument();">
+              <mat-icon aria-hidden="false" aria-label="Example home icon">add</mat-icon>
+            </a>
+
+          </div>
+
+
+
+
+          <!-- End -->
+          <div class="col l12 m12 s12">
+            <table class="table new_table table_border table_custom mb-20" *ngIf="model.OtherDocument.length > 0">
+              <thead>
+                <tr>
+                  <th scope="col">Sr.No</th>
+                  <th scope="col">Type of Document</th>
+                  <th scope="col">Name of Document</th>
+
+                  <!-- <th scope="col">File Code</th> -->
+
+                  <th scope="col">Date of Issue</th>
+                  <th scope="col">Upload File</th>
+                  <th scope="col" style="min-width:120px;">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of model.OtherDocument; let i = index" [attr.data-index]="i">
+                  <th scope="row">{{i+1}}</th>
+                  <td>{{ OtherDocItems[(item?.ListOfOtherDocumentCode)] }}</td>
+                  <td>{{ item.Remarks }}</td>
+
+
+                  <!-- <td><span *ngIf="!item.ImageCode">--</span><span
+                                          *ngIf="item.ImageCode">{{ item.ImageCode }}</span></td> -->
+
+                  <td>{{ item.DocDate | date: 'dd-MM-yyyy'}}</td>
+                  <td>
+                    <img *ngIf="item.URL && !item.IsPdf" [src]="item.URL" height="100px" width="100px" />
+                    <a *ngIf="item.URL && item.IsPdf" (click)="downloadOtherDocPdf(item.URL)"
+                      href="JavaScript:Void(0);">
+                      Show More Details
+                    </a>
+                    <span *ngIf="!item.URL">--</span>
+                  </td>
+                  <td class="action-link mat-column-Action">
+                    <a class="btn_delete" href="javascript:void(0)" (click)="RemoveOtherDocument(i)">
+                      <mat-icon aria-hidden="false" aria-label="Example home icon">delete
+                      </mat-icon>
+                    </a>
+                    <a class="btn_edit" href="javascript:void(0)" (click)="editOtherDocument(i,item)">
+                      <mat-icon aria-hidden="false" aria-label="Example home icon">edit</mat-icon>
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="col l12 m12 s12 mb-20">
+            <section class="mat-typography">
+              <h2 class="color-blue mb-0">Linked with (Budget/CM Announcement/CM Directions/Jan Ghoshna Patra)</h2>
+            </section>
+          </div>
+          <div class="row highlight_view btn_add_box">
+
+            <div class="col l4 x8 m4 s12">
+              <mat-form-field appearance="outline">
+                <mat-label>Module</mat-label>
+                <mat-select formControlName="ModuleIdConnectWithCMIS" #ModuleIdConnectWithCMIS [(ngModel)]="connectWithCMISModel.ModuleId">
+                  <mat-option>--Select--</mat-option>
+                  <mat-option value="{{item.Value}}" *ngFor="let item of dDLList?.ddlOrderModuleName">{{item.Text}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+            </div>
+            <div class="col l4 x8 m4 s12">
+              <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Year </mat-label>
+
+                <mat-select formControlName="YearValueConnectWithCMIS" #YearValueConnectWithCMIS [(ngModel)]="connectWithCMISModel.YearValue">
+                  <mat-option>--Select--</mat-option>
+                  <!-- <mat-option value="{{item.rowno}}" *ngFor="let item of dDLBudgetList?.ddlOrderRelatedToYear">
+                    {{item.particulars}} </mat-option> -->
+                    <mat-option value="{{item.Value}}" *ngFor="let item of dDLList?.ddlCMISBudgetYear">
+                      {{item.Text}} </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+            </div>
+            <div class="col l4 x8 m4 s12  pos_relative">
+              <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Department</mat-label>
+                <mat-select formControlName="DepartmentIdConnectWithCMIS" #DepartmentIdConnectWithCMIS
+                  [(ngModel)]="connectWithCMISModel.DepartmentId">
+                  <mat-option>--Select--</mat-option>
+                  <!-- <mat-option value="{{item.prj_dept}}" *ngFor="let item of dDLBudgetList?.ddlOrderRelatedToDepartment">
+                    {{item.particulars}} </mat-option> -->
+                    <mat-option value="{{item.Value}}" *ngFor="let item of dDLList?.ddlDepartmentForCMISReport">
+                      {{item.Text}} </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <div class="d-inline" *ngIf="model?.ConnectWithCMIS?.length <5"><a class="btn_add"
+                  href="javascript:void(0)" (click)="AddMoreItems()">
+                  <mat-icon aria-hidden="false" aria-label="Example home icon">add</mat-icon>
+                </a></div>
+
+            </div>
+
+            <div class="col l12 m12 s12">
+              <table class="table new_table table_border mb-20" *ngIf="model?.ConnectWithCMIS?.length>0">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col" colspan="3">Details</th>
+                    <th scope="col" width="100">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of model?.ConnectWithCMIS; let i = index" [attr.data-index]="i">
+                    <th scope="row">{{i+1}}</th>
+                    <td colspan="3">
+                      <div class="footer-info-bx">
+
+                        <div class="d-inline"> <strong>Module: </strong><span
+                            *ngIf="item?.ModuleId">{{moduleNameItems[item?.ModuleId]}}</span><span
+                            *ngIf="!item?.ModuleId">--</span> </div>
+                        <div class="d-inline"> <strong>Year: </strong><span
+                            *ngIf="item?.YearValue">{{yearItems[item?.YearValue]}}</span><span
+                            *ngIf="!item?.YearValue">--</span> </div>
+                        <div class="d-inline"> <strong>Department: </strong><span
+                            *ngIf="item?.DepartmentId">{{departmentItems[item?.DepartmentId]}}</span><span
+                            *ngIf="!item?.DepartmentId">--</span> </div>
+
+                      </div>
+                      <div class="footer-info-bx" *ngIf="item.ConnectWithCMISResult">
+
+                        <div class="d-inline" *ngIf="item.ConnectWithCMISResult.prj_description"><strong>Description:</strong>
+                          {{item.ConnectWithCMISResult.prj_description}}</div>
+
+                      </div>
+                    </td>
+                    <td class="action_icon"><a class="del-icon" href="javascript:void(0)" (click)="RemoveConnectWithCMISClick(i)">
+                        <mat-icon aria-hidden="false" aria-label="Example home icon">delete</mat-icon>
+                      </a>
+                      <a class="get-icon" href="javascript:void(0)"
+                        (click)="GetConnectWithCMISResult(item.ModuleName,item.DepartmentId,item.DepartmentName,item.YearText,i)">Budget Details</a>
+                    </td>
+
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+
+
+        <div class="col l12 s12">
+          <div class="key_search_bx">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>keyword For Search For Scheme/Service Related Other Document</mat-label>
+              <textarea matInput placeholder="keyword For Search For Scheme/Service Related Other Document"
+                #SearchKeyWordOfOtherDocument formControlName="SearchKeyWordOfOtherDocument"
+                [(ngModel)]="model.SearchKeyWordOfOtherDocument" maxlength="10000"></textarea>
+              <mat-hint>{{ SearchKeyWordOfOtherDocument.value.length }}/10000</mat-hint>
+            </mat-form-field>
+          </div>
+        </div>
+        <!-- <div class="col l12 x8 m4 s12 clearfix" *ngIf="model.PageType == schemeTypeEnum.Individual">
+                  <button type="submit" mat-button class="btn-submit mat-button" *ngIf="model.PageType == schemeTypeEnum.Individual" (click)="SaveClick()"> Update
+                  </button>
+              </div>
+              <div class="col l12 m12 s12 text-right" *ngIf="model.PageType == schemeTypeEnum.Group">
+                <button class="btn-submit mat-button" mat-button matStepperNext *ngIf="model.PageType == schemeTypeEnum.Group"> Next
+                </button>
+            </div> -->
+        <div class="col l12 m12 s12 text-right">
+          <button class="grey_btn mr-5" mat-button matStepperPrevious>Back</button>
+          <button type="submit" mat-button class="btn-submit mat-button"
+            *ngIf="model.PageType == schemeTypeEnum.Individual" (click)="SaveClick()"> Update
+          </button>
+          <button class="btn-submit mat-button" mat-button matStepperNext
+            *ngIf="model.PageType == schemeTypeEnum.Group"> Next
+          </button>
+
+          <!-- <button class="orange_btn" mat-button (click)="stepper.reset()">
+          Reset
+        </button> -->
+        </div>
+      </form>
+    </mat-step>
+
+    <mat-step [stepControl]="sevenFormGroup" *ngIf="model.PageType == schemeTypeEnum.Group">
+      <form [formGroup]="sevenFormGroup">
+        <ng-template matStepLabel><a href="javascript:void(0);" (click)="touchFirst(stepper)">Scheme/Service Group </a>
+        </ng-template>
+        <div class="col l12 m12 s12 mb-35 text-center">
+          <section class="mat-typography">
+            <h2 class="color-blue mb-0">Scheme/Service Group</h2>
+          </section>
+        </div>
+
+        <div class="row highlight_view">
+          <div class="col l6 m6 s12 ">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Heading 1. <span style="color: red">*</span></mat-label>
+              <input matInput placeholder="Heading 1" name="Heading1" formControlName="Heading1" #Heading1
+                [(ngModel)]="contentGroupModel.Heading1" />
+            </mat-form-field>
+            <mat-error *ngIf="sevenFormGroup.get('Heading1').hasError('required') && (sevenFormGroup.get('Heading1').touched &&sevenFormGroup.get('Heading1').invalid)
+  "> Heading 1 <strong>required!</strong> </mat-error>
+          </div>
+
+          <div class="col l6 m6 s12 ">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Heading 2. <span style="color: red">*</span></mat-label>
+              <input matInput placeholder="Heading 2" name="Heading2" formControlName="Heading2" #Heading2
+                [(ngModel)]="contentGroupModel.Heading2" />
+            </mat-form-field>
+            <mat-error *ngIf="sevenFormGroup.get('Heading2').hasError('required') && (sevenFormGroup.get('Heading2').touched &&sevenFormGroup.get('Heading2').invalid)
+  "> Heading 2 <strong>required!</strong> </mat-error>
+          </div>
+
+          <!-- <div class="col s12 btn_add_box">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <label style="padding: 10px 0px; display: inline-block; color: #000;">Description
+                <span style="color: red">*</span></label>
+              <textarea style="display:none;" matInput placeholder="Description" #grpDescription
+                formControlName="grpDescription" maxlength="100000"></textarea>
+
+              <ckeditor [config]="{uiColor: '#26389b'}" [(ngModel)]="contentGroupModel.Description"
+                placeholder="Description" formControlName="grpDescription" #grpDescription></ckeditor>
+
+            </mat-form-field>
+            <a class="btn_add" href="javascript:void(0)" (click)="AddMoreGroupItems();">
+              <mat-icon aria-hidden="false" aria-label="Example home icon">add</mat-icon>
+            </a>
+            <mat-error
+              *ngIf="sevenFormGroup.get('grpDescription').hasError('required') && (sevenFormGroup.get('grpDescription').touched && sevenFormGroup.get('grpDescription').invalid)">
+              Description is <strong>required!</strong>
+            </mat-error>
+          </div> -->
+          <div class="col l12 x8 m4 s12">
+            <mat-label class="d-block mb-10">Description<span style="color: red">*</span>
+            </mat-label>
+            <mat-form-field class="example-full-width" appearance="outline">
+
+              <input style="display:none; "  matInput placeholder="grpDescription" name="grpDescription">
+              <angular-editor formControlName="grpDescription" name="grpDescription" id="grpDescription"
+                [(ngModel)]="contentGroupModel.grpDescription" [config]="editorConfig" style="margin-top: 30px;"></angular-editor>
+            </mat-form-field>
+            <mat-error
+              *ngIf="sevenFormGroup.get('grpDescription').hasError('required') && (sevenFormGroup.get('grpDescription').touched && sevenFormGroup.get('grpDescription').invalid)">
+              Description is <strong>required!</strong>
+            </mat-error>
+          </div>
+
+
+          <div class="col l12 m12 s12">
+            <table class="table new_table table_border table_custom mb-20"
+              *ngIf="model.ContentGroup != undefined && model.ContentGroup.length > 0">
+              <thead>
+                <tr>
+                  <th scope="col">Sr.No</th>
+                  <th scope="col">Heading 1</th>
+                  <th scope="col">Heading 2</th>
+
+                  <th scope="col" style="min-width:120px;">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of model.ContentGroup; let i = index" [attr.data-index]="i">
+                  <th scope="row">{{i+1}}</th>
+                  <td>{{ item?.Heading1 }}</td>
+                  <td>{{ item?.Heading2 }}</td>
+                  <td class="action-link mat-column-Action">
+                    <a class="btn_delete" href="javascript:void(0)" (click)="RemoveContentGroupItem(i)">
+                      <mat-icon aria-hidden="false" aria-label="Example home icon">delete
+                      </mat-icon>
+                    </a>
+                    <a class="btn_edit" href="javascript:void(0)" (click)="editContentGroupItem(i,item)">
+                      <mat-icon aria-hidden="false" aria-label="Example home icon">edit</mat-icon>
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- <div class="col l12 x8 m4 s12 clearfix">
+
+            </div> -->
+        <div class="col l12 m12 s12 text-right">
+          <button class="grey_btn mr-5" mat-button matStepperPrevious>Back</button>
+          <button type="submit" mat-button class="btn-submit mat-button" (click)="SaveClick()"> Update
+          </button>
+
+        </div>
+      </form>
+    </mat-step>
+  </mat-horizontal-stepper>
+</div>
+
+<script>
+  CKEDIOR.replace('Description', {
+    filebrowserBrowseUrl = 'filebrowserUploadUrl'
+  })
+  config.extraPlugins = 'http://example.com/ckeditor/plugins/filebrowser';
+</script>

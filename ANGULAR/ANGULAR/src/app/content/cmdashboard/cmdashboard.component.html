@@ -1,0 +1,338 @@
+<div class="row light-bg dashboard-btn" >
+  <div class="col l12 xl12 m12 s12 mb-30">
+    <h5 class="page-title">Dashboard </h5>
+  </div>
+  <div class="col l6 xl6 m6 s12 mat-form-field-wrapper">
+    <section class="example-full-width mb-20  checkbox-bx-custom checkbox-bx-custom-with-label"
+      appearance="outline">
+      <mat-checkbox [(ngModel)]="modIsShowReport" (ngModelChange)="getData($event)" >Is Show Report
+      </mat-checkbox>
+    </section>
+  </div>
+  <div class="col l12 xl12 m12 s12" style="margin-bottom: 40px !important;" *ngIf="modIsShowReport">
+    <h4 class="dash-new-title"><mat-icon> insert_chart_outlined</mat-icon>
+       CMIS Compliance(Task Completed) Department And Module Wise Summary Report List</h4>
+    <div class="row">
+      <div class="col l12 s12" id="cmisprint">
+
+
+        <div class="table-responsive table-header-fixed" id="taskCompletedAreaId">
+        <table mat-table [dataSource]="dataTaskCompletedSource" *ngIf="listTaskCompletedModel?.length>0" class="mat-elevation-z8" style="vertical-align:top !important">
+          <ng-container matColumnDef="index">
+            <th mat-header-cell *matHeaderCellDef>#</th>
+            <td mat-cell *matCellDef="let element; let i = index">
+              {{(i + 1) }}
+            </td>
+            <td mat-footer-cell *matFooterCellDef> Total </td>
+          </ng-container>
+            <ng-container [matColumnDef]="column.Value" *ngFor="let column of ViewdisplayedTaskCompletedColumns" >
+
+                <th mat-header-cell *matHeaderCellDef > {{column.Text}} </th>
+                <td mat-cell *matCellDef="let element" > {{element[column.Value]}} </td>
+                <td mat-footer-cell *matFooterCellDef> </td>
+              </ng-container>
+              <ng-container matColumnDef="NoOfEntyInCMIS" >
+                <th mat-header-cell *matHeaderCellDef> Number Of Entries CMIS </th>
+                <td mat-cell *matCellDef="let transaction"><a class="cmis-ent-num" (dblclick)="doubleTaskCompletedClick(transaction,transaction.ModuleID,transaction.Nodal_Department)"> {{transaction.NoOfEntyInCMIS}} </a> </td>
+                <td mat-footer-cell *matFooterCellDef>{{totalTaskCompletedNoOfEntyInCMISCount}} </td>
+              </ng-container>
+          <ng-container matColumnDef="NumberOfCompliance">
+            <th mat-header-cell *matHeaderCellDef> Number Of Compliance </th>
+            <td mat-cell *matCellDef="let transaction"><a class="cmis-ent-num" (dblclick)="numberOfComplianceClick(transaction,transaction.ModuleID,transaction.Nodal_Department,transaction.modulename,transaction.DepartmentName,true)"> {{transaction.NumberOfCompliance}} </a> </td>
+            <td mat-footer-cell *matFooterCellDef>{{totalTaskCompletedNumberOfComplianceCount}} </td>
+          </ng-container>
+          <ng-container matColumnDef="NumberOfEntriesInJankalyan">
+            <th mat-header-cell *matHeaderCellDef> Number Of Entries In Jankalyan </th>
+            <td mat-cell *matCellDef="let transaction"><a class="cmis-ent-num" (dblclick)="numberOfEntriesInJankalyanClick(transaction,transaction.ModuleID,transaction.Nodal_Department,transaction.modulename,transaction.DepartmentName,transaction.NumberOfEntry,true)">{{transaction.NumberOfEntriesInJankalyan}} </a>  </td>
+            <td mat-footer-cell *matFooterCellDef>{{totalTaskCompletedNumberOfEntriesInJankalyanCount}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="NumberofEntries">
+            <th mat-header-cell *matHeaderCellDef> Expected Number Of Entries</th>
+            <td mat-cell *matCellDef="let transaction"> {{transaction.NumberOfEntry}}  </td>
+            <td mat-footer-cell *matFooterCellDef> {{totalTaskCompletedNumberofEntries}}</td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="columnsToTaskCompletedDisplay"></tr>
+          <tr mat-row *matRowDef="let row; columns: columnsToTaskCompletedDisplay; let entry" [ngClass]="{'bg-click-highlited': (entry?.ModuleID == dataItem?.ModuleID && entry?.Nodal_Department == dataItem?.Nodal_Department)}"></tr>
+          <tr mat-footer-row *matFooterRowDef="displayedTaskCompletedColumns"></tr>
+        </table>
+        </div>
+
+        <div *ngIf="listTaskCompletedModel?.length==0"> Record Not Found</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="col l12 xl12 m12 s12" *ngIf="modIsShowReport" >
+    <h4 class="dash-new-title"><mat-icon> insert_chart_outlined</mat-icon>
+       CMIS Compliance Department And Module Wise Summary Report List</h4>
+    <div class="row" >
+      <div class="col l12 s12" id="cmisprint">
+
+
+        <div class="table-responsive table-header-fixed" id="allModuleAreaId">
+        <table mat-table [dataSource]="dataSource" *ngIf="listModel?.length>0" class="mat-elevation-z8" style="vertical-align:top !important">
+          <ng-container matColumnDef="index">
+            <th mat-header-cell *matHeaderCellDef>#</th>
+            <td mat-cell *matCellDef="let element; let i = index">
+              {{ (indexModel.Page - 1) * indexModel.PageSize + (i + 1) }}
+            </td>
+            <td mat-footer-cell *matFooterCellDef> Total </td>
+          </ng-container>
+            <ng-container [matColumnDef]="column.Value" *ngFor="let column of ViewdisplayedColumns" >
+
+                <th mat-header-cell *matHeaderCellDef > {{column.Text}} </th>
+                <td mat-cell *matCellDef="let element"> {{element[column.Value]}} </td>
+                <td mat-footer-cell *matFooterCellDef> </td>
+              </ng-container>
+              <ng-container matColumnDef="NoOfEntyInCMIS">
+                <th mat-header-cell *matHeaderCellDef> Number Of Entries CMIS </th>
+                <td mat-cell *matCellDef="let transaction"><a class="cmis-ent-num" (dblclick)="doubleClick(transaction,transaction.ModuleID,transaction.Nodal_Department)"> {{transaction.NoOfEntyInCMIS}} </a> </td>
+                <td mat-footer-cell *matFooterCellDef>{{totalNoOfEntyInCMISCount}} </td>
+              </ng-container>
+          <ng-container matColumnDef="NumberOfCompliance">
+            <th mat-header-cell *matHeaderCellDef> Number Of Compliance </th>
+            <td mat-cell *matCellDef="let transaction"><a class="cmis-ent-num" (dblclick)="numberOfComplianceClick(transaction,transaction.ModuleID,transaction.Nodal_Department,transaction.modulename,transaction.DepartmentName)"> {{transaction.NumberOfCompliance}} </a></td>
+            <td mat-footer-cell *matFooterCellDef>{{totalNumberOfComplianceCount}} </td>
+          </ng-container>
+          <ng-container matColumnDef="NumberOfEntriesInJankalyan">
+            <th mat-header-cell *matHeaderCellDef> Number Of Entries In Jankalyan </th>
+            <td mat-cell *matCellDef="let transaction"><a class="cmis-ent-num" (dblclick)="numberOfEntriesInJankalyanClick(transaction,transaction.ModuleID,transaction.Nodal_Department,transaction.modulename,transaction.DepartmentName,transaction.NumberOfEntry)"> {{transaction.NumberOfEntriesInJankalyan}} </a> </td>
+            <td mat-footer-cell *matFooterCellDef>{{totalNumberOfEntriesInJankalyanCount}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="NumberofEntries">
+            <th mat-header-cell *matHeaderCellDef> Expected Number Of Entries</th>
+            <td mat-cell *matCellDef="let transaction"> {{transaction.NumberOfEntry}}  </td>
+            <td mat-footer-cell *matFooterCellDef> {{totalNumberofEntries}}</td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+          <tr mat-row *matRowDef="let row; columns: columnsToDisplay;let entryT" [ngClass]="{'bg-click-highlited': (entryT?.ModuleID == dataItem?.ModuleID && entryT?.Nodal_Department == dataItem?.Nodal_Department)}"></tr>
+          <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+        </table>
+        </div>
+
+        <div *ngIf="listModel?.length==0"> Record Not Found</div>
+      </div>
+    </div>
+
+  </div>
+
+<!-- Region Start <Project Count> -->
+
+  <div class="col l12 xl12 m12 s12" style="margin-bottom: 40px !important;" *ngIf="modIsShowReport">
+    <h4 class="dash-new-title"><mat-icon> insert_chart_outlined</mat-icon>
+       Project Summary Report</h4>
+    <div class="row">
+      <div class="col l12 s12" id="projectprint">
+
+
+        <div class="table-responsive table-header-fixed">
+        <table mat-table [dataSource]="datataskProjectSource" *ngIf="ProjectlistModel?.length>0" class="mat-elevation-z8" style="vertical-align:top !important">
+          <ng-container matColumnDef="index">
+            <th mat-header-cell *matHeaderCellDef>#</th>
+            <td mat-cell *matCellDef="let element; let i = index">
+              {{(i + 1) }}
+            </td>
+            <td mat-footer-cell *matFooterCellDef> Total </td>
+          </ng-container>
+            <ng-container [matColumnDef]="column.Value" *ngFor="let column of ViewdisplayedProjectColumns" >
+
+                <th mat-header-cell *matHeaderCellDef > {{column.Text}} </th>
+                <td mat-cell *matCellDef="let element"> {{element[column.Value]}} </td>
+                <td mat-footer-cell *matFooterCellDef> </td>
+              </ng-container>
+
+              <ng-container matColumnDef="ProjectCount">
+                <th mat-header-cell *matHeaderCellDef> Count</th>
+                <td mat-cell *matCellDef="let transaction"> {{transaction.ProjectCount}}  </td>
+                <td mat-footer-cell *matFooterCellDef> {{totalstatusCount}}</td>
+              </ng-container>
+              <!-- <tr mat-footer-row *matFooterRowDef>{{totalstatusCount}}</tr> -->
+
+
+          <tr mat-header-row *matHeaderRowDef="columnsToProjectDisplay"></tr>
+          <tr mat-row *matRowDef="let row; columns: columnsToProjectDisplay"></tr>
+          <tr mat-footer-row *matFooterRowDef="displayedProjectColumns"></tr>
+        </table>
+        </div>
+
+        <div *ngIf="ProjectlistModel?.length==0"> Record Not Found</div>
+      </div>
+    </div>
+
+  </div>
+
+<!-- Project Region end -->
+
+
+  <div class="col l6 xl6 m6 s12" *ngIf="false">
+
+
+    <a href="https://jankalyan.rajasthan.gov.in/#/scheme" target="_blank" (click)="schemeClick()" class="enter-bx">
+      <img class="enter-bx__box-img" src="assets/images/Scheme_Icon_Big.png">
+
+      <h5 class="bx-title" style="color: #fff;"> View All Department wise Scheme</h5>
+
+      <img class="next_arrow" src="assets/images/right.png"/>
+    </a>
+  </div>
+
+  <div class="col l6 xl6 m6 s12" *ngIf="false">
+
+
+    <a href="https://jankalyan.rajasthan.gov.in/#/order" target="_blank" (click)="schemeClick()" class="enter-bx" style="background: #465a69;">
+ <img class="enter-bx__box-img" src="assets/images/Document_Icon_Big.png">
+      <h5 class="bx-title" style="color: #fff;"> View All Government Documents</h5>
+      <img class="next_arrow" src="assets/images/right.png"/>
+
+    </a>
+  </div>
+
+  <div class="col l9 xl9 m9 s9 text-right" [ngClass]="this.IsCMOLatterVisible?'':'hide'">
+    <a mat-button class="btn-submit mt-6" (click)="
+        cmoletter.chart('table');
+        cmistask.chart('table');
+        recruitmentstatus.chart('table');
+        projectmonitoring.chart('table');
+        schemedashboard.chart('table');
+        govtorderdashboard.chart('table')
+      ">
+      <mat-icon>view_module </mat-icon>
+    </a>
+
+    <a mat-button class="btn-submit mt-6" (click)="
+        cmoletter.chart('bar');
+        cmistask.chart('bar');
+        recruitmentstatus.chart('bar');
+        projectmonitoring.chart('bar');
+        schemedashboard.chart('bar');
+          govtorderdashboard.chart('bar')
+      ">
+      <mat-icon>bar_chart</mat-icon>
+    </a>
+
+    <a mat-button class="btn-submit mt-6" (click)="
+        cmoletter.chart('pie');
+        cmistask.chart('pie');
+        recruitmentstatus.chart('pie');
+        projectmonitoring.chart('pie');
+        schemedashboard.chart('pie');
+          govtorderdashboard.chart('pie')
+      ">
+      <mat-icon>pie_chart</mat-icon>
+    </a>
+
+    <a mat-button class="btn-submit mt-6" (click)="
+        cmoletter.chart('line');
+        cmistask.chart('line');
+        recruitmentstatus.chart('line');
+        projectmonitoring.chart('line');
+        schemedashboard.chart('line');
+          govtorderdashboard.chart('line')
+      ">
+      <mat-icon>trending_up</mat-icon>
+    </a>
+
+    <!-- <a class="btn-submit mt-6" >
+          <i class="fa fa-filter"></i>
+        </a> -->
+
+    <a mat-button class="btn-submit mt-6" (click)="print()">
+      <mat-icon>print</mat-icon>
+    </a>
+  </div>
+</div>
+
+<div class="row dashboard-counter" [ngClass]="this.IsCMOLatterVisible?'':'hide'">
+  <div class="col l3 x8 m4 s12">
+    <mat-card class="example-card box-red color-white">
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image">
+          <mat-icon>person_add</mat-icon>
+        </div>
+        <mat-card-title>44+</mat-card-title>
+        <mat-card-subtitle>User Registrations</mat-card-subtitle>
+      </mat-card-header>
+    </mat-card>
+  </div>
+
+  <div class="col l3 x8 m6 s12">
+    <mat-card class="example-card box-blue color-white">
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image">
+          <mat-icon>dashboard</mat-icon>
+        </div>
+        <mat-card-title>150+</mat-card-title>
+        <mat-card-subtitle>Advertisement</mat-card-subtitle>
+      </mat-card-header>
+    </mat-card>
+  </div>
+
+  <div class="col l3 x8 m6 s12">
+    <mat-card class="example-card box-green color-white">
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image">
+          <mat-icon>person_add</mat-icon>
+        </div>
+        <mat-card-title>10</mat-card-title>
+        <mat-card-subtitle> Mode Of Delivery </mat-card-subtitle>
+      </mat-card-header>
+    </mat-card>
+  </div>
+
+  <div class="col l3 x8 m6 s12">
+    <mat-card class="example-card box-yellow color-white">
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image">
+          <mat-icon>person_add</mat-icon>
+        </div>
+        <mat-card-title>102+</mat-card-title>
+        <mat-card-subtitle>Scheme </mat-card-subtitle>
+      </mat-card-header>
+    </mat-card>
+  </div>
+
+</div>
+
+<div class="row dashboard-data">
+
+  <div class="col l6 xl6 m6 s12" [ngClass]="this.IsCMOLatterVisible?'':'hide'">
+    <div class="dashboard-data-box">
+      <app-cmoletter #cmoletter></app-cmoletter>
+    </div>
+  </div>
+
+  <div class="col l6 xl6 m6 s12" [ngClass]="this.IsCMISTaskVisible?'':'hide'">
+    <div class=" dashboard-data-box">
+      <app-cmistask #cmistask> </app-cmistask>
+    </div>
+  </div>
+
+  <div class="col l6 xl6 m6 s12" [ngClass]="this.IsRecruitmentVisible?'':'hide'">
+    <div class="dashboard-data-box" >
+      <app-recruitmentstatus #recruitmentstatus> </app-recruitmentstatus>
+    </div>
+  </div>
+
+  <div class="col l6 xl6 m6 s12" [ngClass]="this.IsProjectMoniteringVisible?'':'hide'">
+    <div class="dashboard-data-box">
+      <app-project-monitoring #projectmonitoring> </app-project-monitoring>
+    </div>
+  </div>
+
+  <div class="col l6 xl6 m6 s12" [ngClass]="this.IsSchemeVisible?'':'hide'">
+    <div class="dashboard-data-box">
+      <app-schemedashboard #schemedashboard> </app-schemedashboard>
+    </div>
+  </div>
+
+  <div class="col l6 xl6 m6 s12" [ngClass]="this.IsGovtorderVisible?'':'hide'">
+    <div class="dashboard-data-box">
+      <app-govt-order-dashboard #govtorderdashboard> </app-govt-order-dashboard>
+    </div>
+  </div>
+</div>

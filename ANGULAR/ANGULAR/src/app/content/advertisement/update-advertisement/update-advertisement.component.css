@@ -1,0 +1,9 @@
+.upload-btn-wrapper input[type=file]:before {
+    background: #ffffff;
+    position: absolute;
+    width: 156px;
+    top: 0px;
+    left: 36px;
+    content: "1";
+    min-height: 27px;
+    }

@@ -1,0 +1,42 @@
+<div class="modal-header">
+  <p>User Specific Permission Menu list</p>
+
+  <button mat-button (click)="onNoClick()">
+    <mat-icon>close</mat-icon>
+  </button>
+
+</div>
+
+<div class="col l12 s12 ">
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" *ngIf="listModel.length>0 && !isRecord">
+
+    <ng-container matColumnDef="index">
+      <th mat-header-cell *matHeaderCellDef>#</th>
+      <td mat-cell *matCellDef="let element; let i = index;">
+        {{ (indexModel.Page - 1) * indexModel.PageSize + (i + 1) }}</td>
+    </ng-container>
+
+    <ng-container [matColumnDef]="column.Value" *ngFor="let column of ViewdisplayedColumns">
+
+      <th mat-header-cell *matHeaderCellDef> {{column.Text}} </th>
+      <td mat-cell *matCellDef="let element"> {{element[column.Value]}} </td>
+    </ng-container>
+    <ng-container matColumnDef="permission">
+      <th mat-header-cell *matHeaderCellDef>Permission</th>
+      <td mat-cell *matCellDef="let element">
+        <span *ngIf="element.AddPermission">add,</span>
+        <span *ngIf="element.EditPermission">,Edit</span>
+        <span *ngIf="element.DeletePermission">,Delete</span>
+        <span *ngIf="element.ViewPermission">,View</span>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+    <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+  </table>
+  <div *ngIf="isRecord" class="col l12 s12 not-found-msg">
+    Record not found
+  </div>
+  <mat-paginator [pageSizeOptions]="[4,10, 15, 20]" (page)="onPaginateChange($event)" showFirstLastButtons></mat-paginator>
+
+
+</div>

@@ -1,0 +1,233 @@
+<div class="row mt-20 detail-bx scheme_detail_page">
+  <div class="table-responsive w-100">
+    <table class="table custom-data-table">
+      <tbody>
+        <tr>
+          <td>
+            <section class="mat-typography">
+              <h2 class="color-blue">Department :</h2>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="detailModel?.Department"> {{detailModel?.Department}}</h3>
+              <h3 class="color-grey" *ngIf="!detailModel?.Department">--</h3>
+            </section>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <section class="mat-typography">
+              <h2 class="color-blue">Category :</h2>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="detailModel?.AchievementCategory">
+                {{detailModel?.AchievementCategory}}</h3>
+              <h3 class="color-grey" *ngIf="!detailModel?.AchievementCategory">--</h3>
+            </section>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <section class="mat-typography">
+              <h2 class="color-blue">Sub Category :</h2>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="detailModel?.AchievementSubCategory">
+                {{detailModel?.AchievementSubCategory}}</h3>
+              <h3 class="color-grey" *ngIf="!detailModel?.AchievementSubCategory">--</h3>
+            </section>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <section class="mat-typography">
+              <h2 class="color-blue">Summary :</h2>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="detailModel?.Achievement">{{detailModel?.Achievement}}</h3>
+              <h3 class="color-grey" *ngIf="!detailModel?.Achievement">--</h3>
+            </section>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <section class="mat-typography">
+              <h2 class="color-blue">Important Decisions (Details) :</h2>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="detailModel?.AchievementHindi">
+                {{detailModel?.AchievementHindi}}</h3>
+              <h3 class="color-grey" *ngIf="!detailModel?.AchievementHindi">--</h3>
+            </section>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <section class="mat-typography">
+              <h2 class="color-blue"> Date:</h2>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="detailModel?.AchievementDate">
+                {{detailModel?.AchievementDate | date: 'dd/MM/yyyy'}}</h3>
+              <h3 class="color-grey" *ngIf="!detailModel?.AchievementDate">--</h3>
+            </section>
+          </td>
+        </tr>
+
+
+
+
+        <tr>
+          <td>
+            <section class="mat-typography">
+              <h2 class="color-blue">Display Order :</h2>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="detailModel?.Priority"> {{detailModel?.Priority}}</h3>
+              <h3 class="color-grey" *ngIf="!detailModel?.Priority">--</h3>
+            </section>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <section class="mat-typography">
+              <h2 class="color-blue">Url :</h2>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="detailModel?.Url"> {{detailModel?.Url}}</h3>
+              <h3 class="color-grey" *ngIf="!detailModel?.Url">--</h3>
+            </section>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <section class="mat-typography">
+              <h2 class="color-blue">Pdf File :</h2>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <a href="Javascript:void(0)" (click)="downloadMyFile(detailModel.PdfFIleName)"
+                *ngIf="detailModel?.PdfFIleName"> Click here for pdf </a>
+              <!-- <h3 class="color-grey" *ngIf="detailModel?.PdfFIleName">{{detailModel?.PdfUrl }}</h3> -->
+              <h3 class="color-grey" *ngIf="!detailModel?.PdfFIleName">--</h3>
+            </section>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <section class="mat-typography">
+              <h2 class="color-blue">Description :</h2>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="detailModel?.Description">{{detailModel?.Description}}</h3>
+              <h3 class="color-grey" *ngIf="!detailModel?.Description">--</h3>
+            </section>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <section class="mat-typography">
+              <h2 class="color-blue">Description Hindi:</h2>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="detailModel?.DescriptionHindi">
+                {{detailModel?.DescriptionHindi}}</h3>
+              <h3 class="color-grey" *ngIf="!detailModel?.DescriptionHindi">--</h3>
+            </section>
+          </td>
+        </tr>
+
+
+        <tr>
+          <td>
+            <section class="mat-typography">
+              <h2 class="color-blue">Keyword :</h2>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="detailModel?.KeyWord"> {{detailModel?.KeyWord}}</h3>
+              <h3 class="color-grey" *ngIf="!detailModel?.KeyWord">--</h3>
+            </section>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <section class="mat-typography">
+              <h2 class="color-blue">CMO Comments :</h2>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="detailModel?.CMOComments"> {{detailModel?.CMOComments}}</h3>
+              <h3 class="color-grey" *ngIf="!detailModel?.CMOComments">--</h3>
+            </section>
+          </td>
+        </tr>
+
+
+
+        <tr *ngIf="(detailModel?.ImageFiles||null)!=null && detailModel?.ImageFiles.length>0">
+          <td>
+            <section class="mat-typography">
+              <h2 class="color-blue">Images:</h2>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <ul class="image-list">
+                <li *ngFor="let item of detailModel.ImageFiles;">
+
+                  <div> <img [src]="item" /> </div>
+
+                </li>
+              </ul>
+            </section>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <section class="mat-typography">
+              <h2 class="color-blue"> Show in Home Screen:</h2>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="detailModel?.IsVisible">
+                Yes</h3>
+              <h3 class="color-grey" *ngIf="!detailModel?.IsVisible">No</h3>
+            </section>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,212 @@
+<form [formGroup]="formGroup">
+
+  <div class="row col-mb-10">
+    <div class="col l6 xl6 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Page Type </mat-label>
+        <mat-select name="PageType" [(ngModel)]="model.PageTypeCode" #PageTypeCode formControlName="PageTypeCode"
+          (selectionChange)="getPageByPageType($event.value);">
+          <mat-option value="0">--Select--</mat-option>
+          <mat-option value="{{k.Value}}" *ngFor="let k of dDLList?.ddlPageType">{{k.Text}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-error *ngIf="(formGroup.get('PageTypeCode').hasError('required') && formGroup.get('PageTypeCode').touched)">
+        Page Type <strong>required!</strong>
+      </mat-error>
+    </div>
+
+    <div class="col l6 xl6 m6 s12">
+      <mat-form-field appearance="outline">
+        <mat-label>Page <span style="color: red">*</span>:</mat-label>
+        <mat-select name="PageCode" [(ngModel)]="model.PageCode" (selectionChange)="getPageDetail($event.value);"
+          formControlName="PageCode">
+          <mat-option value="{{ k.Value }}" *ngFor="let k of ddlPageMasterDetails">{{ k.Text }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-error
+        *ngIf="formGroup.get('PageCode').hasError('required') && (formGroup.get('PageCode').touched && formGroup.get('PageCode').invalid)">
+        Page is <strong>required!</strong>
+      </mat-error>
+    </div>
+
+    <div class="col l6 xl6 m6 s12" *ngIf="childPageMasterPageCodeEnum.Lookup==model.PageCode">
+      <mat-form-field appearance="outline">
+        <mat-label>Lookup Type :</mat-label>
+        <mat-select name="LookupTypeId" [(ngModel)]="model.LookupTypeId" formControlName="LookupTypeId">
+          <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlLookUpType">{{ k.Text }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="col l6 xl6 m6 s12" *ngIf="childPageMasterPageCodeEnum.SchemeCommonMaster==model.PageCode">
+      <mat-form-field appearance="outline">
+        <mat-label>Scheme Common Type :</mat-label>
+        <mat-select name="SchemeTypeCode" [(ngModel)]="model.SchemeTypeCode" formControlName="SchemeTypeCode">
+          <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlCommonMaster">{{ k.Text }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="col l6 xl6 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Page Description Category<span style="color: red">*</span> </mat-label>
+        <mat-select formControlName="PageDescriptionCategory" #PageDescriptionCategory
+          [(ngModel)]="model.PageDescriptionCategory">
+          <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlChildPageDescriptionCategory">{{ k.Text }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-error
+        *ngIf="formGroup.get('PageDescriptionCategory').hasError('required') && (formGroup.get('PageDescriptionCategory').touched && formGroup.get('PageDescriptionCategory').invalid)">
+        Page Description Category is <strong>required!</strong>
+      </mat-error>
+    </div>
+
+    <div class="col l6 xl6 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>URL</mat-label>
+        <input matInput placeholder="URL" name="Url" [(ngModel)]="model.URL" maxlength="1000" formControlName="Url"
+          #Url />
+        <mat-hint>{{Url.value.length}}/1000</mat-hint>
+      </mat-form-field>
+      <mat-error *ngIf="(formGroup.get('Url').hasError('required') && formGroup.get('Url').touched)">
+        URL is <strong>required!</strong>
+      </mat-error>
+      <mat-error
+        *ngIf="(formGroup.get('Url').hasError('maxlength') && formGroup.get('Url').touched) || (formGroup.get('Url').hasError('maxlength'))">
+        URL Max char limit is <strong>200!</strong>
+      </mat-error>
+      <mat-error *ngIf="(formGroup.get('Url').touched && formGroup.get('Url').hasError('invalidUrl'))">
+        URL is <strong>not valid!</strong>
+      </mat-error>
+    </div>
+
+    <div class="col l6 xl6 m6 s12">
+      <mat-radio-group class="example-full-width radio-bx-custom radio-bx-custom-with-label"
+        [(ngModel)]="model.ManualTypeCode" formControlName="ManualTypeCode" #ManualTypeCode>
+        <label class="mr-10">Manual Type</label>
+        <mat-radio-button class="mr-5" value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlManualType">
+          {{ k.Text }}
+        </mat-radio-button>
+        <!-- <mat-radio-button class="mr-5" value="{{manualType.UserManual_Val}}">
+          {{manualType.UserManual_Txt}}
+        </mat-radio-button> -->
+      </mat-radio-group>
+    </div>
+
+    <div class="col l12 x8 m4 s12">
+      <mat-label class="d-block mb-10">Description
+      </mat-label>
+      <mat-form-field class="example-full-width" appearance="outline">
+        <input style="display:none; " matInput placeholder="Description" name="Description">
+        <angular-editor formControlName="Description" name="Description" id="Description"
+          [(ngModel)]="model.Description" [config]="editorConfig" style="margin-top: 30px;"></angular-editor>
+      </mat-form-field>
+      <mat-error
+        *ngIf="formGroup.get('Description').hasError('required') && (formGroup.get('Description').touched && formGroup.get('Description').invalid)">
+        Description is <strong>required!</strong>
+      </mat-error>
+    </div>
+
+    <!-- <div class="col l12 x8 m4 s12">
+          <mat-label class="d-block mb-10">Description
+          </mat-label>
+            <mat-form-field class="example-full-width" appearance="outline"> -->
+    <!-- <input  style="display:none;" matInput placeholder="Description" name="Description"> -->
+    <!-- <ckeditor
+                [config]="{uiColor: '#26389b'}"
+                [(ngModel)]="model.Description"
+                placeholder="Description"
+                formControlName="Description"
+                name="Description"
+                id="Description"
+                ></ckeditor> -->
+    <!-- <angular-editor formControlName="Description" name="Description" [(ngModel)]="model.Description"></angular-editor> -->
+    <!-- <angular-editor [placeholder]="'Description'" id="Description"  formControlName="Description" [(ngModel)]="model.Description"></angular-editor> -->
+    <!-- </mat-form-field> -->
+    <!-- <mat-error
+                *ngIf="formGroup.get('Description').hasError('required') && (formGroup.get('Description').touched && formGroup.get('Description').invalid)">
+                Description is <strong>required!</strong>
+            </mat-error> -->
+    <!-- </div> -->
+
+    <div class="col l6 xl6 m6 s12">
+      <div class="upload-btn-wrapper">
+        <mat-label>PDF</mat-label>
+        <input type="file" id="PDFURL" formControlName="PDFURL" (change)="handleFileForPdf($event)"
+          accept="application/pdf">
+        <a *ngIf="model.PDFURL" (click)="downloadOtherDocPdf(model.PDFURL)" href="JavaScript:Void(0);">
+          Show More Details
+        </a>
+        <a title="Remove" (click)="RemovePDF();" *ngIf="model?.PDFURL">
+          <mat-icon>delete</mat-icon>
+        </a>
+      </div>
+    </div>
+
+    <div class="col l6 xl6 m6 s12">
+      <div class="upload-btn-wrapper">
+        <label> Images</label>
+        <input type="file" id="ImageURL" formControlName="ImageURL" (change)="handleImageFileInput($event)"
+          accept="image/*">
+      </div>
+      <div *ngIf="model?.ImageURL"> <img [src]="model.ImageURL" style="width: 100px; height: 100px;" /> <a
+          title="Remove" (click)="RemoveImageFile()" *ngIf="model?.ImageURL">
+          <mat-icon>delete</mat-icon>
+        </a></div>
+      <mat-error *ngIf="ImagefileValidationMsg?.length>0" style="margin: 0px;position: relative;">
+        {{ImagefileValidationMsg}}
+      </mat-error>
+    </div>
+
+    <div class="col l12 xl12 m12 s12 mt-10">
+      <div class="border-bx-shadow" style="max-width: 700px; margin: auto;">
+        <div class="border-bx-shadow-title"> Page Details </div>
+        <table class="table table-bordered mb-20 table-simple-data">
+          <tbody>
+            <tr>
+              <td>
+                <strong> Application Name : </strong>
+              </td>
+              <td>
+                {{pageDetailModel?.ApplicationTitle}}
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <strong> Page Type : </strong>
+              </td>
+              <td>
+                {{pageDetailModel?.PageTypeName}}
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <strong> Page Title : </strong>
+              </td>
+              <td>
+                {{pageDetailModel?.PageTitle}}
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <strong> Menu Title: </strong>
+              </td>
+              <td>
+                {{pageDetailModel?.MenuTitle}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="col l12 x12 m12 s12 clearfix mt-10">
+      <button mat-button class="btn-submit" (click)="SaveClick();">{{title}}</button>
+    </div>
+  </div>
+</form>

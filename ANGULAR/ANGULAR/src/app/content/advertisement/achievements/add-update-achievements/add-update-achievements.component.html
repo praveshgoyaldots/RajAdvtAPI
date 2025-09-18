@@ -1,0 +1,381 @@
+<form [formGroup]="fromGroup" (ngSubmit)="saveClick();">
+  <div class="row">
+
+    <div class="col l4 xl4 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Department <span style="color: red">*</span></mat-label>
+        <mat-select name="DepartmentCode" [(ngModel)]="model.DepartmentCode" formControlName="DepartmentCode"
+          (selectionChange)="getFilterdDDL(model.DepartmentCode,model.AchievementCategoryCode); Getcategorybydepartmentcode($event.value)"
+          [disabled]="isCMOCommentVisible">
+          <mat-option>--Select--</mat-option>
+          <mat-option value="{{k.DepartmentCode}}" *ngFor="let k of ddlDepartment">{{k.DepartmentTitle}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-error
+        *ngIf="(fromGroup.get('DepartmentCode').hasError('required') && fromGroup.get('DepartmentCode').touched)">
+        Department is <strong>Required!</strong>
+      </mat-error>
+    </div>
+
+    <div class="col l4 xl4 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Category <span style="color: red">*</span></mat-label>
+        <mat-select name="AchievementCategoryCode" [(ngModel)]="model.AchievementCategoryCode"
+          formControlName="AchievementCategoryCode" (selectionChange)="getDataByCategoryCode($event.value)"
+          [disabled]="catCode">
+          <mat-option>--Select--</mat-option>
+          <mat-option value="{{k.Value}}" *ngFor="let k of ddlAchievementCategory">{{k.Text}} </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <a class="achievementCategory-help" *ngIf="achievementCategory?.HelpFileURL"
+        (click)="OpenFile(achievementCategory?.HelpFileURL)" href="JavaScript:Void(0);">
+        Help File of {{achievementCategory?.Title}} <mat-icon>picture_as_pdf</mat-icon>
+      </a>
+      <mat-error
+        *ngIf="(fromGroup.get('AchievementCategoryCode').hasError('required') && fromGroup.get('AchievementCategoryCode').touched)">
+        Category is <strong>Required!</strong>
+      </mat-error>
+    </div>
+
+    <div class="col l4 xl4 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Sub Category</mat-label>
+        <mat-select name="AchievementSubCategoryCode" [(ngModel)]="model.AchievementSubCategoryCode"
+          formControlName="AchievementSubCategoryCode" [disabled]="isCMOCommentVisible">
+          <mat-option>--Select--</mat-option>
+          <mat-option value="{{k.Value}}" *ngFor="let k of dDLList?.ddlAchievementSubCategory">{{k.Text}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-error
+        *ngIf="(fromGroup.get('AchievementSubCategoryCode').hasError('required') && fromGroup.get('AchievementSubCategoryCode').touched)">
+        Sub-Category is <strong>Required!</strong>
+      </mat-error>
+    </div>
+
+    <div class="col l6 xl6 m6 s12 mat-form-field-wrapper" style="display: none;">
+      <section class="example-full-width  checkbox-bx-custom checkbox-bx-custom-with-label" appearance="outline">
+        <mat-label>Show in Home Screen </mat-label>
+        <mat-checkbox [(ngModel)]="model.IsVisible" Id="IsVisible" formControlName="IsVisible" #IsVisible> Show in Home
+          Screen</mat-checkbox>
+      </section>
+    </div>
+
+    <div class="col l12 xl12 m12 s12" *ngIf="false">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>General Entry <span style="color: red">*</span></mat-label>
+        <textarea matInput placeholder="Achievement" [(ngModel)]="model.Achievement" maxlength="4000" #Achievement
+          formControlName="Achievement" class="rw-5" [readonly]="isCMOCommentVisible"></textarea>
+        <mat-hint class="pull-right">{{Achievement.value.length}}/4000</mat-hint>
+      </mat-form-field>
+      <mat-error *ngIf="(fromGroup.get('Achievement').hasError('required') && fromGroup.get('Achievement').touched)">
+        General Entry <strong>required!</strong>
+      </mat-error>
+      <mat-error
+        *ngIf="(fromGroup.get('Achievement').hasError('maxlength') && fromGroup.get('Achievement').touched) || (fromGroup.get('Achievement').hasError('maxlength'))">
+        General Entry Max char limit is <strong>4000!</strong>
+      </mat-error>
+    </div>
+
+    <div class="col l12 xl12 m12 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label *ngIf="!achievementCategory?.LabelAchievementHindi">General Entry (Hindi)<span
+            style="color: red">*</span></mat-label>
+        <mat-label *ngIf="achievementCategory?.LabelAchievementHindi">
+          {{achievementCategory?.LabelAchievementHindi}}<span style="color: red">*</span></mat-label>
+        <textarea matInput placeholder="{{achievementCategory?.LabelAchievementHindi}}"
+          [(ngModel)]="model.AchievementHindi" #AchievementHindi maxlength="4000" formControlName="AchievementHindi"
+          class="rw-5" [readonly]="isCMOCommentVisible"></textarea>
+        <mat-hint>{{AchievementHindi.value.length}}/4000</mat-hint>
+      </mat-form-field>
+      <mat-error
+        *ngIf="(fromGroup.get('AchievementHindi').hasError('required') && fromGroup.get('AchievementHindi').touched)">
+        {{achievementCategory?.LabelAchievementHindi}}<strong>required!</strong>
+      </mat-error>
+      <mat-error
+        *ngIf="(fromGroup.get('AchievementHindi').hasError('maxlength') && fromGroup.get('AchievementHindi').touched) || (fromGroup.get('AchievementHindi').hasError('maxlength'))">
+        {{achievementCategory?.LabelAchievementHindi}} Max char limit is <strong>4000!</strong>
+      </mat-error>
+    </div>
+
+    <div class="col l6 xl6 m6 s12" *ngIf="achievementCategory?.IsVisibleDate">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label *ngIf="!achievementCategory?.LabelDate">Date </mat-label>
+        <mat-label *ngIf="achievementCategory?.LabelDate">{{achievementCategory?.LabelDate}} </mat-label>
+        <input matInput [matDatepicker]="picker" (focus)="picker.open()" readonly placeholder=">Date " md-mode="month"
+          [(ngModel)]="model.AchievementDate" #AchievementDate formControlName="AchievementDate"
+          [disabled]="isCMOCommentVisible">
+        <mat-datepicker-toggle matSuffix [for]="picker" [disabled]="isCMOCommentVisible"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <mat-error
+        *ngIf="fromGroup.get('AchievementDate').hasError('required') && (fromGroup.get('AchievementDate').touched && fromGroup.get('AchievementDate').invalid) ">
+        {{achievementCategory?.LabelDate}} is <strong>required!</strong>
+      </mat-error>
+    </div>
+
+    <div class="col l6 xl6 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label *ngIf="!achievementCategory?.LabelURL">URL</mat-label>
+        <mat-label *ngIf="achievementCategory?.LabelURL">{{achievementCategory?.LabelURL}}</mat-label>
+        <input matInput placeholder="achievementCategory?.LabelURL" name="Url" [(ngModel)]="model.Url" maxlength="1000"
+          formControlName="Url" #Url [readonly]="isCMOCommentVisible" />
+        <mat-hint>{{Url.value.length}}/1000</mat-hint>
+      </mat-form-field>
+      <mat-error *ngIf="(fromGroup.get('Url').hasError('required') && fromGroup.get('Url').touched)">
+        {{achievementCategory?.LabelURL}} is <strong>required!</strong>
+      </mat-error>
+      <mat-error
+        *ngIf="(fromGroup.get('Url').hasError('maxlength') && fromGroup.get('Url').touched) || (fromGroup.get('Url').hasError('maxlength'))">
+        {{achievementCategory?.LabelURL}} Max char limit is <strong>200!</strong>
+      </mat-error>
+      <mat-error *ngIf="(fromGroup.get('Url').touched && fromGroup.get('Url').hasError('invalidUrl'))">
+        {{achievementCategory?.LabelURL}} is <strong>not valid!</strong>
+      </mat-error>
+    </div>
+
+    <div class="col l6 xl6 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Display Order <span style="color: red">*</span></mat-label>
+        <input matInput placeholder="Priority (Number Only)" [(ngModel)]="model.Priority" #Priority maxlength="3"
+          [readonly]="isCMOCommentVisible" formControlName="Priority" (keypress)="numberOnly($event)" />
+        <mat-hint>{{Priority.value.length}}/3</mat-hint>
+      </mat-form-field>
+      <mat-error *ngIf="(fromGroup.get('Priority').hasError('required') && fromGroup.get('Priority').touched)">
+        Display Order <strong>required!</strong>
+      </mat-error>
+      <mat-error *ngIf="(fromGroup.get('Priority').hasError('maxlength') && fromGroup.get('Priority').touched)">
+        Display Order field Max char limit is <strong>3!</strong>
+      </mat-error>
+    </div>
+
+    <div class="col l6 xl6 m6 s12">
+      <div class="upload-btn-wrapper">
+        <label *ngIf="!achievementCategory?.LabelAddPDF">Add Pdf File </label>
+        <label *ngIf="achievementCategory?.LabelAddPDF">{{achievementCategory?.LabelAddPDF}} </label>
+        <input type="file" id="PdfFIleName" formControlName="PdfFIleName" (change)="handleFileInput($event)"
+          accept="application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/msword,application/vnd.openxmlformats-officedocument.presentationml.presentation,application/vnd.ms-powerpoint">
+
+        <mat-error *ngIf="(fromGroup.get('PdfFIleName').hasError('required') && fromGroup.get('PdfFIleName').touched)">
+          {{achievementCategory?.LabelAddPDF?achievementCategory?.LabelAddPDF:'Add Pdf File'}} is
+          <strong>required!</strong>
+        </mat-error>
+      </div>
+      <ul class="image-list" *ngIf="model.PdfFIleName!=undefined">
+        <li> <a href="Javascript:void(0)" (click)="downloadFile(model?.PdfFIleName,'Attachment')"
+            *ngIf="model.PdfFIleName"> Click here for pdf
+          </a>
+        </li>
+      </ul>
+      <mat-error *ngIf="this.fileValidationMsg.length >0">{{fileValidationMsg}}</mat-error>
+    </div>
+
+    <div class="col l12 xl12 m12 s12" *ngIf="false">
+      <mat-form-field appearance="outline" class="example-full-width">
+        <mat-label>Description</mat-label>
+        <textarea matInput placeholder="Description" [(ngModel)]="model.Description" #Description maxlength="4000"
+          formControlName="Description" rows="7" [readonly]="isCMOCommentVisible"></textarea>
+        <mat-hint>{{Description.value.length}}/4000</mat-hint>
+      </mat-form-field>
+      <mat-error *ngIf="(fromGroup.get('Description').hasError('maxlength') && fromGroup.get('Description').touched)">
+        Description field Max char limit is <strong>4000!</strong>
+      </mat-error>
+    </div>
+
+    <div class="col l12 xl12 m12 s12" *ngIf="achievementCategory?.IsVisibleDescriptionHindi">
+      <mat-form-field appearance="outline" class="example-full-width">
+        <mat-label *ngIf="!achievementCategory?.LabelDescriptionHindi">Description Hindi </mat-label>
+        <mat-label *ngIf="achievementCategory?.LabelDescriptionHindi">{{achievementCategory?.LabelDescriptionHindi}}
+        </mat-label>
+        <textarea matInput placeholder="{{achievementCategory?.LabelDescriptionHindi}}"
+          [(ngModel)]="model.DescriptionHindi" #DescriptionHindi maxlength="4000" formControlName="DescriptionHindi"
+          rows="7" [readonly]="isCMOCommentVisible"></textarea>
+        <mat-hint>{{DescriptionHindi.value.length}}/4000</mat-hint>
+      </mat-form-field>
+      <mat-error
+        *ngIf="(fromGroup.get('DescriptionHindi').hasError('maxlength') && fromGroup.get('DescriptionHindi').touched)">
+        {{achievementCategory?.LabelDescriptionHindi}} field Max char limit is <strong>4000!</strong>
+      </mat-error>
+      <mat-error
+        *ngIf="(fromGroup.get('DescriptionHindi').hasError('required') && fromGroup.get('DescriptionHindi').touched)">
+        {{achievementCategory?.LabelDescriptionHindi}} is <strong>required!</strong>
+      </mat-error>
+    </div>
+
+
+    <div class="col l12 xl12 m12 s12">
+      <mat-form-field appearance="outline" class="example-full-width">
+        <mat-label>KeyWord</mat-label>
+        <textarea matInput placeholder="KeyWord" [(ngModel)]="model.KeyWord" #KeyWord maxlength="4000" minlength="50"
+          formControlName="KeyWord" rows="2" [readonly]="isCMOCommentVisible"></textarea>
+        <mat-hint>{{KeyWord.value.length}}/4000</mat-hint>
+      </mat-form-field>
+
+      <mat-error *ngIf="(fromGroup.get('KeyWord').hasError('minlength') && fromGroup.get('KeyWord').touched)">
+        KeyWord min char limit is <strong>50!</strong>
+      </mat-error>
+      <mat-error *ngIf="(fromGroup.get('KeyWord').hasError('required') && fromGroup.get('KeyWord').touched)">
+        KeyWord is <strong>required!</strong>
+      </mat-error>
+
+    </div>
+
+    <div class="col l12 xl12 m12 s12" *ngIf="isCMOCommentVisible">
+      <mat-form-field appearance="outline" class="example-full-width">
+        <mat-label>CMO Comments</mat-label>
+        <textarea matInput placeholder="CMOComments" [(ngModel)]="model.CMOComments" #CMOComments maxlength="4000"
+          minlength="50" formControlName="CMOComments" rows="7"></textarea>
+        <mat-hint>{{CMOComments.value.length}}/4000</mat-hint>
+      </mat-form-field>
+      <mat-error
+        *ngIf="(fromGroup.get('CMOComments').hasError('maxlength') && fromGroup.get('CMOComments').touched) || (fromGroup.get('Url').hasError('maxlength'))">
+        CMO Comments min char <strong>50</strong>
+        is required </mat-error>
+    </div>
+    <div class="col l6 xl6 m6 s12" *ngIf="achievementCategory?.IsShowBeneficiaryCategory">
+      <mat-form-field appearance="outline">
+        <mat-label>Benificiary Category </mat-label>
+        <mat-select name="BenificiaryList" formControlName="BenificiaryList" [(ngModel)]="model.BenificiaryList"
+          multiple>
+          <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlBeneficiaryCategory">{{ k.Text }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col l12 m12 s12 ">
+      <div class="upload-btn-wrapper">
+        <label *ngIf="!achievementCategory?.LabelAttachImage">Attach Images</label>
+        <label *ngIf="achievementCategory?.LabelAttachImage">{{achievementCategory?.LabelAttachImage}}</label>
+        <input type="file" id="ImageFiles" name="ImageFiles" formControlName="ImageFiles"
+          (change)="handleImageFileInput($event.target.files)" accept="image/*" multiple>
+        <mat-error *ngIf="(fromGroup.get('ImageFiles').hasError('required') && fromGroup.get('ImageFiles').touched)">
+          {{achievementCategory?.LabelAttachImage?achievementCategory?.LabelAttachImage:'Add Pdf File'}} is
+          <strong>required!</strong>
+        </mat-error>
+        <!-- (change)="handleImageFileInput($event.target.files)" -->
+        <!-- (change)="checkImages($event)" -->
+      </div>
+      <ul class="image-list">
+        <li *ngFor="let item of model.ImageFiles; let i = index;">
+          <div> <img [src]="item" /> <a title="Remove" (click)="RemoveImageFile(i)">
+              <mat-icon>delete</mat-icon>
+            </a></div>
+        </li>
+      </ul>
+      <mat-error *ngIf="model?.AchievementCategoryCode==25" style="margin: 0px;position: relative;">
+        Note:- For an event, Upload all images together i.e. in one entry
+      </mat-error>
+      <mat-error *ngIf="ImagefileValidationMsg?.length>0" style="margin: 0px;position: relative;">
+        {{ImagefileValidationMsg}}
+      </mat-error>
+    </div>
+
+    <div class="col l12 m12 s12 mb-20" *ngIf="achievementCategory?.IsShowConnectWithCMIS">
+      <section class="mat-typography">
+        <h2 class="color-blue mb-0">Linked with (Budget/CM Announcement/CM Directions/Jan Ghoshna Patra)</h2>
+      </section>
+    </div>
+    <div class="row highlight_view btn_add_box" *ngIf="achievementCategory?.IsShowConnectWithCMIS">
+
+      <div class="col l4 x8 m4 s12">
+        <mat-form-field appearance="outline">
+          <mat-label>Module</mat-label>
+          <mat-select formControlName="ModuleIdConnectWithCMIS" #ModuleIdConnectWithCMIS
+            [(ngModel)]="connectWithCMISModel.ModuleId">
+            <mat-option>--Select--</mat-option>
+            <mat-option value="{{item.Value}}" *ngFor="let item of dDLList?.ddlOrderModuleName">{{item.Text}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+      </div>
+      <div class="col l4 x8 m4 s12">
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Year </mat-label>
+
+          <mat-select formControlName="YearValueConnectWithCMIS" #YearValueConnectWithCMIS
+            [(ngModel)]="connectWithCMISModel.YearValue">
+            <mat-option>--Select--</mat-option>
+            <mat-option value="{{item.Value}}" *ngFor="let item of dDLList?.ddlCMISBudgetYear">
+              {{item.Text}} </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+      </div>
+      <div class="col l4 x8 m4 s12  pos_relative">
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Department</mat-label>
+          <mat-select formControlName="DepartmentIdConnectWithCMIS" #DepartmentIdConnectWithCMIS
+            [(ngModel)]="connectWithCMISModel.DepartmentId">
+            <mat-option>--Select--</mat-option>
+
+            <mat-option value="{{item.Value}}" *ngFor="let item of dDLList?.ddlDepartmentForCMISReport">
+              {{item.Text}} </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <div class="d-inline" *ngIf="model?.ConnectWithCMIS?.length <5"><a class="btn_add" href="javascript:void(0)"
+            (click)="AddMoreItems()">
+            <mat-icon aria-hidden="false" aria-label="Example home icon">add</mat-icon>
+          </a></div>
+
+      </div>
+
+      <div class="col l12 m12 s12">
+        <table class="table new_table table_border mb-20" *ngIf="model?.ConnectWithCMIS?.length>0">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col" colspan="3">Details</th>
+              <th scope="col" width="100">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of model?.ConnectWithCMIS; let i = index" [attr.data-index]="i">
+              <th scope="row">{{i+1}}</th>
+              <td colspan="3">
+                <div class="footer-info-bx">
+
+                  <div class="d-inline"> <strong>Module: </strong><span
+                      *ngIf="item?.ModuleId">{{moduleNameItems[item?.ModuleId]}}</span><span
+                      *ngIf="!item?.ModuleId">--</span> </div>
+                  <div class="d-inline"> <strong>Year: </strong><span
+                      *ngIf="item?.YearValue">{{yearItems[item?.YearValue]}}</span><span
+                      *ngIf="!item?.YearValue">--</span> </div>
+                  <div class="d-inline"> <strong>Department: </strong><span
+                      *ngIf="item?.DepartmentId">{{departmentItems[item?.DepartmentId]}}</span><span
+                      *ngIf="!item?.DepartmentId">--</span> </div>
+
+                </div>
+                <div class="footer-info-bx" *ngIf="item.ConnectWithCMISResult">
+
+                  <div class="d-inline" *ngIf="item.ConnectWithCMISResult.prj_description"><strong>Description:</strong>
+                    {{item.ConnectWithCMISResult.prj_description}}</div>
+
+                </div>
+              </td>
+              <td class="action_icon"><a class="del-icon" href="javascript:void(0)"
+                  (click)="RemoveConnectWithCMISClick(i)">
+                  <mat-icon aria-hidden="false" aria-label="Example home icon">delete</mat-icon>
+                </a>
+                <a class="get-icon" href="javascript:void(0)"
+                  (click)="GetConnectWithCMISResult(item.ModuleName,item.DepartmentId,item.DepartmentName,item.YearText,i)">Budget
+                  Details</a>
+              </td>
+
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="col l12 x8 m4 s12 clearfix">
+      <button type="submit" mat-button class="btn-submit">Submit</button>
+    </div>
+  </div>
+</form>

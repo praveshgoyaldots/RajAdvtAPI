@@ -1,0 +1,61 @@
+<div class="row">
+    <div class="col l6 xl6 m6 s12">
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Name <span style="color: red">*</span>
+            </mat-label>
+            <input matInput placeholder="Name" [(ngModel)]="model.Name" [formControl]="Name" name="Name" id="Name" >
+        </mat-form-field>
+        <mat-error *ngIf="Name.invalid && Name.touched"> Name is <strong>required</strong> </mat-error>
+    </div>
+    <div class="col l6 xl6 m6 s12">
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Name in Hindi
+            </mat-label>
+            <input matInput placeholder="Name in Hindi" [(ngModel)]="model.NameHindi" name="NameHindi" id="NameHindi">
+        </mat-form-field>
+    </div>
+    <div class="col l6 xl6 m6 s12">
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Email <span style="color: red">*</span>
+            </mat-label>
+            <input matInput placeholder="Email" [(ngModel)]="model.Email" [formControl]="Email" name="Email" id="Email">
+        </mat-form-field>
+        <mat-error *ngIf="Email.invalid && Email.touched"> Email is <strong>required</strong> </mat-error>
+    </div>
+    <div class="col l6 xl6 m6 s12">
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Mobile No.<span style="color: red">*</span>
+            </mat-label>
+            <input matInput placeholder="Mobile No" [(ngModel)]="model.MobileNo" [formControl]="MobileNo" name="MobileNo" id="MobileNo">
+        </mat-form-field>
+        <mat-error *ngIf="MobileNo.invalid && MobileNo.touched"> Mobile No. is <strong>required</strong> </mat-error>
+    </div>
+
+    <div class="col l6 xl6 m6 s12">
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Default Mobile No.
+            </mat-label>
+            <input matInput placeholder="Default Mobile No" [(ngModel)]="model. DefaultMobileNo" name="DefaultMobileNo" id="DefaultMobileNo">
+        </mat-form-field>
+    </div>
+
+    <div class="col l6 xl6 m6 s12">
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Default Email ID.
+            </mat-label>
+            <input matInput placeholder="Default Email Id" [(ngModel)]="model.DefaultEmail" name="DefaultEmail" id="DefaultEmail">
+        </mat-form-field>
+    </div>
+
+    <div class="col l6 xl6 m6 s12">
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Notification Period.
+            </mat-label>
+            <input matInput placeholder="Notification Period" [(ngModel)]="model.NotificationPeriod" name="NotificationPeriod" id="NotificationPeriod">
+        </mat-form-field>
+    </div>
+
+    <div class="col l12 x8 m4 s6 clearfix">
+        <button mat-button class="btn-submit" (click)="SaveClick();">{{title}}</button>
+    </div>
+</div>

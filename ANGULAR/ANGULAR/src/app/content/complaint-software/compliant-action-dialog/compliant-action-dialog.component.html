@@ -1,0 +1,73 @@
+<div class="modal-header">
+    <p>Add Action</p>
+    <button mat-button (click)="onNoClick()">
+        <mat-icon>close</mat-icon>
+    </button>
+</div>
+
+<div class="col l12 s12 ">
+  <form [formGroup]="frmGrp" (ngSubmit)="Saveclick();">
+
+    <div class="col l6 xl6 m6 s12">
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Status <span style="color: red">*</span></mat-label>
+            <mat-select name="StatusId" [(ngModel)]="model.StatusId" formControlName="Status" #Status>
+                <mat-option>--Select--</mat-option>
+                <mat-option value="{{k.Value}}" *ngFor="let k of dDLList?.ddlCompliantAction">{{k.Text}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-error *ngIf="(frmGrp.get('Status').hasError('required') && frmGrp.get('Status').touched) ">
+          Status is <strong>required</strong>
+        </mat-error>
+    </div>
+
+    <div class="col l6 xl6 m6 s12">
+
+        <mat-label class="d-block mb-10">Comment <span style="color: red">*</span> </mat-label>
+        <mat-form-field class="example-full-width"
+          [ngClass]="{'editor-required':(frmGrp.get('Comment').hasError('required') && frmGrp.get('Comment').touched)}"
+          appearance="outline">
+
+          <input style="display:none; " matInput placeholder="Comment" name="Comment" #Comment>
+          <angular-editor formControlName="Comment" name="Comment" id="Comment" [(ngModel)]="model.Comment"
+            [config]="editorConfig" style="margin-top: 30px;"></angular-editor>
+        </mat-form-field>
+        <mat-error class="mat-error-static"
+          *ngIf="(frmGrp.get('Comment').hasError('required') && frmGrp.get('Comment').touched)">
+          <strong>Comment </strong> is required!
+        </mat-error>
+      </div>
+
+    <div class="col l4 xl4 m6 s12">
+        <div class="upload-btn-wrapper">
+          <label>Attachment(Pdf/Image(jpeg,png) Only) </label>
+          <input type="file" id="file" formControlName="Attachment" (change)="handleFileInput($event.target.files)"
+            accept="application/pdf,image/jpeg,image/png" #Attachment>
+        </div>
+
+        <a *ngIf="model.Extension?.toLowerCase()=='pdf' && model?.AttachmentURL" href="javascript:void();" (click)="download(model?.AttachmentURL)" >
+
+          <mat-icon class="mat-icon notranslate material-icons mat-icon-no-color">picture_as_pdf </mat-icon>
+            Click Here to Download
+          </a>
+          <a title="Remove" *ngIf="model?.AttachmentURL?.length > 0" (click)="RemoveImageFile()">
+            <mat-icon>delete</mat-icon>
+          </a>
+          <div *ngIf="model?.Extension?.toLowerCase()!='pdf' && model?.AttachmentURL">
+            <img style="widows: 50px;height:50px;" [src]="model?.AttachmentURL" />
+          </div>
+
+      </div>
+       <mat-error *ngIf="Attachment.invalid && Attachment.touched">
+            Attachment is <strong>required</strong>
+        </mat-error>
+
+        <mat-error *ngIf="fileValidationMsg?.length>0">
+          {{fileValidationMsg}}
+        </mat-error>
+
+    <div class="col l12 x8 m4 s12 ">
+        <button mat-button class="btn-submit">Submit</button>
+    </div>
+    </form>
+</div>

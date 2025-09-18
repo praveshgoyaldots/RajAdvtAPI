@@ -1,0 +1,26 @@
+<div class="modal-header">
+    <p>Advertisement Setting</p>
+
+    <button mat-button (click)="onNoClick()">
+        <mat-icon>close</mat-icon>
+    </button>
+
+</div>
+<form [formGroup]="formGroup">
+    <div class="col l12 s12 ">
+        <div class="col l6 xl6 m6 s12">
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Sidebar Frame Record Count <span style="color: red">*</span></mat-label>
+                <input type="number" matInput placeholder="Sidebar Frame Record Count"
+                    formControlName="SidebarFrame_RecordCount" id="SidebarFrame_RecordCount">
+            </mat-form-field>
+            <mat-error
+                *ngIf="formGroup.get('SidebarFrame_RecordCount').hasError('required') && (formGroup.get('SidebarFrame_RecordCount').touched && formGroup.get('SidebarFrame_RecordCount').invalid)">
+                Sidebar frame record count is <strong>required</strong>
+            </mat-error>
+        </div>
+        <div class="col l12 x8 m4 s12 ">
+            <button mat-button class="btn-submit" (click)="SaveClick()">Submit</button>
+        </div>
+    </div>
+</form>

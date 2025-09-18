@@ -1,0 +1,8 @@
+a.txtIcon{
+    cursor: pointer;
+}
+a.txtIcon mat-icon{
+    font-size: 16px !important;
+    position: relative !important;
+    bottom: -2px !important;
+}

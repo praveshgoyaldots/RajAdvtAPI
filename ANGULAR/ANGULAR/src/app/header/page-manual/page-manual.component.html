@@ -1,0 +1,25 @@
+<div class="modal-header">
+  <p>Page Manual</p>
+
+  <button mat-button (click)="onNoClick()">
+      <mat-icon>close</mat-icon>
+  </button>
+
+</div>
+
+<div *ngIf="listModel?.length>0">
+  <div class="page-manual-item-list"  *ngFor="let item of listModel">
+    <div class="page-manual-item-list-top">
+    <div class="page-manual-item-list-img"><img *ngIf="item.ImageURL" [src]="item.ImageURL"></div>
+    <div class="page-manual-item-list-pdf">
+      <a class="" *ngIf="item?.PDFURL" mat-menu-item (click)="downloadPdf(item?.PDFURL)" href="JavaScript:Void(0);">
+      Page Manual  <mat-icon>picture_as_pdf</mat-icon>
+    </a>
+  </div>
+</div>
+<div class="page-manual-item-list-category">Category: {{item.PageDescriptionCategoryName}}</div>
+<div class="page-manual-item-list-discription"> <div [innerHTML]="transform(item.Description)"></div></div>
+</div>
+</div>
+
+

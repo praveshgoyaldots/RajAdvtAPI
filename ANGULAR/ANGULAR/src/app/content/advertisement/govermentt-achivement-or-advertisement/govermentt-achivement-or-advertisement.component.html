@@ -1,0 +1,80 @@
+<div class="row align-items-center">
+  <div class="col l12 xl12 m12 s12 mb-10">
+    <mat-radio-group class="example-full-width radio-bx-custom radio-bx-custom-with-label" aria-label="Select an option"
+      [(ngModel)]="model.IsAdvertisementorGovermentAchivement" name="IsAdvertisementorGovermentAchivement"
+      [formControl]="GovermentAchivementOrAdvertisement">
+      <mat-label class="mr-5">Popup Type</mat-label>
+      <mat-radio-button class="mr-5" value="1">Sector Wise Achivement
+      </mat-radio-button>
+      <mat-radio-button class="mr-5" value="2">Display Newspaper Popup Advertisement
+      </mat-radio-button>
+      <mat-radio-button class="mr-5" value="3">Ebooklet of Govt. Achivement + Display Newspaper Popup Advertisement
+      </mat-radio-button>
+      <mat-radio-button class="mr-5" value="4">FB & Twitter Post & Ebooklet of Govt Achivement</mat-radio-button>
+    </mat-radio-group>
+    <mat-error *ngIf="GovermentAchivementOrAdvertisement.invalid && GovermentAchivementOrAdvertisement.touched">
+      Approved/Reject is <strong>required</strong>
+    </mat-error>
+  </div>
+
+  <div class="col l12 xl12 m12 s12 mb-10">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>Header Website URL </mat-label>
+      <input matInput placeholder="Header Website URL" [(ngModel)]="model.AdvtPopupHeaderUrl" #AdvtPopupHeaderUrl />
+    </mat-form-field>
+    <mat-error>
+      Note: Default URL (https://jankalyan.rajasthan.gov.in/)
+    </mat-error>
+  </div>
+
+  <div class="col l4 x4 m6 s12 ">
+    <button mat-button class="btn-submit" (click)="saveClick()">
+      <span *ngIf="!(model.Id>0) && !(listmodel?.length>0)">Submit</span>
+      <span *ngIf="model.Id>0">Update</span>
+    </button>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col l12 s12   ">
+    <table mat-table [dataSource]="dataSource" matSort (matSortChange)="SortData($event)"
+      class="mat-elevation-z8 table_border">
+
+      <ng-container matColumnDef="index">
+        <th mat-header-cell *matHeaderCellDef>Sr No</th>
+        <td mat-cell *matCellDef="let element; let i = index;"> {{(indexModel.Page-1)*indexModel.PageSize +(i+1)}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="IsGovermentAndAdvertisement">
+        <th mat-header-cell *matHeaderCellDef>Popup Type</th>
+        <td mat-cell *matCellDef="let group" class="action-link toogle-btn">
+          {{ group.IsAdvertisementorGovermentAchivement == 1 ? 'Sector Wise Achivement' :
+          group.IsAdvertisementorGovermentAchivement == 2?
+          'Display Newspaper Popup Advertisement': group.IsAdvertisementorGovermentAchivement == 3?'Ebooklet of Govt.
+          Achivement + Display Newspaper Popup Advertisement'
+          :'FB & Twitter Post & Ebooklet of Govt Achivement' }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="AdvtPopupHeaderUrl">
+        <th mat-header-cell *matHeaderCellDef> Header Website URL </th>
+        <td mat-cell *matCellDef="let group" class="action-link toogle-btn">
+          {{ group.AdvtPopupHeaderUrl }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="Action">
+        <th width="130" mat-header-cell *matHeaderCellDef> Action </th>
+        <td mat-cell *matCellDef="let group" class="action-link-btn">
+          <a class="btn_edit" (click)="getByID(group.Id)" title="edit"><mat-icon>edit</mat-icon></a>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+      <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+    </table>
+    <mat-paginator #paginator [length]="totalRecords" [pageSize]="indexModel.PageSize"
+      [pageSizeOptions]="[5,10, 20, 50]" (page)="onPaginateChange($event)" showFirstLastButtons>
+    </mat-paginator>
+  </div>
+</div>

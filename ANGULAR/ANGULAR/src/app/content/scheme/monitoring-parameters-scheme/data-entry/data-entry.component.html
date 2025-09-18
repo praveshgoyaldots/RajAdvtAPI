@@ -1,0 +1,106 @@
+<div class="row monitoringparameterdataenty">
+  <div class="col l2 m6 s6">
+    <button mat-button class="btn-submit btn_block " (click)="OpenDialog(null)">
+      <mat-icon>add</mat-icon>Create
+    </button>
+
+  </div>
+  <!-- <div class="row global_list_search">
+    <div class="col l2 m6 s6">
+      <button mat-button class="btn-submit btn_block " (click)="OpenDialog()">
+        <mat-icon>add</mat-icon>Create
+      </button>
+  
+    </div>
+  
+    <div class="col l3 m6 s6">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>From Date <span style="color: red">*</span></mat-label>
+        <input matInput [matDatepicker]="picker" (focus)="picker.open()" readonly placeholder="Choose from date"
+          [formControl]="fromDateValidation" [(ngModel)]="searchModel.FromDate">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker startView="multi-year"></mat-datepicker>
+      </mat-form-field> 
+      <mat-error *ngIf="fromDateValidation.invalid && fromDateValidation.touched">
+        From Date is <strong>required</strong>
+      </mat-error>
+    </div>
+    
+    <div class="col l3 m6 s6">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>To Date <span style="color: red">*</span></mat-label>
+        <input matInput [matDatepicker]="picker1" (focus)="picker1.open()" readonly placeholder="Choose To date"
+          [formControl]="toDateValidation" [(ngModel)]="searchModel.ToDate" [min]="searchModel.FromDate">
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1 startView="multi-year"></mat-datepicker>
+      </mat-form-field>
+      <mat-error *ngIf="toDateValidation.invalid && toDateValidation.touched">
+        To Date is <strong>not valid</strong>
+      </mat-error>
+    </div>
+  
+  
+    <div class="col l4 m6 s6">
+      <button mat-button class="btn-submit btn_green mat-button mr-5" (click)="searchClick()">Search</button>
+      <button mat-button class="btn-submit btn_orange mat-button" (click)="clearSearchClick()">Clear <mat-icon>refresh</mat-icon></button>
+    </div>
+    </div> -->
+    
+<!--   
+    <div class="col l3 m6 s6 m-10" *ngIf="DDLModel?.ddlSchemeMaster?.length>0">
+      <mat-form-field appearance="outline">
+        <mat-label>Scheme</mat-label>
+        <mat-select name="SchemeId" [(ngModel)]="entryModel.SchemeId" (selectionChange)="schemeSelectionChange($event)">
+          <mat-option>--Select--</mat-option>
+          <mat-option value="{{item.Value}}" *ngFor="let item of DDLModel?.ddlSchemeMaster">{{item.Text}} </mat-option>
+        </mat-select>
+      </mat-form-field>
+  
+    </div> -->
+    <div class="col s12" *ngIf="isRecord && model?.DataEntryList?.length>0">
+      <table class="table new_table table_border" *ngIf="entryModel?.DataEntryList?.length>0">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col" *ngFor="let item of model.MonitoringParameterList">{{item.ParamName}}</th>
+  
+            <th scope="col">Count</th>
+            <th scope="col">Month With Year</th>
+            <!-- <th scope="col">Year And Month</th> -->
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let dataEntry of entryModel.DataEntryList; let iEM = index">
+            <th scope="row"> {{(indexModel.Page-1)*indexModel.PageSize +(iEM+1)}}</th>
+            <td *ngFor="let item of model.MonitoringParameterList; let i = index" [attr.data-index]="i">
+              {{dataEntry.MonitoringParameterList[i].FieldDisplayValue}}</td>
+            <td> {{dataEntry.Count}}</td>
+            <!-- <td> {{dataEntry.MonthName}}</td> -->
+            <td> {{dataEntry.YearMonth| date: 'MMMM yyyy'}}</td>
+            <!-- <td><a href="javascript:void(0)" (click)="RemoveEntryClick(i)">
+                <mat-icon aria-hidden="false" aria-label="Example home icon" style="color: red">delete</mat-icon>
+              </a></td> -->
+              <td>
+                <a *ngIf="isEdit(dataEntry?.IsEdit)" href="javascript:void(0)" (click)="OpenDialog(dataEntry)" >
+                  <mat-icon aria-hidden="false" aria-label="Example home icon">edit</mat-icon>
+                </a>
+              <!-- <div *ngIf="isEdit(dataEntry?.MonitoringParameterList[i]?.IsEdit)">
+                  <a  href="javascript:void(0)" (click)="OpenDialog(dataEntry)" >
+                      <mat-icon aria-hidden="false" aria-label="Example home icon">edit</mat-icon>
+                    </a>
+              </div> -->
+              </td>
+          </tr>
+  
+        </tbody>
+  
+      </table>
+      <mat-paginator #paginator [length]="totalRecords" [pageSize]="indexModel.PageSize"
+        [pageSizeOptions]="[5,10, 20, 50]" (page)="onPaginateChange($event)" showFirstLastButtons>
+      </mat-paginator>
+    </div>
+  
+  
+  </div>
+  

@@ -1,0 +1,29 @@
+<div class="row dashboard-data-box-header" style="border-color:blue;">
+  <div class="col l xl3 m3 s3">
+    <p style="text-transform:none;">Government Order</p>
+  </div>
+
+  <div class="col l xl9 m9 s9 text-right">
+    <a mat-button class="btn-submit mt-6" (click)="chart('table')">
+      <mat-icon>view_module</mat-icon>
+    </a>
+    <a mat-button class="btn-submit mt-6" (click)="chart('bar')">
+      <mat-icon>bar_chart</mat-icon>
+    </a>
+    <a mat-button class="btn-submit mt-6" (click)="chart('pie')">
+      <mat-icon>pie_chart</mat-icon>
+    </a>
+    <a mat-button class="btn-submit mt-6" (click)="chart('line')">
+      <mat-icon>trending_up</mat-icon>
+    </a>
+    <a mat-button class="btn-submit mt-6" (click)="openZoomDialog()" title="Zoom">
+      <mat-icon>zoom_out_map</mat-icon>
+    </a>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col l12  m6 s12">
+    <div id="govtorderdiv"></div>
+  </div>
+</div>

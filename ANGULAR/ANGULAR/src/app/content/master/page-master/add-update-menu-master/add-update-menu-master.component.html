@@ -1,0 +1,47 @@
+<div class="modal-header">
+  <p>{{this.pageTitle}}</p>
+  <button mat-button (click)="this.onCloseClick()">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+
+<div class="col l12 s12 ">
+  <div class="col l6 xl6 m6 s12">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>Menu Title </mat-label>
+      <input matInput placeholder="Menu Title" name="MenuTitle" [(ngModel)]="model.MenuTitle" id="MenuTitle">
+    </mat-form-field>
+  </div>
+
+  <div class="col l6 xl6 m6 s12">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>Module</mat-label>
+      <mat-select name="ApplicationType" [(ngModel)]="model.ApplicationCode">
+        <mat-option>--Select--</mat-option>
+        <mat-option value="{{k.Value}}" *ngFor="let k of dDLList?.ddlApplicationType">{{k.Text}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="col l6 xl6 m6 s12">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>Default URL
+      </mat-label>
+      <input matInput placeholder="Default URL" name="DefaultUrl" [(ngModel)]="model.DefaultUrl" id="DefaultUrl">
+    </mat-form-field>
+  </div>
+
+
+  <div class="col l6 xl6 m6 s12">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>Menu Icon Class
+      </mat-label>
+      <input matInput placeholder="MenuIconClass" [(ngModel)]="model.MenuIconClass" name="MenuIconClass"
+        id="MenuIconClass">
+    </mat-form-field>
+  </div>
+
+  <div class="col l12 x8 m4 s12 ">
+    <button mat-button class="btn-submit" (click)="SaveClick()">Submit</button>
+  </div>
+</div>

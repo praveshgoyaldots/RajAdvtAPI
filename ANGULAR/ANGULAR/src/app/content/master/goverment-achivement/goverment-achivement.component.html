@@ -1,0 +1,62 @@
+<div class="row">
+  <div class="col l12 s12 p-0">
+    <table mat-table [dataSource]="dataSource" matSort (matSortChange)="SortData($event)" class="mat-elevation-z8">
+
+
+      <ng-container matColumnDef="index">
+        <th mat-header-cell *matHeaderCellDef>#</th>
+        <td mat-cell *matCellDef="let element; let i = index;">
+            {{(indexModel.Page-1)*indexModel.PageSize +(i+1)}}</td>
+    </ng-container>
+
+      <ng-container [matColumnDef]="column.Value" *ngFor="let column of ViewdisplayedColumns">
+
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column.Text}} </th>
+        <td mat-cell *matCellDef="let element"> {{element[column.Value]}} </td>
+      </ng-container>
+
+      <!-- <ng-container matColumnDef="ImageUrl">
+        <th  width="130" mat-header-cell *matHeaderCellDef> Image  </th>
+        <td mat-cell *matCellDef="let group" class="action-link" >
+        <img [src]="group.ImageUrl" height="50px" width="50px">
+
+        </td>
+      </ng-container> -->
+
+      <ng-container matColumnDef="DetailText">
+          <th mat-header-cell *matHeaderCellDef>Detail Text</th>
+          <td mat-cell *matCellDef="let element">
+              <div innerHTML="{{element.DetailText}}" class="text-dot"></div></td>
+        </ng-container>
+        <ng-container matColumnDef="Status">
+          <th mat-header-cell *matHeaderCellDef> Status </th>
+          <td mat-cell *matCellDef="let group" class="action-link toogle-btn">
+            <ng-container>
+              <a href="JavaScript:Void(0);" *ngIf="this.Permission.AddPageAccess" (click)="OnStatusClick(group.Id)" title="Click To Active/De-Active">
+                  <mat-icon class="toggle_on" *ngIf="group.IsActive" style="cursor:pointer;" title="Click To De-Active">toggle_on</mat-icon>
+                  <mat-icon class="toggle_off" *ngIf="!group.IsActive" style="cursor:pointer;" title="Click To Active">toggle_off</mat-icon>
+                </a>
+             </ng-container>
+          </td>
+        </ng-container>
+      <ng-container matColumnDef="Action">
+        <th  width="130" mat-header-cell *matHeaderCellDef> Action </th>
+        <td mat-cell *matCellDef="let group" class="action-link" >
+            <a class="btn_edit"   routerLink="/master/AddupdateGenerateAchivement/{{group.Id}}" title="Edit"  class="btn_edit" >
+              <mat-icon>edit</mat-icon>
+            </a>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+      <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+    </table>
+
+    <mat-paginator #paginator [length]="totalRecords" [pageSize]="indexModel.PageSize" [pageSizeOptions]="[5,10, 20, 50]"
+    (page)="onPaginateChange($event)" showFirstLastButtons>
+  </mat-paginator>
+
+  </div>
+
+
+</div>

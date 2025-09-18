@@ -1,0 +1,56 @@
+
+
+<div class="row top_bar_title">
+  <div class="col s12 m6 l8 xl8">
+    <h3>
+      Meeting Title : <strong> {{ vcmodel?.ShortDescription }} </strong>
+    </h3>
+  </div>
+  <div class="col s12 m6 l4 xl4" *ngIf="vcmodel?.Date && vcmodel?.Time">
+    <h3>
+      Date & Time :
+      <strong
+        >{{ vcmodel?.Date | date: "dd/MM/yyyy" }} at {{ vcmodel?.Time }}
+      </strong>
+    </h3>
+  </div>
+   <div class="col s12 m6 l4 xl4" *ngIf="vcmodel?.Date && !vcmodel?.Time">
+    <h3>
+      Date :
+      <strong
+        >{{ vcmodel?.Date | date: "dd/MM/yyyy" }}
+      </strong>
+    </h3>
+  </div>
+</div>
+
+<div class="row top_bar_blue">
+    <div class="col s12 d-flex justify-space-between">
+
+        <ul class="breadcrumb">
+            <li><button type="button" routerLink="/vc/participant/{{model?.VCCreateCode}}">
+				Participant Report
+			  </button></li>
+            <li><button routerLink="/vcreport/vcagendareport/{{model?.VCCreateCode}}">Agenda</button></li>
+			<li><button type="button" routerLink="/vcreport/vcdistrictreport/{{model?.VCCreateCode}}">District</button></li>
+            <li><button type="button" routerLink="/vcreport/vclocationreport/{{model?.VCCreateCode}}/{{model?.DistrictCode}}">Location</button></li>
+            <li><button type="button">Participants List</button></li>
+          </ul>
+
+          <button class="btn btn-info"  routerLink="/vc/participant/{{model?.VCCreateCode}}">Back To Main</button>
+
+
+	</div>
+</div>
+
+
+<div class="row pattern_bg" *ngIf="listModel?.length>0">
+
+	<div class="col s12 m6 l3 xl3" *ngFor="let part of listModel; let i = index">
+		<a href="javascript:void(0);" class="location-bx" >
+			<div class="location_title">{{part.ParticipantName}}</div>
+            <div class="location_designation" [ngStyle]="{'background': defaultColors[i]}">{{part.Designation}}</div>
+        </a>
+    </div>
+
+</div>

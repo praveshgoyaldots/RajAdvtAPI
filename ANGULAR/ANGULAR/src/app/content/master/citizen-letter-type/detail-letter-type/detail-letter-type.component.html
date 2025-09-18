@@ -1,0 +1,56 @@
+<div class="row mt-20 detail-bx">
+  <div class="table-responsive">
+    <table class="table custom-data-table">
+      <tbody>
+        <tr>
+          <td>
+            <section class="mat-typography">
+              <h2 class="color-blue">Letter Type:</h2>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <h3 class="color-grey">
+                <span *ngIf="model?.LetterType"> {{ model.LetterType }}</span>
+              </h3>
+              <h3 class="color-grey" *ngIf="!model?.LetterType">--</h3>
+            </section>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <section class="mat-typography">
+              <h2 class="color-blue">Letter Type(Hindi):</h2>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.LetterTypeHindi">
+                {{ model?.LetterTypeHindi }}
+              </h3>
+              <h3 class="color-grey" *ngIf="!model?.LetterTypeHindi">--</h3>
+            </section>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <section class="mat-typography">
+              <h2 class="color-blue">Attachments:</h2>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.AttachmentNames">
+                {{ model?.AttachmentNames }}
+              </h3>
+              <h3 class="color-grey" *ngIf="!model?.AttachmentNames">--</h3>
+            </section>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+</div>

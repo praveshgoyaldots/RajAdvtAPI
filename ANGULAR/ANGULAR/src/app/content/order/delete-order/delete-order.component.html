@@ -1,0 +1,335 @@
+<div class="row mt-20 detail-bx scheme_detail_page">
+    <div class="table-responsive w-100">
+        <table class="table custom-data-table">
+            <tbody>
+                <tr>
+                    <td>
+                        <section class="mat-typography">
+                            <h2 class="color-blue">Attached :</h2>
+                        </section>
+                    </td>
+                    <td colspan="3" *ngIf="documentUrlList.length>0">
+                      <ul class="image-list">
+                        <li class="" *ngFor="let url of documentUrlList"> <a *ngIf="url.Extension?.toLowerCase()=='pdf'"
+                            href="{{url?.Url}}" (click)="downloadPdf(url?.Url,url.DisplayName)"> {{ url.DisplayName}} </a>
+                          <div *ngIf="url.Extension?.toLowerCase()!='pdf'"> <img [src]="url?.Url" height="100px" width="100px" />
+                          </div>
+                        </li>
+                      </ul>
+                    </td>
+
+
+                    <td colspan="3" *ngIf="documentUrlList.length==0">
+                        <section class="mat-typography">
+                            <h3 class="color-grey">NA</h3>
+                        </section>
+                    </td>
+
+
+                </tr>
+
+                <tr>
+
+                    <td width="15%">
+                        <section class="mat-typography">
+                            <h2 class="color-blue">Old Orders/CIR./NOTI. Number : </h2>
+                        </section>
+                    </td>
+                    <td width="35%">
+                        <section class="mat-typography">
+                            <h3 class="color-grey" *ngIf="model?.ReferenceNumber">{{model?.ReferenceNumber}}</h3>
+                            <h3 class="color-grey" *ngIf="!model?.ReferenceNumber">NA</h3>
+                        </section>
+                    </td>
+                    <td width="15%">
+                        <section class="mat-typography">
+                            <h2 class="color-blue">Order Status:</h2>
+                        </section>
+                    </td>
+                    <td width="35%">
+                        <section class="mat-typography">
+                            <h3 class="color-grey" *ngIf="model?.IsOldOrder">Old Order</h3>
+                            <h3 class="color-grey" *ngIf="!model?.IsOldOrder"> New Order</h3>
+                        </section>
+                    </td>
+
+
+
+                </tr>
+
+                <tr>
+
+                    <td>
+                        <section class="mat-typography">
+                            <h2 class="color-blue">Type : </h2>
+                        </section>
+                    </td>
+                    <td>
+                        <section class="mat-typography">
+                            <h3 class="color-grey" *ngIf="model?.TypeName">{{model?.TypeName}}</h3>
+                            <h3 class="color-grey" *ngIf="!model?.TypeName">NA</h3>
+                        </section>
+                    </td>
+                    <td>
+                        <section class="mat-typography">
+                            <h2 class="color-blue">Title :</h2>
+                        </section>
+                    </td>
+                    <td>
+                        <section class="mat-typography">
+                            <h3 class="color-grey" *ngIf="model?.Title">{{model?.Title}}</h3>
+                            <h3 class="color-grey" *ngIf="!model?.Title">NA</h3>
+                        </section>
+                    </td>
+
+
+
+                </tr>
+
+                <tr>
+
+                    <td>
+                        <section class="mat-typography">
+                            <h2 class="color-blue">Sector Name :</h2>
+                        </section>
+                    </td>
+                    <td>
+                        <section class="mat-typography">
+                            <h3 class="color-grey" *ngIf="model?.SectorName">{{model?.SectorName}}</h3>
+                            <h3 class="color-grey" *ngIf="!model?.SectorName">NA</h3>
+                        </section>
+                    </td>
+                    <td>
+                        <section class="mat-typography">
+                            <h2 class="color-blue">Department Name :</h2>
+                        </section>
+                    </td>
+                    <td>
+                        <section class="mat-typography">
+                            <h3 class="color-grey" *ngIf="model?.DepartmentTitle">{{model?.DepartmentTitle}}</h3>
+                            <h3 class="color-grey" *ngIf="!model?.DepartmentTitle">NA</h3>
+                        </section>
+                    </td>
+
+
+
+                </tr>
+
+                <tr>
+                    <td>
+                        <section class="mat-typography">
+                            <h2 class="color-blue">Order No :</h2>
+                        </section>
+                    </td>
+                    <td>
+                        <section class="mat-typography">
+                            <h3 class="color-grey" *ngIf="model?.OrderNo">{{model?.OrderNo}}</h3>
+                            <h3 class="color-grey" *ngIf="!model?.OrderNo">NA</h3>
+                        </section>
+                    </td>
+                    <td>
+                        <section class="mat-typography">
+                            <h2 class="color-blue">Individual Beneficiary Scheme :</h2>
+                        </section>
+                    </td>
+                    <td>
+                        <section class="mat-typography">
+                            <h3 class="color-grey" *ngIf="model?.IndividualBeneficiaryScheme">{{model?.IndividualBeneficiaryScheme }}</h3>
+                            <h3 class="color-grey" *ngIf="!model?.IndividualBeneficiaryScheme">NA</h3>
+                        </section>
+                    </td>
+
+
+
+                </tr>
+
+                <tr>
+
+                    <td>
+                        <section class="mat-typography">
+                            <h2 class="color-blue"> Description :</h2>
+                        </section>
+                    </td>
+                    <td>
+                        <section class="mat-typography">
+                            <h3 class="color-grey" *ngIf="model?.Description">{{model?.Description}}</h3>
+                            <h3 class="color-grey" *ngIf="!model?.Description">NA</h3>
+                        </section>
+                    </td>
+                    <td>
+                        <section class="mat-typography">
+                            <h2 class="color-blue">With Affect From (Date) :</h2>
+                        </section>
+                    </td>
+                    <td>
+                        <section class="mat-typography">
+                            <h3 class="color-grey" *ngIf="model?.EffectForm">{{model?.EffectForm| date: 'dd/MM/yyyy'}}</h3>
+                            <h3 class="color-grey" *ngIf="!model?.EffectForm">NA</h3>
+                        </section>
+                    </td>
+
+
+
+                </tr>
+
+                <tr>
+                    <td>
+                        <section class="mat-typography">
+                            <h2 class="color-blue">Beneficiary Category :</h2>
+                        </section>
+                    </td>
+                    <td>
+                        <section class="mat-typography">
+                            <h3 class="color-grey" *ngIf="model?.BeneficiaryCategoryName">{{model?.BeneficiaryCategoryName}}</h3>
+                            <h3 class="color-grey" *ngIf="!model?.BeneficiaryCategoryName">NA</h3>
+                        </section>
+                    </td>
+                    <td>
+                        <section class="mat-typography">
+                            <h2 class="color-blue">Department Effected :</h2>
+                        </section>
+                    </td>
+                    <td>
+                        <section class="mat-typography">
+                            <h3 class="color-grey" *ngIf="model?.DepartmentEffectedName">{{model?.DepartmentEffectedName}}</h3>
+                            <h3 class="color-grey" *ngIf="!model?.DepartmentEffectedName">NA</h3>
+                        </section>
+                    </td>
+
+
+
+                </tr>
+
+                <tr>
+                    <td>
+                        <section class="mat-typography">
+                            <h2 class="color-blue">Reference Link :</h2>
+                        </section>
+                    </td>
+                    <td>
+                        <section class="mat-typography">
+                            <h3 class="color-grey" *ngIf="model?.ReferenceLink">{{model?.ReferenceLink}}</h3>
+                            <h3 class="color-grey" *ngIf="!model?.ReferenceLink">NA</h3>
+                        </section>
+                    </td>
+                    <td>
+                        <section class="mat-typography">
+                            <h2 class="color-blue">Issue Date :</h2>
+                        </section>
+                    </td>
+                    <td>
+                        <section class="mat-typography">
+                            <h3 class="color-grey" *ngIf="model?.Date">{{model?.Date| date: 'dd/MM/yyyy'}}</h3>
+                            <h3 class="color-grey" *ngIf="!model?.Date">NA</h3>
+                        </section>
+                    </td>
+
+
+
+                </tr>
+
+                <tr>
+                    <td>
+                        <section class="mat-typography">
+                            <h2 class="color-blue">Remarks :</h2>
+                        </section>
+                    </td>
+                    <td>
+                        <section class="mat-typography">
+                            <h3 class="color-grey" *ngIf="model?.Remarks">{{model?.Remarks}}</h3>
+                            <h3 class="color-grey" *ngIf="!model?.Remarks">NA</h3>
+                        </section>
+                    </td>
+                    <td>
+                        <section class="mat-typography">
+                            <h2 class="color-blue">Order Issue By :</h2>
+                        </section>
+                    </td>
+                    <td>
+                        <section class="mat-typography">
+                            <h3 class="color-grey" *ngIf="model?.IssueByName">{{model?.IssueByName}}</h3>
+                            <h3 class="color-grey" *ngIf="!model?.IssueByName">NA</h3>
+                        </section>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <section class="mat-typography">
+                            <h2 class="color-blue">Search criteiar :</h2>
+                        </section>
+                    </td>
+                    <td>
+                        <section class="mat-typography">
+                            <h3 class="color-grey" *ngIf="model?.SearchCriteria">{{model?.SearchCriteria}}</h3>
+                            <h3 class="color-grey" *ngIf="!model?.SearchCriteria">NA</h3>
+                        </section>
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <div class="col s12" *ngIf="model?.RelatedToOrderParameterList?.length>0">
+        <section class="mat-typography">
+            <h2 class="result-title text-center">Related To section</h2>
+        </section>
+    </div>
+    <div class="rel-list row" *ngFor="let item of model?.RelatedToOrderParameterList; let i = index" [attr.data-index]="i">
+        <div class="col s12">
+            <section class="mat-typography">
+                <h2 class="result-title-sm text-center">Related To Parameter</h2>
+            </section>
+        </div>
+
+        <div class="col l4  s12">
+            <section class="mat-typography">
+                <h3 class="color-grey" *ngIf="model.RelatedToOrderParameterList[i]?.ModuleName"><strong class="color-blue"> Name:</strong> {{model.RelatedToOrderParameterList[i]?.ModuleName}}</h3>
+                <h3 class="color-grey" *ngIf="!model.RelatedToOrderParameterList[i]?.ModuleName"><strong class="color-blue">Module Name:</strong> NA</h3>
+            </section>
+        </div>
+        <div class="col l4  s12">
+            <section class="mat-typography">
+                <h3 class="color-grey" *ngIf="model.RelatedToOrderParameterList[i]?.DepartmentName"><strong class="color-blue">Department Name:</strong> {{model.RelatedToOrderParameterList[i]?.DepartmentName}}</h3>
+                <h3 class="color-grey" *ngIf="!model.RelatedToOrderParameterList[i]?.DepartmentName"><strong class="color-blue">Department Name:</strong> NA</h3>
+            </section>
+        </div>
+        <div class="col l4  s12">
+            <section class="mat-typography">
+                <h3 class="color-grey" *ngIf="model.RelatedToOrderParameterList[i]?.YearText"><strong class="color-blue">Year:</strong> {{model.RelatedToOrderParameterList[i]?.YearText}}</h3>
+                <h3 class="color-grey" *ngIf="!model.RelatedToOrderParameterList[i]?.YearText"><strong class="color-blue">Year: </strong> NA</h3>
+            </section>
+        </div>
+
+        <div class="col s12">
+            <section class="mat-typography">
+                <h3 class="result-title-sm-small text-center">Result By Parameter</h3>
+            </section>
+        </div>
+        <div class="col l4  s12">
+            <section class="mat-typography">
+                <h3 class="color-grey" *ngIf="model.RelatedToOrderParameterList[i]?.RelatedToResult?.modulename"><strong class="color-blue">modulename:</strong> {{model.RelatedToOrderParameterList[i]?.RelatedToResult?.modulename}}</h3>
+                <h3 class="color-grey" *ngIf="!model.RelatedToOrderParameterList[i]?.RelatedToResult?.modulename"><strong class="color-blue">modulename:</strong> NA</h3>
+            </section>
+        </div>
+        <div class="col l4  s12">
+            <section class="mat-typography">
+                <h3 class="color-grey" *ngIf="model.RelatedToOrderParameterList[i]?.RelatedToResult?.filenumber"><strong class="color-blue">File Number: </strong>{{model.RelatedToOrderParameterList[i]?.RelatedToResult?.filenumber}}</h3>
+                <h3 class="color-grey" *ngIf="!model.RelatedToOrderParameterList[i]?.RelatedToResult?.filenumber"> <strong class="color-blue">Filen Nmber: </strong>NA</h3>
+            </section>
+        </div>
+        <div class="col l4  s12">
+            <section class="mat-typography">
+                <h3 class="color-grey" *ngIf="model.RelatedToOrderParameterList[i]?.RelatedToResult?.prj_description"><strong class="color-blue">Description:</strong> {{model.RelatedToOrderParameterList[i]?.RelatedToResult?.prj_description}}</h3>
+                <h3 class="color-grey" *ngIf="!model.RelatedToOrderParameterList[i]?.RelatedToResult?.prj_description"><strong class="color-blue">Description:</strong> NA</h3>
+            </section>
+        </div>
+    </div>
+</div>
+
+
+<div class="row mt-20 detail-bx">
+    <button mat-button class="btn-submit mr-5" (click)="OnDelete()">Delete</button>
+    <button mat-button class="btn-submit mr-5" routerLink="/order">Cancel</button>
+</div>

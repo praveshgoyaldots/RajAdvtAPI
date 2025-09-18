@@ -1,0 +1,61 @@
+<div class="modal-header">
+    <p>Add LookUp</p>
+    <button mat-button (click)="onNoClick()">
+        <mat-icon>close</mat-icon>
+    </button>
+</div>
+
+<div class="col l12 s12 ">
+    <div class="col l6 xl6 m6 s12">
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>LookUp
+            </mat-label>
+            <input matInput placeholder="LookUp Title" name="lookup" [formControl]="lookup" [(ngModel)]="model.Lookup" id="lookup">
+        </mat-form-field>
+        <mat-error *ngIf="lookup.invalid && lookup.touched">
+          LookUp is <strong>required</strong>
+        </mat-error>
+    </div>
+    <div class="col l6 xl6 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>LookUp Name in Hindi
+          </mat-label>
+          <input matInput placeholder="LookUp Name in Hindi" [formControl]="nameHindi" name="nameHindi" [(ngModel)]="model.NameHindi" id="nameHindi">
+      </mat-form-field>
+      <mat-error *ngIf="nameHindi.invalid && nameHindi.touched">
+        LookUp Name in Hindi is <strong>required</strong>
+        </mat-error>
+  </div>
+    <div class="col l6 xl6 m6 s12">
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Description
+            </mat-label>
+            <input matInput placeholder="Description" name="Desc" [(ngModel)]="model.Desc" id="Desc">
+        </mat-form-field>
+    </div>
+
+    <div class="col l6 xl6 m6 s12">
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>LookUp Type</mat-label>
+            <mat-select name="lookupTypeId" [formControl]="lookupTypeId" [(ngModel)]="model.lookupTypeId" >
+                <mat-option>--Select--</mat-option>
+                <mat-option value="{{k.Value}}" *ngFor="let k of dDLList?.ddlLookUpType">{{k.Text}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-error *ngIf="lookupTypeId.invalid && lookupTypeId.touched">
+          LookUp Type is <strong>required</strong>
+        </mat-error>
+    </div>
+
+    <div class="col l6 xl6 m6 s12">
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Sort Order
+            </mat-label>
+            <input matInput placeholder="SortOrder" [(ngModel)]="model.sortOrder" name="sortOrder" id="sortOrder">
+        </mat-form-field>
+    </div>
+
+    <div class="col l12 x8 m4 s12 ">
+        <button mat-button class="btn-submit" (click)="SaveClick()">Submit</button>
+    </div>
+</div>

@@ -1,0 +1,160 @@
+<div class="row mt-20 detail-bx scheme_detail_page">
+  <div class="table-responsive w-100">
+    <table class="table  mb-20 table-data-2">
+      <tbody>
+        <tr>
+          <td width="15%">
+            <section class="mat-typography">
+              <h2 class="color-blue">Attachment :</h2>
+            </section>
+          </td>
+          <td colspan="3" *ngIf="model?.TenderMasterData?.SoftCopyURL">
+            <ul>
+              <li > <a href="Javascript:void(0);" (click)="downloadPdf(model?.TenderMasterData?.SoftCopyURL,'softCopy')" class="btn-soft-copy d-flex align-items-center"><mat-icon class="mr-10">picture_as_pdf</mat-icon> Soft Copy(pdf) </a>
+              </li>
+            </ul>
+          </td>
+          <td colspan="3" *ngIf="!model?.TenderMasterData?.SoftCopyURL">
+            <section class="mat-typography">
+              <h3 class="color-grey">NA</h3>
+            </section>
+          </td>
+        </tr>
+
+        <tr>
+          <td  width="15%">
+            <section class="mat-typography">
+              <h2 class="color-blue">RO No. :</h2>
+            </section>
+          </td>
+          <td  width="35%">
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.TenderMasterData?.RONo">{{model?.TenderMasterData?.RONo}}</h3>
+              <h3 class="color-grey" *ngIf="!model?.TenderMasterData?.RONo">NA</h3>
+            </section>
+          </td>
+          <td  width="15%">
+            <section class="mat-typography">
+              <h2 class="color-blue">Release Date : </h2>
+            </section>
+          </td>
+          <td  width="35%">
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.TenderMasterData?.ReleaseDate">{{model?.TenderMasterData?.ReleaseDate | date: 'dd/MM/yyyy'}}</h3>
+              <h3 class="color-grey" *ngIf="!model?.TenderMasterData?.ReleaseDate">NA</h3>
+            </section>
+          </td>
+        </tr>
+
+        <tr>
+          <td  width="15%">
+            <section class="mat-typography">
+              <h2 class="color-blue">NIT No. :</h2>
+            </section>
+          </td>
+          <td  width="35%">
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.TenderMasterData?.NITNo">{{model?.TenderMasterData?.NITNo}}</h3>
+              <h3 class="color-grey" *ngIf="!model?.TenderMasterData?.NITNo">NA</h3>
+            </section>
+          </td>
+          <td  width="15%">
+            <section class="mat-typography">
+              <h2 class="color-blue">Department : </h2>
+            </section>
+          </td>
+          <td  width="35%">
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.TenderMasterData?.DepartmentTitle">{{model?.TenderMasterData?.DepartmentTitle}}</h3>
+              <h3 class="color-grey" *ngIf="!model?.TenderMasterData?.DepartmentTitle">NA</h3>
+            </section>
+          </td>
+        </tr>
+ <tr>
+          <td  width="15%">
+            <section class="mat-typography">
+              <h2 class="color-blue">NIT Purpose :</h2>
+            </section>
+          </td>
+          <td  width="35%">
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.TenderMasterData?.NITPurpose">{{model?.TenderMasterData?.NITPurpose}}</h3>
+              <h3 class="color-grey" *ngIf="!model?.TenderMasterData?.NITPurpose">NA</h3>
+            </section>
+          </td>
+          <td  width="15%">
+            <section class="mat-typography">
+              <h2 class="color-blue">Form Issuing Date : </h2>
+            </section>
+          </td>
+          <td  width="35%">
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.TenderMasterData?.FormIssuingDate">{{model?.TenderMasterData?.FormIssuingDate| date: 'dd/MM/yyyy'}}</h3>
+              <h3 class="color-grey" *ngIf="!model?.TenderMasterData?.FormIssuingDate">NA</h3>
+            </section>
+          </td>
+        </tr>
+
+        <tr>
+          <td  width="15%">
+            <section class="mat-typography">
+              <h2 class="color-blue">Tender Opening Date:</h2>
+            </section>
+          </td>
+          <td  width="35%">
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.TenderMasterData?.TenderOpeningDate">{{model?.TenderMasterData?.TenderOpeningDate| date: 'dd/MM/yyyy'}}</h3>
+              <h3 class="color-grey" *ngIf="!model?.TenderMasterData?.TenderOpeningDate">NA</h3>
+            </section>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="col s12" *ngIf="model?.TenderMappingList?.length>0">
+    <section class="mat-typography">
+      <h2 class="result-title">Tender Progress</h2>
+    </section>
+  </div>
+  <div class="row highlight_view parameter_bx">
+    <div class="col s12">
+      <section class="mat-typography">
+        <h2 class="result-title-sm text-center">Progress List</h2>
+      </section>
+    </div>
+
+    <table class="table new_table table_border" *ngIf="model?.TenderMappingList?.length > 0">
+      <thead>
+        <tr>
+          <th scope="col">Sr.No</th>
+          <th scope="col">Desciption</th>
+          <th scope="col">Date</th>
+          <th scope="col">Attachment</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+            *ngFor="let item of model?.TenderMappingList; let i = index"
+            [attr.data-index]="i"
+          >
+          <th scope="row">{{i+1}}</th>
+          <td>{{ item.Description }}</td>
+          <td>{{ item.Date | date: 'dd/MM/yyyy'}}</td>
+          <td>
+            <ul *ngIf="item.PDFUrl">
+              <li  > <a href="Javascript:void(0);" (click)="downloadPdf(item.PDFUrl,'pdf')" class="btn-soft-copy d-flex align-items-center"><mat-icon class="mr-10">picture_as_pdf</mat-icon> PDF</a>
+              </li>
+            </ul>
+          </td>
+          <td>
+            <a (click)="openUpdateProgressDialog(item.Id)" title="Update Progress">
+              <mat-icon>edit</mat-icon>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

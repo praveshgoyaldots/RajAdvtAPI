@@ -1,0 +1,97 @@
+<div class="row">
+  <div class="col l12 s12">
+    <div class="row m-20">
+      <div class="col x3 m2 s6">
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label> Department </mat-label>
+          <mat-select [(ngModel)]="indexModel.DepartmentCode">
+            <mat-option value="">--Select--</mat-option>
+            <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlDepartment">{{ k.Text }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="col x3 m2 s6">
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label> Office  </mat-label>
+          <mat-select [(ngModel)]="indexModel.OfficeCode">
+            <mat-option value="">--Select--</mat-option>
+            <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlOffice">{{ k.Text }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+      </div>
+      <div class="col x3 m3 s6 mt-10">
+        <button (click)="onSearchclick();" mat-button class="btn-submit btn_green">Search</button>
+        &nbsp; <button (click)="onClearclick();" mat-button class="btn-submit  btn_orange">Clear<mat-icon>refresh
+          </mat-icon></button>
+      </div>
+    </div>
+    <div class="row m-20">
+      <div class="col l6 xl6 m6 s12">
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Content <span style="color: red">*</span>
+          </mat-label>
+          <textarea matInput placeholder="Content" [formControl]="content" name="content"
+            [(ngModel)]="notificationModel.Content" id="content">
+                                              </textarea>
+        </mat-form-field>
+        <mat-error *ngIf="content.invalid && content.touched">
+          Content is <strong>required</strong>
+        </mat-error>
+      </div>
+      <div class="col l6 xl6 m6 s12">
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Mobile Number
+          </mat-label>
+          <textarea matInput placeholder="Mobile Number"  name="MobileNumber"
+            [(ngModel)]="notificationModel.MobileNumber" id="MobileNumber">
+                                              </textarea>
+        </mat-form-field>
+
+      </div>
+
+
+    </div>
+    <table mat-table [dataSource]="dataSource" matSort (matSortChange)="SortData($event)" class="mat-elevation-z8">
+      <ng-container matColumnDef="index">
+        <th mat-header-cell *matHeaderCellDef>#</th>
+        <td mat-cell *matCellDef="let element; let i = index">
+          {{ (indexModel.Page - 1) * indexModel.PageSize + (i + 1) }}
+        </td>
+      </ng-container>
+
+      <ng-container [matColumnDef]="column.Value" *ngFor="let column of ViewdisplayedColumns">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ column.Text }}
+        </th>
+        <td mat-cell *matCellDef="let element">{{ element[column.Value] }}</td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="Action">
+        <th mat-header-cell *matHeaderCellDef>
+
+          <mat-checkbox (change)="selectAll($event)" > Select All</mat-checkbox>
+        </th>
+
+        <td mat-cell *matCellDef="let row">
+            <mat-checkbox value="row.Id" (change)="selectItem($event,row.Mobile)" [checked]="notificationModel?.MobileNo?.includes(row.Mobile)"></mat-checkbox>
+        </td>
+    </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+      <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
+    </table>
+    <mat-paginator #paginator [length]="totalRecords" [pageSize]="indexModel.PageSize"
+      [pageSizeOptions]="[10, 20, 50,100]" (page)="onPaginateChange($event)" showFirstLastButtons
+      *ngIf="totalRecords!=0">
+    </mat-paginator>
+
+
+
+    <div class="col l12 m12 s12 text-right" *ngIf="this.Permission.AddPageAccess">
+      <button class="btn-submit mat-button" mat-button (click)="SaveClick();">Send Notification</button>
+    </div>
+  </div>
+</div>

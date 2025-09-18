@@ -1,0 +1,54 @@
+.next_arrow{
+  max-width: 50px;
+  margin-top: 25px;
+}
+
+.drawer-btn {
+    padding: 0px;
+    position: absolute;
+    left: -10px;
+    top: 5px;
+    }
+    .drawer-btn .mat-icon
+    {
+      background: #175ea2;
+      border-radius: 100%;
+      padding: 4px;
+      display: inline;
+      color: #fff;
+
+    }
+    .mat-drawer {
+        min-width: 250px;
+        box-shadow: 0 4px 7px 0 rgba(0, 0, 0, .2);
+    }
+
+    .dash-new-title
+    {
+      font-size: 27px;
+      margin: 0px 0px 15px 0px;
+      background: #222d32;
+      padding: 12px 15px;
+      border-radius: 10px;
+      color: #fff;
+      text-align: center;
+    }
+ 
+  .table-responsive.table-header-fixed a {
+
+    font-size: 16px;
+    font-weight: 600;
+}
+  .table-responsive.table-header-fixed td, .table-responsive.table-header-fixed th {
+    font-size: 16px;
+    font-weight: 600;
+}
+    @media (max-width:767px) {
+      .mat-drawer {
+        min-width: 55px;
+        width: 55px;
+
+    }
+    }
+
+

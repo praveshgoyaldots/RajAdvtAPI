@@ -1,0 +1,66 @@
+<div class="modal-header">
+  <p>{{title}} Works Entry Work Type</p>
+
+  <button mat-button (click)="onNoClick()">
+      <mat-icon>close</mat-icon>
+  </button>
+
+</div>
+
+<div class="col l12 s12 ">
+    <div class="col l4 xl4 m6 s12 mb-10">
+        <mat-form-field class="example-full-width"  appearance = "outline">
+          <mat-label> Category<span style="color: red">*</span>
+          </mat-label>
+          <mat-select [formControl]="categoryCode" name="categoryCode" id="categoryCode" [(ngModel)]="model.CategoryCode" (selectionChange)="getSubCategoryByCategoryCode($event.value)">
+            <mat-option value="{{item.Value}}" *ngFor="let item of dDLList?.ddlProjectCategory">{{item.Text}} </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-error *ngIf="categoryCode.invalid && categoryCode.touched">
+            Category is <strong>required</strong>
+           </mat-error>
+      </div>
+      <div class="col l4 xl4 m6 s12 mb-10">
+        <mat-form-field class="example-full-width"  appearance = "outline">
+          <mat-label> Sub Category<span style="color: red">*</span>
+          </mat-label>
+          <mat-select [formControl]="subCategory" name="subCategory" id="subCategory" [(ngModel)]="model.SubCategoryCode">
+            <mat-option value="{{item.Value}}" *ngFor="let item of ddlProjectSubCategory">{{item.Text}} </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-error *ngIf="subCategory.invalid && subCategory.touched">
+          Sub  Category is <strong>required</strong>
+           </mat-error>
+      </div>
+  <div class="col l6 xl6 m6 s12 mb-10">
+      <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label> Name in English <span style="color: red">*</span>
+          </mat-label>
+          <input matInput placeholder="Name in English" [formControl]="Name" name="Name" [(ngModel)]="model.Name" id="Name">
+      </mat-form-field>
+      <mat-error *ngIf="Name.invalid && Name.touched">
+         Name in English is <strong>required</strong>
+        </mat-error>
+  </div>
+
+  <div class="col l6 xl6 m6 s12 mb-10">
+      <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label> Name in Hindi
+          </mat-label>
+          <input matInput placeholder="Name in Hindi" name="NameHindi" [(ngModel)]="model.NameHindi" id="NameHindi">
+      </mat-form-field>
+  </div>
+  <div class="col l4 xl4 m6 s12">
+    <section class="example-full-width  checkbox-bx-custom checkbox-bx-custom-with-label"
+        appearance="outline">
+        <mat-label>Is Applicable To All Sub-Category </mat-label>
+        <mat-checkbox [(ngModel)]="model.IsApplicableToAll"
+        [formControl]="IsApplicableToAll" name="IsApplicableToAll" id="IsApplicableToAll"> Is Applicable To All Department</mat-checkbox>
+    </section>
+</div>
+
+
+  <div class="col l12 x8 m4 s12 mb-10">
+      <button mat-button class="btn-submit" (click)="SaveClick()">{{title}}</button>
+  </div>
+</div>

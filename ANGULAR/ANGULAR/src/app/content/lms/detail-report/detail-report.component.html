@@ -1,0 +1,80 @@
+<app-report-advance-search (outputModel)="getAdvanceSearchReportData($event)"></app-report-advance-search>
+
+<div class="row">
+    <div class="col l12 s12">
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" *ngIf="detailReport.length > 0">
+            <ng-container matColumnDef="sNo">
+                <th mat-header-cell *matHeaderCellDef> S.No. </th>
+                <td mat-cell *matCellDef="let row; let i = index;" class="center">
+                    {{(reportIndexModel.Page-1)*reportIndexModel.PageSize+(i+1)}}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="refNo_entryDate">
+                <th mat-header-cell *matHeaderCellDef>Ref No.<br />Entry Date</th>
+                <td mat-cell *matCellDef="let row">
+                    {{row.LetterId}}<br />{{row.LetterEntryDate | date: 'dd/MM/yyyy'}}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="subject">
+                <th mat-header-cell *matHeaderCellDef>Subject</th>
+                <td mat-cell *matCellDef="let row">{{row.LetterSubject}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="referencee">
+                <th mat-header-cell *matHeaderCellDef>Referencee</th>
+                <td mat-cell *matCellDef="let row">
+                    {{row.ReferenceeName}}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="department">
+                <th mat-header-cell *matHeaderCellDef>Department & Sent to Officer</th>
+                <td mat-cell *matCellDef="let row">{{row.DepartmentTitle}}<br />{{row.GroupTitle}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="senderDetail">
+                <th mat-header-cell *matHeaderCellDef>Sender Details</th>
+                <td mat-cell *matCellDef="let row">
+                    {{row.LetterSenderName}}<br />{{row.LetterSenderAddress}}<br />
+                    {{row.LetterSender_Mobile}}<br />{{row.LetterSender_Email}}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="deptAction">
+                <th mat-header-cell *matHeaderCellDef>Department Action</th>
+                <td mat-cell *matCellDef="let row">
+                    {{row.Last_DepartmentActionDetail}}<br />
+                    {{row.Last_DepartmentActionDateTime | date: 'dd/MM/yyyy'}}<br />
+                    {{row.Last_DepartmentActionStatus}}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="cmoAction">
+                <th mat-header-cell *matHeaderCellDef>CMO Action</th>
+                <td mat-cell *matCellDef="let row">
+                    {{row.Last_CMOActionDetail}}<br />
+                    {{row.Last_CMOActionDateTime | date: 'dd/MM/yyyy'}}<br />
+                    {{row.Last_CMOActionStatus}}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="cmntOfficer">
+                <th mat-header-cell *matHeaderCellDef>Commenting Officer</th>
+                <td mat-cell *matCellDef="let row">{{row.LetterCommentGroupTitle}}</td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+            <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+        </table>
+
+        <mat-paginator #paginator [length]="totalRecords" [pageSize]="reportIndexModel.PageSize"
+            [pageSizeOptions]="[5, 10, 20, 50]" (page)="onPaginateChange($event)" showFirstLastButtons>
+        </mat-paginator>
+
+        <ng-container *ngIf="detailReport.length === 0">
+            No record found.
+        </ng-container>
+    </div>
+</div>

@@ -1,0 +1,74 @@
+<div class="row m-20 mb-0">
+  <div class="col l6 xl4 m4 s4">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <input matInput placeholder="Website URL" (keyup)="SearchByKeyword($event);" [(ngModel)]="indexModel.WebSitUrl" />
+    </mat-form-field>
+  </div>
+
+  <div class="col l6 xl4 m4 s6">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>From Date</mat-label>
+      <input matInput [matDatepicker]="picker1" (focus)="picker1.open()" readonly placeholder="From Date"
+        [(ngModel)]="indexModel.FromDate" [max]="indexModel.ToDate">
+      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+      <mat-datepicker #picker1></mat-datepicker>
+    </mat-form-field>
+  </div>
+
+  <div class="col l6 xl4 m4 s4">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>To Date</mat-label>
+      <input matInput [matDatepicker]="picker2" (focus)="picker2.open()" readonly placeholder="To Date"
+        [(ngModel)]="indexModel.ToDate" [min]="indexModel.FromDate">
+      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker #picker2></mat-datepicker>
+    </mat-form-field>
+  </div>
+
+  <div class="col l6 xl4 m4 s4">
+    <button (click)="searchClick();" class="btn btn_note btn_green" style="margin-right: 10px;">Search</button>
+    <button (click)="clearClick();" class="btn btn_note btn_orange">Clear Search</button>
+  </div>
+</div>
+
+<div style="margin-left: 96%;">
+  <button (click)="print();" class="btn btn_note btn_orange" style="margin-bottom: 10px;
+  line-height: 1px;">
+    <mat-icon>print</mat-icon>
+  </button>
+</div>
+
+<div id="test">
+  <div class="row">
+    <div class="col l12 s12 p-0">
+      <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)" *ngIf="listModel?.length>0"
+        class="mat-elevation-z8" style="vertical-align:top !important">
+        <ng-container matColumnDef="index">
+          <th mat-header-cell *matHeaderCellDef>S.No</th>
+          <td mat-cell *matCellDef="let element; let i = index">
+            {{ (i + 1) }}
+          </td>
+          <td mat-footer-cell *matFooterCellDef> </td>
+        </ng-container>
+
+        <ng-container matColumnDef="WebSitUrl">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> WebSite URL</th>
+          <td mat-cell *matCellDef="let transaction"> {{transaction.WebSitUrl}} </td>
+          <td mat-footer-cell *matFooterCellDef> Total </td>
+        </ng-container>
+
+        <ng-container matColumnDef="VisitorCount">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Website Popup Counter</th>
+          <td mat-cell *matCellDef="let transaction"> {{transaction.VisitorCount}} </td>
+          <td mat-footer-cell *matFooterCellDef>{{totalVCCount}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+        <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
+        <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+      </table>
+
+      <div *ngIf="listModel?.length==0"> Record Not Found</div>
+    </div>
+  </div>
+</div>

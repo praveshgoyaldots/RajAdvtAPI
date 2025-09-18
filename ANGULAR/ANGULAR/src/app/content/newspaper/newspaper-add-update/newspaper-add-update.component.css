@@ -1,0 +1,10 @@
+.key_search_bx .mat-form-field {
+  max-width: 100%;
+  margin: auto;
+}
+.mat-hint
+{
+  text-align: right;
+    width: 100%;
+    display: block;
+}

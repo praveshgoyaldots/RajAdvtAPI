@@ -1,0 +1,113 @@
+
+ <div class="row ">
+    <div class="col l12 xl12 m12 s12" style="margin-bottom: 20px !important;">
+
+      <mat-label>Department List <span style="color: red;">*</span></mat-label>
+        <mat-selection-list [formControl]="DepartmentCodeList" [(ngModel)]="model.DepartmentCodeList" class="matlistscroll" >
+          <mat-list-option disabled="disabled" (click)="selectAll()">
+            <mat-checkbox [checked]="selectedAll>0"> SelectAll </mat-checkbox>
+        </mat-list-option>
+        <mat-list-option  [value]=" k.Value" *ngFor="let k of dDLList?.ddlDepartment">
+            {{ k.Text }}
+          </mat-list-option>
+        </mat-selection-list>
+      <mat-error class="error-relative" *ngIf="DepartmentCodeList.invalid && DepartmentCodeList.touched">
+          Department is <strong>required</strong>
+        </mat-error>
+
+    </div>
+
+    <div class="col l12 xl12 m12 s12" style="margin-bottom: 20px !important;">
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>CcEmail
+            </mat-label>
+            <input matInput placeholder="Cc Email" [formControl]="CCEmail"  name="CCEmail" [(ngModel)]="model.CCEmail" >
+        </mat-form-field>
+        <mat-error  class="error-relative" *ngIf="CCEmail.invalid && CCEmail.touched">
+              CcEmail is <strong>required</strong>
+        </mat-error>
+    </div>
+
+    <!-- multiple selection list for sending mail to important person -->
+    <!-- start region-->
+
+
+
+    <div class="border-design">
+      <div class="col l12">
+      <h4 class="impo-ofc-title">Important Officers List</h4>
+    </div>
+
+      <div class="col x6 m4 s6">
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label> Department </mat-label>
+          <mat-select [(ngModel)]="indexModel.DepartmentCode">
+            <mat-option value="">--Select--</mat-option>
+            <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlDepartment">{{ k.Text }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="col x6 m4 s6">
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label> Designation  </mat-label>
+          <mat-select [(ngModel)]="indexModel.DesignationCode">
+            <mat-option value="">--Select--</mat-option>
+            <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlDesignation">{{ k.Text }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+      </div>
+      <div class="col x3 m4 s6 mt-10">
+        <button (click)="onSearchclick();" mat-button class="btn-submit btn_green">Search</button>
+        &nbsp; <button (click)="onClearclick();" mat-button class="btn-submit  btn_orange">Clear<mat-icon>refresh
+          </mat-icon></button>
+      </div>
+
+
+    <mat-toolbar color="primary" *ngIf="listModel?.length==0">Record Not Found...!</mat-toolbar>
+    <div class="col l12 m12 s12" *ngIf="listModel?.length > 0">
+      <div class="table-responsive table-header-fixed">
+      <table class="table new_table table_border table_custom mb-20">
+          <thead>
+              <tr>
+                  <th scope="col">Sr.No</th>
+                  <!-- <th scope="col">Admin Department</th> -->
+                  <th scope="col">Department Title</th>
+                  <th scope="col">OfficerName</th>
+                  <th scope="col" >Email</th>
+                   <th scope="col" style="width:120px;">
+
+                      <mat-checkbox (change)="selectAllDepartmentContactDetail($event)"> Select All</mat-checkbox>
+
+                  </th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let item of listModel; let i = index" [attr.data-index]="i">
+                  <td scope="row">{{ i + 1 }}</td>
+                  <!-- <td>{{ AdminItems[(item?.AdminDepartmentCode)] }}</td> -->
+                  <td>{{ item?.DepartmentTitle }}</td>
+                  <td>{{ item?.OfficerName }}</td>
+                  <td>{{ item?.Email }}</td>
+
+                  <td class="action-link mat-column-Action" >
+
+                      <mat-checkbox value="item.Id" (change)="selectOfficerEmail($event,item)" [checked]="checkbox(item.Id)"></mat-checkbox>
+
+                  </td>
+              </tr>
+          </tbody>
+      </table>
+    </div>
+
+  </div>
+
+</div>
+    <!-- end region-->
+
+    <div class="col l12 xl12 m12 s12 ">
+        <button mat-button class="btn-submit" (click)="SaveClick()">Submit</button>
+    </div>
+
+</div>

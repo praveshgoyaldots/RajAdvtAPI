@@ -1,0 +1,374 @@
+<div class="row">
+    <div class="col l12 s12 p-0">
+      <div class="row m-20 mb-0">
+        <div class="col l4 xl4 m6 s12">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>from Date</mat-label>
+            <input matInput [matDatepicker]="picker2" (focus)="picker2.open()" readonly placeholder="Date" [(ngModel)]="filterModel.FromDate" [max]="filterModel.ToDate">
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="col l4 xl4 m6 s12">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>To Date</mat-label>
+            <input matInput [matDatepicker]="picker1" (focus)="picker1.open()" readonly placeholder="Date" [(ngModel)]="filterModel.ToDate" [min]="filterModel.FromDate">
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="col l4 xl4 m6 s12">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>CMO Officer</mat-label>
+              <mat-select  [(ngModel)]="filterModel.CMOOfficerCode" (selectionChange)="getDepartment($event.value)">
+                <mat-option value="0">--Select--</mat-option>
+                <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlCMOOfficers">{{ k.Text }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        <div class="col l4 xl4 m6 s12">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label> Department</mat-label>
+            <mat-select [(ngModel)]="filterModel.DepartmentCode">
+                <mat-option value="0">--Select All-</mat-option>
+              <mat-option value="{{ k.Value }}" *ngFor="let k of ddlDepartmentForCMISReport">{{k.Text}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col l4 xl4 m6 s12">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Module Name</mat-label>
+            <mat-select [(ngModel)]="filterModel.ModuleId" (selectionChange)="GetStatusByModule($event.value)">
+                <mat-option value="0">--Select All-</mat-option>
+              <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlCMISReportModules">{{k.Text}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col l4 xl4 m6 s12">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Department Status</mat-label>
+            <mat-select [(ngModel)]="filterModel.DepartmentStatus">
+                <mat-option value="">--Select All-</mat-option>
+              <mat-option value="{{ k.Value }}" *ngFor="let k of ddlCMISStatus">{{k.Text}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col l4 xl4 m6 s12">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>CMO Status</mat-label>
+            <mat-select [(ngModel)]="filterModel.CMOStatus">
+                <mat-option value="">--Select All-</mat-option>
+              <mat-option value="{{ k.Value }}" *ngFor="let k of ddlCMISStatus">{{k.Text}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col l4 xl4 m6 s12">
+          <section class="example-full-width  checkbox-bx-custom checkbox-bx-custom-with-label mb-10" appearance="outline">
+            <!-- <mat-label>Is Show only entries greater than zero </mat-label> -->
+            <mat-checkbox  Id="IsDataWithTotalEntries" #IsDataWithTotalEntries [(ngModel)]="filterModel.IsDataWithTotalEntries" >Show only entries greater than zero </mat-checkbox>
+          </section>
+        </div>
+        <div class="col l4 xl4 m6 s12">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Expected Number Of Entry</mat-label>
+            <input matInput type="number" placeholder="Expected Number Of Entry" [(ngModel)]="filterModel.ExpectedNumberOfEntry" maxlength="3" />
+
+          </mat-form-field>
+        </div>
+        <div class="col l12 m12 s12 text-center mb-20">
+          <button (click)="searchClick();" class="btn btn_note btn_green" style="margin-right: 10px;">Search</button>
+          <button (click)="clearClick();" class="btn btn_note btn_orange" style="margin-right: 10px;">Clear Search</button>
+        </div>
+      </div>
+      <table mat-table [dataSource]="dataSource" *ngIf="listModel?.length>0" matSort (matSortChange)="SortData($event)" class="mat-elevation-z8">
+        <ng-container matColumnDef="index">
+          <th mat-header-cell *matHeaderCellDef>S. No  </th>
+          <td mat-cell *matCellDef="let element; let i = index"> {{ (i + 1) }} </td>
+          <td mat-footer-cell *matFooterCellDef> Total </td>
+        </ng-container>
+        <ng-container matColumnDef="modulename">
+          <th mat-header-cell *matHeaderCellDef>
+            <table class="table-in-data-head">
+              <tbody>
+                  <tr>
+                      <td>Department</td>
+                    </tr>
+                <tr>
+                  <td>Module Name </td>
+                </tr>
+                <tr>
+                  <td>Project_Code</td>
+                </tr>
+                <tr>
+                  <td>Financial Year</td>
+                </tr>
+                <!-- <tr>
+                  <td>Send To Department</td>
+                </tr> -->
+
+              </tbody>
+            </table>
+          </th>
+          <td mat-cell *matCellDef="let element">
+            <table class="table-in-data">
+              <tbody>
+                  <tr>
+                      <td>{{element.DepartmentName}}</td>
+                    </tr>
+                <tr>
+                  <td>{{ element.modulename }}</td>
+                </tr>
+                <tr >
+                  <td>{{element.Project_Code}}</td>
+                </tr>
+                <tr>
+                  <td>{{element.Financial_Year}}</td>
+                </tr>
+                <!-- <tr *ngIf="element.Send_to_Department">
+                  <td>{{element.Send_to_Department}}</td>
+                </tr> -->
+              </tbody>
+            </table>
+          </td>
+          <td mat-footer-cell *matFooterCellDef> </td>
+        </ng-container>
+        <ng-container matColumnDef="Announcement_Description">
+          <th mat-header-cell *matHeaderCellDef>
+            <table class="table-in-data-head">
+              <tbody>
+                <tr>
+                  <td>Announcement Description </td>
+                </tr>
+                <!-- <tr>
+                  <td>Announcement Description Gist</td>
+                </tr> -->
+                <tr>
+                  <td>Para No</td>
+                </tr>
+                <tr>
+                  <td>Part No</td>
+                </tr>
+                <!-- <tr>
+                  <td>File_Number</td>
+                </tr> -->
+
+              </tbody>
+            </table>
+          </th>
+          <td mat-cell *matCellDef="let element">
+            <table class="table-in-data">
+              <tbody>
+                <tr>
+                  <td title="{{element.Announcement_Description}}"> {{ element.Announcement_Description }}</td>
+                </tr>
+                <!-- <tr *ngIf="element.Announcement_Description_Gist">
+                  <td title="{{element.Announcement_Description_Gist}}">{{element.Announcement_Description_Gist}}</td>
+                </tr> -->
+                <tr *ngIf="element.Para_No">
+                  <td>{{element.Para_No}}</td>
+                </tr>
+                <tr *ngIf="element.Part_No">
+                  <td>{{element.Part_No}}</td>
+                </tr>
+                <tr *ngIf="element.Sub_Para_No">
+                  <td>{{element.Sub_Para_No}}</td>
+                </tr>
+                <!-- <tr *ngIf="element.File_Number">
+                  <td>{{element.File_Number}}</td>
+                </tr> -->
+
+              </tbody>
+            </table>
+          </td>
+          <td mat-footer-cell *matFooterCellDef> </td>
+        </ng-container>
+        <ng-container matColumnDef="ModifiedDate">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            <table class="table-in-data-head">
+              <tbody>
+                <tr>
+                  <td>Sent To Dept On</td>
+                </tr>
+                <!-- <tr>
+                  <td>Dept UpdateDate</td>
+                </tr>
+                <tr>
+                  <td>Benefited StartDate</td>
+                </tr>
+                <tr>
+                  <td>CMO UpdateDate</td>
+                </tr>
+                <tr>
+                  <td>Cretaed On</td>
+                </tr>
+                <tr>
+                  <td>Modified On</td>
+                </tr>
+                <tr>
+                  <td>App Date</td>
+                </tr> -->
+              </tbody>
+            </table>
+          </th>
+          <td mat-cell *matCellDef="let element" class="action-link toogle-btn">
+            <table class="table-in-data">
+              <tbody>
+                <tr>
+                  <td>{{ element.Sent_to_Dept_on !=null ? (element.Sent_to_Dept_on| date: 'dd/MM/yyy , h:mm:ss a') :'--' }}</td>
+                </tr>
+                <!-- <tr *ngIf="element.Dept_UpdateDate">
+                  <td>{{ element.Dept_UpdateDate| date: 'dd/MM/yyy , h:mm:ss a'}}</td>
+                </tr>
+                <tr *ngIf="element.Benefited_StartDate">
+                  <td>{{ element.Benefited_StartDate| date: 'dd/MM/yyy , h:mm:ss a'}}</td>
+                </tr>
+                <tr *ngIf="element.CMO_UpdateDate">
+                  <td>{{ element.CMO_UpdateDate| date: 'dd/MM/yyy , h:mm:ss a'}}</td>
+                </tr>
+                <tr *ngIf="element.CretaedOn">
+                  <td>{{ element.CretaedOn| date: 'dd/MM/yyy , h:mm:ss a'}}</td>
+                </tr>
+                <tr *ngIf="element.ModifiedOn">
+                  <td>{{ element.ModifiedOn| date: 'dd/MM/yyy , h:mm:ss a'}}</td>
+                </tr>
+                <tr *ngIf="element.App_Date">
+                  <td>{{ element.App_Date| date: 'dd/MM/yyy , h:mm:ss a'}}</td>
+                </tr> -->
+              </tbody>
+            </table>
+   </td>
+   <td mat-footer-cell *matFooterCellDef> </td>
+        </ng-container>
+        <ng-container matColumnDef="Dept_Comments">
+          <th mat-header-cell *matHeaderCellDef>
+            <table class="table-in-data-head">
+              <tbody>
+                <!-- <tr>
+                <td>Department Comments </td>
+                </tr> -->
+                <tr>
+                <td>Department Status</td>
+                </tr>
+                <tr>
+                    <td>CMO Status</td>
+                    </tr>
+                <!-- <tr>
+                <td>Is CM Priority</td>
+                </tr>
+                <tr>
+                <td>Sub Sub-Category</td>
+                  </tr>
+                  <tr>
+                <td>Is Actual Benefited Start</td>
+                </tr> -->
+              </tbody>
+              </table>
+
+
+          </th>
+          <td mat-cell *matCellDef="let element">
+            <table class="table-in-data">
+              <tbody>
+                <!-- <tr>
+                <td>{{ element.Dept_Comments }} </td>
+                </tr> -->
+                <tr *ngIf="element.Dept_Status">
+                <td>{{element.Dept_Status}}</td>
+                </tr>
+                <tr *ngIf="element.CMO_Status">
+                    <td>{{element.CMO_Status}}</td>
+                    </tr>
+
+                <!-- <tr *ngIf="element.Is_CM_Priority">
+                <td>{{element.Is_CM_Priority?'Yes':'No'}}</td>
+                </tr>
+                <tr *ngIf="element.IsActualbenefitedStart">
+                <td>{{element.IsActualbenefitedStart?'Yes':'No'}}</td>
+                  </tr> -->
+
+              </tbody>
+              </table>
+
+
+
+           </td>
+           <td mat-footer-cell *matFooterCellDef> </td>
+        </ng-container>
+        <ng-container matColumnDef="CMO_Comments">
+          <th mat-header-cell *matHeaderCellDef>
+            <table class="table-in-data-head">
+              <tbody>
+                <!-- <tr>
+                <td>CMO Comments </td>
+                </tr>
+
+                <tr>
+                <td>Action Not Required</td>
+                </tr> -->
+                <tr>
+                  <td>Category</td>
+                  </tr>
+                  <tr>
+                    <td>Sub Category</td>
+                    </tr>
+                    <tr>
+                      <td>Work Type</td>
+                      </tr>
+                      <tr>
+                        <td>Manu name</td>
+                        </tr>
+              </tbody>
+              </table>
+
+
+          </th>
+          <td mat-cell *matCellDef="let element">
+
+            <table class="table-in-data">
+              <tbody>
+                <!-- <tr>
+                <td>{{ element.CMO_Comments }} </td>
+                </tr>
+
+                <tr *ngIf="element.Action_not_required">
+                <td>{{element.Action_not_required?'Yes':'No'}}</td>
+                </tr> -->
+                <tr *ngIf="element.CategoryName">
+                  <td>{{element.CategoryName}}</td>
+                  </tr>
+                  <tr *ngIf="element.SubCategoryName">
+                    <td>{{element.SubCategoryName}}</td>
+                    </tr>
+                    <tr *ngIf="element.SubSubCategoryName">
+                      <td>{{element.SubSubCategoryName}}</td>
+                      </tr>
+                      <tr *ngIf="element.PageTitle">
+                        <td>{{element.PageTitle}}</td>
+                        </tr>
+              </tbody>
+              </table>
+
+
+          </td>
+          <td mat-footer-cell *matFooterCellDef> </td>
+        </ng-container>
+        <ng-container matColumnDef="TotalEntries">
+            <th mat-header-cell *matHeaderCellDef> Number Of Entries In Jankalyan </th>
+            <td mat-cell *matCellDef="let transaction"> {{transaction.TotalEntries }} </td>
+            <td mat-footer-cell *matFooterCellDef>{{totalCount}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="ExpectedNumberOfEntry">
+            <th mat-header-cell *matHeaderCellDef> Expected Number Of Entry </th>
+            <td mat-cell *matCellDef="let transaction"> {{transaction.ExpectedNumberOfEntry }} </td>
+            <td mat-footer-cell *matFooterCellDef>{{expactedNoOfEntries}} </td>
+          </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+        <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
+        <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+      </table>
+    </div>
+    <div *ngIf="listModel?.length==0"> Record Not Found</div>
+  </div>

@@ -1,0 +1,88 @@
+<form [formGroup]="formGroup">
+        <div class="row">
+                <div class="col l6 xl6 m6 s12">
+                        <mat-form-field class="example-full-width" appearance="outline">
+                                <mat-label> Department<span style="color: red">*</span> </mat-label>
+                                <mat-select formControlName="DepartmentCode" #DepartmentCode [(ngModel)]="model.DepartmentCode">
+                                  <mat-option>--Select--</mat-option>
+                                  <mat-option value="{{ k.DepartmentCode }}" *ngFor="let k of ddlDepartment">{{ k.DepartmentTitle }}</mat-option>
+                    
+                                </mat-select>
+                              </mat-form-field>
+                        <mat-error  *ngIf="formGroup.get('DepartmentCode').hasError('required') && (formGroup.get('DepartmentCode').touched && formGroup.get('DepartmentCode').invalid)">
+                            Department is <strong>required!</strong>
+                        </mat-error>
+                    </div>
+                    <div class="col l6 xl6 m6 s12">
+                        <mat-form-field class="example-full-width" appearance="outline">
+                            <mat-label>Order By
+                            </mat-label>
+                            <input matInput placeholder="Order By" [(ngModel)]="model.OrderBy" formControlName="OrderBy" name="OrderBy">
+                        </mat-form-field>
+                    </div>
+            <div class="col l6 xl6 m6 s12">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Reference in English <span style="color: red">*</span>
+                    </mat-label>
+                    <input matInput placeholder="Reference in English" [(ngModel)]="model.Reference" formControlName="Reference" name="Reference">
+                </mat-form-field>
+                <mat-error *ngIf="formGroup.get('Reference').hasError('required') && (formGroup.get('Reference').touched && formGroup.get('Reference').invalid)">
+                        Reference is <strong>required!</strong>
+                </mat-error>
+            </div>
+            <div class="col l6 xl6 m6 s12">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Reference in Hindi
+                    </mat-label>
+                    <input matInput placeholder="Reference in Hindi" [(ngModel)]="model.ReferenceHindi" formControlName="ReferenceHindi" name="ReferenceHindi">
+                </mat-form-field>
+            </div>
+            <div class="col l6 xl6 m6 s12">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Post
+                    </mat-label>
+                    <input matInput placeholder="Post" [(ngModel)]="model.Post" formControlName="Post" name="Post">
+                </mat-form-field>
+            </div>
+           
+            <div class="col l6 xl6 m6 s12">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Mobile Number 1
+                    </mat-label>
+                    <input matInput placeholder="Mobile Number 1" [(ngModel)]="model.MobileNumber1" type="number" onKeyPress="if(this.value.length==12) return false;" formControlName="MobileNumber1" name="MobileNumber1">
+                </mat-form-field>
+            </div>
+            <div class="col l6 xl6 m6 s12">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Email 1
+                    </mat-label>
+                    <input matInput maxlength="100" placeholder="Email 1" [(ngModel)]="model.Email1" formControlName="Email1" name="Email1">
+                </mat-form-field>
+                <mat-error *ngIf="(formGroup.get('Email1').hasError('email') && formGroup.get('Email1').touched)">
+                    Email is not in <strong>Valid fromat!</strong>
+                  </mat-error>
+            </div>
+            <div class="col l6 xl6 m6 s12">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Mobile Number 2
+                    </mat-label>
+                    <input matInput placeholder="Mobile Number 2" [(ngModel)]="model.MobileNumber2" type="number" onKeyPress="if(this.value.length==12) return false;" formControlName="MobileNumber2" name="MobileNumber2">
+                </mat-form-field>
+            </div>
+            <div class="col l6 xl6 m6 s12">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Email 2
+                    </mat-label>
+                    <input matInput placeholder="Email 2" [(ngModel)]="model.Email2" formControlName="Email2" name="Email2">
+                </mat-form-field>
+                <mat-error *ngIf="(formGroup.get('Email2').hasError('email') && formGroup.get('Email2').touched)">
+                    Email is not in <strong>Valid fromat!</strong>
+                  </mat-error>
+            </div>
+           
+         
+            <div class="col l12 x8 m4 s6 clearfix">
+                <button mat-button class="btn-submit" (click)="SaveClick();">{{title}}</button>
+            </div>
+        </div>
+        </form>

@@ -1,0 +1,26 @@
+<div class="modal-header">
+  <p>Dispatch Number </p>
+
+  <button mat-button (click)="onNoClick()">
+      <mat-icon>close</mat-icon>
+  </button>
+
+</div>
+<div class="col l12 s12 ">
+
+  <div class="col l6 xl6 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Dispatch Number
+          </mat-label>
+          <input matInput maxlength="50" placeholder="Dispatch Number" [formControl]="dispatchNoVal"  name="dispatchNoVal" [(ngModel)]="dispatchNo" id="dispatchNoVal">
+      </mat-form-field>
+      <mat-error *ngIf="dispatchNoVal.invalid && dispatchNoVal.touched">
+        Dispatch Number is <strong>required</strong>
+            </mat-error>
+  </div>
+
+  <div class="col l12 x8 m4 s12 ">
+      <button mat-button class="btn-submit" (click)="saveClick()">Submit</button>
+  </div>
+</div>
+

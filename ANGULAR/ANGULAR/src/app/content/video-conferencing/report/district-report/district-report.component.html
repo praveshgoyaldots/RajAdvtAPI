@@ -1,0 +1,54 @@
+
+<div class="row">
+    <div class="col l12 s12 p-0">
+        <div class="row m-20 ">
+            <div class="col l12 xl12 m12 s12">
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label> VC Name </mat-label>
+                  <mat-select [(ngModel)]="model.VCCode" >
+                    <mat-option value="{{ k.Code }}" *ngFor="let k of dDLList?.ddlCurrentDateVC">{{ k.ShortDescription }}
+                        <span>(</span> {{ k.Date| date: 'dd/MM/yyyy' }}<span *ngIf="k.Date && k.Time"> / </span>{{ k.Time }} <span>)</span>
+                     </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            <div class="col l12 xl12 m12 s12 text-center">
+              <button (click)="searchClick();" class="btn btn_note btn_green" style="margin-right: 10px;">Search</button>
+              <button (click)="clearClick();" class="btn btn_note btn_orange" >Clear Search</button>
+              <button (click)="print();" class="btn btn_note btn_orange"  style="margin-left: 10px;">Print</button>
+            </div>
+  </div >
+<div id="test">
+      <table mat-table [dataSource]="dataSource" matSort *ngIf="listModel?.length>0" class="mat-elevation-z8" style="vertical-align:top !important">
+        <ng-container matColumnDef="index">
+          <th mat-header-cell *matHeaderCellDef>#</th>
+          <td mat-cell *matCellDef="let element; let i = index">
+            {{ (indexModel.Page - 1) * indexModel.PageSize + (i + 1) }}
+          </td>
+          <td mat-footer-cell *matFooterCellDef> Total </td>
+        </ng-container>
+          <ng-container [matColumnDef]="column.Value" *ngFor="let column of ViewdisplayedColumns">
+
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column.Text}} </th>
+              <td mat-cell *matCellDef="let element"> {{element[column.Value]}} </td>
+              <td mat-footer-cell *matFooterCellDef> </td>
+            </ng-container>
+
+
+             <!-- Cost Column -->
+        <ng-container matColumnDef="ParticipantCount">
+          <th mat-header-cell *matHeaderCellDef> Participant Count</th>
+          <td mat-cell *matCellDef="let transaction"> {{transaction.ParticipantCount}} </td>
+          <td mat-footer-cell *matFooterCellDef>{{totalVCCount}} </td>
+        </ng-container>
+
+
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+        <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
+        <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+      </table>
+    </div>
+      <div *ngIf="listModel?.length==0"> Record Not Found</div>
+    </div>
+  </div>
+

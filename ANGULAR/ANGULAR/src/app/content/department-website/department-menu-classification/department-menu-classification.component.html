@@ -1,0 +1,143 @@
+
+  <div class="col l12 s12">
+
+    <div class="row m-20 mb-0 scheme-sear-bg-1 no-margin">
+      <div class="col l4 xl4 m6 s12">
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>From Date</mat-label>
+          <input matInput [matDatepicker]="picker2" (focus)="picker2.open()" readonly placeholder="Date" [(ngModel)]="indexModel.FromDate" [max]="indexModel.ToDate">
+          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="col l4 xl4 m6 s12">
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>To Date</mat-label>
+          <input matInput [matDatepicker]="picker1" (focus)="picker1.open()" readonly placeholder="Date" [(ngModel)]="indexModel.ToDate" [min]="indexModel.FromDate">
+          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="col l3 xl3 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label> Department</mat-label>
+                    <mat-select  [(ngModel)]="indexModel.DepartmentCode">
+                        <mat-option value="">--Select Department--</mat-option>
+                        <mat-option value="{{ k.DepartmentCode }}" *ngFor="let k of ddlDepartment" title={{k.DepartmentTitle}} >
+                            {{ k.DepartmentTitle }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+      </div>
+      <div class="col l3 xl3 m6 s12">
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label> Menu Classification </mat-label>
+                              <mat-select  [(ngModel)]="indexModel.MenuClassificationCode">
+                                  <mat-option value="">--Select Menu Classification--</mat-option>
+                                  <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlClassification">{{ k.Text }}</mat-option>
+                              </mat-select>
+                          </mat-form-field>
+        </div>
+        <div class="col l3 xl3 m4 s12">
+          <mat-label class="mr-5">Get Active De-Active Data</mat-label>
+          <br />
+          <mat-radio-group class="radio_grp" aria-label="Select an option" [(ngModel)]="indexModel.Status">
+            <mat-radio-button [value]="1" (change)="getActiveDeActiveData(1)" [checked]="indexModel.Status==1">Active
+            </mat-radio-button>
+            <mat-radio-button [value]="0" (change)="getActiveDeActiveData(0)">De-Active</mat-radio-button>
+            <mat-radio-button [value]="-1" (change)="getActiveDeActiveData(-1)">Both</mat-radio-button>
+          </mat-radio-group>
+        </div>
+
+        <div class="col l4 m6 s12">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label> Modified By</mat-label>
+            <mat-select [(ngModel)]="indexModel.CreatedBy">
+              <mat-option value="{{item.Value}}" *ngFor="let item of dDLList?.ddlCreatedByDepartmentMenu">
+                {{item.Text}} </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+              <!-- <div class="col l1 xl1 m6 s12" >
+                  <button (click)="Reset();" class="btn btn_orange w-100" style="line-height: 0.5;"><mat-icon>refresh</mat-icon></button>
+              </div> -->
+    </div>
+
+  </div>
+
+<app-global-list-search  [SearchFields]="searchColumns" (onSearch)="SearchByKeyword($event)" (clear)="Reset()"></app-global-list-search>
+
+<div class="row">
+    <div class="col l12 s12 p-0">
+  <div class="table-responsive">
+
+  <table mat-table [dataSource]="dataSource" matSort (matSortChange)="SortData($event)" class="mat-elevation-z8" style="vertical-align:top !important;overflow-wrap: break-word;">
+    <ng-container matColumnDef="index">
+      <th mat-header-cell *matHeaderCellDef>#</th>
+      <td mat-cell *matCellDef="let element; let i = index">
+        {{ (indexModel.Page - 1) * indexModel.PageSize + (i + 1) }}
+      </td>
+    </ng-container>
+
+    <ng-container [matColumnDef]="column.Value" *ngFor="let column of ViewdisplayedColumns">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        {{ column.Text }}
+      </th>
+      <td mat-cell *matCellDef="let element">{{ element[column.Value] }}</td>
+
+    </ng-container>
+
+
+    <ng-container matColumnDef="IsActive">
+      <th mat-header-cell *matHeaderCellDef> Active Status </th>
+      <td mat-cell *matCellDef="let element" class="action-link toogle-btn">
+        <a *ngIf="this.DepartmentMenuClassificationPermission.UpdatePageAccess" (click)="OnStatusClick(element.Id)" title="Update Active Status">
+          <mat-icon *ngIf="element.IsActive" style="cursor:pointer;color: #74cb74;">toggle_on</mat-icon>
+          <mat-icon *ngIf="!element.IsActive" style="cursor:pointer;color: #ff7373;">toggle_off</mat-icon>
+        </a>
+        <a *ngIf="!this.DepartmentMenuClassificationPermission.UpdatePageAccess" title="Active Status">
+          <mat-icon *ngIf="element.IsActive" style="cursor:pointer;color: #74cb74;">toggle_on</mat-icon>
+          <mat-icon *ngIf="!element.IsActive" style="cursor:pointer;color: #ff7373;">toggle_off</mat-icon>
+        </a>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="CreatedDate">
+      <th mat-header-cell *matHeaderCellDef>Created By/ <br /> Created Date</th>
+      <td mat-cell *matCellDef="let element; let i = index;">{{element.CreatedByName}} / <br>
+        {{ element.CreatedDate !=null ? (element.CreatedDate | date: 'dd/MM/yyy , h:mm:ss a') :'--'}}</td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="ModifiedByName">
+      <th mat-header-cell *matHeaderCellDef>Modified By(Modified Date) </th>
+      <td mat-cell *matCellDef="let element; let i = index;">
+        {{element.ModifiedByName}} ({{(element.ModifiedDate | date: 'dd/MM/yyy , h:mm:ss a')}})
+      </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="Action">
+      <th mat-header-cell *matHeaderCellDef>Action</th>
+      <td mat-cell *matCellDef="let element" class="action-link">
+
+          <a *ngIf="this.DepartmentMenuClassificationPermission.UpdatePageAccess && !element.IsLock " routerLink="/department-website/department-menu-Classification/update/{{ element.Id }}" title="Edit"
+        class="btn_edit">
+        <mat-icon>edit</mat-icon>
+      </a>
+
+
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+    <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
+  </table>
+</div>
+
+
+    <mat-paginator #paginator [length]="totalRecords" [pageSize]="indexModel.PageSize"
+    [pageSizeOptions]="[5, 10, 20, 50,totalRecords]" (page)="onPaginateChange($event)" showFirstLastButtons style="display: none;">
+  </mat-paginator>
+
+</div>
+</div>

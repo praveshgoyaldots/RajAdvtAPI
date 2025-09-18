@@ -1,0 +1,22 @@
+.mat-table{
+    box-shadow: none;
+    border:1px solid rgba(0,0,0,0.12);
+}
+table.mat-table th {
+    font-size: 13px;
+    color: rgba(0,0,0,.87);
+    font-weight: bold;
+}
+.mat-table th, .mat-table td.center{
+   text-align: center;
+}
+.mat-table td, .mat-table th{
+    padding: 15px 5px;
+    border-left:1px solid rgba(0,0,0,0.12);
+}
+.mat-table td:first-child, .mat-table th:first-child{
+    border-left:none;
+}
+.mat-table .left{
+    text-align: left;
+ }

@@ -1,0 +1,23 @@
+<div class="modal-header">
+        <p>Add LookUp</p>
+
+        <button mat-button (click)="onNoClick()">
+            <mat-icon>close</mat-icon>
+        </button>
+
+    </div>
+
+    <div class="col l12 s12 ">
+            <!-- <alert></alert> -->
+        <div class="col l6 xl6 m6 s12">
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>LookUp Type
+                </mat-label>
+                <input matInput placeholder="LookUp Type" name="LookupType" [(ngModel)]="model.LookupType" id="LookupType">
+            </mat-form-field>
+        </div>
+
+        <div class="col l12 x8 m4 s12 ">
+            <button mat-button class="btn-submit" (click)="SaveClick()">Submit</button>
+        </div>
+    </div>

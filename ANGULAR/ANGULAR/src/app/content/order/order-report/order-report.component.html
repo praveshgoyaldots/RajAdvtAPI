@@ -1,0 +1,119 @@
+<div class="row m-20 mb-0">
+    <div class="col l3 xl3 m6 s12">
+        <mat-form-field appearance="outline">
+          <mat-label>Admin Department </mat-label>
+          <mat-select [(ngModel)]="model.AdminDepartmentCode" (selectionChange)="GetDepartmentByDepartmentCategory(model.DepartmentCategoryCode,$event.value)" >
+            <mat-option value="0">--Select--</mat-option>
+            <mat-option value="{{k.Value}}" *ngFor="let k of dDLList?.ddlAdminDepartment">{{k.Text}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        </div>
+    <div class="col l3 xl3 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label> Department Category</mat-label>
+        <mat-select [(ngModel)]="model.DepartmentCategoryCode" (selectionChange)="GetDepartmentByDepartmentCategory($event.value,model.AdminDepartmentCode)">
+          <mat-option value="0">All</mat-option>
+          <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlDepartmentCategory">{{ k.Text }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col l3 xl3 m6 s12">
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label> Department </mat-label>
+          <mat-select [(ngModel)]="model.DepartmentCode">
+            <mat-option value="0">All</mat-option>
+            <mat-option value="{{ k.Value }}" *ngFor="let k of ddlDepartment">{{ k.Text }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col l3 xl3 m6 s12">
+          <button (click)="GetList();" class="btn btn_note btn_green" style="margin-right: 10px;">Search</button>
+        <button (click)="clearClick();" class="btn btn_note btn_orange"><mat-icon style=" line-height: 36px;">refresh</mat-icon></button>
+      </div>
+  </div>
+<div class="row">
+  <div class="col l12 s12 ">
+
+
+<div class="table-responsive table-header-fixed mt-20">
+    <table mat-table [dataSource]="dataSource" matSort  class="mat-elevation-z8 table_border ">
+
+        <ng-container matColumnDef="index">
+            <th mat-header-cell *matHeaderCellDef>Sr No</th>
+            <td mat-cell *matCellDef="let element; let i = index;"> {{(i+1)}}</td>
+            <td mat-footer-cell *matFooterCellDef> Total </td>
+          </ng-container>
+
+          <ng-container [matColumnDef]="column.Value" *ngFor="let column of ViewdisplayedColumns">
+
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column.Text}} </th>
+            <td mat-cell *matCellDef="let element"> {{element[column.Value]}} </td>
+            <td mat-footer-cell *matFooterCellDef> </td>
+          </ng-container>
+
+          <ng-container matColumnDef="ActRules">
+            <th mat-header-cell *matHeaderCellDef>Act & Rules </th>
+            <td mat-cell *matCellDef="let transaction"> {{transaction.ActRules}} </td>
+            <td mat-footer-cell *matFooterCellDef>{{ totalActRules}} </td>
+          </ng-container>
+          <ng-container matColumnDef="Circular">
+            <th mat-header-cell *matHeaderCellDef>Circular </th>
+            <td mat-cell *matCellDef="let transaction"> {{transaction.Circular}} </td>
+            <td mat-footer-cell *matFooterCellDef>{{ totalCircular}} </td>
+          </ng-container>
+          <ng-container matColumnDef="CitizenCharter">
+            <th mat-header-cell *matHeaderCellDef>Citizen & Charter </th>
+            <td mat-cell *matCellDef="let transaction"> {{transaction.CitizenCharter}} </td>
+            <td mat-footer-cell *matFooterCellDef>{{ totalCitizenCharter}} </td>
+          </ng-container>
+          <ng-container matColumnDef="Notification">
+            <th mat-header-cell *matHeaderCellDef>Notification </th>
+            <td mat-cell *matCellDef="let transaction"> {{transaction.Notification}} </td>
+            <td mat-footer-cell *matFooterCellDef>{{ totalNotification}} </td>
+          </ng-container>
+          <ng-container matColumnDef="Order">
+            <th mat-header-cell *matHeaderCellDef>Order </th>
+            <td mat-cell *matCellDef="let transaction"> {{transaction.Order}} </td>
+            <td mat-footer-cell *matFooterCellDef>{{ totalOrders}} </td>
+          </ng-container>
+          <ng-container matColumnDef="PolicyGuidelines">
+            <th mat-header-cell *matHeaderCellDef>Policy & Guidelines </th>
+            <td mat-cell *matCellDef="let transaction"> {{transaction.PolicyGuidelines}} </td>
+            <td mat-footer-cell *matFooterCellDef>{{ totalPolicyGuidelines}} </td>
+          </ng-container>
+          <ng-container matColumnDef="AnnualProgressReport">
+            <th mat-header-cell *matHeaderCellDef>Annual Progress Report </th>
+            <td mat-cell *matCellDef="let transaction"> {{transaction.AnnualProgressReport}} </td>
+            <td mat-footer-cell *matFooterCellDef>{{ totalAnnualProgressReport}} </td>
+          </ng-container>
+          <ng-container matColumnDef="Budget">
+            <th mat-header-cell *matHeaderCellDef>Budget </th>
+            <td mat-cell *matCellDef="let transaction"> {{transaction.Budget}} </td>
+            <td mat-footer-cell *matFooterCellDef>{{ totalBudget}} </td>
+          </ng-container>
+          <ng-container matColumnDef="Covid">
+            <th mat-header-cell *matHeaderCellDef>Covid-19 Orders </th>
+            <td mat-cell *matCellDef="let transaction"> {{transaction.Covid}} </td>
+            <td mat-footer-cell *matFooterCellDef>{{ totalCovid}} </td>
+          </ng-container>
+          <ng-container matColumnDef="Publication">
+            <th mat-header-cell *matHeaderCellDef>Publication </th>
+            <td mat-cell *matCellDef="let transaction"> {{transaction.Publication}} </td>
+            <td mat-footer-cell *matFooterCellDef>{{ totalPublication}} </td>
+          </ng-container>
+          <ng-container matColumnDef="Total">
+            <th mat-header-cell *matHeaderCellDef>Total </th>
+            <td mat-cell *matCellDef="let transaction"> {{transaction.Total}} </td>
+            <td mat-footer-cell *matFooterCellDef>{{ total}} </td>
+          </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+      <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+      <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+    </table>
+  </div>
+
+
+  </div>
+</div>

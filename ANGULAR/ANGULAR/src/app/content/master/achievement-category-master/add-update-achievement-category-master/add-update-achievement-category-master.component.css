@@ -1,0 +1,9 @@
+.achievement-category-popup h4 {
+  font-size: 20px;
+  width: 100%;
+  margin: 15px 15px 15px 15px;
+  color: #26389b;
+}
+.checkbox-bx-custom-with-label mat-label {
+  color: #818181;
+}

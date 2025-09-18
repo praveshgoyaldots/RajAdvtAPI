@@ -1,0 +1,148 @@
+
+<div class="row">
+
+
+        <div class="col l3 xl3 m6 s12">
+          <mat-form-field appearance="outline">
+            <mat-label>Admin Department <span style="color: red">*</span>:</mat-label>
+            <mat-select name="AdminDepartment" id="AdminDepartment" (selectionChange)="getDepartmentList($event.value)" >
+              <mat-option>--Select--</mat-option>
+              <mat-option value="{{k.AdmDepartmentCode}}" *ngFor="let k of ddlAdminDepartment">{{k.AdmDepartmentTitle}}
+              </mat-option>
+            </mat-select>
+
+          </mat-form-field>
+
+          </div>
+
+        <div class="col l3 xl3 m6 s12">
+          <mat-form-field appearance="outline">
+            <mat-label> Department :</mat-label>
+              <mat-select name="Department" [(ngModel)]="department" (selectionChange)="getActiveDeActiveData(isPriority)" >
+                  <mat-option>--Select--</mat-option>
+                <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlDepartment">{{ k.Text }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+        </div>
+        <div class="col l6 xl6 m6 s12 ">
+            <mat-label class="mr-5">Get Active De-Active Data</mat-label>
+            <br/>
+            <mat-radio-group class="radio_grp" aria-label="Select an option" [(ngModel)]="isPriority">
+              <mat-radio-button  [value]="1" (change)="getActiveDeActiveData(1)" [checked]="isPriority==1">Priority Already Assigned</mat-radio-button>
+              <mat-radio-button [value]="0" (change)="getActiveDeActiveData(0)">Zero Priority</mat-radio-button>
+              <mat-radio-button [value]="-1" (change)="getActiveDeActiveData(-1)">All</mat-radio-button>
+            </mat-radio-group>
+          </div>
+
+        <div class="col l6 xl6 m6 s12 ">
+            <mat-label class="mr-5">IsFlagShip</mat-label>
+            <br/>
+            <mat-radio-group class="radio_grp" aria-label="Select an option" [(ngModel)]="isFlagShip">
+              <mat-radio-button  [value]="1" (change)="getActiveDeActiveData(1)" >Yes</mat-radio-button>
+              <mat-radio-button [value]="0" (change)="getActiveDeActiveData(0)">No</mat-radio-button>
+              <mat-radio-button [value]="-1" (change)="getActiveDeActiveData(-1)" [checked]="isFlagShip==-1">All</mat-radio-button>
+            </mat-radio-group>
+        </div>
+
+       
+
+
+
+  <div class="col l12 s12">
+    <table mat-table [dataSource]="dataSource" matSort (matSortChange)="SortData($event)" class="mat-elevation-z8 table_border" *ngIf="model?.length>0">
+
+        <ng-container matColumnDef="index">
+            <th mat-header-cell *matHeaderCellDef>Sr No</th>
+            <td mat-cell *matCellDef="let element; let i = index;">  {{(indexModel.Page-1)*indexModel.PageSize +(i+1)}}</td>
+          </ng-container>
+
+      <ng-container matColumnDef="NameEnglish">
+        <th mat-header-cell *matHeaderCellDef>  Name </th>
+        <td mat-cell *matCellDef="let group" class="action-link toogle-btn">
+          {{ group.NameEnglish }}
+        </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="Status">
+        <th mat-header-cell *matHeaderCellDef>Status</th>
+        <td mat-cell *matCellDef="let group" class="toogle-btn">
+          <div>
+            <ng-container>
+              <a href="JavaScript:Void(0);">
+                  <mat-icon class="toggle_on" *ngIf="group.IsActive" style="cursor:pointer;">toggle_on</mat-icon>
+                  <mat-icon class="toggle_off" *ngIf="!group.IsActive" style="cursor:pointer;">toggle_off</mat-icon>
+                </a>
+             </ng-container>
+          </div>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Priority">
+        <th mat-header-cell *matHeaderCellDef>Priority</th>
+        <td mat-cell *matCellDef="let group" class="toogle-btn">
+          <div>
+            <ng-container>
+              <input type="text" name="Priority" id="Priority" [(ngModel)]="group.PriorityInList">
+             </ng-container>
+          </div>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="IsFlagShipScheme">
+        <th mat-header-cell *matHeaderCellDef>Is FlagShip Scheme</th>
+        <td mat-cell *matCellDef="let data;let i = index" >
+          <div>
+            <ng-container>
+                  <mat-radio-group class="example-full-width radio-bx-custom radio-bx-custom-with-label"
+                  aria-label="Select an option" name="IsFlagShipScheme{{i}}" id="IsFlagShipScheme{{i}}"  [(ngModel)]="data.IsFlagShipScheme">
+                  <mat-label class="mr-5">Is FlagShip Scheme</mat-label>
+                  <mat-radio-button [value]="true" class=" mr-5">Yes</mat-radio-button>
+                  <mat-radio-button [value]="false">No</mat-radio-button>
+                  </mat-radio-group>
+             </ng-container>
+          </div>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="FlagShipSchemeImage">
+        <th mat-header-cell *matHeaderCellDef>FlagShip image</th>
+        <td mat-cell *matCellDef="let data;let i = index" >
+            <ng-container>
+                      <label>Upload Image</label>
+                      <input type="file" id="flagship" (change)="handleFileInput($event,i)" />
+                      <img  [src]="data.FlagshipImage" *ngIf="data.FlagshipImage" height="100px" width="100px"/>
+                      <a title="Remove" *ngIf="data.FlagshipImage" (click)="RemoveImage(i);">Remove</a>
+             </ng-container>
+        </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="Action">
+        <th mat-header-cell *matHeaderCellDef>Action</th>
+        <td mat-cell *matCellDef="let element" class="action-link">
+
+          <a routerLink="/scheme/update/{{ element.Id }}" title="Update"
+            class="btn_edit">
+            <mat-icon>edit</mat-icon>
+          </a>
+
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+      <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+    </table>
+    <mat-paginator #paginator [length]="totalRecords" [pageSize]="indexModel.PageSize" [pageSizeOptions]="[5,10, 20, 50,totalRecords]"
+  (page)="onPaginateChange($event)" showFirstLastButtons *ngIf="model?.length>0">
+</mat-paginator>
+<div class="col l12 x8 m4 s12 " *ngIf="model?.length>0">
+  <button mat-button class="btn-submit" (click)="SaveClick()">Submit</button>
+</div>
+
+<div class="col l12 x8 m4 s12 " *ngIf="model?.length==0">
+<span style="font-weight: bold;">Record not found</span>
+  </div>
+

@@ -1,0 +1,6 @@
+.mat-error {
+  position: relative !important;
+}
+.row.col-mb-10 .col {
+  margin-bottom: 0 !important;
+}

@@ -1,0 +1,699 @@
+<div class="row m-20">
+
+    <div class="col l6 xl6 m6 s12 download_pdf">
+        <mat-radio-group aria-label="Select an option" [(ngModel)]="model.IsHindi">
+            <mat-radio-button [value]="true">Hindi</mat-radio-button>
+            <mat-radio-button [value]="false">English</mat-radio-button>
+        </mat-radio-group>
+    </div>
+
+    <div class="col l6 xl6 m6 s12">
+        <button class="btn-submit mat-button" mat-button (click)="saveAsDrafts();">Save As Draft</button>
+    </div>
+</div>
+<div class="row" style="margin: 0px;">
+    <div style="text-align: center;" class="col l6 s6 download_pdf" *ngIf="helpDocument?.Url"> <a (click)="downloadDoc(helpDocument?.Url,true)"
+        href="JavaScript:Void(0);">
+        <mat-icon>picture_as_pdf</mat-icon>
+        Click to download Help Document
+      </a> </div>
+
+      <div style="text-align: center;" class="col l6 s6 download_pdf" *ngIf="helpDocument?.BlankDocUrl"> <a (click)="downloadDoc(helpDocument.BlankDocUrl)"
+          href="JavaScript:Void(0);">
+          <mat-icon>picture_as_pdf</mat-icon>
+          Click to download Blank Document
+        </a> </div>
+    </div>
+<div class="row add_scheme add-order-stepper">
+    <mat-horizontal-stepper [linear]="isLinear" #stepper>
+        <mat-step [stepControl]="firstFormGroup">
+            <form [formGroup]="firstFormGroup">
+                <ng-template matStepLabel>Basic Information</ng-template>
+
+                <div class="col l12 m12 s12 mb-20 mt-10">
+                    <section class="mat-typography">
+                        <h2 class="color-blue mb-0">Issuer Details</h2>
+                    </section>
+                </div>
+                <div class="col l3 xl3 m6 s12">
+                    <mat-form-field appearance="outline">
+                        <mat-label> Document Type <span style="color: red">*</span> </mat-label>
+                        <mat-select [(ngModel)]="model.Type" #Type formControlName="Type" [disabled]="model.Id" (selectionChange)="GetSubType($event.value)">
+                            <mat-option>--Select--</mat-option>
+                            <mat-option value="{{item.Value}}" *ngFor="let item of dDLList?.ddlGenerateOrderType">{{item.Text}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-error
+                        *ngIf="firstFormGroup.get('Type').hasError('required') && (firstFormGroup.get('Type').touched && firstFormGroup.get('Type').invalid) ">
+                        Type is <strong>required!</strong>
+                    </mat-error>
+                </div>
+                <div class="col l3 xl3 m6 s12">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Sector</mat-label>
+                        <mat-select [(ngModel)]="model.SectorCodes" multiple #SectorCodes formControlName="SectorCodes">
+                            <mat-option value="{{item.Value}}" *ngFor="let item of dDLList?.ddlOrderSector">
+                                {{item.Text}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col l3 xl3 m6 s12">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Department </mat-label>
+                        <mat-select [(ngModel)]="model.DepartmentCode" #DepartmentCode formControlName="DepartmentCode" [disabled]="model.Id" (selectionChange)="GetCCcategoryByDepartment($event.value)">
+                            <mat-option value="{{ k.DepartmentCode }}" *ngFor="let k of ddlDepartment">
+                                {{ k.DepartmentTitle }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-error
+                        *ngIf="firstFormGroup.get('DepartmentCode').hasError('required') && (firstFormGroup.get('DepartmentCode').touched && firstFormGroup.get('DepartmentCode').invalid) ">
+                        Department is <strong>required!</strong>
+                    </mat-error>
+                </div>
+                <div class="col l3 xl3 m6 s12">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Departments Affected</mat-label>
+                        <mat-select [(ngModel)]="model.DepartmentEffectedCodes" multiple #DepartmentEffectedCodes
+                            formControlName="DepartmentEffectedCodes">
+                            <mat-option disabled="disabled" (click)="selectAll()">
+                                <mat-checkbox [disabled]="true" [checked]="selectedAll>0 || model?.DepartmentEffectedCodes?.length==dDLList?.ddlDepartment?.length"> SelectAll </mat-checkbox>
+                            </mat-option>
+                            <mat-option value="{{item.Value}}" *ngFor="let item of dDLList?.ddlDepartment">{{item.Text}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col l3 xl3 m6 s12">
+                  <mat-form-field appearance="outline">
+                      <mat-label> Document Sub Type  </mat-label>
+                      <mat-select [(ngModel)]="model.SubTypeCode" #SubTypeCode formControlName="SubTypeCode">
+                          <mat-option>--Select--</mat-option>
+                          <mat-option value="{{item.Value}}" *ngFor="let item of ddlSubType">{{item.Text}}
+                          </mat-option>
+                      </mat-select>
+                  </mat-form-field>
+
+              </div>
+              <div class="col l3 xl3 m6 s12">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label> District <span style="color: red">*</span> </mat-label>
+                    <mat-select  #DistrictCode formControlName="DistrictCode" [(ngModel)]="model.DistrictCode">
+                        <mat-option>--Select--</mat-option>
+                        <mat-option value="{{ k.DistrictCode }}" *ngFor="let k of ddlDistrict">{{ k.DistrictTitle }} </mat-option>
+
+                    </mat-select>
+                </mat-form-field>
+                <mat-error
+                *ngIf="firstFormGroup.get('DistrictCode').hasError('required') && (firstFormGroup.get('DistrictCode').touched && firstFormGroup.get('DistrictCode').invalid) ">
+                District is <strong>required!</strong>
+            </mat-error>
+            </div>
+            <div class="col l4 xl4 m6 s12">
+                <mat-form-field class="example-full-width"  appearance = "outline">
+                  <mat-label>Office</mat-label>
+                  <input matInput #OfficeCode formControlName="OfficeCode" [(ngModel)]="loginData.OfficeName" disabled="true">
+                </mat-form-field>
+              </div>
+                <div class="col l12 m12 s12 mb-20 mt-10">
+                    <section class="mat-typography">
+                        <h2 class="color-blue mb-0">Orders/Circulars/Notification Details</h2>
+                    </section>
+                </div>
+                <div class="col l12 m12 s12">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label> Title <span style="color: red">*</span></mat-label>
+                        <input matInput placeholder="Title" [(ngModel)]="model.Title" #Title formControlName="Title"
+                            maxlength="250">
+                    </mat-form-field>
+                    <mat-error
+                        *ngIf="firstFormGroup.get('Title').hasError('required') && (firstFormGroup.get('Title').touched && firstFormGroup.get('Title').invalid) ">
+                        Title is <strong>required!</strong>
+                    </mat-error>
+                </div>
+                <div class="col l4 xl4 m6 s12">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>File no.</mat-label>
+                        <input matInput placeholder="File Number" [(ngModel)]="model.FileNumber" #FileNumber
+                            formControlName="FileNumber">
+                    </mat-form-field>
+                </div>
+                <div class="col l4 xl4 m6 s12">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Date of issue </mat-label>
+                        <input matInput [matDatepicker]="picker1" (focus)="picker1.open()" readonly
+                            placeholder="Issue Date" [(ngModel)]="model.Date" [max]="tomorrow" #Date
+                            (dateChange)="DateOfIssueClick()" formControlName="Date">
+                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                    </mat-form-field>
+                    <mat-error
+                        *ngIf="firstFormGroup.get('Date').hasError('required') && (firstFormGroup.get('Date').touched && firstFormGroup.get('Date').invalid) ">
+                        Date of issue is <strong>required!</strong>
+                    </mat-error>
+                </div>
+
+                <div class="col l4 xl4 m6 s12">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Date With Affect From</mat-label>
+                        <input matInput [matDatepicker]="picker" (focus)="picker.open()" readonly
+                            placeholder="With Affect From (Date)" [(ngModel)]="model.EffectForm" #EffectForm
+                            formControlName="EffectForm">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <div class="col l12 m12 s12">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Description <span style="color: red">*</span></mat-label>
+                        <textarea matInput placeholder="Hindi & English" [(ngModel)]="model.Description"
+                            maxlength="1000" #Description formControlName="Description"></textarea>
+                    </mat-form-field>
+                    <mat-error
+                        *ngIf="firstFormGroup.get('Description').hasError('required') && (firstFormGroup.get('Description').touched && firstFormGroup.get('Description').invalid) ">
+                        Description is <strong>required!</strong>
+                    </mat-error>
+                </div>
+                <div class="col l4 xl4 m6 s12">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Document Details</mat-label>
+                        <input matInput placeholder="Old Orders/CIR./NOTI. Number" [(ngModel)]="model.ReferenceNumber"
+                            #ReferenceNumber formControlName="ReferenceNumber">
+                    </mat-form-field>
+                </div>
+                <div class="col l4 xl4 m6 s12" *ngIf="false">
+                    <mat-radio-group class="example-full-width radio-bx-custom radio-bx-custom-with-label"
+                        aria-label="Select an option" [(ngModel)]="model.LinkToScheme" #LinkToScheme
+                        formControlName="LinkToScheme">
+                        <mat-label class="mr-5">Linked To Scheme(If Any) </mat-label>
+                        <mat-radio-button class="mr-5" value="{{item.Value}}"
+                            *ngFor="let item of dDLList?.RadioLinkedToScheme;let i = index" [checked]="i=== 1">
+                            {{item.Text}}
+                        </mat-radio-button>
+                    </mat-radio-group>
+                </div>
+                <div class="col l4 xl4 m6 s12">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Individual Beneficiary Scheme</mat-label>
+                        <input matInput placeholder="Individual Beneficiary Scheme"
+                            [(ngModel)]="model.IndividualBeneficiaryScheme" #IndividualBeneficiaryScheme
+                            formControlName="IndividualBeneficiaryScheme">
+                    </mat-form-field>
+                </div>
+                <!-- <div class="col l4 xl4 m6 s12">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Remarks</mat-label>
+                        <input matInput placeholder="Remarks if any" [(ngModel)]="model.OrderRemarks" #OrderRemarks
+                            formControlName="OrderRemarks">
+                    </mat-form-field>
+                </div> -->
+
+                <div class="col l4 xl4 m6 s12" *ngIf="false">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>URL (Reference Link)</mat-label>
+                        <input matInput placeholder="References Link" [(ngModel)]="model.ReferenceLink" #ReferenceLink
+                            formControlName="ReferenceLink">
+                    </mat-form-field>
+                </div>
+                <div class="col l4 xl4 m6 s12" *ngIf="false">
+                    <mat-radio-group class="example-full-width radio-bx-custom radio-bx-custom-with-label"
+                        aria-label="Select an option" disabled="true" [(ngModel)]="model.IssueBy" #IssueBy
+                        formControlName="IssueBy">
+                        <mat-label class="mr-5">Order Issue By </mat-label>
+                        <mat-radio-button class="mr-5" value="{{item.Value}}"
+                            *ngFor="let item of dDLList?.ddlOrderIssueBy;let i = index" [checked]="i=== 1">
+                            {{item.Text}}
+                        </mat-radio-button>
+                    </mat-radio-group>
+                </div>
+
+                <div class="col l12 m12 s12 mb-20 mt-10">
+                    <section class="mat-typography">
+                        <h2 class="color-blue mb-0">Linked with (Budget/CM Announcement/CM Directions/Jan Ghoshna Patra)</h2>
+                    </section>
+                </div>
+
+                <div class="row highlight_view btn_add_box">
+
+
+                    <div class="col l4 x8 m4 s12">
+                        <mat-form-field class="example-full-width" appearance="outline">
+                            <mat-label>Related To Module </mat-label>
+                            <mat-select formControlName="ModuleId" [(ngModel)]="orderRelatedTo.ModuleId"
+                                name="ModuleId">
+                                <mat-option value="{{item.Value}}" *ngFor="let item of dDLList?.ddlOrderModuleName">
+                                    {{item.Text}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col l4 x8 m4 s12">
+                        <mat-form-field class="example-full-width" appearance="outline">
+                            <mat-label>Year </mat-label>
+                            <mat-select formControlName="YearValue" [(ngModel)]="orderRelatedTo.YearValue"
+                                name="YearValue">
+                                <mat-option value="{{item.rowno}}" *ngFor="let item of dDLList?.ddlOrderRelatedToYear">
+                                    {{item.particulars}} </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col l4 x8 m4 s12">
+                        <mat-form-field class="example-full-width" appearance="outline">
+                            <mat-label>Department </mat-label>
+                            <mat-select formControlName="DepartmentId" [(ngModel)]="orderRelatedTo.DepartmentId"
+                                name="DepartmentId">
+                                <mat-option value="{{item.prj_dept}}"
+                                    *ngFor="let item of dDLList?.ddlOrderRelatedToDepartment">{{item.particulars}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <div class="d-inline" *ngIf="model?.RelatedToOrderParameterList?.length <5"><a class="btn_add"
+                                href="javascript:void(0)" (click)="AddMoreRelatedTo()">
+                                <mat-icon aria-hidden="false" aria-label="Example home icon">add</mat-icon>
+                            </a></div>
+                    </div>
+
+
+                    <div class="col l12 m12 s12 ">
+
+
+                        <div class="footer-info-bx">
+                            <table class="table new_table table_border mb-20" *ngIf="model.RelatedToOrderParameterList.length>0">
+
+                            <thead>
+                                <tr>
+                                  <th>#</th>
+                                  <th>Details</th>
+                                  <th width="100">Action</th>
+                                </tr>
+                            </thead>
+
+
+                            <tbody>
+                                <tr *ngFor="let item of model.RelatedToOrderParameterList; let i = index" [attr.data-index]="i">
+                                    <th scope="row">{{i+1}}</th>
+                                    <td>
+                                      <div class="footer-info-bx">
+
+                                          <div class="d-inline"> <strong> </strong><span  *ngIf="item?.ModuleId">{{moduleNameItems[item?.ModuleId]}}</span><span  *ngIf="!item?.ModuleId">--</span> </div>
+                                          <div class="d-inline"> <strong>Year: </strong><span  *ngIf="item?.YearValue">{{yearItems[item?.YearValue]}}</span><span  *ngIf="!item?.YearValue">--</span> </div>
+                                          <div class="d-inline"> <strong>Department: </strong><span  *ngIf="item?.DepartmentId">{{departmentItems[item?.DepartmentId]}}</span><span  *ngIf="!item?.DepartmentId">--</span> </div>
+
+                                        </div>
+                                        <div class="footer-info-bx" *ngIf="item.RelatedToResult">
+
+                                            <!-- <div class="d-inline" *ngIf="item.RelatedToResult.modulename"> <strong> Name: </strong> {{item.RelatedToResult.modulename}}</div>
+                                            <div class="d-inline" *ngIf="item.RelatedToResult.filenumber">
+                                              <strong> File Number:</strong> {{item.RelatedToResult.filenumber}}
+                                            </div> -->
+                                            <div class="d-inline" *ngIf="item.RelatedToResult.prj_description"><strong>Description:</strong>
+                                              {{item.RelatedToResult.prj_description}}</div>
+
+                                          </div>
+                                      </td>
+                                      <td class="action_icon"><a  class="del-icon" href="javascript:void(0)" (click)="RemoveClick(i)">
+                                          <mat-icon aria-hidden="false" aria-label="Example home icon">delete</mat-icon>
+                                        </a>
+                                        <a class="get-icon" href="javascript:void(0)"
+                                        (click)="GetRelatedToResult(item.ModuleName,item.DepartmentName,item.YearText,i)"><mat-icon>chevron_right</mat-icon></a>
+                                      </td>
+
+                                </tr>
+
+                              </tbody>
+
+                            </table>
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col l12 m12 s12 text-right">
+                    <button class="btn-submit mat-button" mat-button matStepperNext (click)="touchFirst(stepper)">Next</button>
+                </div>
+
+
+            </form>
+        </mat-step>
+        <mat-step [stepControl]="secondFormGroup">
+            <form [formGroup]="secondFormGroup">
+                <ng-template matStepLabel><a href="javascript:void(0);"
+                        (click)="touchFirst(stepper)">Subject/Reference</a> </ng-template>
+                <div class="col l12 m12 s12">
+
+
+                    <mat-form-field appearance="outline">
+                        <mat-label> Subject <span style="color: red">*</span> </mat-label>
+
+                        <textarea matInput placeholder="Subject" [(ngModel)]="model.Subject" #Subject
+                            formControlName="Subject"></textarea>
+                    </mat-form-field>
+
+                    <mat-error
+                        *ngIf="secondFormGroup.get('Subject').hasError('required') && (secondFormGroup.get('Subject').touched && secondFormGroup.get('Subject').invalid)">
+                        Subject is <strong>required!</strong>
+                    </mat-error>
+
+
+                </div>
+                <div class="col l12 m12 s12">
+                    <mat-form-field appearance="outline">
+                        <mat-label> Reference </mat-label>
+
+                        <textarea matInput placeholder="Reference" [(ngModel)]="model.Reference" #Reference
+                            formControlName="Reference"></textarea>
+                    </mat-form-field>
+
+                </div>
+                <div class="col l12 m12 s12">
+                    <mat-form-field appearance="outline">
+                        <mat-label> Context </mat-label>
+                        <textarea matInput placeholder="Context" [(ngModel)]="model.Context" #Context
+                            formControlName="Context"></textarea>
+                    </mat-form-field>
+                </div>
+
+                <div class="col l12 m12 s12 text-right">
+                    <button class="grey_btn mr-5 mat-button" mat-button matStepperPrevious>Back</button>
+                    <button class="btn-submit mat-button" mat-button matStepperNext (click)="touchSecond(stepper)">Next</button>
+                </div>
+            </form>
+        </mat-step>
+        <mat-step [stepControl]="thirdFormGroup">
+            <form [formGroup]="thirdFormGroup">
+                <ng-template matStepLabel><a href="javascript:void(0);" (click)="touchSecond(stepper)">Content</a>
+                </ng-template>
+                <div class="col s12">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <label style="padding: 10px 0px; display: inline-block;">
+                            Content <span style="color: red">*</span>
+                        </label>
+                        <textarea style="display:none;" matInput placeholder="Content" #Description
+                            formControlName="Content" maxlength="100000"></textarea>
+
+                        <ckeditor [config]="{uiColor: '#26389b'}" [(ngModel)]="model.Content" placeholder="Content"
+                            formControlName="Content" #Content></ckeditor>
+                        <!-- <mat-hint>{{ Content.value.length }}/100000</mat-hint> -->
+                    </mat-form-field>
+                    <mat-error
+                        *ngIf="thirdFormGroup.get('Content').hasError('required') && (thirdFormGroup.get('Content').touched && thirdFormGroup.get('Content').invalid)">
+                        Content is <strong>required!</strong>
+                    </mat-error>
+                </div>
+                <div class="col l12 xl12 m12 s12">
+                  <mat-radio-group class="example-full-width radio-bx-custom radio-bx-custom-with-label"
+                      aria-label="Select an option" #IsByOrderOfGovernor formControlName="IsByOrderOfGovernor" [(ngModel)]="model.IsByOrderOfGovernor">
+                      <mat-label class="mr-5">Is By Order Of Governor</mat-label>
+                      <mat-radio-button [value]="true" class=" mr-5">Yes</mat-radio-button>
+                      <mat-radio-button [value]="false">No</mat-radio-button>
+                  </mat-radio-group>
+              </div>
+
+              <div class="col l12 m12 s12" *ngIf="model.IsByOrderOfGovernor">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label> By Order Of Governor Text </mat-label>
+                    <input matInput placeholder="By Order Of Governor Text " [(ngModel)]="model.IsByOrderOfGovernortext" #IsByOrderOfGovernortext formControlName="IsByOrderOfGovernortext"
+                        maxlength="350">
+                </mat-form-field>
+                <mat-error
+                    *ngIf="firstFormGroup.get('Title').hasError('required') && (firstFormGroup.get('Title').touched && firstFormGroup.get('Title').invalid) ">
+                    Title is <strong>required!</strong>
+                </mat-error>
+            </div>
+
+                <div class="col  s12">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Signature<span style="color: red">*</span>
+                        </mat-label>
+                        <mat-select formControlName="AuthoritySignatureCode" [(ngModel)]="model.AuthoritySignatureCode"
+                            name="AuthoritySignatureCode" *ngIf="!model.IsHindi">
+                            <mat-option value="{{item.Code}}" *ngFor="let item of dDLList?.ddlAuthoritySignatory">
+                              {{item.Name}} , {{item.Designation}}
+                            </mat-option>
+
+                        </mat-select>
+                        <mat-select formControlName="AuthoritySignatureCode" [(ngModel)]="model.AuthoritySignatureCode"
+                            name="AuthoritySignatureCode" *ngIf="model.IsHindi">
+                            <mat-option value="{{item.Code}}" *ngFor="let item of dDLList?.ddlAuthoritySignatory">
+                              {{item.NameHindi}} , {{item.DesignationHindi}}
+                            </mat-option>
+
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-error
+                        *ngIf="thirdFormGroup.get('AuthoritySignatureCode').hasError('required') && (thirdFormGroup.get('AuthoritySignatureCode').touched && thirdFormGroup.get('AuthoritySignatureCode').invalid)">
+                        Signature is <strong>required!</strong>
+                    </mat-error>
+                </div>
+
+
+                <div class="col l12 m12 s12 text-right">
+                    <button class="grey_btn mr-5 mat-button" mat-button matStepperPrevious>Back</button>
+                    <button class="btn-submit mat-button" mat-button matStepperNext (click)="touchThird(stepper)">Next</button>
+                </div>
+
+            </form>
+        </mat-step>
+        <mat-step [stepControl]="fourFormGroup">
+            <form [formGroup]="fourFormGroup">
+                <ng-template matStepLabel><a href="javascript:void(0);" (click)="touchThird(stepper)">Correspondence
+                        Copy</a> </ng-template>
+
+                        <div class="col l6 xl6 m6 s12">
+                          <mat-form-field class="example-full-width" appearance="outline">
+                              <mat-label> CC Category Name </mat-label>
+                              <mat-select formControlName="CCCategoryCode" [(ngModel)]="model.CCCategoryCode"
+                                name="CCCategoryCode"  (selectionChange)="cCCategoryClick($event.value)">
+                                <mat-option [value]="0">--All CC Referenc--</mat-option>
+                                <mat-option value="{{ k.Value }}" *ngFor="let k of ddlCCcategory">{{ k.Text }}</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+
+                      </div>
+
+
+
+
+
+                <div class="col l6 xl6 m6 s12">
+                    <mat-radio-group class="example-full-width radio-bx-custom radio-bx-custom-with-label"
+                        aria-label="Select an option" #CCreferenceTextAutofill formControlName="CCreferenceTextAutofill" [(ngModel)]="isCCreferenceTextAutofill">
+                        <mat-label class="mr-5">Is CC Reference Text Autofill</mat-label>
+                        <mat-radio-button [value]="true" class="mr-5">Yes</mat-radio-button>
+                        <mat-radio-button [value]="false">No</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+                <div class="col s12">
+                        <mat-label class="cc-ref">Copy To
+                        </mat-label>
+                        <mat-selection-list formControlName="CCReferenceList" [(ngModel)]="model.CCReferenceList" (selectionChange)="onSelection()" class="checkdata">
+                          <mat-list-option [value]="item.Code" *ngFor="let item of ddlCCReferencs">
+                            {{model.IsHindi==true? item.ReferenceHindi : item.Reference}}
+                            </mat-list-option>
+                          <!-- <mat-list-option [value]="item.Code" *ngFor="let item of dDLList?.ddlCCReference">
+                                {{model.IsHindi==true? item.ReferenceHindi : item.Reference}}
+                                </mat-list-option> -->
+                        </mat-selection-list>
+
+
+                        <mat-form-field class="example-full-width" appearance="outline">
+                            <label> CC Reference Text </label>
+                            <textarea matInput placeholder="CCReferenceList Text" #CCReferenceListText [(ngModel)]="model.CCReferenceListText"
+                                formControlName="CCReferenceListText" maxlength="100000"></textarea>
+                            <mat-hint>{{ CCReferenceListText.value.length }}/100000</mat-hint>
+                        </mat-form-field>
+                    </div>
+                <div class="col s12">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>CC Signature </mat-label>
+                        <!-- <mat-select formControlName="CCSignatureCode" [(ngModel)]="model.CCSignatureCode"
+                            name="CCSignatureCode">
+                            <mat-option value="{{item.Code}}" *ngFor="let item of dDLList?.ddlAuthoritySignatory">
+                              <span *ngIf="model.IsHindi==true">    {{item.NameHindi}} , {{item.DesignationHindi}}</span>
+                              <span *ngIf="!model.IsHindi==true">    {{item.Name}} , {{item.Designation}}</span>
+                            </mat-option>
+                        </mat-select> -->
+                        <mat-select formControlName="CCSignatureCode" [(ngModel)]="model.CCSignatureCode"
+                        name="CCSignatureCode" *ngIf="!model.IsHindi">
+                        <mat-option value="{{item.Code}}" *ngFor="let item of dDLList?.ddlAuthoritySignatory">
+                          {{item.Name}} , {{item.Designation}}
+                        </mat-option>
+
+                    </mat-select>
+                    <mat-select formControlName="CCSignatureCode" [(ngModel)]="model.CCSignatureCode"
+                        name="CCSignatureCode" *ngIf="model.IsHindi">
+                        <mat-option value="{{item.Code}}" *ngFor="let item of dDLList?.ddlAuthoritySignatory">
+                          {{item.NameHindi}} , {{item.DesignationHindi}}
+                        </mat-option>
+
+                    </mat-select>
+                    </mat-form-field>
+                </div>
+
+
+
+                <div class="col l12 m12 s12 text-right">
+                    <button class="grey_btn mr-5 mat-button" mat-button matStepperPrevious>Back</button>
+                    <button class="btn-submit mat-button" mat-button matStepperNext (click)="touchFourth(stepper)">Next</button>
+                </div>
+
+
+            </form>
+        </mat-step>
+        <mat-step [stepControl]="fifthformGroup">
+            <form [formGroup]="fifthformGroup">
+                <ng-template matStepLabel> <a href="javascript:void(0);" (click)="touchFourth(stepper)">Remarks</a>
+                </ng-template>
+                <div class="col m6 s12">
+                    <mat-form-field appearance="outline">
+                        <mat-label> Remarks </mat-label>
+                        <textarea matInput placeholder="Remarks" [(ngModel)]="model.OrdGenrateRemarks"
+                            #OrdGenrateRemarks formControlName="OrdGenrateRemarks"></textarea>
+                    </mat-form-field>
+                </div>
+                <div class="col m6 s12">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label> Search criteria keyword</mat-label>
+                        <textarea matInput placeholder="Search keyword" [(ngModel)]="model.SearchCriteria"
+                            #SearchCriteria formControlName="SearchCriteria"></textarea>
+                    </mat-form-field>
+                </div>
+
+
+                <div class="col l12 m12 s12 text-right">
+                    <button class="grey_btn mr-5 mat-button" mat-button matStepperPrevious>Back</button>
+                    <button class="btn-submit mat-button" mat-button matStepperNext (click)="touchFifth(stepper)">Next</button>
+                </div>
+
+
+            </form>
+        </mat-step>
+        <mat-step [stepControl]="sixthformGroup">
+            <form [formGroup]="sixthformGroup">
+                <ng-template matStepLabel><a href="javascript:void(0);" (click)="touchFifth(stepper)">Attachments</a>
+                </ng-template>
+                <div class="col l2  m6 s12">
+                    <mat-hint class="pull-right"> &nbsp; </mat-hint>
+
+                    <mat-radio-group class="example-full-width radio-bx-custom radio-bx-custom-with-label"
+                        aria-label="Select an option" #IsAnnexure formControlName="IsAnnexure" [(ngModel)]="attachmentsLookup.IsAnnexure">
+                        <mat-label class="mr-5">Is Annexure</mat-label>
+                        <mat-radio-button [value]="true" class=" mr-5">Yes</mat-radio-button>
+                        <mat-radio-button [value]="false">No</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+                <div class="col l5 xl5 m6 s12">
+                    <mat-hint class="pull-right"> &nbsp; </mat-hint>
+                  <mat-form-field class="example-full-width" appearance="outline">
+                      <mat-label>Attachment Title</mat-label>
+                      <input matInput placeholder="Attachment Title" [(ngModel)]="attachmentsLookup.Description" #Description
+                          formControlName="Description">
+                  </mat-form-field>
+              </div>
+                <div class="col l5 xl5 m6 s12 btn_add_box">
+                    <mat-hint class="pull-right">*Image Only</mat-hint>
+                    <div class="upload-btn-wrapper">
+                        <mat-label>Attachment <span style="color: red">*</span></mat-label>
+                        <input type="file" id="AttachmentUrl" formControlName="AttachmentUrl"
+                            (change)="handleFileLogo($event)" accept="image/*,application/pdf">
+                        <img *ngIf="attachmentsLookup.AttachmentUrl && !attachmentsLookup.IsPdf" [src]="attachmentsLookup.AttachmentUrl" height="100px"
+                            width="100px" />
+                            <a *ngIf="attachmentsLookup.AttachmentUrl && attachmentsLookup.IsPdf" (click)="downloadFaqDocPdf(attachmentsLookup.AttachmentUrl)" href="JavaScript:Void(0);">
+                              Show More Details
+                             </a>
+                    </div>
+
+                    <mat-error
+                    *ngIf="sixthformGroup.get('AttachmentUrl').hasError('required') && (sixthformGroup.get('AttachmentUrl').touched && sixthformGroup.get('AttachmentUrl').invalid)">
+                    Attachment is <strong>required!</strong>
+                </mat-error>
+                <mat-error *ngIf="fileValidationMsg?.length>0" style="margin: 0px;position: relative;">{{fileValidationMsg}}</mat-error>
+
+                    <span style="color: red; float: right;">{{fileSizeValidationMsg}}</span>
+
+                    <a style="top:25px"  class="btn_add" href="javascript:void(0)" (click)="AddMoreAttachment()">
+                      <mat-icon aria-hidden="false" aria-label="Example home icon">add</mat-icon>
+                  </a>
+                </div>
+
+                <div class="col l12 m12 s12 ">
+                    <div class="footer-info-bx">
+                        <table class="table new_table table_border mb-20"
+                            *ngIf="model.AttachmentList.length>0">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Is Annexure</th>
+                                    <th>Attachment</th>
+                                    <th>Attachment Title</th>
+                                    <th width="100">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of model.AttachmentList; let i = index" [attr.data-index]="i">
+                                    <th>{{i+1}}</th>
+                                    <th><span *ngIf="item.IsAnnexure">Yes</span><span *ngIf="!item.IsAnnexure">No</span></th>
+                                    <td>
+                                        <img *ngIf="item.AttachmentUrl && !item.IsPdf" [src]="item.AttachmentUrl" height="100px"
+                                            width="100px" />
+                                            <a *ngIf="item.AttachmentUrl && item.IsPdf" (click)="downloadFaqDocPdf(item.AttachmentUrl)" href="JavaScript:Void(0);">
+                                              Show More Details
+                                             </a>
+                                        <span *ngIf="!item.AttachmentUrl">--</span>
+                                    </td>
+                                    <td>
+                                        {{item.Description}}
+                                    </td>
+                                    <td class="action_icon">
+                                        <a href="javascript:void(0)" (click)="RemoveAttachmentClick(i)"
+                                            class="del-icon">
+                                            <mat-icon>delete</mat-icon>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
+
+                <div class="col l12 m12 s12 text-right">
+                    <button class="grey_btn mr-5 mat-button" mat-button matStepperPrevious>Back</button>
+                    <button class="btn-submit mat-button" mat-button matStepperNext (click)="touchSixth(stepper)">Next</button>
+                </div>
+
+
+
+            </form>
+        </mat-step>
+        <mat-step [stepControl]="sevenformGroup">
+            <form [formGroup]="sevenformGroup">
+                <ng-template matStepLabel> <a href="javascript:void(0);" (click)="touchSixth(stepper)">Address To</a>
+                </ng-template>
+                <div class="col l12 xl12 m12 s12">
+                    <mat-radio-group class="example-full-width radio-bx-custom radio-bx-custom-with-label"
+                        aria-label="Select an option" #IsWithinSecretariat formControlName="IsWithinSecretariat" [(ngModel)]="model.IsWithinSecretariat">
+                        <mat-label class="mr-5">Is Within Secretariat</mat-label>
+                        <mat-radio-button [value]="true" class=" mr-5">Yes</mat-radio-button>
+                        <mat-radio-button [value]="false">No</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+                <div class="col m12 s12">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label> Address To</mat-label>
+                        <textarea matInput placeholder="Address To" [(ngModel)]="model.AddressTo" #AddressTo
+                            formControlName="AddressTo"></textarea>
+                    </mat-form-field>
+                </div>
+                <div class="col l12 m12 s12 text-right">
+                    <button class="grey_btn mr-5 mat-button" mat-button matStepperPrevious>Back</button>
+                    <button class="btn-submit mat-button" mat-button (click)="saveClick();">Submit</button>
+                </div>
+            </form>
+        </mat-step>
+    </mat-horizontal-stepper>
+</div>

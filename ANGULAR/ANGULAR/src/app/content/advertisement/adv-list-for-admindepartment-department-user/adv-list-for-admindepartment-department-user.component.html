@@ -1,0 +1,105 @@
+<div class="row">
+  <div class="col l12 s12 p-0">
+    <table mat-table [dataSource]="dataSource" matSort (matSortChange)="SortData($event)" class="mat-elevation-z8">
+
+
+      <ng-container matColumnDef="index">
+        <th mat-header-cell *matHeaderCellDef>#</th>
+        <td mat-cell *matCellDef="let element; let i = index;">{{(indexModel.Page-1)*indexModel.PageSize +(i+1)}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Expired">
+        <th mat-header-cell *matHeaderCellDef>Is Expired</th>
+        <td mat-cell *matCellDef="let element; let i = index;">
+          <span *ngIf="IsExpired(element.ExpiryDate)"> Expired </span>
+          <span *ngIf="!IsExpired(element.ExpiryDate)">Not Expired </span>
+        </td>
+      </ng-container>
+      <!-- <ng-container [matColumnDef]="column.Value" *ngFor="let column of ViewdisplayedColumns">
+
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column.Text}} </th>
+          <td mat-cell *matCellDef="let element"> {{element[column.Value]}} </td>
+        </ng-container> -->
+
+        <ng-container matColumnDef="DocumentUrl">
+            <th mat-header-cell *matHeaderCellDef>Advertisement Image</th>
+            <td mat-cell *matCellDef="let element; let i = index;">
+
+
+              <a (click)="downloadPdf(element.DocumentUrl)" href="JavaScript:Void(0);">
+                  <img [src]="element.DocumentUrl" height="50px" width="50px"/>
+                </a>
+            </td>
+          </ng-container>
+
+
+      <ng-container matColumnDef="SubjectEng">
+        <th mat-header-cell *matHeaderCellDef>Subject English</th>
+        <td mat-cell *matCellDef="let element; let i = index;">
+          {{element.SubjectEng}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="RequestedStatus" *ngIf="isApprovalUser">
+        <th mat-header-cell *matHeaderCellDef>Requested Status</th>
+        <td mat-cell *matCellDef="let element; let i = index;">
+
+          <span *ngIf="element.RequestedStatus" style="color: rgb(157, 255, 0)"> Requested </span>
+          <span *ngIf="!element.RequestedStatus" style="color: rgb(255, 38, 0)">Pending </span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="IsUploadedStatus">
+        <th mat-header-cell *matHeaderCellDef>Uploaded Status</th>
+        <td mat-cell *matCellDef="let element; let i = index;">
+
+          <span *ngIf="element.IsUploaded" style="color: rgb(15, 114, 12)"> {{element.IsUploadedStatus}} </span>
+          <span *ngIf="!element.IsUploaded" style="color: rgba(223, 219, 20, 0.801)"> {{element.IsUploadedStatus}}
+          </span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="IsApprovedStatus" *ngIf="isApprovalUser">
+        <th mat-header-cell *matHeaderCellDef>Approved Status</th>
+        <td mat-cell *matCellDef="let element; let i = index;">
+
+
+          <span *ngIf="element.IsRejected" style="color: rgb(253, 37, 22)"> {{element.IsApprovedStatus}} </span>
+          <span *ngIf="element.IsApproved" style="color: rgb(16, 36, 212)"> {{element.IsApprovedStatus}} </span>
+          <span *ngIf="!element.IsApproved && !element.IsRejected" style="color: rgb(191, 194, 11)">
+            {{element.IsApprovedStatus}} </span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Action">
+        <th mat-header-cell *matHeaderCellDef> Action </th>
+        <td mat-cell *matCellDef="let group" class="action-link">
+          <a routerLink="/advertisement/redesignrequestbyuser/{{group.AdvId}},{{group.RedesignPlatformUserLookupId}}"
+            *ngIf="group.RedesignPlatformUserLookupId && !IsExpired(group.ExpiryDate)" title="Upload New Design">
+            <mat-icon>file_copy</mat-icon>
+          </a>
+          <a title="Set Uploaded" (click)="UploadedClick(group.NotificationLookupId)"
+            *ngIf="(!group.RedesignPlatformUserLookupId || group.IsApproved) && !group.IsUploaded && !IsExpired(group.ExpiryDate)">
+            <mat-icon>done_outline</mat-icon>
+          </a>
+          <a routerLink="/advertisement/downloadadvertisement/{{group.AdvId}}" title="Download Advertisement"
+            *ngIf="(!group.RedesignPlatformUserLookupId || group.IsApproved) && !IsExpired(group.ExpiryDate)">
+
+            <mat-icon>arrow_downward</mat-icon>
+          </a>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+      <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+    </table>
+
+    <mat-paginator #paginator [length]="totalRecords" [pageSize]="indexModel.PageSize"
+      [pageSizeOptions]="[5,10, 20, 50]" (page)="onPaginateChange($event)" showFirstLastButtons>
+    </mat-paginator>
+
+  </div>
+
+
+</div>

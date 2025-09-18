@@ -1,0 +1,111 @@
+<div class="row">
+  <div style="float: right;" class="col l12 s12 download_pdf"> <a (click)="downloadExcelFile(model.BlankDocUrl)"
+    href="JavaScript:Void(0);">
+    <mat-icon>picture_as_pdf</mat-icon>
+    Click to download Demo Excel File
+  </a>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col l12 xl12 m12 s12">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label> VC Name </mat-label>
+      <mat-select [(ngModel)]="participantTempBulkModel.VCCreateCode" >
+        <mat-option value="{{ k.Code }}" *ngFor="let k of dDLList?.ddlCurrentDateVC">{{ k.ShortDescription }}
+          <span>(</span> {{ k.Date| date: 'dd/MM/yyyy' }}<span *ngIf="k.Date && k.Time"> / </span>{{ k.Time }} <span>)</span>
+        </mat-option>
+
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="col l6 xl6 m6 s6">
+    <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label> District </mat-label>
+        <mat-select  #DistrictCode  (selectionChange)="GetLocation($event.value)" [(ngModel)]="participantTempBulkModel.DistrictCode">
+            <mat-option>--Select--</mat-option>
+            <mat-option value="{{ k.DistrictCode }}" *ngFor="let k of ddlDistrict">{{ k.DistrictTitle }} </mat-option>
+
+        </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="col l6 xl6 m6 s6">
+  <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>Location</mat-label>
+      <mat-select  #LocationCode  [(ngModel)]="participantTempBulkModel.LocationCode">
+          <mat-option value="{{ k.Value }}" *ngFor="let k of dDLLocationByDistrict">{{ k.Text }} </mat-option>
+      </mat-select>
+  </mat-form-field>
+
+  </div>
+
+  <div class="w-100" *ngIf="participantTempBulkModel.VCCreateCode > 0 && participantTempBulkModel.LocationCode > 0 && participantTempBulkModel.DistrictCode > 0">
+<div class="col l6 m6 s12" >
+  <div class="upload-btn-wrapper">
+
+      <label>Upload Excel File</label>
+      <input type="file" id="file" (change)="handleFileInput($event)" accept="application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+
+      </div>
+
+      <div class="show-file">
+        <!-- <ul class="image-list"> -->
+          <a *ngIf="displayURL" href="JavaScript:Void(0);" (click)="downloadOtherDocPdf(displayURL)" class="mt-20 mb-20">
+            {{ displayName}}
+          </a>
+          <!-- <li *ngFor="let url of documentUrlList; let i=index;">
+
+
+            <a *ngIf="url?.Url" href="JavaScript:Void(0);">
+                {{ url.DisplayName}}
+              </a>
+
+           <div *ngIf="url?.Url'"> <img [src]="url?.Url" /></div>
+     -->
+          <!-- </li>
+        </ul> -->
+      </div>
+
+</div>
+
+<div class="col l6 m6 s12" style="margin-bottom: 20px !important;" >
+<button class="btn-submit btn btn-info"  type="submit" (click)="clickToPreview();">Click To Preview</button>
+</div>
+</div>
+
+<div class="col l12">
+<table mat-table [dataSource]="dataSource" matSort *ngIf="listModel?.length>0"
+  class="mat-elevation-z8" style="vertical-align:top !important">
+  <ng-container matColumnDef="index">
+    <th mat-header-cell *matHeaderCellDef>s.no</th>
+    <td mat-cell *matCellDef="let element; let i = index">
+      {{ i + 1 }}
+    </td>
+  </ng-container>
+
+  <ng-container [matColumnDef]="column.Value" *ngFor="let column of ViewdisplayedColumns">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+      {{ column.Text }}
+    </th>
+    <td mat-cell *matCellDef="let element">{{ element[column.Value] }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="Action">
+    <th mat-header-cell *matHeaderCellDef> Action </th>
+    <td mat-cell *matCellDef="let group" class="action-link">
+      <a (click)="deleteClick(group.Id)" title="Delete">
+        <mat-icon>delete</mat-icon>
+      </a>
+          </td>
+  </ng-container>
+
+<tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+<tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
+</table>
+<button class="btn-submit btn btn-info mt-20" type="submit" *ngIf="listModel?.length>0" (click)="finalSubmit();">Final Submit</button>
+</div>
+</div >
+
+
+
+

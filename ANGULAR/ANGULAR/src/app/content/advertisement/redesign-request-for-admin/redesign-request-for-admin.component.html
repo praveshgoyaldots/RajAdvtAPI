@@ -1,0 +1,79 @@
+<div class="row">
+  <div class="col l12 s12 p-0">
+    <table mat-table [dataSource]="dataSource" matSort (matSortChange)="SortData($event)" class="mat-elevation-z8">
+
+
+      <ng-container matColumnDef="index">
+        <th mat-header-cell *matHeaderCellDef>#</th>
+        <td mat-cell *matCellDef="let element; let i = index;">{{(indexModel.Page-1)*indexModel.PageSize +(i+1)}}</td>
+      </ng-container>
+      <ng-container matColumnDef="Expired">
+        <th mat-header-cell *matHeaderCellDef>Is Expired</th>
+        <td mat-cell *matCellDef="let element; let i = index;">
+          <span *ngIf="IsExpired(element.ExpiryDate)"> Expired </span>
+          <span *ngIf="!IsExpired(element.ExpiryDate)">Not Expired </span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="SubjectEng">
+        <th mat-header-cell *matHeaderCellDef>Subject English</th>
+        <td mat-cell *matCellDef="let element; let i = index;">
+          {{element.SubjectEng}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="RequestedStatus">
+        <th mat-header-cell *matHeaderCellDef>Requested Status</th>
+        <td mat-cell *matCellDef="let element; let i = index;">
+
+          <span *ngIf="element.RequestedStatus" style="color: blue"> Requested </span>
+          <span *ngIf="!element.RequestedStatus" style="color: crimson">Pending </span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="IsUploaded">
+        <th mat-header-cell *matHeaderCellDef>Uploaded Status</th>
+        <td mat-cell *matCellDef="let element; let i = index;">
+
+          <span *ngIf="element.IsUploaded" style="color: blue"> {{element.IsUploadedStatus}} </span>
+          <span *ngIf="!element.IsUploaded" style="color:darkgoldenrod"> {{element.IsUploadedStatus}} </span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="IsApproved">
+        <th mat-header-cell *matHeaderCellDef>Approved Status</th>
+        <td mat-cell *matCellDef="let element; let i = index;">
+          <span *ngIf="element.IsRejected" style="color: rgb(253, 37, 22)"> {{element.IsApprovedStatus}} </span>
+          <span *ngIf="element.IsApproved" style="color: rgb(16, 36, 212)"> {{element.IsApprovedStatus}} </span>
+          <span *ngIf="!element.IsApproved && !element.IsRejected" style="color: rgb(191, 194, 11)">
+            {{element.IsApprovedStatus}} </span>
+        </td>
+      </ng-container>
+      <!-- <ng-container [matColumnDef]="column.Value" *ngFor="let column of ViewdisplayedColumns">
+
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column.Text}} </th>
+              <td mat-cell *matCellDef="let element"> {{element[column.Value]}} </td>
+            </ng-container> -->
+
+      <ng-container matColumnDef="Action">
+        <th mat-header-cell *matHeaderCellDef> Action </th>
+        <td mat-cell *matCellDef="let group" class="action-link">
+          <a routerLink="/advertisement/redesigndetailforadmin/{{group.AdvId}},{{group.RedesignPlatformUserLookupId}}"
+            title="Detail">
+            <mat-icon>list</mat-icon>
+          </a>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+      <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+    </table>
+
+    <mat-paginator #paginator [length]="totalRecords" [pageSize]="indexModel.PageSize"
+      [pageSizeOptions]="[5,10, 20, 50]" (page)="onPaginateChange($event)" showFirstLastButtons>
+    </mat-paginator>
+
+  </div>
+
+
+</div>

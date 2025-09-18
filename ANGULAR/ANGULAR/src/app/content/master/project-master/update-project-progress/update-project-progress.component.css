@@ -1,0 +1,15 @@
+.mat-form-field-wrapper {
+  padding-bottom: 10px;
+}
+strong {
+  font-weight: 600;
+}
+.row.col-mb-10 .col {
+  margin-bottom: 25px !important;
+}
+.mat-error {
+
+  margin-top: 5px;
+  position: static;
+  font-size: 12px;
+}

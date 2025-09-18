@@ -1,0 +1,58 @@
+<div class="modal-header">
+  <p>Add VC Location Master</p>
+
+  <button mat-button (click)="onNoClick()">
+    <mat-icon>close</mat-icon>
+  </button>
+
+</div>
+<div class="col l12 s12 ">
+  <div class="col l6 xl6 m6 s12 mb-20">
+    <mat-radio-group class="example-full-width radio-bx-custom radio-bx-custom-with-label" aria-label="Select an option"
+      [(ngModel)]="model.VCTypeCode" [formControl]="VCTypeCode" name="VCTypeCode">
+      <mat-label>Vc Type </mat-label>
+      <mat-radio-button class="mr-5" value="{{ item.Value }}" *ngFor="let item of dDLList?.RadioVcLocationType">
+        {{ item.Text }}</mat-radio-button>
+    </mat-radio-group>
+  </div>
+  <div class="col l6 xl6 m6 s12" *ngIf="this.model.VCTypeCode == vCLocationTypeEnum.HardVC">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>District</mat-label>
+      <mat-select name="DistrictCode" [(ngModel)]="model.DistrictCode" [formControl]="DistrictCode">
+        <mat-option>--Select--</mat-option>
+        <mat-option value="{{k.Value}}" *ngFor="let k of dDLList?.ddlDistrict">{{k.Text}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <!-- <mat-error *ngIf="(fromGroup.get('DistrictCode').hasError('required') && fromGroup.get('DistrictCode').touched)">
+    District is <strong>Required!</strong>
+  </mat-error> -->
+  </div>
+
+  <div class="col l6 xl6 m6 s12 ">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>VC Location<span style="color: red">*</span>
+      </mat-label>
+      <input matInput placeholder="VC Location" name="Location" [formControl]="Location" [(ngModel)]="model.Location"
+        id="Location">
+    </mat-form-field>
+    <mat-error *ngIf="Location.invalid && Location.touched">
+      Location is <strong>required</strong>
+    </mat-error>
+  </div>
+
+  <div class="col l6 xl6 m6 s12" *ngIf="this.model.VCTypeCode == vCLocationTypeEnum.HardVC">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>Incharge</mat-label>
+      <mat-select name="InchargeCode" [(ngModel)]="model.InchargeCode" [formControl]="InchargeCode">
+        <mat-option>--Select--</mat-option>
+        <mat-option value="{{k.Value}}" *ngFor="let k of dDLList?.ddlUser">{{k.Text}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <!-- <mat-error *ngIf="(fromGroup.get('DistrictCode').hasError('required') && fromGroup.get('DistrictCode').touched)">
+    District is <strong>Required!</strong>
+  </mat-error> -->
+  </div>
+  <div class="col l12 x8 m4 s12 ">
+    <button mat-button class="btn-submit" (click)="SaveClick()">Submit</button>
+  </div>
+</div>

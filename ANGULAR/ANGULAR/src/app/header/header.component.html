@@ -1,0 +1,161 @@
+<div class="top-bar">
+  <div class="kalyan-logo">
+
+    <a routerLink='/'> <img src="assets/images/emblem.png"> </a>
+
+  </div>
+
+  <div class="row d-flex align-items-center justify-content-center">
+    <div class="col xl3  m4 s12">
+      <!-- <div class="logo">
+        <a href="#"><img src="assets/images/logo2.png" alt="" /></a>
+      </div> -->
+      <a href="#" class="logo_project_name">Advertisement</a>
+    </div>
+
+
+    <div class="col xl9 m8 s12 text-right d-flex align-items-center justify-content-end">
+      <ul class="top-list d-flex align-items-center justify-content-end">
+        <li style="cursor:pointer;" (click)="openConfigrationDialog()" class="top-list__btnhome">
+          <a title="Go to Setting">
+            <mat-icon>settings</mat-icon>
+          </a>
+        </li>
+
+        <li class="top-list__btnhome">
+          <a routerLink="cmdashboard" title="Go to Dashboard">
+            <mat-icon>home_outline</mat-icon>
+          </a>
+
+        </li>
+        <li>
+          <button mat-button [matMenuTriggerFor]="Pagemenu" title="User manual" class="top-list__btnhome">
+            <mat-icon>live_help</mat-icon>
+          </button>
+          <mat-menu #Pagemenu="matMenu" class="top-notification-mat-menu">
+            <div class="header-menu-dropdown-list">
+              <div class="header-menu-dropdown-list-title">{{PageTitle}}</div>
+              <button mat-menu-item (click)="openPageManual()">
+                <mat-icon>web_asset</mat-icon> Screen User Manual
+              </button>
+
+              <button mat-menu-item (click)="openPageManual(true)">
+                <mat-icon>smart_display</mat-icon> Video Help
+              </button>
+
+              <button mat-menu-item (click)="openGeneralHelpDocument()">
+                <mat-icon>info</mat-icon> General help
+              </button>
+
+            </div>
+          </mat-menu>
+        </li>
+        <!-- <li>
+                    <button mat-button [matMenuTriggerFor]="mailOut">
+            <mat-icon>mail_outline</mat-icon>
+          </button>
+                    <mat-menu #mailOut="matMenu">
+                        Comming Soon....
+
+                    </mat-menu>
+                </li>
+                <li>
+                    <button mat-button [matMenuTriggerFor]="notificationsNone">
+            <mat-icon>notifications_none</mat-icon>
+          </button>
+                    <mat-menu #notificationsNone="matMenu">
+                        Comming Soon....
+                    </mat-menu>
+                </li>
+                <li>
+
+                    <button mat-button [matMenuTriggerFor]="menu">
+            <mat-icon>dashboard</mat-icon>
+          </button>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item>Menu 1</button>
+                        <button mat-menu-item>Menu 2</button>
+                    </mat-menu>
+                </li> -->
+
+        <li>
+
+          <div class="profile">
+
+            <button mat-button [matMenuTriggerFor]="profilemenu">
+              <img [src]="userDetail?.ProfilePic||'assets/images/profile.png'" alt="" />
+              <span class="user__name"> {{userDetail?.UserName}} </span>
+
+              <!-- <div class="header--details_dname"> {{userDetail?.UserTypeTitle}}</div>  -->
+              <!-- <div innerHTML="{{data}}"></div> -->
+              <!--
+                            <div class="header--details_dname">
+                            <ul>
+                                    <li  *ngFor="let data of departmentList">{{data}}
+
+                                       </li>
+                                </ul>
+                            </div> -->
+
+
+              <div class="header--details_dname">
+                <ul>
+                  <li *ngFor="let data of departmentList">
+                    <div innerHTML="{{data}}"></div>
+
+                  </li>
+                </ul>
+              </div>
+
+
+            </button>
+
+
+            <mat-menu #profilemenu="matMenu">
+
+              <button mat-menu-item (click)="backToSSO()">Back To SSO</button>
+              <button mat-menu-item (click)="logOut()">Log out</button>
+              <button mat-menu-item (click)="UpdateProfile()"> Update Profile <span>
+                  <mat-icon>face</mat-icon>
+                </span></button>
+              <a *ngIf="helpDocument?.Url" mat-menu-item (click)="downloadPdf(helpDocument?.Url,true)"
+                href="JavaScript:Void(0);">
+                Support Contact Numbers <mat-icon>picture_as_pdf</mat-icon>
+              </a>
+              <a mat-menu-item (click)="openPageManual()" href="JavaScript:Void(0);">
+                Page Manual <mat-icon>person</mat-icon>
+              </a>
+              <a mat-menu-item routerLink="/compliant" title="Suggestion-Feedback">
+                Suggestion-Feedback <mat-icon>list</mat-icon>
+              </a>
+            </mat-menu>
+          </div>
+
+
+        </li>
+
+
+
+        <li>
+          <div class="header--details_disname"> {{userDetail?.UserTypeTitle}} </div>
+        </li>
+
+
+      </ul>
+
+      <div class="header--details">
+        <div class="header--details_oname"> {{userDetail?.OfficeName}}, {{userDetail?.DistrictOffice}} </div>
+        <!-- <div class="header--details_dname"> {{userDetail?.DepartmentNames}} </div>
+                    <div class="header--details_disname"> {{userDetail?.DistrictOffice}} </div>  -->
+      </div>
+
+
+    </div>
+
+    <!-- <div class=" col s3">
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="Input" placeholder="Search">
+              </mat-form-field>
+          </div> -->
+  </div>
+</div>

@@ -1,0 +1,78 @@
+<div class="row ">
+
+
+  <div class="border-design">
+    <div class="col l12">
+      <h4 class="impo-ofc-title">Transfer Dept.</h4>
+    </div>
+
+    <div class="col x6 m4 s6">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label> From Department </mat-label>
+        <mat-select [(ngModel)]="model.FromDeptCode">
+          <mat-option value="">--Select--</mat-option>
+          <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlDepartment">{{ k.Text }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="col x6 m4 s6">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label> To Department </mat-label>
+        <mat-select [(ngModel)]="model.TODeptCode">
+          <mat-option value="">--Select--</mat-option>
+          <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlDepartment">{{ k.Text }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+
+    <div class="col x3 m4 s6 mt-10">
+      <button (click)="onSearchclick();" mat-button class="btn-submit btn_green">Search</button>
+      &nbsp;
+
+      <!--   <button (click)="onClearclick();" mat-button class="btn-submit  btn_orange">Clear<mat-icon>refresh
+        </mat-icon></button> -->
+    </div>
+
+
+    <mat-toolbar color="primary" *ngIf="listModel?.length==0">Record Not Found...!</mat-toolbar>
+    <div class="col l12 m12 s12" *ngIf="listModel?.length > 0">
+      <div>
+        <table class="mat-elevation-z8 table_border mat-table" style="float: left;">
+          <thead>
+            <tr>
+              <th scope="col">Sr.No</th>
+              <!-- <th scope="col">Admin Department</th> -->
+              <th scope="col">Name</th>
+              <th scope="col">Total From</th>
+              <th scope="col">Total To</th>
+              <th scope="col">Dept From</th>
+              <th scope="col">Dept To</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of listModel; let i = index" [attr.data-index]="i">
+              <td scope="row">{{ i + 1 }}</td>
+              <!-- <td>{{ AdminItems[(item?.AdminDepartmentCode)] }}</td> -->
+              <td>{{ item?.Name }}</td>
+              <td>{{ item?.TotalFrom }}</td>
+              <td>{{ item?.TotalTo }}</td>
+              <td>{{ item?.FromDept }}</td>
+              <td>{{ item?.TODept }}</td>
+
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+  </div>
+  <!-- end region-->
+
+  <div class="col l12 xl12 m12 s12 ">
+    <button mat-button class="btn-submit" (click)="SaveClick()">Submit</button>
+  </div>
+
+</div>

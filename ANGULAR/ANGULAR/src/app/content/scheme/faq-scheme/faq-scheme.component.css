@@ -1,0 +1,14 @@
+.faq-note {
+  text-align: center;
+  display: block;
+  width: 100%;
+  background: #fde9e8;
+  clear: both;
+  padding: 12px;
+  border-radius: 10px;
+  max-width: 500px;
+  margin: auto auto 30px auto;
+  color: red;
+  font-size: 14px;
+  font-weight: 600;
+}

@@ -1,0 +1,220 @@
+<form [formGroup]="fromGroup" (ngSubmit)="saveClick();">
+  <div class="row">
+
+    <div class="col l6 xl6 m6 s12">
+      <mat-form-field appearance="outline">
+        <mat-label>Admin Department <span style="color: red">*</span>:</mat-label>
+        <mat-select name="AdminDepartment" [(ngModel)]="AdminDepartment" (ngModelChange)="getDepartmentList($event)"
+          formControlName="AdmDepartmentCode">
+          <mat-option>--Select--</mat-option>
+          <mat-option value="{{k.AdmDepartmentCode}}" *ngFor="let k of ddlAdminDepartment">{{k.AdmDepartmentTitle}}
+          </mat-option>
+        </mat-select>
+
+      </mat-form-field>
+      <mat-error *ngIf="fromGroup.get('AdmDepartmentCode').hasError('required') &&
+  (fromGroup.get('AdmDepartmentCode').touched &&
+  fromGroup.get('AdmDepartmentCode').invalid)
+  "> Admin Department is <strong>required!</strong> </mat-error>
+    </div>
+
+    <div class="col l6 xl6 m6 s12">
+      <mat-form-field appearance="outline">
+        <mat-label> Department <span style="color: red">*</span>:</mat-label>
+        <mat-select name="DepartmentCode" [(ngModel)]="model.DepartmentCode" formControlName="DepartmentCode">
+          <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlDepartment">{{ k.Text }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-error *ngIf="
+        fromGroup.get('DepartmentCode').hasError('required') &&
+  (fromGroup.get('DepartmentCode').touched &&
+  fromGroup.get('DepartmentCode').invalid)
+  "> Department is <strong>required!</strong> </mat-error>
+    </div>
+
+
+
+
+    <div class="col l6 xl6 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Office Name <span style="color: red">*</span></mat-label>
+        <input matInput placeholder="Office Name" [(ngModel)]="model.OfficeName" maxlength="500" #OfficeName
+          formControlName="OfficeName" />
+        <mat-hint class="pull-right">{{OfficeName.value.length}}/500</mat-hint>
+      </mat-form-field>
+      <mat-error *ngIf="(fromGroup.get('OfficeName').hasError('required') && fromGroup.get('OfficeName').touched)">
+        Office Name <strong>required!</strong>
+      </mat-error>
+      <mat-error
+        *ngIf="(fromGroup.get('OfficeName').hasError('maxlength') && fromGroup.get('OfficeName').touched) || (fromGroup.get('OfficeName').hasError('maxlength'))">
+        Office Name Max char limit is <strong>500!</strong>
+      </mat-error>
+    </div>
+
+    <div class="col l6 xl6 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Office Name (Hindi) <span style="color: red">*</span></mat-label>
+        <input matInput placeholder="Office Name" [(ngModel)]="model.OfficeNameHindi" #OfficeNameHindi maxlength="500"
+          formControlName="OfficeNameHindi" />
+        <mat-hint>{{OfficeNameHindi.value.length}}/500</mat-hint>
+      </mat-form-field>
+      <mat-error
+        *ngIf="(fromGroup.get('OfficeNameHindi').hasError('required') && fromGroup.get('OfficeNameHindi').touched)">
+        Office Name (Hindi) <strong>required!</strong>
+      </mat-error>
+      <mat-error
+        *ngIf="(fromGroup.get('OfficeNameHindi').hasError('maxlength') && fromGroup.get('OfficeNameHindi').touched) || (fromGroup.get('OfficeNameHindi').hasError('maxlength'))">
+        Office Name(Hindi) Max char limit is <strong>500!</strong>
+      </mat-error>
+    </div>
+
+    <div class="col l6 xl6 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Office Short Name<span style="color: red">*</span></mat-label>
+        <input matInput placeholder="Office Name" [(ngModel)]="model.OfficeShortName" maxlength="250"
+          formControlName="OfficeShortName" #OfficeShortName />
+        <mat-hint>{{OfficeShortName.value.length}}/250</mat-hint>
+      </mat-form-field>
+      <mat-error
+        *ngIf="(fromGroup.get('OfficeShortName').hasError('required') && fromGroup.get('OfficeShortName').touched)">
+        Office Short Name is <strong>required!</strong>
+      </mat-error>
+      <mat-error
+        *ngIf="(fromGroup.get('OfficeNameHindi').hasError('maxlength') && fromGroup.get('OfficeNameHindi').touched) || (fromGroup.get('OfficeNameHindi').hasError('maxlength'))">
+        Office Name Max char limit is <strong>250!</strong>
+      </mat-error>
+    </div>
+
+    <div class="col l6 xl6 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Office Short Name (Hindi)<span style="color: red">*</span></mat-label>
+        <input matInput placeholder="Office Short Name (Hindi)" [(ngModel)]="model.OfficeShortNameHindi" maxlength="250"
+          #OfficeShortNameHindi formControlName="OfficeShortNameHindi" />
+        <mat-hint>{{OfficeShortNameHindi.value.length}}/250</mat-hint>
+      </mat-form-field>
+      <mat-error
+        *ngIf="(fromGroup.get('OfficeShortNameHindi').hasError('required') && fromGroup.get('OfficeShortNameHindi').touched)">
+        Office Short Name (Hindi) <strong>required!</strong>
+      </mat-error>
+      <mat-error
+        *ngIf="(fromGroup.get('OfficeShortNameHindi').hasError('maxlength') && fromGroup.get('OfficeShortNameHindi').touched) || (fromGroup.get('OfficeShortNameHindi').hasError('maxlength'))">
+        Office Short Name (Hindi) Max char limit is <strong>250!</strong>
+      </mat-error>
+    </div>
+
+
+
+    <div class="col l6 xl6 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Office Address <span style="color: red">*</span></mat-label>
+        <textarea matInput placeholder="Office Address" name="OfficeAddress" [(ngModel)]="model.OfficeAddress"
+          maxlength="1000" formControlName="OfficeAddress" #OfficeAddress></textarea>
+        <mat-hint>{{OfficeAddress.value.length}}/1000</mat-hint>
+      </mat-form-field>
+      <mat-error
+        *ngIf="(fromGroup.get('OfficeAddress').hasError('required') && fromGroup.get('OfficeAddress').touched)">
+        Office Address is <strong>required!</strong>
+      </mat-error>
+      <mat-error
+        *ngIf="(fromGroup.get('OfficeAddress').hasError('maxlength') && fromGroup.get('OfficeAddress').touched) || (fromGroup.get('OfficeAddress').hasError('maxlength'))">
+        Office Address Max char limit is <strong>1000!</strong>
+      </mat-error>
+    </div>
+
+
+
+    <div class="col l6 xl6 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>District<span style="color: red">*</span></mat-label>
+        <mat-select name="DistrictCode" [(ngModel)]="model.DistrictCode" formControlName="DistrictCode"
+          (selectionChange)="getFilterdDDL($event,'ddlBlock','ddlDistrict');getFilterdDDL($event,'ddlTehsil','ddlDistrict');">
+          <mat-option>--Select--</mat-option>
+          <mat-option value="{{k.Value}}" *ngFor="let k of dDLList?.ddlDistrict">{{k.Text}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-error *ngIf="(fromGroup.get('DistrictCode').hasError('required') && fromGroup.get('DistrictCode').touched)">
+        District is <strong>Required!</strong>
+      </mat-error>
+    </div>
+
+    <div class="col l6 xl6 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Tehsil</mat-label>
+        <mat-select name="TehsilCode" [(ngModel)]="model.TehsilCode" formControlName="TehsilCode">
+          <mat-option>--Select--</mat-option>
+          <mat-option value="{{k.Value}}" *ngFor="let k of dDLList?.ddlTehsil">{{k.Text}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="col l6 xl6 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Block</mat-label>
+        <mat-select name="BlockCode" [(ngModel)]="model.BlockCode" formControlName="BlockCode">
+          <mat-option>--Select--</mat-option>
+          <mat-option value="{{k.Value}}" *ngFor="let k of dDLList?.ddlBlock">{{k.Text}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="col l6 xl6 m6 s12">
+      <mat-form-field appearance="outline" class="example-full-width">
+        <mat-label>Email Id</mat-label>
+        <input matInput placeholder="Email Id" [(ngModel)]="model.EmailId" #EmailId maxlength="100"
+          formControlName="EmailId" />
+        <mat-hint>{{EmailId.value.length}}/100</mat-hint>
+      </mat-form-field>
+      <!-- <mat-error *ngIf="(fromGroup.get('EmailId').hasError('required') && fromGroup.get('EmailId').touched)">
+        Email Id is <strong>required!</strong>
+      </mat-error> -->
+      <mat-error *ngIf="(fromGroup.get('EmailId').hasError('email') && fromGroup.get('EmailId').touched)">
+        Email Id is not in <strong>Valid fromat!</strong>
+      </mat-error>
+    </div>
+
+    <div class="col l6 xl6 m6 s12" style="display: none;">
+      <mat-form-field appearance="outline" class="example-full-width">
+        <mat-label>Mobile<span style="color: red">*</span></mat-label>
+        <input matInput placeholder="Mobile" [(ngModel)]="model.Mobile" #Mobile maxlength="10"
+          (keypress)="numberOnly($event)" formControlName="Mobile" />
+        <mat-hint>{{Mobile.value.length}}/10</mat-hint>
+      </mat-form-field>
+      <mat-error *ngIf="(fromGroup.get('Mobile').hasError('required') && fromGroup.get('Mobile').touched)">
+        Mobile is <strong>Required!</strong>
+      </mat-error>
+      <mat-error *ngIf="(fromGroup.get('Mobile').hasError('maxlength') && fromGroup.get('Mobile').touched)">
+        Mobile field Max char limit is <strong>10!</strong>
+      </mat-error>
+    </div>
+
+    <div class="col l6 xl6 m6 s12">
+      <mat-form-field appearance="outline" class="example-full-width">
+        <mat-label>Landline No</mat-label>
+        <input matInput placeholder="Landline No." [(ngModel)]="model.LandlineNo" #LandlineNo maxlength="50"
+          (keypress)="numberOnly($event,true)" formControlName="LandlineNo" />
+        <mat-hint>{{LandlineNo.value.length}}/50</mat-hint>
+      </mat-form-field>
+      <mat-error *ngIf="(fromGroup.get('LandlineNo').hasError('maxlength') && fromGroup.get('LandlineNo').touched)">
+        Landline Nnumber field Max char limit is <strong>50!</strong>
+      </mat-error>
+    </div>
+
+    <div class="col l6 xl6 m6 s12">
+      <mat-form-field appearance="outline" class="example-full-width">
+        <mat-label>IP No.</mat-label>
+        <input matInput placeholder="IP number" [(ngModel)]="model.IPNo" #IPNumber maxlength="6"
+          (keypress)="numberOnly($event)" formControlName="IPNo" />
+        <mat-hint>{{IPNumber.value.length}}/6</mat-hint>
+      </mat-form-field>
+      <mat-error *ngIf="(fromGroup.get('IPNo').hasError('maxlength') && fromGroup.get('IPNo').touched)">
+        IP number field Max char limit is <strong>6!</strong>
+      </mat-error>
+    </div>
+
+    <div class="col l12 x8 m4 s12 clearfix">
+      <button type="submit" mat-button class="btn-submit">Submit</button>
+    </div>
+
+  </div>
+</form>

@@ -1,0 +1,37 @@
+<div class="modal-header">
+    <p>New Design Approve by Admin</p>
+
+    <button mat-button (click)="onNoClick()">
+        <mat-icon>close</mat-icon>
+    </button>
+
+</div>
+
+<div class="col l12 s12">
+
+    <div class="col l6 xl6 m6 s12">
+        <mat-form-field class="example-full-width">
+            <mat-label>Remarks <span style="color: red">*</span>
+            </mat-label>
+            <textarea textarea matInput placeholder="Remaks" [formControl]="remarks" name="Remaks" [(ngModel)]="model.Remaks" id="Remaks">
+            </textarea>
+        </mat-form-field>
+        <mat-error *ngIf="remarks.invalid && remarks.touched">
+            Remarks is <strong>required</strong>
+          </mat-error>
+    </div>
+    <div class="col l6 xl6 m6 s12">
+        <mat-radio-group class="example-full-width radio-bx-custom radio-bx-custom-with-label"
+        aria-label="Select an option" [(ngModel)]="model.IsApprove" name="IsApproved" [formControl]="isapprove">
+        <mat-label class="mr-5">Approved/Reject </mat-label>
+        <mat-radio-button class="mr-5" value="true">Approve</mat-radio-button>
+        <mat-radio-button class="mr-5" value="false">Reject</mat-radio-button>
+        </mat-radio-group>
+        <mat-error *ngIf="isapprove.invalid && isapprove.touched">
+            Approved/Reject is <strong>required</strong>
+          </mat-error>
+        </div>
+    <div class="col l12 x8 m4 s12">
+        <button mat-button class="btn-submit" (click)="SaveClick()">Submit</button>
+    </div>
+</div>

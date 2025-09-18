@@ -1,0 +1,126 @@
+
+
+<div class="row m-0">
+    <div class="col l12 s12">
+
+        <div class="row m-20 mb-0 scheme-sear-bg-1 no-margin">
+          <div class="col l6 xl6 m6 s12">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label> Parameter Category</mat-label>
+                        <mat-select  [(ngModel)]="parameterCategoryCode">
+                            <mat-option value="">--Select--</mat-option>
+                            <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlComparativeParameterCategory" >
+                                {{ k.Text }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                  </div>
+        </div>
+
+      </div>
+      <app-global-list-search  [SearchFields]="searchColumns" (onSearch)="SearchByKeyword($event)" (clear)="onClearclick()"></app-global-list-search>
+
+    <div class="col l12 s12 p-0">
+  <div class="table-responsive">
+
+  <table mat-table [dataSource]="dataSource" matSort (matSortChange)="SortData($event)" class="mat-elevation-z8" style="vertical-align:top !important;overflow-wrap: break-word;">
+    <ng-container matColumnDef="index">
+      <th mat-header-cell *matHeaderCellDef>#</th>
+      <td mat-cell *matCellDef="let element; let i = index">
+        {{ (indexModel.Page - 1) * indexModel.PageSize + (i + 1) }}
+      </td>
+    </ng-container>
+
+    <ng-container [matColumnDef]="column.Value" *ngFor="let column of ViewdisplayedColumns">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        {{ column.Text }}
+      </th>
+      <td mat-cell *matCellDef="let element">{{ element[column.Value] }}</td>
+
+    </ng-container>
+
+    <!-- <ng-container matColumnDef="IsDepartment">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        Is Department
+      </th>
+      <td mat-cell *matCellDef="let element">
+        <span *ngIf="element.IsDepartment">Yes</span>
+        <span *ngIf="!element.IsDepartment">No</span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="IsDistrict">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        Is District
+      </th>
+      <td mat-cell *matCellDef="let element">
+        <span *ngIf="element.IsDistrict">Yes</span>
+        <span *ngIf="!element.IsDistrict">No</span>
+      </td>
+    </ng-container> -->
+
+    <ng-container matColumnDef="IsPhysical">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        Is Physical
+      </th>
+      <td mat-cell *matCellDef="let element">
+        <span *ngIf="element.IsPhysical">Yes</span>
+        <span *ngIf="!element.IsPhysical">No</span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="IsFinancial">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        Is Financial
+      </th>
+      <td mat-cell *matCellDef="let element">
+        <span *ngIf="element.IsFinancial">Yes</span>
+        <span *ngIf="!element.IsFinancial">No</span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Status">
+
+      <th mat-header-cell *matHeaderCellDef>Active Status</th>
+      <td mat-cell *matCellDef="let group" class="toogle-btn">
+        <div>
+          <ng-container>
+            <div  *ngIf="group.IsLock " title="This is Locked record">
+              <mat-icon class="toggle_on" *ngIf="group.IsActive" style="cursor:pointer;">toggle_on</mat-icon>
+              <mat-icon class="toggle_off" *ngIf="!group.IsActive" style="cursor:pointer;">toggle_off</mat-icon>
+            </div>
+            <a href="JavaScript:Void(0);" *ngIf="!group.IsLock " (click)="statusClick(group.Id)" title="This is Saved record">
+                <mat-icon class="toggle_on" *ngIf="group.IsActive" style="cursor:pointer;">toggle_on</mat-icon>
+                <mat-icon class="toggle_off" *ngIf="!group.IsActive" style="cursor:pointer;">toggle_off</mat-icon>
+              </a>
+
+           </ng-container>
+
+        </div>
+      </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="Action">
+      <th mat-header-cell *matHeaderCellDef>Action</th>
+      <td mat-cell *matCellDef="let element" class="action-link">
+
+          <a *ngIf="this.SchemePermission.UpdatePageAccess && !element.IsLock " routerLink="/camparative/update/{{ element.Id }}" title="Edit"
+        class="btn_edit">
+        <mat-icon>edit</mat-icon>
+      </a>
+     
+      <!-- <a href="JavaScript:Void(0);" routerLink="/newspaper/detail/{{ element.Id }}" title="Detail">
+          <mat-icon>visibility</mat-icon>
+        </a> -->
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+    <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
+  </table>
+</div>
+
+
+  <mat-paginator #paginator [length]="totalRecords" [pageSize]="indexModel.PageSize"
+    [pageSizeOptions]="[5, 10, 20, 50,totalRecords]" (page)="onPaginateChange($event)" showFirstLastButtons> </mat-paginator>
+</div>
+</div>

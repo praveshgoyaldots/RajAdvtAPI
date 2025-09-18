@@ -1,0 +1,197 @@
+<div class="row mt-20 detail-bx scheme_detail_page">
+    <div class="col l12 m12 s12">
+    <h3 class="redesignrequestbyuser_title">Original Design</h3>
+    <div class="table-responsive w-100">
+    <table class="table custom-data-table mb-20" *ngIf="detailModel">
+      <tbody>
+
+
+        <tr>
+
+          <td width="15%">
+            <section class="mat-typography">
+              <h2 class="color-blue">Image : </h2>
+            </section>
+          </td>
+          <td width="30%">
+            <section class="mat-typography">
+
+              <div class="color-grey" *ngIf="detailModel?.DocumentUrl"> <img [src]="detailModel?.DocumentUrl"
+                  height="100px" width="100px" /></div>
+              <div class="color-grey" *ngIf="!detailModel?.DocumentUrl"> <img
+                  src="../../../../../assets/images/noimage.jpeg" height="100px" width="100px" /></div>
+
+            </section>
+          </td>
+          <td width="15%">
+            <section class="mat-typography">
+              <h2 class="color-blue">Subject English :</h2>
+            </section>
+          </td>
+          <td width="30%">
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="detailModel?.SubjectEng">{{detailModel?.SubjectEng}}</h3>
+              <h3 class="color-grey" *ngIf="!detailModel?.SubjectEng">--</h3>
+            </section>
+          </td>
+
+
+
+        </tr>
+
+        <tr>
+
+          <td>
+            <section class="mat-typography">
+              <h2 class="color-blue">Subject Hindi :</h2>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="detailModel?.SubjectHin">{{detailModel?.SubjectHin}}</h3>
+              <h3 class="color-grey" *ngIf="!detailModel?.SubjectHin">--</h3>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <h2 class="color-blue">Advertisement Date :</h2>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="detailModel?.AdvDate">{{detailModel?.AdvDate | date: 'dd/MM/yyyy'}}</h3>
+              <h3 class="color-grey" *ngIf="!detailModel?.AdvDate">--</h3>
+            </section>
+          </td>
+
+
+
+        </tr>
+
+        <tr>
+          <td>
+            <section class="mat-typography">
+              <h2 class="color-blue">Category :</h2>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="detailModel?.CategoryName"> {{detailModel?.CategoryName}}</h3>
+              <h3 class="color-grey" *ngIf="!detailModel?.CategoryName">--</h3>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <h2 class="color-blue">Sub Category :</h2>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="detailModel?.SubCategoryName"> {{detailModel?.SubCategoryName}}</h3>
+              <h3 class="color-grey" *ngIf="!detailModel?.SubCategoryName">--</h3>
+            </section>
+          </td>
+
+
+
+        </tr>
+
+        <tr>
+
+          <td>
+            <section class="mat-typography">
+              <h2 class="color-blue">Created Date :</h2>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="detailModel?.CreateDate">{{detailModel?.CreateDate | date: 'dd/MM/yyyy'}}
+              </h3>
+              <h3 class="color-grey" *ngIf="!detailModel?.CreateDate">--</h3>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <h2 class="color-blue">Admin Department :</h2>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="detailModel?.AdminDepartmentsName">{{detailModel?.AdminDepartmentsName}}
+              </h3>
+              <h3 class="color-grey" *ngIf="!detailModel?.AdminDepartmentsName">--</h3>
+            </section>
+          </td>
+
+
+
+        </tr>
+
+        <tr>
+          <td>
+            <section class="mat-typography">
+              <h2 class="color-blue">Beneficiary Categories Name :</h2>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="detailModel?.BeneficiaryCategoriesName">
+                {{detailModel?.BeneficiaryCategoriesName}}</h3>
+              <h3 class="color-grey" *ngIf="!detailModel?.BeneficiaryCategoriesName">--</h3>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <h2 class="color-blue">District Name :</h2>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="detailModel?.DistrictNames">{{detailModel?.DistrictNames}}</h3>
+              <h3 class="color-grey" *ngIf="!detailModel?.DistrictNames">--</h3>
+            </section>
+          </td>
+
+
+
+        </tr>
+
+        <tr>
+          <td>
+            <section class="mat-typography">
+              <h2 class="color-blue">Notification Period :</h2>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="detailModel?.NotificationPeriod">{{detailModel?.NotificationPeriod}}</h3>
+              <h3 class="color-grey" *ngIf="!detailModel?.NotificationPeriod">--</h3>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <h2 class="color-blue">Expiry Date :</h2>
+            </section>
+          </td>
+          <td>
+            <section class="mat-typography">
+              <h3 class="color-grey" *ngIf="detailModel?.ExpiryDate">{{detailModel?.ExpiryDate | date: 'dd/MM/yyyy'}}
+              </h3>
+              <h3 class="color-grey" *ngIf="!detailModel?.ExpiryDate">--</h3>
+            </section>
+          </td>
+
+
+
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+  <div class="col l12 x8 m4 s12">
+    <button mat-button class="btn-submit" (click)="OpenRawData()">Get Raw Data</button>
+  </div>
+
+</div>
+</div>

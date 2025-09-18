@@ -1,0 +1,399 @@
+<div class="row mt-20 detail-bx scheme_detail_page">
+     <div class="order-d-box">
+      <div class="order-d-box__title">Newspaper Details</div>
+    <div class="table-responsive w-100">
+      <table class="table custom-data-table mb-20">
+          <tbody>
+            <tr>
+              <td  width="15%">
+                <section class="mat-typography">
+                  <h2 class="color-blue">Topic :</h2>
+                </section>
+              </td>
+              <td  width="35%">
+                <section class="mat-typography">
+                  <h3 class="color-grey" *ngIf="model?.TransactionModel?.Topic">{{model?.TransactionModel?.Topic}}</h3>
+                  <h3 class="color-grey" *ngIf="!model?.TransactionModel?.Topic">NA</h3>
+                </section>
+              </td>
+              <td  width="15%">
+                <section class="mat-typography">
+                  <h2 class="color-blue">Admin Department: </h2>
+                </section>
+              </td>
+              <td  width="35%">
+                <section class="mat-typography">
+                  <h3 class="color-grey" *ngIf="model?.TransactionModel?.NewspaperAdminDepartmentName">{{model?.TransactionModel?.NewspaperAdminDepartmentName}}</h3>
+                  <h3 class="color-grey" *ngIf="!model?.TransactionModel?.NewspaperAdminDepartmentName">NA</h3>
+                </section>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <section class="mat-typography">
+                  <h2 class="color-blue">Department:</h2>
+                </section>
+              </td>
+              <td>
+                <section class="mat-typography">
+                  <h3 class="color-grey" *ngIf="model?.TransactionModel?.NewspaperDepartmentName">{{model?.TransactionModel?.NewspaperDepartmentName }}
+                  </h3>
+                  <h3 class="color-grey" *ngIf="!model?.TransactionModel?.NewspaperDepartmentName">NA</h3>
+                </section>
+              </td>
+              <td>
+                <section class="mat-typography">
+                  <h2 class="color-blue">Subject:</h2>
+                </section>
+              </td>
+              <td>
+                <section class="mat-typography">
+                  <h3 class="color-grey" *ngIf="model?.TransactionModel?.SubjectName">{{model?.TransactionModel?.SubjectName }}
+                  </h3>
+                  <h3 class="color-grey" *ngIf="!model?.TransactionModel?.SubjectName">NA</h3>
+                </section>
+              </td>
+            </tr>
+            <tr>
+                <td>
+                  <section class="mat-typography">
+                    <h2 class="color-blue">Type of Source:</h2>
+                  </section>
+                </td>
+                <td>
+                  <section class="mat-typography">
+                    <h3 class="color-grey" *ngIf="model?.TransactionModel?.SourceTypeName">{{model?.TransactionModel?.SourceTypeName }}
+                    </h3>
+                    <h3 class="color-grey" *ngIf="!model?.TransactionModel?.SourceTypeName">NA</h3>
+                  </section>
+                </td>
+                <td>
+                  <section class="mat-typography">
+                    <h2 class="color-blue">Date:</h2>
+                  </section>
+                </td>
+                <td>
+                  <section class="mat-typography">
+                    <h3 class="color-grey" *ngIf="model?.TransactionModel?.Date">{{ model?.TransactionModel?.Date| date: 'dd/MM/yyyy' }}
+                    </h3>
+                    <h3 class="color-grey" *ngIf="!model?.TransactionModel?.Date">NA</h3>
+                  </section>
+                </td>
+              </tr>
+              <tr>
+                  <td>
+                    <section class="mat-typography">
+                      <h2 class="color-blue">Summary:</h2>
+                    </section>
+                  </td>
+                  <td>
+                    <section class="mat-typography">
+                      <h3 class="color-grey" *ngIf="model?.TransactionModel?.Summary">{{model?.TransactionModel?.Summary }}
+                      </h3>
+                      <h3 class="color-grey" *ngIf="!model?.TransactionModel?.Summary">NA</h3>
+                    </section>
+                  </td>
+                  <td>
+                    <section class="mat-typography">
+                      <h2 class="color-blue">Is Visible To Public:</h2>
+                    </section>
+                  </td>
+                  <td>
+                    <section class="mat-typography">
+                      <h3 class="color-grey" *ngIf="model?.TransactionModel?.IsVisibleToPublic">Yes
+                      </h3>
+                      <h3 class="color-grey" *ngIf="!model?.TransactionModel?.IsVisibleToPublic">No</h3>
+                    </section>
+                  </td>
+                </tr>
+                <tr>
+                    <td>
+                      <section class="mat-typography">
+                        <h2 class="color-blue">VIP Category:</h2>
+                      </section>
+                    </td>
+                    <td>
+                      <section class="mat-typography">
+                        <h3 class="color-grey" *ngIf="model?.TransactionModel?.ChairpersonCategoryName">{{model?.TransactionModel?.ChairpersonCategoryName }}
+                        </h3>
+                        <h3 class="color-grey" *ngIf="!model?.TransactionModel?.ChairpersonCategoryName">NA</h3>
+                      </section>
+                    </td>
+                    <td>
+                      <section class="mat-typography">
+                        <h2 class="color-blue">VIP Name:</h2>
+                      </section>
+                    </td>
+                    <td>
+                      <section class="mat-typography">
+                        <h3 class="color-grey" *ngIf="model?.TransactionModel?.NewspaperChairpersonName">{{model?.TransactionModel?.NewspaperChairpersonName}}
+                        </h3>
+                        <h3 class="color-grey" *ngIf="!model?.TransactionModel?.NewspaperChairpersonName">N/A</h3>
+                      </section>
+                    </td>
+                  </tr>
+                  <tr>
+                      <td>
+                        <section class="mat-typography">
+                          <h2 class="color-blue">Search Keyword:</h2>
+                        </section>
+                      </td>
+                      <td>
+                        <section class="mat-typography">
+                          <h3 class="color-grey" *ngIf="model?.TransactionModel?.SearchKeyword">{{model?.TransactionModel?.SearchKeyword }}
+                          </h3>
+                          <h3 class="color-grey" *ngIf="!model?.TransactionModel?.SearchKeyword">NA</h3>
+                        </section>
+                      </td>
+                    </tr>
+          </tbody>
+        </table>
+  </div>
+  </div>
+
+
+  <div class="order-d-box" *ngIf="model?.ProgressList?.length>0">
+      <div class="order-d-box__title">Progress List Details</div>
+
+      <div class="newspaper-d-box" *ngFor="let progress of model?.ProgressList">
+        <a href="JavaScript:Void(0);" (click)="openEditDialog(progress.Id,progress.NewspaperTransId)" class="newspaper-d-box-edit"><mat-icon>edit</mat-icon></a>
+    <div class="table-responsive w-100">
+      <table class="table custom-data-table mb-20">
+          <tbody>
+            <tr>
+              <td  width="15%">
+                <section class="mat-typography">
+                  <h2 class="color-blue">News Head line :</h2>
+                </section>
+              </td>
+              <td  width="35%">
+                <section class="mat-typography">
+                  <h3 class="color-grey" *ngIf="progress?.NewsHeadline">{{progress?.NewsHeadline}}</h3>
+                  <h3 class="color-grey" *ngIf="!progress?.NewsHeadline">NA</h3>
+                </section>
+              </td>
+              <td  width="15%">
+                <section class="mat-typography">
+                  <h2 class="color-blue">Caption: </h2>
+                </section>
+              </td>
+              <td  width="35%">
+                  <section class="mat-typography">
+                    <h3 class="color-grey" *ngIf="progress?.Caption">{{progress?.Caption}}</h3>
+                    <h3 class="color-grey" *ngIf="!progress?.Caption">NA</h3>
+                  </section>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                  <section class="mat-typography">
+                    <h2 class="color-blue">Date:</h2>
+                  </section>
+                </td>
+                <td>
+                  <section class="mat-typography">
+                    <h3 class="color-grey" *ngIf="progress?.Date">{{ progress?.Date| date: 'dd/MM/yyyy' }}
+                    </h3>
+                    <h3 class="color-grey" *ngIf="!progress?.Date">NA</h3>
+                  </section>
+                </td>
+                <td>
+                    <section class="mat-typography">
+                      <h2 class="color-blue">Newspaper Name:</h2>
+                    </section>
+                  </td>
+                  <td  width="35%">
+                      <section class="mat-typography">
+                        <h3 class="color-grey" *ngIf="progress?.NewspaperName">{{progress?.NewspaperName}}</h3>
+                        <h3 class="color-grey" *ngIf="!progress?.NewspaperName">NA</h3>
+                      </section>
+                    </td>
+              </tr>
+              <tr>
+                  <td>
+                    <section class="mat-typography">
+                      <h2 class="color-blue">Publication Type:</h2>
+                    </section>
+                  </td>
+                  <td  width="35%">
+                      <section class="mat-typography">
+                        <h3 class="color-grey" *ngIf="progress?.PublicationName">{{progress?.PublicationName}}</h3>
+                        <h3 class="color-grey" *ngIf="!progress?.PublicationName">NA</h3>
+                      </section>
+                    </td>
+                  <td>
+                    <section class="mat-typography">
+                      <h2 class="color-blue">Edition:</h2>
+                    </section>
+                  </td>
+                  <td  width="35%">
+                      <section class="mat-typography">
+                        <h3 class="color-grey" *ngIf="progress?.EditionName">{{progress?.EditionName}}</h3>
+                        <h3 class="color-grey" *ngIf="!progress?.EditionName">NA</h3>
+                      </section>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                      <section class="mat-typography">
+                        <h2 class="color-blue">Page Number:</h2>
+                      </section>
+                    </td>
+                    <td  width="35%">
+                        <section class="mat-typography">
+                          <h3 class="color-grey" *ngIf="progress?.PageNumberName">{{progress?.PageNumberName}}</h3>
+                          <h3 class="color-grey" *ngIf="!progress?.PageNumberName">NA</h3>
+                        </section>
+                      </td>
+                    <td>
+                      <section class="mat-typography">
+                        <h2 class="color-blue"> Type Of News:</h2>
+                      </section>
+                    </td>
+                    <td  width="35%">
+                        <section class="mat-typography">
+                          <h3 class="color-grey" *ngIf="progress?.NewsTypeName">{{progress?.NewsTypeName}}</h3>
+                          <h3 class="color-grey" *ngIf="!progress?.NewsTypeName">NA</h3>
+                        </section>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td>
+                        <section class="mat-typography">
+                          <h2 class="color-blue">Classification:</h2>
+                        </section>
+                      </td>
+                      <td  width="35%">
+                          <section class="mat-typography">
+                            <h3 class="color-grey" *ngIf="progress?.ClassificationName">{{progress?.ClassificationName}}</h3>
+                            <h3 class="color-grey" *ngIf="!progress?.ClassificationName">NA</h3>
+                          </section>
+                        </td>
+                      <td>
+                        <section class="mat-typography">
+                          <h2 class="color-blue"> Coverage:</h2>
+                        </section>
+                      </td>
+                      <td  width="35%">
+                          <section class="mat-typography">
+                            <h3 class="color-grey" *ngIf="progress?.CoverageName">{{progress?.CoverageName}}</h3>
+                            <h3 class="color-grey" *ngIf="!progress?.CoverageName">NA</h3>
+                          </section>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                          <section class="mat-typography">
+                            <h2 class="color-blue">Action Required (If Any):</h2>
+                          </section>
+                        </td>
+                        <td  width="35%">
+                            <section class="mat-typography">
+                              <h3 class="color-grey" *ngIf="progress?.ActionRequiredIfAny">{{progress?.ActionRequiredIfAny}}</h3>
+                              <h3 class="color-grey" *ngIf="!progress?.ActionRequiredIfAny">NA</h3>
+                            </section>
+                          </td>
+                        <td>
+                          <section class="mat-typography">
+                            <h2 class="color-blue"> URL:</h2>
+                          </section>
+                        </td>
+                        <td  width="35%">
+                            <section class="mat-typography">
+                              <h3 class="color-grey" *ngIf="progress?.URL">
+                                  <a *ngIf="progress?.URL.includes('http')" href="{{progress?.URL}}" target="_blank"> {{progress?.URL}}</a>
+                                  <a *ngIf="!progress?.URL.includes('http')" [attr.href]="'http://' + progress?.URL" target="_blank" [title]="progress?.URL">
+                                    {{progress?.URL}}
+                                  </a>
+                              </h3>
+                              <h3 class="color-grey" *ngIf="!progress?.URL">NA</h3>
+                            </section>
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>
+                            <section class="mat-typography">
+                              <h2 class="color-blue">Is Visible To Public:</h2>
+                            </section>
+                          </td>
+                          <td  width="35%">
+                              <section class="mat-typography">
+                                <h3 class="color-grey" *ngIf="progress?.IsVisibleToPublic">Yes</h3>
+                                <h3 class="color-grey" *ngIf="!progress?.IsVisibleToPublic">No</h3>
+                              </section>
+                            </td>
+                          <td>
+                            <section class="mat-typography">
+                              <h2 class="color-blue"> Key Point:</h2>
+                            </section>
+                          </td>
+                          <td  width="35%">
+                              <section class="mat-typography">
+                                <h3 class="color-grey" *ngIf="progress?.KeyPoint">{{progress?.KeyPoint}}</h3>
+                                <h3 class="color-grey" *ngIf="!progress?.KeyPoint">NA</h3>
+                              </section>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                              <section class="mat-typography">
+                                <h2 class="color-blue">PDF:</h2>
+                              </section>
+                            </td>
+                            <td  width="35%">
+                                <section class="mat-typography">
+                                  <h3 class="color-grey" *ngIf="progress?.PDF"><a href="Javascript:void(0);" (click)="downloadPdf(progress?.PDF)"> Show PDF</a></h3>
+                                  <h3 class="color-grey" *ngIf="!progress?.PDF">No</h3>
+                                </section>
+                              </td>
+
+
+                          </tr>
+                          <tr>
+                              <td width="15%">
+                                <section class="mat-typography">
+                                  <h2 class="color-blue">Attached Images :</h2>
+                                </section>
+                              </td>
+                              <td colspan="3" *ngIf="progress?.AttachmentImages?.length>0">
+                                <ul class="image-list">
+                                  <li *ngFor="let url of progress?.AttachmentImages">
+                                   <img [src]="url" height="100px" width="100px" />
+                                  </li>
+                                </ul>
+                              </td>
+
+
+                              <td colspan="3" *ngIf="progress?.AttachmentImages?.length==0">
+                                <section class="mat-typography">
+                                  <h3 class="color-grey">NA</h3>
+                                </section>
+                              </td>
+
+                            </tr>
+                            <tr>
+                                <td width="15%">
+                                  <section class="mat-typography">
+                                    <h2 class="color-blue">News Content :</h2>
+                                  </section>
+                                </td>
+                                <td colspan="3" *ngIf="progress?.NewsContent">
+                                  <span innerHTML="{{ progress?.NewsContent}}"></span>
+                                </td>
+
+
+                                <td colspan="3" *ngIf="progress?.NewsContent">
+                                  <section class="mat-typography">
+                                    <h3 class="color-grey">NA</h3>
+                                  </section>
+                                </td>
+
+                              </tr>
+          </tbody>
+        </table>
+  </div>
+</div>
+  </div>
+  </div>

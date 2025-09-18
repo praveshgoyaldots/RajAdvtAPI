@@ -1,0 +1,31 @@
+<h2 mat-dialog-title>Select Group By</h2>
+
+<mat-dialog-content class="mat-typography">
+    <div class="row">
+        <div class="col l6 xl6 m6 s12">
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Group By 1</mat-label>
+                <mat-select [(ngModel)]="data.groupBy1_Val">
+                    <!-- <mat-option value>--Select--</mat-option> -->
+                    <mat-option value="{{item.Value}}" *ngFor="let item of groupByList">{{item.Text}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col l6 xl6 m6 s12">
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Group By 2</mat-label>
+                <mat-select [(ngModel)]="data.groupBy2_Val">
+                    <mat-option value>--Select--</mat-option>
+                    <mat-option value="{{item.Value}}" *ngFor="let item of groupByList">{{item.Text}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-button class="btn-submit" [mat-dialog-close]="data" cdkFocusInitial>Submit</button>
+</mat-dialog-actions>

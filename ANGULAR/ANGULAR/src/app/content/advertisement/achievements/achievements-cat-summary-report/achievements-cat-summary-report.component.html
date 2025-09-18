@@ -1,0 +1,128 @@
+<div class="row m-20 mb-0">
+    <div class="col l4 xl4 m6 s12">
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Entry from Date</mat-label>
+          <input matInput [matDatepicker]="picker2" (focus)="picker2.open()" readonly placeholder="Date" [(ngModel)]="model.EntryFromDate" [max]="model.EntryToDate">
+          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="col l4 xl4 m6 s12">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Entry To Date</mat-label>
+            <input matInput [matDatepicker]="picker1" (focus)="picker1.open()" readonly placeholder="Date" [(ngModel)]="model.EntryToDate" [min]="model.EntryFromDate">
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+          </mat-form-field>
+        </div>
+  <div class="col l4 xl4 m6 s12 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label> Department Category</mat-label>
+        <mat-select [(ngModel)]="model.DepartmentCategoryCode" (selectionChange)="GetList()">
+          <mat-option value="0">All</mat-option>
+          <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlDepartmentCategory">{{ k.Text }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col l12 m12 s12 text-center mb-20">
+        <button (click)="searchClick();" class="btn btn_note btn_green" style="margin-right: 10px;">Search</button>
+        <button (click)="clearClick();" class="btn btn_note btn_orange"  style="margin-right: 10px;">Clear Search</button>
+      </div>
+  </div>
+<div class="row">
+  <div class="col l12 s12 ">
+    <div class="table-responsive table-header-fixed">
+      <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 table_border ">
+        <ng-container matColumnDef="index">
+          <th mat-header-cell *matHeaderCellDef>Sr No</th>
+          <td mat-cell *matCellDef="let element; let i = index;"> {{(i+1)}}</td>
+          <td mat-footer-cell *matFooterCellDef> Total </td>
+        </ng-container>
+        <ng-container [matColumnDef]="column.Value" *ngFor="let column of ViewdisplayedColumns">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column.Text}} </th>
+          <td mat-cell *matCellDef="let element"> {{element[column.Value]}} </td>
+          <td mat-footer-cell *matFooterCellDef> </td>
+        </ng-container>
+        <ng-container matColumnDef="Videos">
+          <th mat-header-cell *matHeaderCellDef>Videos </th>
+          <td mat-cell *matCellDef="let transaction"> {{transaction.Videos}} </td>
+          <td mat-footer-cell *matFooterCellDef>{{ totalVideos}} </td>
+        </ng-container>
+        <ng-container matColumnDef="Awards">
+          <th mat-header-cell *matHeaderCellDef>Awards </th>
+          <td mat-cell *matCellDef="let transaction"> {{transaction.Awards}} </td>
+          <td mat-footer-cell *matFooterCellDef>{{ totalAwards}} </td>
+        </ng-container>
+        <ng-container matColumnDef="BannerImage">
+          <th mat-header-cell *matHeaderCellDef>Banner Image </th>
+          <td mat-cell *matCellDef="let transaction"> {{transaction.BannerImage}} </td>
+          <td mat-footer-cell *matFooterCellDef>{{ totalBannerImage}} </td>
+        </ng-container>
+        <ng-container matColumnDef="DepartmentalAchievements">
+          <th mat-header-cell *matHeaderCellDef>Departmental Achievements </th>
+          <td mat-cell *matCellDef="let transaction"> {{transaction.DepartmentalAchievements}} </td>
+          <td mat-footer-cell *matFooterCellDef>{{ totalDepartmentalAchievements}} </td>
+        </ng-container>
+        <ng-container matColumnDef="ExternalLink">
+          <th mat-header-cell *matHeaderCellDef>External Link </th>
+          <td mat-cell *matCellDef="let transaction"> {{transaction.ExternalLink}} </td>
+          <td mat-footer-cell *matFooterCellDef>{{ totalExternalLink}} </td>
+        </ng-container>
+        <ng-container matColumnDef="NewsTicker">
+          <th mat-header-cell *matHeaderCellDef>News Ticker</th>
+          <td mat-cell *matCellDef="let transaction"> {{transaction.NewsTicker}} </td>
+          <td mat-footer-cell *matFooterCellDef>{{ totalNewsTicker}} </td>
+        </ng-container>
+        <ng-container matColumnDef="PhotoGallery">
+          <th mat-header-cell *matHeaderCellDef>Photo Gallery </th>
+          <td mat-cell *matCellDef="let transaction"> {{transaction.PhotoGallery}} </td>
+          <td mat-footer-cell *matFooterCellDef>{{ totalPhotoGallery}} </td>
+        </ng-container>
+        <!-- <ng-container matColumnDef="Publications">
+          <th mat-header-cell *matHeaderCellDef>Publications </th>
+          <td mat-cell *matCellDef="let transaction"> {{transaction.Publications}} </td>
+          <td mat-footer-cell *matFooterCellDef>{{ totalPublications}} </td>
+        </ng-container> -->
+        <ng-container matColumnDef="UpcomingEvents">
+          <th mat-header-cell *matHeaderCellDef>UpcomingEvents </th>
+          <td mat-cell *matCellDef="let transaction"> {{transaction.UpcomingEvents}} </td>
+          <td mat-footer-cell *matFooterCellDef>{{ totalUpcomingEvents}} </td>
+        </ng-container>
+        <ng-container matColumnDef="Total">
+          <th mat-header-cell *matHeaderCellDef>Total </th>
+          <td mat-cell *matCellDef="let transaction"> {{transaction.Total}} </td>
+          <td mat-footer-cell *matFooterCellDef>{{ total}} </td>
+        </ng-container>
+        <ng-container matColumnDef="Audio">
+            <th mat-header-cell *matHeaderCellDef>Audio </th>
+            <td mat-cell *matCellDef="let transaction"> {{transaction.Audio}} </td>
+            <td mat-footer-cell *matFooterCellDef>{{ totalAudio}} </td>
+          </ng-container>
+          <ng-container matColumnDef="Advertisement">
+              <th mat-header-cell *matHeaderCellDef>Advertisement </th>
+              <td mat-cell *matCellDef="let transaction"> {{transaction.Advertisement}} </td>
+              <td mat-footer-cell *matFooterCellDef>{{ totalAdvertisement}} </td>
+            </ng-container>
+            <ng-container matColumnDef="Posters">
+                <th mat-header-cell *matHeaderCellDef>Posters </th>
+                <td mat-cell *matCellDef="let transaction"> {{transaction.Posters}} </td>
+                <td mat-footer-cell *matFooterCellDef>{{ totalPosters}} </td>
+              </ng-container>
+              <ng-container matColumnDef="ImportantDecisions">
+                  <th mat-header-cell *matHeaderCellDef>Important Decisions </th>
+                  <td mat-cell *matCellDef="let transaction"> {{transaction.ImportantDecisions}} </td>
+                  <td mat-footer-cell *matFooterCellDef>{{ totalImportantDecisions}} </td>
+                </ng-container>
+                <ng-container matColumnDef="CabinetDecisions">
+                  <th mat-header-cell *matHeaderCellDef>Cabinet Decisions </th>
+                  <td mat-cell *matCellDef="let transaction"> {{transaction.CabinetDecisions}} </td>
+                  <td mat-footer-cell *matFooterCellDef>{{ totalCabinetDecisions}} </td>
+                </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+        <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+        <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+      </table>
+    </div>
+  </div>
+</div>

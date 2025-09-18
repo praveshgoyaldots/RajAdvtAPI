@@ -1,0 +1,144 @@
+<div class="row mb-0">
+  <div class="col l6 xl6 m6 s12">
+    <mat-form-field appearance="outline">
+      <mat-label>Down Level User Role</mat-label>
+      <mat-select name="UserRole" [(ngModel)]="userTypeValue" (selectionChange)="clearAreaData();"
+        disabled="{{isUserTypeDisabled}}">
+        <mat-option>--Select--</mat-option>
+        <mat-option value="{{ k.UserType }}" *ngFor="let k of downLevelUserType">{{ k.UserTypeTitle }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="col l6 xl6 m6 s12"
+    *ngIf="userTypeValue === userTypes.MNSTR || userTypeValue === userTypes.TLO || userTypeValue == userTypes.CMOO || userTypeValue == userTypes.CMOS || userTypeValue == userTypes.DPTO || userTypeValue == userTypes.DPTS">
+    <mat-form-field appearance="outline">
+      <mat-label>Department</mat-label>
+      <mat-select name="Department" [(ngModel)]="areaValue" (selectionChange)="getConfigData();">
+        <mat-option>--Select--</mat-option>
+        <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlDepartment">{{ k.Text }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="col l6 xl6 m6 s12" *ngIf="userTypeValue == userTypes.DCOM">
+    <mat-form-field appearance="outline">
+      <mat-label>Division</mat-label>
+      <mat-select name="Division" [(ngModel)]="areaValue" (selectionChange)="getConfigData();">
+        <mat-option>--Select--</mat-option>
+        <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlDivision">{{ k.Text }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="col l6 xl6 m6 s12" *ngIf="userTypeValue == userTypes.COLL">
+    <mat-form-field appearance="outline">
+      <mat-label>District</mat-label>
+      <mat-select name="District" [(ngModel)]="areaValue" (selectionChange)="getConfigData();">
+        <mat-option>--Select--</mat-option>
+        <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlDistrict">{{ k.Text }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="col l6 xl6 m6 s12" *ngIf="userTypeValue == userTypes.BDO">
+    <mat-form-field appearance="outline">
+      <mat-label>Block</mat-label>
+      <mat-select name="Block" [(ngModel)]="areaValue" (selectionChange)="getConfigData();">
+        <mat-option>--Select--</mat-option>
+        <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlBlock">{{ k.Text }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="col l6 xl6 m6 s12" *ngIf="userTypeValue == userTypes.TEHDR">
+    <mat-form-field appearance="outline">
+      <mat-label>Tehsil</mat-label>
+      <mat-select name="Tehsil" [(ngModel)]="areaValue" (selectionChange)="getConfigData();">
+        <mat-option>--Select--</mat-option>
+        <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlTehsil">{{ k.Text }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>
+
+<div class="row mb-0">
+
+<div class="col l4 xl4 m6 s12 t-border-bx">
+    <table class="table new_table table_border mb-20" *ngIf="this.departmentDataModel.length>0">
+      <thead>
+        <tr>
+          <th>Department</th>
+          <th> Priority</th>
+        </tr>
+      </thead>
+        <tr *ngFor="let item of departmentDataModel">
+          <td>
+            {{ item.DataText }}
+          </td>
+          <td>
+            <mat-form-field appearance="outline">
+              <input matInput maxlength="2" [(ngModel)]="item.Priority" (keypress)="numberOnly($event)" />
+            </mat-form-field>
+          </td>
+        </tr>
+      </table>
+</div>
+<div class="col l4 xl4 m6 s12 t-border-bx">
+    <table class="table new_table table_border mb-20" *ngIf="this.schemeDataModel.length>0">
+      <thead>
+        <tr>
+          <th>Scheme</th>
+          <th>Priority</th>
+        </tr>
+      </thead>
+        <tr *ngFor="let item of schemeDataModel">
+          <td>
+            {{ item.DataText }}
+          </td>
+          <td>
+            <mat-form-field appearance="outline">
+              <input matInput maxlength="2" [(ngModel)]="item.Priority" (keypress)="numberOnly($event)" />
+            </mat-form-field>
+          </td>
+        </tr>
+      </table>
+  </div>
+  <div class="col l4 xl4 m6 s12 t-border-bx">
+      <table class="table new_table table_border mb-20" *ngIf="this.serviceDataModel.length>0">
+        <thead>
+          <tr>
+            <th>Service</th>
+            <th>Priority</th>
+          </tr>
+        </thead>
+          <tr *ngFor="let item of serviceDataModel">
+            <td>
+              {{item.DataText }}
+            </td>
+            <td>
+              <mat-form-field appearance="outline">
+                <input matInput maxlength="2" [(ngModel)]="item.Priority" (keypress)="numberOnly($event)" />
+              </mat-form-field>
+            </td>
+          </tr>
+        </table>
+    </div>
+
+
+
+
+
+
+
+
+</div>
+
+<div class="row text-Left">
+  <div class="col l12">
+    <button mat-button class="btn-submit mr-5" (click)="onSubmit()">Submit</button>
+    <button mat-button class="btn-submit btn_orange" (click)="clearAreaData();">cancel</button>
+  </div>
+
+</div>

@@ -1,0 +1,236 @@
+<div class="row" *ngIf="dashboardReport!=null">
+    <div class="col l12 s12">
+
+        <h5 class="color-blue mb-10 mt-20 center">Notifications Report</h5>
+        <table class="mat-elevation-z8 normal-table">
+            <tr>
+                <th rowspan="2">Module Name</th>
+                <th colspan="2">New Entries (Today)</th>
+                <th colspan="2">Previous Entries</th>
+                <th rowspan="2">Action Taken By Department</th>
+            </tr>
+            <tr>
+                <th>Action Taken</th>
+                <th>Not Action Taken</th>
+                <th>Action Taken</th>
+                <th>Not Action Taken</th>
+            </tr>
+            <tr *ngFor="let row of dashboardReport.NotificaionCountList">
+                <td class="center">
+                    {{ row.ApplicationName }}
+                </td>
+                <td class="center">
+                    <span *ngIf="(row.TodayReceived_ActionTaken==0);else nr_tr_at">
+                        {{ row.TodayReceived_ActionTaken }}
+                    </span>
+                    <ng-template #nr_tr_at>
+                        <a
+                            routerLink="/{{row.ApplicationCode.toLowerCase()}}/statistical-report">{{ row.TodayReceived_ActionTaken }}</a>
+                    </ng-template>
+                </td>
+                <td class="center">
+                    <span *ngIf="(row.TodayReceived_NotActionTaken==0);else nr_tr_nat">
+                        {{ row.TodayReceived_NotActionTaken }}
+                    </span>
+                    <ng-template #nr_tr_nat>
+                        <a
+                            routerLink="/{{row.ApplicationCode.toLowerCase()}}/statistical-report">{{ row.TodayReceived_NotActionTaken }}</a>
+                    </ng-template>
+                </td>
+                <td class="center">
+                    <span *ngIf="(row.PreviousReceived_ActionTaken==0);else nr_pr_at">
+                        {{ row.PreviousReceived_ActionTaken }}
+                    </span>
+                    <ng-template #nr_pr_at>
+                        <a
+                            routerLink="/{{row.ApplicationCode.toLowerCase()}}/statistical-report">{{ row.PreviousReceived_ActionTaken }}</a>
+                    </ng-template>
+                </td>
+                <td class="center">
+                    <span *ngIf="(row.PreviousReceived_NotActionTaken==0);else nr_pr_nat">
+                        {{ row.PreviousReceived_NotActionTaken }}
+                    </span>
+                    <ng-template #nr_pr_nat>
+                        <a
+                            routerLink="/{{row.ApplicationCode.toLowerCase()}}/statistical-report">{{ row.PreviousReceived_NotActionTaken }}</a>
+                    </ng-template>
+                </td>
+                <td class="center">
+                    <span *ngIf="(row.TotalReceived_ActionTaken==0);else nr_tr_at">
+                        {{ row.TotalReceived_ActionTaken }}
+                    </span>
+                    <ng-template #nr_tr_at>
+                        <a
+                            routerLink="/{{row.ApplicationCode.toLowerCase()}}/statistical-report">{{ row.TotalReceived_ActionTaken }}</a>
+                    </ng-template>
+                </td>
+            </tr>
+        </table>
+
+        <h5 class="color-blue mb-10 mt-20 center">Status of Action Taken</h5>
+        <table class="mat-elevation-z8 normal-table">
+            <tr>
+                <th rowspan="2">Module Name</th>
+                <th rowspan="2">Not Action Taken</th>
+                <th colspan="3">Action Taken By Department</th>
+                <th colspan="3">Action Taken By CMO</th>
+            </tr>
+            <tr>
+                <th>Pending</th>
+                <th>Interim</th>
+                <th>Disposed</th>
+                <th>Pending</th>
+                <th>Interim</th>
+                <th>Disposed</th>
+            </tr>
+            <tr *ngFor="let row of dashboardReport.ActionStatusCountList">
+                <td class="center">
+                    {{ row.ApplicationName }}
+                </td>
+                <td class="center">
+                    {{ row.TotalReceived_NotActionTakenByDepartment }}
+                </td>
+                <td class="center">
+                    {{ row.DepartmentAction_Pending }}
+                </td>
+                <td class="center">
+                    {{ row.DepartmentAction_Interim }}
+                </td>
+                <td class="center">
+                    {{ row.DepartmentAction_Disposed }}
+                </td>
+                <td class="center">
+                    {{ row.CMOAction_Pending }}
+                </td>
+                <td class="center">
+                    {{ row.CMOAction_Interim }}
+                </td>
+                <td class="center">
+                    {{ row.CMOAction_Disposed }}
+                </td>
+            </tr>
+        </table>
+
+        <h5 class="color-blue mb-10 mt-20 center">Age Wise Report</h5>
+        <table class="mat-elevation-z8 normal-table">
+            <tr>
+                <th rowspan="3">Module Name</th>
+                <th rowspan="3">Total Entries</th>
+                <th rowspan="3">Not Action Taken</th>
+                <th colspan="12">Action Taken By Department</th>
+            </tr>
+            <tr>
+                <th colspan="3">&lt;7 Days</th>
+                <th colspan="3">7-15 Days</th>
+                <th colspan="3">15-30 Days</th>
+                <th colspan="3">&gt;30 Days</th>
+            </tr>
+            <tr>
+                <th>P</th>
+                <th>I</th>
+                <th>D</th>
+                <th>P</th>
+                <th>I</th>
+                <th>D</th>
+                <th>P</th>
+                <th>I</th>
+                <th>D</th>
+                <th>P</th>
+                <th>I</th>
+                <th>D</th>
+            </tr>
+            <tr *ngFor="let row of dashboardReport.ActionAgeWiseCountList">
+                <td class="center">
+                    {{ row.ApplicationName }}
+                </td>
+                <td class="center">
+                    {{ row.TotalReceived }}
+                </td>
+                <td class="center">
+                    {{ row.TotalReceived_NotActionTakenByDepartment }}
+                </td>
+
+                <td class="center">
+                    {{ row.DepartmentAction_0to7_Pending }}
+                </td>
+                <td class="center">
+                    {{ row.DepartmentAction_0to7_Interim }}
+                </td>
+                <td class="center">
+                    {{ row.DepartmentAction_0to7_Disposed }}
+                </td>
+
+                <td class="center">
+                    {{ row.DepartmentAction_7to15_Pending }}
+                </td>
+                <td class="center">
+                    {{ row.DepartmentAction_7to15_Interim }}
+                </td>
+                <td class="center">
+                    {{ row.DepartmentAction_7to15_Disposed }}
+                </td>
+
+                <td class="center">
+                    {{ row.DepartmentAction_15to30_Pending }}
+                </td>
+                <td class="center">
+                    {{ row.DepartmentAction_15to30_Interim }}
+                </td>
+                <td class="center">
+                    {{ row.DepartmentAction_15to30_Disposed }}
+                </td>
+
+                <td class="center">
+                    {{ row.DepartmentAction_30to_Pending }}
+                </td>
+                <td class="center">
+                    {{ row.DepartmentAction_30to_Interim }}
+                </td>
+                <td class="center">
+                    {{ row.DepartmentAction_30to_Disposed }}
+                </td>
+            </tr>
+        </table>
+
+        <h5 class="color-blue mb-10 mt-20 center">Last 6 Month Wise Report</h5>
+        <table class="mat-elevation-z8 normal-table">
+            <tr>
+                <th>Module Name</th>
+                <th>Total Entries</th>
+                <th>{{_commonService.getMonthYear(0)}}</th>
+                <th>{{_commonService.getMonthYear(-1)}}</th>
+                <th>{{_commonService.getMonthYear(-2)}}</th>
+                <th>{{_commonService.getMonthYear(-3)}}</th>
+                <th>{{_commonService.getMonthYear(-4)}}</th>
+                <th>{{_commonService.getMonthYear(-5)}}</th>
+            </tr>
+            <tr *ngFor="let row of dashboardReport.Last6MonthActionCountList">
+                <td class="center">
+                    {{ row.ApplicationName }}
+                </td>
+                <td class="center">
+                    {{ row.TotalReceived }}
+                </td>
+                <td class="center">
+                    {{ row.DepartmentAction_CurrentMonth }}
+                </td>
+                <td class="center">
+                    {{ row.DepartmentAction_Last1Month }}
+                </td>
+                <td class="center">
+                    {{ row.DepartmentAction_Last2Month }}
+                </td>
+                <td class="center">
+                    {{ row.DepartmentAction_Last3Month }}
+                </td>
+                <td class="center">
+                    {{ row.DepartmentAction_Last4Month }}
+                </td>
+                <td class="center">
+                    {{ row.DepartmentAction_Last5Month }}
+                </td>
+            </tr>
+        </table>
+
+    </div>
+</div>

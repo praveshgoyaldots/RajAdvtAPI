@@ -1,0 +1,218 @@
+<form [formGroup]="formGroup">
+
+  <div class="row col-mb-10">
+
+    <div class="col l6 xl6 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Department Name in english
+        </mat-label>
+        <input matInput placeholder="Department Name in English" [(ngModel)]="model.DepartmentTitle"
+          formControlName="DepartmentTitle" name="DepartmentTitle" readonly>
+      </mat-form-field>
+    </div>
+
+    <div class="col l6 xl6 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Website Name <span style="color: red">*</span>
+        </mat-label>
+        <input matInput placeholder="Website Name" [(ngModel)]="model.WebsiteName" formControlName="WebsiteName"
+          name="WebsiteName">
+      </mat-form-field>
+      <mat-error
+        *ngIf="formGroup.get('WebsiteName').hasError('required') && (formGroup.get('WebsiteName').touched && formGroup.get('WebsiteName').invalid)">
+        Website Name is <strong>required!</strong>
+      </mat-error>
+    </div>
+
+    <div class="col l6 xl6 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Nodal Officer Name <span style="color: red">*</span>
+        </mat-label>
+        <input matInput placeholder="Nodal Officer Name" [(ngModel)]="model.NodalOfficerName"
+          formControlName="NodalOfficerName" name="NodalOfficerName">
+      </mat-form-field>
+      <mat-error
+        *ngIf="formGroup.get('NodalOfficerName').hasError('required') && (formGroup.get('NodalOfficerName').touched && formGroup.get('NodalOfficerName').invalid)">
+        Nodal Officer Name is <strong>required!</strong>
+      </mat-error>
+    </div>
+
+    <div class="col l6 xl6 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Nodal Officer Designation <span style="color: red">*</span>
+        </mat-label>
+        <input matInput placeholder="Nodal Officer Designation" [(ngModel)]="model.NodalOfficerDesignation"
+          formControlName="NodalOfficerDesignation" name="NodalOfficerDesignation">
+      </mat-form-field>
+      <mat-error
+        *ngIf="formGroup.get('NodalOfficerDesignation').hasError('required') && (formGroup.get('NodalOfficerDesignation').touched && formGroup.get('NodalOfficerDesignation').invalid)">
+        Nodal Officer Designation is <strong>required!</strong>
+      </mat-error>
+    </div>
+
+    <div class="col l6 xl6 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Mobile No. <span style="color: red">*</span>
+        </mat-label>
+        <input matInput placeholder="Mobile No." [(ngModel)]="model.MobileNo" formControlName="MobileNo" name="MobileNo"
+          maxlength="30">
+      </mat-form-field>
+      <mat-error
+        *ngIf="formGroup.get('MobileNo').hasError('required') && (formGroup.get('MobileNo').touched && formGroup.get('MobileNo').invalid)">
+        Mobile No. is <strong>required!</strong>
+      </mat-error>
+      <mat-error
+        *ngIf="!formGroup.get('MobileNo').hasError('required') && formGroup.get('MobileNo').touched && formGroup.get('MobileNo').invalid">
+        Entered Mobile No is not valid </mat-error>
+    </div>
+
+    <div class="col l6 xl6 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Email
+        </mat-label>
+        <input type="email" matInput placeholder="Email" [(ngModel)]="model.Email" formControlName="Email" name="Email"
+          pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
+      </mat-form-field>
+      <mat-error
+        *ngIf="formGroup.get('Email').hasError('required') && (formGroup.get('Email').touched && formGroup.get('Email').invalid)">
+        Email is <strong>required!</strong>
+      </mat-error>
+      <mat-error
+        *ngIf="!formGroup.get('Email').hasError('required') && formGroup.get('Email').touched && formGroup.get('Email').invalid">
+        Only Accept Email Format </mat-error>
+    </div>
+
+    <div class="col l6 xl6 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>SSOID
+        </mat-label>
+        <input matInput placeholder="SSOID" [(ngModel)]="model.SSOID" formControlName="SSOID" name="SSOID">
+      </mat-form-field>
+      <mat-error
+        *ngIf="formGroup.get('SSOID').hasError('required') && (formGroup.get('SSOID').touched && formGroup.get('SSOID').invalid)">
+        SSOID is <strong>required!</strong>
+      </mat-error>
+    </div>
+
+    <div class="col l6 xl6 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Facebook URL
+        </mat-label>
+        <input matInput placeholder="Facebook URL" [(ngModel)]="model.FacebookURL" formControlName="FacebookURL"
+          name="FacebookURL">
+      </mat-form-field>
+      <mat-error *ngIf="(formGroup.get('FacebookURL').touched && formGroup.get('FacebookURL').hasError('invalidUrl'))">
+        Facebook Url is <strong>not valid!</strong> </mat-error>
+    </div>
+
+    <div class="col l6 xl6 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Twitter URL
+        </mat-label>
+        <input matInput placeholder="Twitter URL" [(ngModel)]="model.TwitterURL" formControlName="TwitterURL"
+          name="TwitterURL">
+      </mat-form-field>
+      <mat-error *ngIf="(formGroup.get('TwitterURL').touched && formGroup.get('TwitterURL').hasError('invalidUrl'))">
+        Twitter Url is <strong>not valid!</strong> </mat-error>
+    </div>
+
+    <div class="col l6 xl6 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Youtube URL
+        </mat-label>
+        <input matInput placeholder="Youtube URL" [(ngModel)]="model.YoutubeURL" formControlName="YoutubeURL"
+          name="YoutubeURL">
+      </mat-form-field>
+      <mat-error *ngIf="(formGroup.get('YoutubeURL').touched && formGroup.get('YoutubeURL').hasError('invalidUrl'))">
+        Youtube Url is <strong>not valid!</strong> </mat-error>
+    </div>
+
+    <div class="col l6 xl6 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Instagram URL
+        </mat-label>
+        <input matInput placeholder="Instagram URL" [(ngModel)]="model.InstagramURL" formControlName="InstagramURL"
+          name="InstagramURL">
+      </mat-form-field>
+      <mat-error
+        *ngIf="(formGroup.get('InstagramURL').touched && formGroup.get('InstagramURL').hasError('invalidUrl'))">
+        Instagram Url is <strong>not valid!</strong> </mat-error>
+    </div>
+
+    <div class="col l6 xl6 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Password
+        </mat-label>
+        <input matInput placeholder="Password" [(ngModel)]="model.DepartmentPassword"
+          formControlName="DepartmentPassword" name="DepartmentPassword">
+      </mat-form-field>
+    </div>
+
+    <div class="col l6 xl6 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Website Dynamic Category (English)</mat-label>
+        <input matInput placeholder="Website Dynamic Category (English)" [(ngModel)]="model.WebsiteDynamicCategory"
+          formControlName="WebsiteDynamicCategory" name="WebsiteDynamicCategory">
+      </mat-form-field>
+    </div>
+
+    <div class="col l6 xl6 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Website Dynamic Category (Hindi)</mat-label>
+        <input matInput placeholder="Website Dynamic Category (Hindi)" [(ngModel)]="model.WebsiteDynamictransaction"
+          formControlName="WebsiteDynamictransaction" name="WebsiteDynamictransaction">
+      </mat-form-field>
+    </div>
+
+    <div class="col l6 xl6 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>State Minister </mat-label>
+        <mat-select name="StateMinisterCode" id="StateMinisterCode" [(ngModel)]="model.StateMinisterCode"
+          formControlName="StateMinisterCode">
+          <mat-option>--Select--</mat-option>
+          <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlStateMinister">{{ k.Text }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="col l6 xl6 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Cabinet Minister </mat-label>
+        <mat-select name="CabinetMinisterCode" id="CabinetMinisterCode" [(ngModel)]="model.CabinetMinisterCode"
+          formControlName="CabinetMinisterCode">
+          <mat-option>--Select--</mat-option>
+          <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlCabinetMinister">{{ k.Text }}
+          </mat-option>
+
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="col l6 xl6 m6 s12">
+      <div class="upload-btn-wrapper">
+        <label>Home Page Image (Applicable Size: 2000x200)</label>
+        <input type="file" (change)="handleImageFileInput($event)" formControlName="WebsiteImage">
+        <div class="up-img-w-remove">
+          <img *ngIf="model.WebsiteImage" [src]="model.WebsiteImage" height="100px" width="100px" />
+          <a title="Remove" (click)="RemoveImageFile();" class="up-img-w-remove-btn">
+            <mat-icon *ngIf="model?.WebsiteImage?.length>0">delete</mat-icon>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col l6 xl6 m6 s12">
+      <mat-radio-group class="example-full-width radio-bx-custom radio-bx-custom-with-label"
+        [(ngModel)]="model.DefaultLanguage" formControlName="DefaultLanguage" #DefaultLanguage>
+        <label class="mr-10">Default Language</label>
+        <mat-radio-button class="mr-5" value="hi"> Hindi </mat-radio-button>
+        <mat-radio-button class="mr-5" value="en"> English </mat-radio-button>
+      </mat-radio-group>
+    </div>
+
+    <div class="col l12 x8 m4 s6 clearfix">
+      <button mat-button class="btn-submit" (click)="SaveClick();">Save</button>
+    </div>
+  </div>
+</form>

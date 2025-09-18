@@ -1,0 +1,19 @@
+textarea {
+    height: 120px;
+}
+.achievementCategory-help
+{
+        display: flex;
+    margin-top: -15px;
+    margin-bottom: 3px;
+    background: #f3f3f3;
+    border-radius: 5px;
+    text-align: center;
+    justify-content: center;
+    padding: 1px;
+    color: #222d32;
+    align-items: center;
+}
+.achievementCategory-help .mat-icon {
+    margin-left: 5px;
+}

@@ -1,0 +1,170 @@
+<div class="row">
+  <div class="col l12 s12 p-0">
+      <div class="row m-20 mb-0">
+
+          <div class="col l4 xl4 m6 s12" style="margin-bottom: 20px !important;">
+              <mat-radio-group class="example-full-width radio-bx-custom radio-bx-custom-with-label"
+              aria-label="Select an option" [(ngModel)]="vCCustomFilter.IsAllVC">
+              <mat-radio-button class="mr-5 mb-10" [value]="false" (change)="VCRadioClick($event.value)" >Show All</mat-radio-button>
+              <mat-radio-button class="mr-5" [value]="true" (change)="VCRadioClick($event.value)" >Active(Current + Future)</mat-radio-button>
+              </mat-radio-group>
+              </div>
+
+          <div class="col l4 xl4 m6 s12">
+              <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Date</mat-label>
+                <input matInput [matDatepicker]="picker2" (focus)="picker2.open()" (dateChange)="FillVCNameClick()" readonly placeholder="Date" [(ngModel)]="vCCustomFilter.Date">
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div class="col l4 xl4 m6 s12">
+              <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>VC Type</mat-label>
+                <mat-select [(ngModel)]="vCCustomFilter.TypeCode" (selectionChange)="FillVCNameClick()">
+                  <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlVCType">{{k.Text}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <!-- <div class="col l6 xl2 m2 s2">
+                <button (click)="FillVCNameClick();" class="btn btn_note btn_green" style="margin-right: 10px;">Fill VC Name</button>
+              </div> -->
+    <div class="col l12 xl12 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label> VC Name </mat-label>
+        <mat-select [(ngModel)]="vCCustomFilter.VcCode" >
+          <mat-option value="{{ k.Code }}" *ngFor="let k of ddlCreateVCList">{{ k.ShortDescription }}
+              <span>(</span> {{ k.Date| date: 'dd/MM/yyyy' }}<span *ngIf="k.Date && k.Time"> / </span>{{ k.Time }} <span>)</span>
+           </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="col l3 xl3 m6 s12">
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label> District </mat-label>
+            <mat-select  #DistrictCode  (selectionChange)="GetLocation($event.value)" [(ngModel)]="vCCustomFilter.DistrictCode">
+                <mat-option>--Select--</mat-option>
+                <mat-option value="{{ k.DistrictCode }}" *ngFor="let k of ddlDistrict">{{ k.DistrictTitle }} </mat-option>
+
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div class="col l3 xl3 m6 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Location  </mat-label>
+          <mat-select  #LocationCode  [(ngModel)]="vCCustomFilter.LocationCode">
+              <mat-option value="{{ k.Value }}" *ngFor="let k of dDLLocationByDistrict">{{ k.Text }} </mat-option>
+          </mat-select>
+      </mat-form-field>
+
+  </div>
+  <div class="col l6 xl6 m4 s12">
+    <mat-radio-group class="radio_grp mt-10 radio-bx-custom" aria-label="Select an option" [(ngModel)]="vCCustomFilter.IsPresent">
+      <mat-radio-button [value]="1" (change)="gePresentAbsentData(1)">Present
+      </mat-radio-button>
+      <mat-radio-button [value]="0" (change)="gePresentAbsentData(0)">Absent</mat-radio-button>
+      <mat-radio-button [value]="-1" (change)="gePresentAbsentData(-1)">Both</mat-radio-button>
+    </mat-radio-group>
+  </div>
+
+  <div class="col l12 xl12 m12 s12">
+    <mat-radio-group class="example-full-width
+    radio_grp radio-bx-custom radio-bx-custom-with-label" aria-label="Select an option" [(ngModel)]="vCCustomFilter.IsOrderByDLPCorPCDL">
+      <mat-label>Display Order</mat-label>
+      <mat-radio-button [value]="1" (change)="geDistrictLocationOrderNoData(1)"> Present/Absent + District + Location + Order No. of Participant Category + Entry Number
+      </mat-radio-button>
+      <mat-radio-button [value]="0" (change)="geDistrictLocationOrderNoData(0)"> Present/Absent + Order No. of Participant Category + District + Location + Entry Number</mat-radio-button>
+
+    </mat-radio-group>
+  </div>
+<!-- <div class="col l6 xl4 m4 s4">DistrictCode LocationCode
+  <mat-form-field class="example-full-width" appearance="outline">
+    <mat-label>Chairperson Category </mat-label>
+    <mat-select [(ngModel)]="vCCustomFilter.ChairPersonCategoryCode" (ngModelChange)="getParticipantList($event)">
+      <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlVCParticipantCategory">{{k.Text}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<div class="col l6 xl4 m4 s4">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>Chairperson</mat-label>
+      <mat-select [(ngModel)]="vCCustomFilter.ChairPersonCode">
+        <mat-option value="{{ k.Value }}" *ngFor="let k of ddlParticipant">{{k.Text}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div> -->
+  <div class="col l6 xl6 m4 s12">
+      <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Category  </mat-label>
+          <mat-select  [(ngModel)]="vCCustomFilter.ParticipantCategoryCode">
+              <mat-option>--Select--</mat-option>
+              <mat-option value="{{ k.Value }}" *ngFor="let k of dDLList?.ddlVCParticipantCategory">{{ k.Text }} </mat-option>
+          </mat-select>
+      </mat-form-field>
+       </div>
+
+  <div class="col l4 m6 s12 ">
+      <section class="example-full-width  checkbox-bx-custom checkbox-bx-custom-with-label mb-10" appearance="outline">
+        <mat-label>Is Show Category </mat-label>
+        <mat-checkbox  Id="IsShilanyas" #IsShilanyas (change)="showData($event)">Is Show Category</mat-checkbox>
+      </section>
+    </div>
+
+  <div class="col l12 xl12 m12 s12 text-right">
+    <button (click)="searchClick();" class="btn btn_note btn_green" style="margin-right: 10px;">Search</button>
+    <button (click)="clearClick();" class="btn btn_note btn_orange"  style="margin-right: 10px;">Clear Search</button>
+    <button (click)="print();" class="btn btn_note btn_orange"  style="margin-right: 10px;">Print</button>
+    <button class="btn btn-danger" *ngIf="vCCustomFilter.VcCode>0"  routerLink="/vcreport/vcagendareport/{{vCCustomFilter.VcCode}}">Graphical Report</button>
+  </div>
+</div>
+<div  id="test">
+<div class="row">
+    <div  class="col l12 xl12 m12 s12 " style="text-align: center;">
+        <span *ngIf="vCCustomFilter?.VcCode" > {{ CreateVCItems[(vCCustomFilter?.VcCode)] }}</span>
+        <span *ngIf="vCCustomFilter?.VcCode" > {{ CreateChairPersonCategoryVCItems[(vCCustomFilter?.VcCode)] }}</span>
+        <span *ngIf="vCCustomFilter?.VcCode" > {{ CreateChairPersonVCItems[(vCCustomFilter?.VcCode)]}}</span>
+    </div>
+
+</div>
+
+
+      <table mat-table [dataSource]="dataSource" matSort *ngIf="listModel?.length>0"
+          class="mat-elevation-z8" style="vertical-align:top !important">
+          <ng-container matColumnDef="index">
+            <th mat-header-cell *matHeaderCellDef>s.no</th>
+            <td mat-cell *matCellDef="let element; let i = index">
+              {{ i + 1 }}
+            </td>
+          </ng-container>
+
+          <ng-container [matColumnDef]="column.Value" *ngFor="let column of ViewdisplayedColumns">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              {{ column.Text }}
+            </th>
+            <td mat-cell *matCellDef="let element">{{ element[column.Value] }}</td>
+          </ng-container>
+          <ng-container matColumnDef="IsPresent" *ngIf="vCCustomFilter.IsPresent==-1">
+              <th mat-header-cell *matHeaderCellDef>Absent/Present</th>
+              <td mat-cell *matCellDef="let element; let i = index">
+                  <span class="badget" *ngIf="element.IsPresent" style="background-color: green;">Present</span>
+                  <span class="badget" *ngIf="!element.IsPresent" style="background-color: red;">Absent</span>
+              </td>
+            </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+      <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
+    </table>
+
+
+
+
+  </div>
+    <!-- <mat-paginator #paginator *ngIf="listModel?.length>0" [length]="totalRecords" [pageSize]="indexModel.PageSize"
+      [pageSizeOptions]="[5, 10, 20, 50]" (page)="onPaginateChange($event)" showFirstLastButtons> </mat-paginator> -->
+
+    <div *ngIf="listModel?.length==0" class="msg-not-found"> Record Not Found</div>
+
+
+  </div>
+</div>

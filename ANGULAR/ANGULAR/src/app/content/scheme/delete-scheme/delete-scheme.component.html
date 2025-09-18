@@ -1,0 +1,674 @@
+
+
+<div class="row mt-20 detail-bx scheme_detail_page">
+    <div class="table-responsive w-100">
+      <table class="table custom-data-table">
+        <tbody>
+
+          <th colspan="4" class="list_title"> Scheme/Service Details</th>
+        <tr>
+          <td width="15%"><section class="mat-typography">
+              <h2 class="color-blue">Name in English :</h2>
+            </section></td>
+          <td width="35%"><section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.NameEnglish"> {{ model?.NameEnglish }} </h3>
+              <h3 class="color-grey" *ngIf="!model?.NameEnglish">NA</h3>
+            </section></td>
+          <td width="15%"><section class="mat-typography">
+              <h2 class="color-blue">Short Name in English:</h2>
+            </section></td>
+          <td width="35%"><section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.ShortNameEnglish"> {{ model?.ShortNameEnglish }} </h3>
+              <h3 class="color-grey" *ngIf="!model?.ShortNameEnglish">NA</h3>
+            </section></td>
+        </tr>
+
+        <tr>
+          <td><section class="mat-typography">
+              <h2 class="color-blue">Name in Hindi :</h2>
+            </section></td>
+          <td><section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.NameHindi"> {{ model?.NameHindi }} </h3>
+              <h3 class="color-grey" *ngIf="!model?.NameHindi">NA</h3>
+            </section></td>
+          <td><section class="mat-typography">
+              <h2 class="color-blue">Short Name in Hindi:</h2>
+            </section></td>
+          <td><section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.ShortNameHindi"> {{ model?.ShortNameHindi }} </h3>
+              <h3 class="color-grey" *ngIf="!model?.ShortNameHindi">NA</h3>
+            </section></td>
+        </tr>
+        <tr>
+
+              <td><section class="mat-typography">
+                  <h2 class="color-blue">Start Date:</h2>
+                </section></td>
+              <td><section class="mat-typography">
+                  <h3 class="color-grey" *ngIf="model?.StartDate"> {{ model?.StartDate }} </h3>
+                  <h3 class="color-grey" *ngIf="!model?.StartDate">NA</h3>
+                </section></td>
+            <td><section class="mat-typography">
+                <h2 class="color-blue">keyword For Search For Scheme/Service Details :</h2>
+              </section></td>
+            <td><section class="mat-typography">
+                <h3 class="color-grey" *ngIf="model?.SearchKeyWordOfDetails"> {{ model?.SearchKeyWordOfDetails }} </h3>
+                <h3 class="color-grey" *ngIf="!model?.SearchKeyWordOfDetails">NA</h3>
+              </section></td>
+          </tr>
+
+            <tr>
+                <td><section class="mat-typography">
+                    <h2 class="color-blue">Logo :</h2>
+                  </section></td>
+                <td><section class="mat-typography">
+                    <h3 class="color-grey" *ngIf="model?.Logo">   <td><img [src]="model.Logo" height="100px" width="100px" /></td></h3>
+                    <h3 class="color-grey" *ngIf="!model?.Logo">NA</h3>
+                  </section></td>
+                  <td><section class="mat-typography">
+                      <h2 class="color-blue">Banner :</h2>
+                    </section></td>
+                  <td><section class="mat-typography">
+                      <h3 class="color-grey" *ngIf="model?.BannerImage">   <td><img [src]="model.BannerImage" height="100px" width="100px" /></td></h3>
+                      <h3 class="color-grey" *ngIf="!model?.BannerImage">NA</h3>
+                    </section></td>
+              </tr>
+        <tr>
+        <td colspan="4" class="no_border">
+        <table class="table table_with_color" *ngIf="model.EntryLookUp.length > 0">
+          <thead>
+            <tr>
+              <th scope="col">Sr.No</th>
+              <th scope="col">Admin Department</th>
+              <th scope="col">Nodal Department</th>
+              <th scope="col">Officer Name</th>
+              <th scope="col">Mobile No</th>
+              <th scope="col">Email Id</th>
+              <th scope="col">Designation</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+                *ngFor="let item of model.EntryLookUp; let i = index"
+                [attr.data-index]="i"
+              >
+              <th scope="row">{{i+1}}</th>
+              <td>{{ AdminItems[(item?.AdminDepartmentCode)] }}</td>
+              <td>{{ NodelItems[(item?.NodelDepartmentCode)] }}</td>
+              <td>{{ item.NodelOfficerName }}</td>
+              <td>{{ item.MobileNo }}</td>
+              <td>{{ item.EmailId }}</td>
+              <td>{{ item.Designation }}</td>
+            </tr>
+          </tbody>
+        </table>
+        </td>
+        </tr>
+
+        <tr>
+          <td><section class="mat-typography">
+              <h2 class="color-blue"> Scheme/Service Description :</h2>
+            </section></td>
+          <td><section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.Description"> {{ model?.Description }} </h3>
+              <h3 class="color-grey" *ngIf="!model?.Description">NA</h3>
+            </section></td>
+          <td><section class="mat-typography">
+              <h2 class="color-blue"> Scheme/Service Type :</h2>
+            </section></td>
+          <td><section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.TypeName"> {{ model?.TypeName }} </h3>
+              <h3 class="color-grey" *ngIf="!model?.TypeName">NA</h3>
+            </section></td>
+        </tr>
+        <tr>
+          <td><section class="mat-typography">
+              <h2 class="color-blue">Scheme/Service Owned By :</h2>
+            </section></td>
+          <td colspan="3"><section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.OwnedByName"> {{ model?.OwnedByName }} </h3>
+              <h3 class="color-grey" *ngIf="!model?.OwnedByName">NA</h3>
+            </section></td>
+        </tr>
+
+          <th colspan="4" class="list_title"> Scheme/Service Executing Details</th>
+        <tr>
+          <td><section class="mat-typography">
+              <h2 class="color-blue">Is Listed RGDPS Act :</h2>
+            </section></td>
+          <td><section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.IsListedRGDPSAct"> {{ model?.IsListedRGDPSActName }} </h3>
+              <h3 class="color-grey" *ngIf="!model?.IsListedRGDPSAct">--</h3>
+            </section></td>
+          <td *ngIf="model.IsListedRGDPSAct=='29' || model.IsListedRGDPSAct=='30'"><section class="mat-typography">
+              <h2 class="color-blue"> Scheme/Service Delivery Time(in Days) : </h2>
+            </section></td>
+          <td *ngIf="model.IsListedRGDPSAct=='29' || model.IsListedRGDPSAct=='30'"><section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.DeliveryTimeInDays"> {{ model?.DeliveryTimeInDays }} </h3>
+              <h3 class="color-grey" *ngIf="!model?.DeliveryTimeInDays">NA</h3>
+            </section></td>
+        </tr>
+        <tr>
+          <td *ngIf="model.IsListedRGDPSAct =='29'|| model.IsListedRGDPSAct=='30'"><section class="mat-typography">
+              <h2 class="color-blue">Designated Officer Detail Name :</h2>
+            </section></td>
+          <td *ngIf="model.IsListedRGDPSAct =='29'|| model.IsListedRGDPSAct=='30'"><section class="mat-typography">
+              <h3
+                  class="color-grey"
+                  *ngIf="model?.DesignatedOfficerReceivingDetailName"
+                > <span *ngIf="model.DesignatedOfficerReceivingDetailName"
+                    >{{ model?.DesignatedOfficerReceivingDetailName }} </span> <span *ngIf="!model.DesignatedOfficerReceivingDetailName"
+                    >-- </span> </h3>
+            </section></td>
+          <td *ngIf="model.IsListedRGDPSAct=='29'"><section class="mat-typography">
+              <h2 class="color-blue">First Appeallate :</h2>
+            </section></td>
+          <td *ngIf="model.IsListedRGDPSAct=='29'"><section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.FirstAppeallateName"> {{ model?.FirstAppeallateName }} </h3>
+              <h3 class="color-grey" *ngIf="!model?.FirstAppeallateName"> -- </h3>
+            </section></td>
+        </tr>
+        <tr>
+          <td *ngIf="model.IsListedRGDPSAct=='29'"><section class="mat-typography">
+              <h2 class="color-blue">Second Appeallate :</h2>
+            </section></td>
+          <td *ngIf="model.IsListedRGDPSAct=='29'"><section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.SecondAppeallateName"> {{ model?.SecondAppeallateName }} </h3>
+              <h3 class="color-grey" *ngIf="!model?.SecondAppeallateName"> -- </h3>
+            </section></td>
+          <td><section class="mat-typography">
+              <h2 class="color-blue">Scheme/Service program Area :</h2>
+            </section></td>
+          <td><section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.ProgramAreaName"> {{ model?.ProgramAreaName }} </h3>
+              <h3 class="color-grey" *ngIf="!model?.ProgramAreaName"> -- </h3>
+            </section></td>
+        </tr>
+        <tr>
+          <td><section class="mat-typography">
+              <h2 class="color-blue">Is Renewal :</h2>
+            </section></td>
+          <td><section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.ApplyForScheme"> {{ model?.ApplyForSchemeName }} </h3>
+              <h3 class="color-grey" *ngIf="!model?.ApplyForScheme">--</h3>
+            </section></td>
+          <td *ngIf="model.ApplyForScheme=='32'"><section class="mat-typography">
+              <h2 class="color-blue">Time Of Validation In Month :</h2>
+            </section></td>
+          <td *ngIf="model.ApplyForScheme=='32'"><section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.TimeOfValidationInMonth"> {{ model?.TimeOfValidationInMonth }} </h3>
+              <h3 class="color-grey" *ngIf="!model?.TimeOfValidationInMonth"> -- </h3>
+            </section></td>
+        </tr>
+
+        <tr>
+            <td><section class="mat-typography">
+                <h2 class="color-blue">Scheme/Service Type:</h2>
+              </section></td>
+            <td><section class="mat-typography">
+                <h3 class="color-grey" *ngIf="model?.SchemeTypeName"> {{ model?.SchemeTypeName }} </h3>
+                <h3 class="color-grey" *ngIf="!model?.SchemeTypeName"> -- </h3>
+              </section></td>
+            <td><section class="mat-typography">
+                <h2 class="color-blue">Expired On :</h2>
+              </section></td>
+            <td><section class="mat-typography">
+                <h3 class="color-grey" *ngIf="model?.ExpriedOnDate"> {{ model?.ExpriedOnDate | date: 'dd/MM/yyyy' }} </h3>
+                <h3 class="color-grey" *ngIf="!model?.ExpriedOnDate">--</h3>
+              </section></td>
+          </tr>
+
+        <tr>
+          <td *ngIf="model.ExpiredOn=='34' ||model.SchemeType == '10055'"><section class="mat-typography">
+              <h2 class="color-blue">Expried Duration In Month :</h2>
+            </section></td>
+          <td *ngIf="model.ExpiredOn=='34'"><section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.ExpriedDurationInMonth"> {{ model?.ExpriedDurationInMonth }} </h3>
+              <h3 class="color-grey" *ngIf="!model?.ExpriedDurationInMonth"> -- </h3>
+            </section></td>
+          <td><section class="mat-typography">
+              <h2 class="color-blue">Expired On :</h2>
+            </section></td>
+          <td><section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.ExpriedOnDate"> {{ model?.ExpriedOnDate | date: 'dd/MM/yyyy' }} </h3>
+              <h3 class="color-grey" *ngIf="!model?.ExpriedOnDate">--</h3>
+            </section></td>
+        </tr>
+        <tr>
+            <td><section class="mat-typography">
+                <h2 class="color-blue"> District:</h2>
+              </section></td>
+            <td ><section class="mat-typography">
+                <h3 class="color-grey" *ngIf="model?.DistrictName"> {{ model?.DistrictName }} </h3>
+                <h3 class="color-grey" *ngIf="!model?.DistrictName"> -- </h3>
+              </section></td>
+            <td><section class="mat-typography">
+                <h2 class="color-blue">KeyWord For Search For Scheme/Service Execution Details :</h2>
+              </section></td>
+            <td ><section class="mat-typography">
+                <h3 class="color-grey" *ngIf="model?.SearchKeyWordOfExecution"> {{ model?.SearchKeyWordOfExecution }} </h3>
+                <h3 class="color-grey" *ngIf="!model?.SearchKeyWordOfExecution"> -- </h3>
+              </section></td>
+
+          </tr>
+          <th colspan="4" class="list_title"> Who is Eligible</th>
+        <tr>
+          <td><section class="mat-typography">
+              <h2 class="color-blue">Caste Category :</h2>
+            </section></td>
+          <td><section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.CasteCategoryName"> {{ model?.CasteCategoryName }} </h3>
+              <h3 class="color-grey" *ngIf="!model?.CasteCategoryName">--</h3>
+            </section></td>
+
+
+            <td><section class="mat-typography">
+                <h2 class="color-blue">Beneficiary Category :</h2>
+              </section></td>
+            <td><section class="mat-typography">
+                <h3 class="color-grey" *ngIf="model?.BeneficiaryCategoryName"> {{ model?.BeneficiaryCategoryName }} </h3>
+                <h3 class="color-grey" *ngIf="!model?.BeneficiaryCategoryName"> -- </h3>
+              </section></td>
+        </tr>
+
+        <tr>
+
+            <td><section class="mat-typography">
+                <h2 class="color-blue">Is Eligibility Text:</h2>
+              </section></td>
+            <td><section class="mat-typography">
+                <h3 class="color-grey" *ngIf="model?.IsEligibityText"> Yes</h3>
+                <h3 class="color-grey" *ngIf="!model?.IsEligibityText">No </h3>
+              </section></td>
+              <td><section class="mat-typography">
+                  <h2 class="color-blue">Eligibility Text:</h2>
+                </section></td>
+              <td><section class="mat-typography">
+                  <h3 class="color-grey" *ngIf="model?.EligiblityText"> {{ model?.EligiblityText }} </h3>
+                  <h3 class="color-grey" *ngIf="!model?.EligiblityText">--</h3>
+                </section></td>
+          </tr>
+
+          <tr>
+              <td><section class="mat-typography">
+                  <h2 class="color-blue">Beneficiary Text :</h2>
+                </section></td>
+              <td><section class="mat-typography">
+                  <h3 class="color-grey" *ngIf="model?.Benificiarytext"> {{ model?.Benificiarytext }} </h3>
+                  <h3 class="color-grey" *ngIf="!model?.Benificiarytext"> -- </h3>
+                </section></td>
+
+                <td><section class="mat-typography">
+                    <h2 class="color-blue">Is Beneficiary Text:</h2>
+                  </section></td>
+                <td><section class="mat-typography">
+                    <h3 class="color-grey" *ngIf="model?.IsbeneficiaryText"> Yes </h3>
+                    <h3 class="color-grey" *ngIf="!model?.IsbeneficiaryText">No</h3>
+                  </section></td>
+            </tr>
+          <tr>
+
+              <td><section class="mat-typography">
+                  <h2 class="color-blue">KeyWord For Search For Who is Eligible :</h2>
+                </section></td>
+              <td><section class="mat-typography">
+                  <h3 class="color-grey" *ngIf="model?.SearchKeyWordOfEligible"> {{ model?.SearchKeyWordOfEligible }} </h3>
+                  <h3 class="color-grey" *ngIf="!model?.SearchKeyWordOfEligible"> -- </h3>
+                </section></td>
+
+            </tr>
+        <tr>
+         <th colspan="4" class="list_title">Eligibility Criteria :</th>
+        </tr>
+        <tr>
+        <td colspan="4" class="no_border">
+          <table class="table table_with_color" *ngIf="model.EligibilityCriteria.length > 0">
+            <thead>
+              <tr>
+                <th scope="col">Sr.No</th>
+                <th scope="col">Eligibility</th>
+                <th scope="col">Remarks</th>
+
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                  *ngFor="let item of model.EligibilityCriteria; let i = index"
+                  [attr.data-index]="i"
+                >
+                <th scope="row">{{i+1}}</th>
+                <td>{{ EligibilityItems[(item?.EligibilityDropDownCode)] }}</td>
+                <td>{{ item.Remarks }}</td>
+
+              </tr>
+            </tbody>
+          </table>
+          </td>
+        </tr>
+
+
+
+        <tr>
+        <td colspan="4" class="no_border">
+
+          <table class="table table_with_color">
+          <tbody>
+          <tr>
+           <th colspan="6" class="list_title">Group 4 How to Apply</th>
+          </tr>
+        <tr>
+          <td width="16.6%" *ngIf="model.MadeOfAppling=='37' || model.MadeOfAppling=='39'"><section class="mat-typography">
+              <h2 class="color-blue">Mode Of Application :</h2>
+            </section></td>
+          <td width="16.6%"><section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.MadeOfApplingName"> {{ model?.MadeOfApplingName }} </h3>
+              <h3 class="color-grey" *ngIf="!model?.MadeOfApplingName">--</h3>
+            </section></td>
+          <td width="16.6%" *ngIf="model.MadeOfAppling=='37' || model.MadeOfAppling=='39'"><section class="mat-typography">
+              <h2 class="color-blue">Mode of Application(If Online) :</h2>
+            </section></td>
+          <td width="16.6%" *ngIf="model.MadeOfAppling=='37' || model.MadeOfAppling=='39'"><section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.MadeOfApplingOnlineBoth"> {{ model?.MadeOfApplingOnlineBothName }} </h3>
+              <h3 class="color-grey" *ngIf="!model?.MadeOfApplingOnlineBoth">--</h3>
+            </section></td>
+          <td width="16.6%" *ngIf="model.MadeOfApplingOnlineBoth=='45' || model.MadeOfApplingOnlineBoth == '48'"><section class="mat-typography">
+              <h2 class="color-blue">Department Website Url :</h2>
+            </section></td>
+          <td width="16.6%" *ngIf="model.MadeOfApplingOnlineBoth=='45' || model.MadeOfApplingOnlineBoth == '48'"><section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.DepartmentWebsiteUrl"> {{ model?.DepartmentWebsiteUrl }} </h3>
+              <h3 class="color-grey" *ngIf="!model?.DepartmentWebsiteUrl">--</h3>
+            </section></td>
+        </tr>
+        <tr>
+            <td><section class="mat-typography">
+                <h2 class="color-blue">Is How To Apply Text:</h2>
+              </section></td>
+            <td><section class="mat-typography">
+                <h3 class="color-grey" *ngIf="model?.IsHowToApply"> Yes</h3>
+                <h3 class="color-grey" *ngIf="!model?.IsHowToApply"> No </h3>
+              </section></td>
+
+            <td><section class="mat-typography">
+                <h2 class="color-blue">How To Apply Text:</h2>
+              </section></td>
+            <td><section class="mat-typography">
+                <h3 class="color-grey" *ngIf="model?.HowToApplyText"> {{ model?.HowToApplyText }} </h3>
+                <h3 class="color-grey" *ngIf="!model?.HowToApplyText"> -- </h3>
+              </section></td>
+
+          </tr>
+          <tr>
+
+              <td><section class="mat-typography">
+                  <h2 class="color-blue">KeyWord For Search For How to apply :</h2>
+                </section></td>
+              <td><section class="mat-typography">
+                  <h3 class="color-grey" *ngIf="model?.SearchKeyWordOfHowToApply"> {{ model?.SearchKeyWordOfHowToApply }} </h3>
+                  <h3 class="color-grey" *ngIf="!model?.SearchKeyWordOfHowToApply"> -- </h3>
+                </section></td>
+
+            </tr>
+        </tbody>
+        </table>
+        </td>
+        </tr>
+
+        <tr>
+          <th colspan="4" class="list_title"> List of required Document :</th>
+        </tr>
+        <tr>
+        <td colspan="4" class="no_border">
+          <table class="table table_with_color" *ngIf="model.RequiredDocument.length >= 0">
+            <thead>
+              <tr>
+                <th scope="col">Sr.No</th>
+                <th scope="col">Name Of Document</th>
+                <th scope="col">Remarks</th>
+                <!-- <th scope="col">Type Of Document</th> -->
+                <th scope="col">Mandatory/Non-Mandatory</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                  *ngFor="let item of model.RequiredDocument; let i = index"
+                  [attr.data-index]="i"
+                >
+                <th scope="row">{{i+1}}</th>
+                <td>{{ RequiredDocItems[(item?.NameOfDocumentCode)] }}</td>
+                <td>{{ item.Remarks }}</td>
+                <!-- <td>{{ RequiredDoctypeItems[(item?.TypeOfDocumentCode)] }}</td> -->
+                <td>{{ RequiredDocmandatoryItems[(item?.IsMandatory)] }}</td>
+              </tr>
+            </tbody>
+          </table>
+          </td>
+        </tr>
+        <tr>
+          <td *ngIf="model.IsServiceFees=='35'"><section class="mat-typography">
+              <h2 class="color-blue">Is Service Fees :</h2>
+            </section></td>
+          <td  *ngIf="model.IsServiceFees == '35'"><section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.IsServiceFees"> {{ model?.IsServiceFeesName }} </h3>
+              <h3 class="color-grey" *ngIf="!model?.IsServiceFees">--</h3>
+            </section></td>
+          <td  *ngIf="model.IsServiceFees == '35'"><section class="mat-typography">
+              <h2 class="color-blue">How To Pay Fee :</h2>
+            </section></td>
+          <td  *ngIf="model.IsServiceFees == '35'"><section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.HowToPayFeeName"> {{ model?.HowToPayFeeName }} </h3>
+              <h3 class="color-grey" *ngIf="!model?.HowToPayFeeName">--</h3>
+            </section></td>
+        </tr>
+        <tr>
+          <td><section class="mat-typography">
+              <h2 class="color-blue">Helpline No :</h2>
+            </section></td>
+          <td colspan="3"><section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.HelplineNo"> {{ model?.HelplineNo }} </h3>
+              <h3 class="color-grey" *ngIf="!model?.HelplineNo">NA</h3>
+            </section></td>
+
+        </tr>
+
+          <th colspan="4" class="list_title">What will beneficiary get</th>
+        <tr>
+          <td><section class="mat-typography">
+              <h2 class="color-blue">Scheme/Service Delivarable :</h2>
+            </section></td>
+          <td><section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.DelivarebleName"> {{ model?.DelivarebleName }} </h3>
+              <h3 class="color-grey" *ngIf="!model?.DelivarebleName">--</h3>
+            </section></td>
+          <td *ngIf="model.DelivarebleCode=='2' || model.DelivarebleCode=='3' || model.DelivarebleCode=='4'"><section class="mat-typography">
+              <h2 class="color-blue">Delivery Payment Detail :</h2>
+            </section></td>
+          <td *ngIf="model.DelivarebleCode=='2' || model.DelivarebleCode=='3' || model.DelivarebleCode=='4'"><section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.deliveryPaymentDetail"> {{ model?.deliveryPaymentDetail }} </h3>
+              <h3 class="color-grey" *ngIf="!model?.deliveryPaymentDetail"> -- </h3>
+            </section></td>
+        </tr>
+        <tr>
+          <td *ngIf="model.DelivarebleCode=='2' || model.DelivarebleCode=='3' || model.DelivarebleCode=='4'"><section class="mat-typography">
+              <h2 class="color-blue">Mode of disbursment :</h2>
+            </section></td>
+          <td *ngIf="model.DelivarebleCode=='2' || model.DelivarebleCode=='3' || model.DelivarebleCode=='4'"><section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.ModeOfDisbursment"> {{ model?.ModeOfDisbursment }} </h3>
+              <h3 class="color-grey" *ngIf="!model?.ModeOfDisbursment">--</h3>
+            </section></td>
+          <td *ngIf="model.DelivarebleCode=='2' || model.DelivarebleCode=='3' || model.DelivarebleCode=='4'"><section class="mat-typography">
+              <h2 class="color-blue">Payment Disbursment Frequency :</h2>
+            </section></td>
+          <td *ngIf="model.DelivarebleCode=='2' || model.DelivarebleCode=='3' || model.DelivarebleCode=='4'"><section class="mat-typography">
+              <h3
+                  class="color-grey"
+                  *ngIf="model?.PaymentDisbursmentFrequencyInstallmentsName"
+                > {{ model?.PaymentDisbursmentFrequencyName }} </h3>
+              <h3
+                  class="color-grey"
+                  *ngIf="!model?.PaymentDisbursmentFrequencyInstallmentsName"
+                > -- </h3>
+            </section></td>
+        </tr>
+        <tr>
+          <td  *ngIf="model.PaymentDisbursmentFrequency=='41'"><section class="mat-typography">
+              <h2 class="color-blue"> Time Of Validity(In Month): </h2>
+            </section></td>
+          <td  *ngIf="model.PaymentDisbursmentFrequency=='41'"><section class="mat-typography">
+              <h3
+                  class="color-grey"
+                  *ngIf="model?.PaymentDisbursmentFrequencyTillAPeriod"
+                > {{ model?.PaymentDisbursmentFrequencyTillAPeriod }} </h3>
+              <h3
+                  class="color-grey"
+                  *ngIf="!model?.PaymentDisbursmentFrequencyTillAPeriod"
+                > -- </h3>
+            </section></td>
+          <td *ngIf="model.PaymentDisbursmentFrequency=='41'"><section class="mat-typography">
+              <h2 class="color-blue"> Payment Disbursment Frequency Periods: </h2>
+            </section></td>
+          <td  *ngIf="model.PaymentDisbursmentFrequency=='41'"><section class="mat-typography">
+              <h3
+                  class="color-grey"
+                  *ngIf="model?.PaymentDisbursmentFrequencyInstallments"
+                > {{ model?.PaymentDisbursmentFrequencyInstallmentsName }} </h3>
+              <h3
+                  class="color-grey"
+                  *ngIf="!model?.PaymentDisbursmentFrequencyInstallments"
+                > -- </h3>
+            </section></td>
+          <td *ngIf="model.DelivarebleCode=='5'"><section class="mat-typography">
+              <h2 class="color-blue">Mode Of Delivery :</h2>
+            </section></td>
+          <td *ngIf="model.DelivarebleCode=='5'"><section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.ModeOfDeliveryName"> {{ model?.ModeOfDeliveryName }} </h3>
+              <h3 class="color-grey" *ngIf="!model?.ModeOfDeliveryName">--</h3>
+            </section></td>
+        </tr>
+        <tr>
+
+            <td ><section class="mat-typography">
+                <h2 class="color-blue">Is What will Beneficiary Get</h2>
+              </section></td>
+            <td><section class="mat-typography">
+                <h3 class="color-grey" *ngIf="model?.IsWhatWillBeneficiaryGet">Yes </h3>
+                <h3 class="color-grey" *ngIf="!model?.IsWhatWillBeneficiaryGet">No</h3>
+              </section></td>
+
+            <td ><section class="mat-typography">
+                <h2 class="color-blue">What will Beneficiary Get</h2>
+              </section></td>
+            <td><section class="mat-typography">
+                <h3 class="color-grey" *ngIf="model?.WhatWillBeneficiaryGet"> {{ model?.WhatWillBeneficiaryGet }} </h3>
+                <h3 class="color-grey" *ngIf="!model?.WhatWillBeneficiaryGet">--</h3>
+              </section></td>
+
+          </tr>
+        <tr>
+          <td *ngIf="model.DelivarebleCode == '6'"><section class="mat-typography">
+              <h2 class="color-blue">Item Details :</h2>
+            </section></td>
+          <td *ngIf="model.DelivarebleCode == '6'"><section class="mat-typography">
+              <h3 class="color-grey" *ngIf="model?.ItemDetails"> {{ model?.ItemDetails }} </h3>
+              <h3 class="color-grey" *ngIf="!model?.ItemDetails">--</h3>
+            </section></td>
+            <td ><section class="mat-typography">
+                <h2 class="color-blue">KeyWord For Search For What will Beneficiary Get</h2>
+              </section></td>
+            <td><section class="mat-typography">
+                <h3 class="color-grey" *ngIf="model?.SearchKeyWordOfBeneficiaryGet"> {{ model?.SearchKeyWordOfBeneficiaryGet }} </h3>
+                <h3 class="color-grey" *ngIf="!model?.SearchKeyWordOfBeneficiaryGet">--</h3>
+              </section></td>
+        </tr>
+  <tr  class="no_border">
+    <td colspan="4">
+          <table class="table new_table table_border table_custom" *ngIf="model.GetBeneficiaryLookup.length > 0">
+            <thead>
+              <tr>
+                <th scope="col">Sr.No</th>
+                <th scope="col">Category</th>
+                <th scope="col" *ngIf="model.DelivarebleCode == 5">Remark</th>
+                <th scope="col" *ngIf="model.DelivarebleCode == 6">Physical Item</th>
+                <th scope="col" *ngIf="model.DelivarebleCode == 2 ||model.DelivarebleCode == 3 ||model.DelivarebleCode == 4">Payment Frequency</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of model.GetBeneficiaryLookup ; let i = index" [attr.data-index]="i" >
+                <th scope="row">{{ i + 1 }}</th>
+                <td>{{ item.Category}}</td>
+                <td *ngIf="model.DelivarebleCode == 6">{{ item.PhysicalItem }}</td>
+                <td *ngIf="model.DelivarebleCode == 2 ||model.DelivarebleCode == 3 ||model.DelivarebleCode == 4">{{ item.PaymentFrequency }}</td>
+                <td *ngIf="model.DelivarebleCode == 5">{{ item.Remark }}</td>
+
+              </tr>
+            </tbody>
+          </table>
+        </td>
+  </tr>
+        <tr>
+           <th colspan="4" class="list_title">Other Document :</th>
+        </tr>
+        <tr>
+        <td><section class="mat-typography">
+            <h2 class="color-blue">KeyWord For Search For Scheme/Service Related Other Document :</h2>
+          </section></td>
+        <td colspan="3"><section class="mat-typography">
+            <h3 class="color-grey" *ngIf="model?.SearchKeyWordOfOtherDocument"> {{ model?.SearchKeyWordOfOtherDocument }} </h3>
+            <h3 class="color-grey" *ngIf="!model?.SearchKeyWordOfOtherDocument">NA</h3>
+          </section></td>
+        </tr>
+        <tr>
+        <td colspan="4" class="no_border">
+          <table class="table table_with_color" *ngIf="model.OtherDocument.length >= 0">
+            <thead>
+              <tr>
+                <th scope="col">Sr.No</th>
+                <th scope="col">List Of Other Document</th>
+                <th scope="col">File</th>
+                <th scope="col">File Code</th>
+                <th scope="col">Remarks</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                  *ngFor="let item of model.OtherDocument; let i = index"
+                  [attr.data-index]="i"
+                >
+                <th scope="row">{{i+1}}</th>
+                <td>{{ OtherDocItems[(item?.ListOfOtherDocumentCode)] }}</td>
+                <td><img *ngIf="item.URL" [src]="item.URL" height="100px" width="100px" /><span *ngIf="!item.URL">--</span></td>
+                <td><span *ngIf="!item.ImageCode">--</span><span *ngIf="item.ImageCode">{{ item.ImageCode }}</span></td>
+                <td>{{ item.Remarks }}</td>
+              </tr>
+            </tbody>
+          </table>
+          </td>
+        </tr>
+          </tbody>
+
+          <tr>
+            <td><section class="mat-typography">
+                <th colspan="4" class="list_title">Scheme Image :</th>
+              </section></td>
+            <td colspan="3"><section class="mat-typography">
+                <td><img [src]="model?.Scheme_URL" *ngIf="model?.Scheme_URL" height="100px" width="100px" /></td>
+                <h3 class="color-grey" *ngIf="!model?.Scheme_URL">NA</h3>
+              </section></td>
+          </tr>
+
+      </table>
+    </div>
+  </div>
+
+
+  <div class="col l4 xl4 m6 s12">
+
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>PaasWord </mat-label>
+          <input matInput placeholder="Enter delete paasword" [formControl]="passwd" name="deleteModel" [(ngModel)]="deleteModel.Paasword">
+        </mat-form-field>
+        <mat-error *ngIf="passwd.invalid && passwd.touched"> PaasWord is <strong>required</strong> </mat-error>
+    </div>
+
+<div class="col l12 x8 m4 s12 clearfix">
+        <button mat-button class="btn-submit" (click)="OnDelete();">Delete</button>
+    </div>
