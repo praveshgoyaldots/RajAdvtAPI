@@ -19,9 +19,9 @@ import { ImportantDecisionSubCategoryMasterService } from "src/app/Shared/Servic
   selector: "app-add-update-important-dicision-sub-category-master",
   templateUrl:
     "./add-update-important-dicision-sub-category-master.component.html",
-  styleUrls: [
-    "./add-update-important-dicision-sub-category-master.component.css",
-  ],
+  // styleUrls: [
+  //   "./add-update-important-dicision-sub-category-master.component.css",
+  // ],
 })
 export class AddUpdateImportantDicisionSubCategoryMasterComponent
   implements OnInit {

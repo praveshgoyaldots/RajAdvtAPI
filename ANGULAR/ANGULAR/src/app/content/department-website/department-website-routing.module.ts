@@ -7,12 +7,12 @@ import { AddupdateClassificationpagetypeComponent } from './classification-paget
 import { DepartmentMenuClassificationComponent } from './department-menu-classification/department-menu-classification.component';
 import { AddupdateDepartmentMenuClassificationComponent } from './department-menu-classification/addupdate-department-menu-classification/addupdate-department-menu-classification.component';
 import { DepartmentSubMenuClassificationComponent } from './department-sub-menu-classification/department-sub-menu-classification.component';
-import { AddupdateDepartmentSubMenuClassificationComponent } from './department-sub-menu-classification/addupdate-department-sub-menu-classification/addupdate-department-sub-menu-classification.component';
 import { AddupdatedeptSectionMappingComponent } from './department-section-mapping/addupdatedept-section-mapping/addupdatedept-section-mapping.component';
 import { DepartmentSectionMappingComponent } from './department-section-mapping/department-section-mapping.component';
 import { SectionMasterComponent } from './section-master/section-master.component';
 import { AddupdateSectionMasterComponent } from './section-master/addupdate-section-master/addupdate-section-master.component';
 import { ImportSectionMenuSubMenuComponent } from './import-section-menu-sub-menu/import-section-menu-sub-menu.component';
+import { AddupdateDepartmentSubMenuClassificationComponent } from './department-sub-menu-classification/addupdate-department-sub-menu-classification/addupdate-department-sub-menu-classification.component';
 
 const routes: Routes = [
   {
